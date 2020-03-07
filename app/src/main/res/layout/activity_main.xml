@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/middle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        ></androidx.constraintlayout.widget.Guideline>
+
+    <Button
+        android:id="@+id/food_journal"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+
+        android:text="Journal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/middle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Button
+        android:id="@+id/config"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+
+        android:text="Config"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@id/middle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/food_journal"/>
+
+    <Button
+        android:id="@+id/create_foods"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        android:text="Create Foods"
+
+        app:layout_constraintEnd_toStartOf="@id/middle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/food_journal" />
+
+    <Button
+        android:id="@+id/recommendations"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+
+        android:text="Recommend"
+
+        app:layout_constraintTop_toBottomOf="@id/config"
+        app:layout_constraintStart_toEndOf="@id/middle"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="277dp"
+        tools:layout_editor_absoluteY="363dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
