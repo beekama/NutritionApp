@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button test = (Button)findViewById(R.id.kathi);
-        test.setOnClickListener(new View.OnClickListener(){
+        Button goToFoodJournal = (Button)findViewById(R.id.food_journal);
+        goToFoodJournal.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                TextView vtext = (TextView)findViewById(R.id.textfeld);
-                vtext.setText("LOL");
+                Intent myIntent = new Intent(v.getContext(),food_journal.class);
+                //TextView vtext = (TextView)findViewById(R.id.);
+                //vtext.setText("LOL");
+                startActivity(myIntent);
             }
         });
 
