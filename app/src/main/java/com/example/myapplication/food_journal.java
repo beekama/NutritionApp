@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,6 +50,16 @@ public class food_journal extends AppCompatActivity {
         }});*/
 
 
+        //get back to home with home-button:
+
+        Button backHome = (Button) findViewById(R.id.backHomeFromJournal);
+        backHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
 
 
