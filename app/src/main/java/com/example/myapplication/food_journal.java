@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,25 +21,6 @@ public class food_journal extends AppCompatActivity {
     private ListView zeddel;
 
 
-    /*
-    ListView listView;
-    TextView textView;
-    String[] testdata = {
-            "hallo",
-            "tut",
-            "das",
-            "funktionieren?",
-            "meh",
-            "da",
-            "muss",
-            "meeeee",
-            "hhhr",
-            "ich",
-            "will",
-            "scrollen",
-            "..."
-    };
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,17 +68,9 @@ public class food_journal extends AppCompatActivity {
         final myAdapter adapter = new myAdapter(this, InputListe);
         zeddel.setAdapter(adapter);
         zeddel.setTextFilterEnabled(true);
-/*
-        //////////////
-        listView = (ListView) findViewById(R.id.listview);
-        textView = (TextView) findViewById(R.id.HeaderTextView);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, testdata);
 
-        listView.setAdapter(adapter);
-        //////////////
-*/
-
+        
 
         //get back to home with home-button:
         Button backHome = (Button) findViewById(R.id.backHomeFromJournal);
@@ -195,7 +166,7 @@ public class food_journal extends AppCompatActivity {
             }
             else{
                 convertView = inflater.inflate(R.layout.list_item,parent,false);
-                TextView ItemListView = (TextView) convertView.findViewById(R.id.ItemTextView);
+                TextView ItemListView = (TextView) convertView.findViewById(R.id.ListTextView);
                 ItemListView.setText(( item.get(position).getTitle()));
             }
             return convertView;
