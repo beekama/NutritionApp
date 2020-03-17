@@ -1,3 +1,4 @@
+*.swp
 *.iml
 .gradle
 /local.properties
