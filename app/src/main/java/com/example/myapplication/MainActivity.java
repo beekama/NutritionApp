@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //go to food_journal:
         Button goToFoodJournal = (Button)findViewById(R.id.food_journal);
         goToFoodJournal.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -25,6 +26,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+        //go to create_food:
+        Button goCreateFood = (Button)findViewById(R.id.create_foods);
+        goCreateFood.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent myIntent = new Intent(v.getContext(),create_food.class);
+                startActivity(myIntent);
+            }
+        });
+
+
+
+
 
     }
 }

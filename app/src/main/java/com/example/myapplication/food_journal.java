@@ -81,6 +81,8 @@ public class food_journal extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+
     }
 
 

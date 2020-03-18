@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-
 class Food {
     public String name;
     public int energy;
@@ -8,13 +7,14 @@ class Food {
     public Minerals minerals;
     public Vitamins vitamins;
 
-    public Food(String name, int energy, int fiber, Minerals minerals, Vitamins vitamins){
+    public Food(String name, int energy, int fiber, Minerals minerals, Vitamins vitamins) {
         this.name = name;
         this.energy = energy;
         this.fiber = fiber;
         this.minerals = minerals;
         this.vitamins = vitamins;
     }
+
 }
 
 class Vitamins{
