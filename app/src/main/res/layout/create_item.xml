@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/foods_myItemText"
+        android:id="@+id/createItem_tvCreateItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Items"
@@ -22,29 +20,13 @@
         app:layout_constraintVertical_bias="0.025"
         />
 
-
     <ImageButton
-        android:id="@+id/addItemButton"
-        android:layout_width="63dp"
-        android:layout_height="43dp"
-        android:src="@drawable/add_circle_filled"
-
-        android:background="#00000000"
-
-        app:layout_constraintBottom_toBottomOf="@+id/foods_myItemText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/foods_myItemText"
-
-        app:layout_constraintHorizontal_bias="0.75"
- />
-
-    <ImageButton
-        android:id="@+id/foods_back_button"
+        android:id="@+id/createItem_back_button"
         android:layout_width="76dp"
         android:layout_height="45dp"
         android:background="#00000000"
 
-        app:layout_constraintBottom_toBottomOf="@id/foods_myItemText"
+        app:layout_constraintBottom_toBottomOf="@id/createItem_tvCreateItem"
 
         app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
         app:layout_constraintHorizontal_bias="0.25"
@@ -52,6 +34,4 @@
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
 
         />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
