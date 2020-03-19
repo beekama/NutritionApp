@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/createItem_tvCreateItem"
+        android:id="@+id/addMinerals_tvAddMinerals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Items"
+        android:text="Add Minerals"
         android:textSize="20dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,175 +26,164 @@
         android:layout_height="45dp"
         android:background="#00000000"
 
-        app:layout_constraintBottom_toBottomOf="@id/createItem_tvCreateItem"
+        app:layout_constraintBottom_toBottomOf="@id/addMinerals_tvAddMinerals"
 
-        app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
+        app:layout_constraintEnd_toStartOf="@+id/addMinerals_tvAddMinerals"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+/>
 
-        />
 
     <TextView
-        android:id="@+id/tv_createItem_name"
+        android:id="@+id/tv_addMinerals_servingData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--serving size--"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addMinerals_tvAddMinerals"
+        app:layout_constraintVertical_bias="0.05"/>
+
+    <TextView
+        android:id="@+id/tv_addMinerals_iron"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="name:"
+        android:text="iron:"
         android:textSize="18dp"
         android:paddingVertical="8dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/edit_createItem_name"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/createItem_tvCreateItem"
+        app:layout_constraintTop_toBottomOf="@+id/addMinerals_tvAddMinerals"
 
         app:layout_constraintVertical_bias="0.25"/>
 
     <TextView
-        android:id="@+id/tv_createItem_servingSize"
+        android:id="@+id/tv_addMinerals_magnesium"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
 
-        android:text="serving size:"
+        android:text="magnesium:"
         android:textSize="18dp"
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerOne"/>
     <TextView
-        android:id="@+id/tv_createItem_energy"
+        android:id="@+id/tv_addMinerals_zinc"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
 
-        android:text="energy:"
+        android:text="zinc:"
         android:textSize="18dp"
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerTwo"/>
     <TextView
-        android:id="@+id/tv_createItem_fiber"
+        android:id="@+id/tv_addMinerals_calcium"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
 
-        android:text="fiber:"
+        android:text="calcium:"
         android:textSize="18dp"
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerThree"/>
+
     <TextView
-        android:id="@+id/tv_createItem_minerals"
+        android:id="@+id/tv_addMinerals_potassium"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
 
-        android:text="minerals:"
+        android:text="potassium:"
         android:textSize="18dp"
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/dividerFour"/>
-    <TextView
-        android:id="@+id/tv_createItem_vitamins"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-
-        android:text="vitamins:"
-        android:textSize="18dp"
-
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/dividerFive"/>
+        app:layout_constraintTop_toBottomOf="@+id/dividerFour" />
 
     <EditText
-        android:id="@+id/edit_createItem_name"
+        android:id="@+id/edit_addMinerals_iron"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
 
-        android:hint="e.g Homemade Lasagna"
-        android:inputType="textPersonName"
-        android:background="@null"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_createItem_name"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_createItem_name"
-        tools:layout_editor_absoluteY="194dp"/>
-
-    <EditText
-        android:id="@+id/edit_createItem_servingSize"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-
-        android:hint="e.g 1 piece"
-        android:inputType="textPersonName"
-        android:background="@null"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_createItem_servingSize"
-        app:layout_constraintStart_toEndOf="@+id/tv_createItem_servingSize"
-        app:layout_constraintHorizontal_bias="0.5"
-        />
-    <EditText
-        android:id="@+id/edit_createItem_energy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-
-        android:hint="e.g 500 kcal"
+        android:hint="mg"
         android:inputType="number"
         android:background="@null"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_createItem_energy"
-        app:layout_constraintStart_toEndOf="@+id/tv_createItem_energy"
+        app:layout_constraintBottom_toBottomOf="@id/tv_addMinerals_iron"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_addMinerals_iron"
         />
+
     <EditText
-        android:id="@+id/edit_createItem_fiber"
+        android:id="@+id/edit_addMinerals_magnesium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
 
-        android:hint="e.g 10 grams"
+        android:hint="mg"
         android:inputType="number"
         android:background="@null"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_createItem_fiber"
-        app:layout_constraintStart_toEndOf="@+id/tv_createItem_fiber"
+        app:layout_constraintBottom_toBottomOf="@id/tv_addMinerals_magnesium"
+        app:layout_constraintStart_toEndOf="@+id/tv_addMinerals_magnesium"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+    <EditText
+        android:id="@+id/edit_addMinerals_zinc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        android:hint="mg"
+        android:inputType="number"
+        android:background="@null"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_addMinerals_zinc"
+        app:layout_constraintStart_toEndOf="@+id/tv_addMinerals_zinc"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+    <EditText
+        android:id="@+id/edit_addMinerals_calcium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        android:hint="mg"
+        android:inputType="number"
+        android:background="@null"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_addMinerals_calcium"
+        app:layout_constraintStart_toEndOf="@+id/tv_addMinerals_calcium"
         app:layout_constraintHorizontal_bias="0.5"
         tools:layout_editor_absoluteY="267dp"
         />
 
-
-    <ImageButton
-        android:id="@+id/ib_create_item_furterMinerals"
+    <EditText
+        android:id="@+id/edit_addMinerals_potassium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@null"
+
+        android:hint="mg"
+        android:inputType="number"
         android:paddingVertical="8dp"
-        android:background="#00000000"
-        android:src="@drawable/ic_create_black_24dp"
 
-        app:layout_constraintBottom_toBottomOf="@+id/tv_createItem_minerals"
-        app:layout_constraintStart_toEndOf="@+id/tv_createItem_minerals"
-        />
-
-    <ImageButton
-        android:id="@+id/ib_create_item_furterVitamins"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:background="#00000000"
-        android:src="@drawable/ic_create_black_24dp"
-
-        app:layout_constraintBottom_toBottomOf="@+id/tv_createItem_vitamins"
-        app:layout_constraintStart_toEndOf="@+id/tv_createItem_vitamins"
-        />
+        app:layout_constraintBottom_toBottomOf="@id/tv_addMinerals_potassium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_addMinerals_potassium" />
 
     <View
         android:id="@+id/dividerOne"
@@ -202,7 +191,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_createItem_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_addMinerals_iron"
         />
     <View
         android:id="@+id/dividerTwo"
@@ -210,7 +199,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_createItem_servingSize"
+        app:layout_constraintTop_toBottomOf="@id/tv_addMinerals_magnesium"
         />
     <View
         android:id="@+id/dividerThree"
@@ -218,7 +207,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_createItem_energy"
+        app:layout_constraintTop_toBottomOf="@id/tv_addMinerals_zinc"
         />
     <View
         android:id="@+id/dividerFour"
@@ -226,7 +215,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_createItem_fiber"
+        app:layout_constraintTop_toBottomOf="@id/tv_addMinerals_calcium"
         />
     <View
         android:id="@+id/dividerFive"
@@ -234,7 +223,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_createItem_minerals"
+        app:layout_constraintTop_toBottomOf="@id/tv_addMinerals_potassium"
         />
     <View
         android:id="@+id/dividerSix"
@@ -242,15 +231,24 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_createItem_vitamins"
+        app:layout_constraintTop_toBottomOf="@id/tv_addMinerals_potassium"
         />
+
+    <ImageButton
+        android:id="@+id/btn_minerals_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done_black_24dp"
+        tools:layout_editor_absoluteX="325dp"
+        tools:layout_editor_absoluteY="485dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="right"
-        app:constraint_referenced_ids="tv_createItem_servingSize,tv_createItem_name,guideline"
+        app:constraint_referenced_ids="tv_addMinerals_iron,tv_addMinerals_calcium,guideline"
         tools:layout_editor_absoluteX="411dp" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -259,6 +257,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
