@@ -35,6 +35,7 @@
 
         />
 
+
     <TextView
         android:id="@+id/tv_createItem_name"
         android:layout_width="120dp"
@@ -173,7 +174,7 @@
 
 
     <ImageButton
-        android:id="@+id/ib_create_item_furterMinerals"
+        android:id="@+id/ib_createItem_furtherMinerals"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
@@ -185,7 +186,7 @@
         />
 
     <ImageButton
-        android:id="@+id/ib_create_item_furterVitamins"
+        android:id="@+id/ib_createItem_furtherVitamins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
