@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/meConfig_tvProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textSize="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <ImageButton
+        android:id="@+id/meConfig_ib_backToHome"
+        android:layout_width="76dp"
+        android:layout_height="45dp"
+        android:background="#00000000"
+
+        app:layout_constraintBottom_toBottomOf="@id/meConfig_tvProfile"
+
+        app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/tv_meConfig_age"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:text="Age:"
+        android:textSize="18dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/barrier"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_tvProfile"
+
+        app:layout_constraintVertical_bias="0.184" />
+
+    <TextView
+        android:id="@+id/tv_meConfig_gender"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        android:text="Gender:"
+        android:textSize="18dp"
+
+
+        app:layout_constraintEnd_toStartOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerOne" />
+
+    <TextView
+        android:id="@+id/tv_meConfig_weight"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        android:text="Weight:"
+        android:textSize="18dp"
+
+        app:layout_constraintEnd_toStartOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerTwo" />
+
+    <TextView
+        android:id="@+id/tv_meConfig_height"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        android:text="Height:"
+        android:textSize="18dp"
+
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerThree" />
+
+    <TextView
+        android:id="@+id/tvOut_meConfig_age"
+        android:layout_width="51dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="68dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_age"
+        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_age" />
+
+    <TextView
+        android:id="@+id/tvOut_meConfig_gender"
+        android:layout_width="51dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="68dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_gender"
+        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_gender" />
+
+    <TextView
+        android:id="@+id/tvOut_meConfig_weight"
+        android:layout_width="51dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="68dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_weight"
+        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_weight" />
+
+    <TextView
+        android:id="@+id/tvOut_meConfig_height"
+        android:layout_width="51dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="68dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_height"
+        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_height" />
+
+
+    <ImageView
+        android:id="@+id/iv_meConfig_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_navigate_next_black_24dp"
+
+        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_age"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_meConfig_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_navigate_next_black_24dp"
+
+        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_gender"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_meConfig_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_navigate_next_black_24dp"
+
+        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_weight"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_meConfig_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_navigate_next_black_24dp"
+
+        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_height"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <View
+        android:id="@+id/meConfig_dividerOne"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_age" />
+
+    <View
+        android:id="@+id/meConfig_dividerTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_gender" />
+
+    <View
+        android:id="@+id/meConfig_dividerThree"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_weight" />
+
+    <View
+        android:id="@+id/meConfig_dividerFour"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_height" />
+
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="tv_meConfig_age,tv_meConfig_height,guideline"
+        tools:layout_editor_absoluteX="411dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/meConfig_ageGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="iv_meConfig_age,tv_meConfig_age,tvOut_meConfig_age" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/meConfig_genderGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tv_meConfig_gender,tvOut_meConfig_gender,iv_meConfig_gender"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/meConfig_weightGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tv_meConfig_weight,tvOut_meConfig_weight,iv_meConfig_weight"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/meConfig_heightGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tv_meConfig_height,tvOut_meConfig_height,iv_meConfig_height"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
