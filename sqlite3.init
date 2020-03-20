@@ -1,0 +1,4 @@
+.mode csv
+.import food.csv food
+.import food_nutrient.csv food_nutrient
+.import food_portion.csv food_portion
