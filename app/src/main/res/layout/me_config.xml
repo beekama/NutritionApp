@@ -125,7 +125,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_height" />
 
 
-    <ImageView
+    <ImageButton
         android:id="@+id/iv_meConfig_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

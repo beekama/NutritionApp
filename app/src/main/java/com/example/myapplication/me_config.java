@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity ;
 
 public class me_config extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
@@ -22,4 +22,13 @@ public class me_config extends AppCompatActivity {
             }
         }));
 
+       //update age:
+        final ImageButton imageAge = (ImageButton) findViewById(R.id.iv_meConfig_age);
+        imageAge.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), update_age.class);
+                startActivity(myIntent);
+            }
+        }));
 }}
