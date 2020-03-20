@@ -36,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //go to me_config:
+        Button goConfig = (Button)findViewById(R.id.config);
+        goConfig.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent myIntent = new Intent(v.getContext(),me_config.class);
+                startActivity(myIntent);
+            }
+        });
 
 
 
