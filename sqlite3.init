@@ -2,3 +2,17 @@
 .import food.csv food
 .import food_nutrient.csv food_nutrient
 .import food_portion.csv food_portion
+
+create TABLE person(
+    "gender" TEXT,
+    "age"    INTEGER,
+    "height" INTEGER,
+    "weight" INTEGER,
+    "energyTarget" INTEGER
+)
+
+create TABLE foodlog(
+    "food_id"   TEXT,
+    "data",     INTEGER,
+    "group_id"  TEXT
+)
