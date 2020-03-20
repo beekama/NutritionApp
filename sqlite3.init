@@ -13,6 +13,6 @@ create TABLE person(
 
 create TABLE foodlog(
     "food_id"   TEXT,
-    "data",     INTEGER,
+    "date",     INTEGER,
     "group_id"  TEXT
 )
