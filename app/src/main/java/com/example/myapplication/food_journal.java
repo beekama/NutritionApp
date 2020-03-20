@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Date;
 
 public class food_journal extends AppCompatActivity {
 
@@ -49,6 +52,10 @@ public class food_journal extends AppCompatActivity {
             Object listItem = listView.getItemAtPosition(i);
         }});*/
 
+        /* connect to sqlite database */
+        Database database = new Database(this);
+
+        Log.wtf("DEBUG", database.getFoodById("336106").name);
 
         //get back to home with home-button:
 

@@ -3,6 +3,7 @@ package com.example.myapplication;
 
 class Food {
     public String name;
+    public String id;
     public int energy;
     public int fiber;
     public Minerals minerals;
@@ -15,6 +16,7 @@ class Food {
         this.minerals = minerals;
         this.vitamins = vitamins;
     }
+
 }
 
 class Vitamins{
