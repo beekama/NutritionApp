@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class food_journal extends AppCompatActivity {
 
@@ -71,6 +73,9 @@ public class food_journal extends AppCompatActivity {
 
 
         
+        /* connect to sqlite database */
+        Database database = new Database(this);
+        Log.wtf("DEBUG", database.getFoodById("336106").name);
 
         //get back to home with home-button:
         Button backHome = (Button) findViewById(R.id.backHomeFromJournal);

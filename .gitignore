@@ -1,4 +1,6 @@
 *.swp
+*.sqlite
+*.db
 *.iml
 .gradle
 /local.properties
