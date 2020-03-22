@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -18,6 +19,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.prefs.Preferences;
 
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
@@ -27,6 +29,7 @@ public class Database {
 
     /* used to trac  foods added together */
     private volatile static int groupID = 0;
+    private static Activity srcActivity;
 
     public Database(Activity srcActivity){
         String path = srcActivity.getFilesDir().getParent() + "/food.db";
@@ -46,6 +49,7 @@ public class Database {
         }
 
         db = SQLiteDatabase.openDatabase(path,  null, OPEN_READWRITE);
+        this.srcActivity = srcActivity;
     }
 
     /* ################ FOOD LOGGING ############## */
@@ -125,27 +129,86 @@ public class Database {
     }
 
     /* ########## SAVE CONFIG ############*/
-    public void setPersonWeight(int weightInKg){
-
+    public void setPersonWeight(int weightInKg) throws IllegalArgumentException {
+        if(weightInKg < 40 || weightInKg > 600){
+            throw new IllegalArgumentException("Weight must be between 40 and 600");
+        }
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("weight", weightInKg);
+        editor.commit();
     }
 
-    public void setPersonHeight(int sizeInCm){
-
+    public void setPersonAge(int age) throws IllegalArgumentException {
+        if(age < 18 || age > 150){
+            throw new IllegalArgumentException("Age must be between 18 and 150");
+        }
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("age", age);
+        editor.commit();
     }
 
-    public void setPersonGender(String gender){
+    public void setPersonEnergyReq(int energyReq) throws IllegalArgumentException {
+        if(energyReq < 1000){
+            throw new IllegalArgumentException("Energy target must be above 1000kcal");
+        }
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("energyReq", energyReq);
+        editor.commit();
+    }
 
+    public void setPersonHeight(int sizeInCm) throws IllegalArgumentException {
+        if(sizeInCm < 0 || sizeInCm > 300){
+            throw new IllegalArgumentException("Height must be between 0 and 300 cm");
+        }
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("height", sizeInCm);
+        editor.commit();
+    }
+
+    public void setPersonGender(String gender) throws IllegalArgumentException {
+        if(!gender.equals("male") || !gender.equals("female")){
+            throw new IllegalArgumentException("Gender must be 'male' or 'female'.");
+        }
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("gender", gender);
+        editor.commit();
     }
 
     public int getPersonWeight(){
-        return -1;
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        int weight = pref.getInt("weight", -1);
+        return weight;
     }
 
     public int getPersonHeight(){
-        return -1;
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        int height = pref.getInt("height", -1);
+        return height;
+    }
+
+    public int getPersonAge(){
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        int age = pref.getInt("age", -1);
+        return age;
+    }
+
+    public int getPersonEnergyReq(){
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        int energyReq = pref.getInt("energyReq", -1);
+        if(energyReq == -1){
+            energyReq = 2000; //TODO calc from other values
+        }
+        return energyReq;
     }
 
     public String getPersonGender(){
-        return "";
+        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        String gender = pref.getString("gender", "none");
+        return gender;
     }
 }
