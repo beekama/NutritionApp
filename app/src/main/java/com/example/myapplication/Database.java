@@ -27,7 +27,7 @@ public class Database {
 
     final SQLiteDatabase db;
 
-    /* used to trac  foods added together */
+    /* used to track foods added together */
     private volatile static int groupID = 0;
     private static Activity srcActivity;
 
@@ -39,7 +39,7 @@ public class Database {
 
             try {
                 OutputStream out = new FileOutputStream(path);
-                int bytes=IOUtils.copy(in, out);
+                int bytes= IOUtils.copy(in, out);
                 IOUtils.closeQuietly(out);
             } catch (FileNotFoundException e) {
                 Log.wtf("WTF", "OUTPUT file not found");
@@ -99,33 +99,56 @@ public class Database {
 
     public ArrayList<Food> getFoodByPartialName(String substring){
         /* This function searches for a given substring */
-        return null;
+
+        Cursor c = db.rawQuery("SELECT * FROM food where description = \"%" + substring + "%\"", null);
+        ArrayList<Food> foods = new ArrayList<Food>();
+
+        if (c.moveToFirst()){
+            do {
+                String foodId  = c.getString(0);
+                String fullName  = c.getString(2);
+                foods.add(new Food(fullName, 0, 0, null, null));
+            } while(c.moveToNext());
+        }
+
+        return foods;
     }
 
     public Food[] getSuggestionsForCombination(Food[] selectedSoFar){
         /* This function returns suggestions for foods to log based on previously selected combinations */
-        return null;
+        throw new RuntimeException("Suggestions are not yet implemented");
     }
 
     /* ################ NEW FOODS ################## */
     public void createNewFood(String name){
         /* This function adds a new food to the database */
+        throw new RuntimeException("Creating new Foods not implemented");
     }
 
     /* ########### Calculated from config ########### */
     public Minerals getMineralRecommendation(){
-        /* Returns the correct mineral recommendation */
-        return null;
+        /* Returns the correct mineral recommendation (USDA Values)*/
+
+        Minerals allowance = new Minerals();
+        allowance.calcium = 1200;
+        allowance.iron = 18;
+        allowance.magnesium = 420;
+        allowance.potassium = 4700;
+        allowance.zinc = 11;
+        return allowance;
     }
 
     public Vitamins getVitaminRecommendation(){
-        /* Returns the correct vitamin recommendation */
-        return null;
-    }
+        /* Returns the correct vitamin recommendation (USDA Values)*/
 
-    public int getEnergyRecommendation(){
-        /* Return the recommended energy */
-        return -1;
+        Vitamins allowance = new Vitamins();
+        allowance.A = 900;
+        allowance.B12 = 3;
+        allowance.C = 90000;
+        allowance.D = 15;
+        allowance.E = 15000;
+        allowance.K = 110;
+        return allowance;
     }
 
     /* ########## SAVE CONFIG ############*/
