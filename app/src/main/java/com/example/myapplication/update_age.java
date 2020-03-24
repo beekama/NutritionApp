@@ -32,8 +32,7 @@ public class update_age extends AppCompatActivity {
         backHome.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), me_config.class);
-                startActivity(myIntent);
+                finish();
             }
         }));
 

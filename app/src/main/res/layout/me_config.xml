@@ -92,74 +92,43 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerThree" />
 
-    <TextView
-        android:id="@+id/tvOut_meConfig_age"
-        android:layout_width="51dp"
+    <EditText
+        android:id="@+id/et_meConfig_age"
+        android:hint="old input"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="68dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_age"
-        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_age" />
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+ />
 
-    <TextView
-        android:id="@+id/tvOut_meConfig_gender"
-        android:layout_width="51dp"
+    <EditText
+        android:id="@+id/et_meConfig_gender"
+        android:hint="old input"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="68dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_gender"
-        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_gender" />
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/tvOut_meConfig_weight"
-        android:layout_width="51dp"
+    <EditText
+        android:id="@+id/et_meConfig_weight"
+        android:hint="old input"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="68dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_weight"
-        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_weight" />
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+ />
 
-    <TextView
-        android:id="@+id/tvOut_meConfig_height"
-        android:layout_width="51dp"
+    <EditText
+        android:id="@+id/et_meConfig_height"
+        android:hint="old input"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="68dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_height"
-        app:layout_constraintEnd_toStartOf="@+id/iv_meConfig_height" />
-
-
-    <ImageButton
-        android:id="@+id/iv_meConfig_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_navigate_next_black_24dp"
-
-        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_age"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_meConfig_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_navigate_next_black_24dp"
-
-        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_gender"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_meConfig_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_navigate_next_black_24dp"
-
-        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_weight"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_meConfig_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_navigate_next_black_24dp"
-
-        app:layout_constraintBottom_toBottomOf="@id/tv_meConfig_height"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
     <View
@@ -360,7 +329,7 @@
         android:id="@+id/meConfig_caloriesGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_calories,tvOut_meConfig_calories"/>
+        app:constraint_referenced_ids="tv_meConfig_calories,tvOut_meConfig_calories" />
 
     <TextView
         android:id="@+id/tvOut_meConfig_calories"
@@ -374,8 +343,7 @@
         android:id="@+id/meConfig_bmiGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tvOut_meConfig_BMI,tvOut_meConfig_BMI"/>
-
+        app:constraint_referenced_ids="tvOut_meConfig_BMI,tvOut_meConfig_BMI" />
 
 
     <androidx.constraintlayout.widget.Barrier
@@ -397,25 +365,25 @@
         android:id="@+id/meConfig_ageGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_meConfig_age,tv_meConfig_age,tvOut_meConfig_age" />
+        app:constraint_referenced_ids="tv_meConfig_age,tvOut_meConfig_age" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/meConfig_genderGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_gender,tvOut_meConfig_gender,iv_meConfig_gender"/>
+        app:constraint_referenced_ids="tv_meConfig_gender,tvOut_meConfig_gender" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/meConfig_weightGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_weight,tvOut_meConfig_weight,iv_meConfig_weight"/>
+        app:constraint_referenced_ids="tv_meConfig_weight,tvOut_meConfig_weight" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/meConfig_heightGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_height,tvOut_meConfig_height,iv_meConfig_height"/>
+        app:constraint_referenced_ids="tv_meConfig_height,tvOut_meConfig_height" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
