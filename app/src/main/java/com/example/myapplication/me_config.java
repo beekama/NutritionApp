@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,7 +14,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity ;
 
+import org.w3c.dom.Text;
+
 public class me_config extends AppCompatActivity {
+    @SuppressLint("ResourceAsColor")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_config);
@@ -23,7 +28,7 @@ public class me_config extends AppCompatActivity {
         // --- AGE ---
         // set current values:
         final TextView tvAge = (TextView) findViewById(R.id.et_meConfig_age);
-        final Integer age = db.getPersonAge();
+        Integer age = db.getPersonAge();
         if (age != -1) {
             tvAge.setText(age.toString());
         }
@@ -55,7 +60,7 @@ public class me_config extends AppCompatActivity {
         // -- GENDER --
         //set current values:
         final TextView tvGender = (TextView) findViewById(R.id.et_meConfig_gender);
-        final String gender = db.getPersonGender();
+        String gender = db.getPersonGender();
         if (!gender.equals("none")){
             tvGender.setText(gender);}
 
@@ -87,7 +92,7 @@ public class me_config extends AppCompatActivity {
         // -- WEIGHT --
         // set current values:
         final TextView tvWeight = (TextView) findViewById(R.id.et_meConfig_weight);
-        final Integer weight = db.getPersonWeight();
+        Integer weight = db.getPersonWeight();
         if (weight != -1) {
             tvWeight.setText(weight.toString());
         }
@@ -119,9 +124,9 @@ public class me_config extends AppCompatActivity {
         // -- HEIGHT --
         // set current values:
         final TextView tvHeight = (TextView) findViewById(R.id.et_meConfig_height);
-        final Integer height = db.getPersonHeight();
+        Integer height = db.getPersonHeight();
         if (height != -1) {
-            tvHeight.setText(height.toString());
+            tvHeight.setText(Integer.toString(height));
         }
         //submit new height:
         final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
@@ -130,8 +135,6 @@ public class me_config extends AppCompatActivity {
                 //if enter button is pressed
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //Toast.makeText(getApplicationContext(), et.getText(),Toast.LENGTH_LONG).show();
-
                     //get setting from edittext
                     int height = Integer.parseInt(etHeight.getText().toString());
                     try {
@@ -147,6 +150,21 @@ public class me_config extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+        //-- BMI --
+        Double bmi = db.getPersonWeight() / (Math.sqrt(db.getPersonHeight()));
+        final TextView tv_BMI = (TextView) findViewById(R.id.tvOut_meConfig_bmi);
+        bmi = Math.round(bmi * 100.0)/100.0;
+        tv_BMI.setText(bmi.toString());
+
+        //-- Calories --
+        final TextView tv_energy = (TextView) findViewById(R.id.tvOut_meConfig_calories);
+        Integer energy = db.getPersonEnergyReq();
+        if (energy != -1){
+            tv_energy.setText(Integer.toString(energy));
+        }
 
     //go Back home from me_config:
         final ImageButton backHome = (ImageButton) findViewById(R.id.meConfig_ib_backToHome);

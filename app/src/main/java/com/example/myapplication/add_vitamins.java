@@ -17,8 +17,7 @@ public class add_vitamins extends AppCompatActivity {
             goBack.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent myIntent = new Intent(v.getContext(), create_item.class);
-                    startActivity(myIntent);
+                    finish();
                 }
             }));
 

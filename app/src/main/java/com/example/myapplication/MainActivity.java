@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         goToFoodJournal.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent myIntent = new Intent(v.getContext(),food_journal.class);
-                //TextView vtext = (TextView)findViewById(R.id.);
-                //vtext.setText("LOL");
                 startActivity(myIntent);
             }
         });

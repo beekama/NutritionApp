@@ -82,8 +82,7 @@ public class food_journal extends AppCompatActivity {
         backHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(myIntent);
+                finish();
             }
         });
 

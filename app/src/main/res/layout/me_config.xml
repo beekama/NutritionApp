@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--    TOP - HEADER-->
     <TextView
         android:id="@+id/meConfig_tvProfile"
         android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
 
         />
 
-
+    <!--        DESCRIPTION OF BASIC SETTINGS-->
     <TextView
         android:id="@+id/tv_meConfig_age"
         android:layout_width="120dp"
@@ -92,6 +93,8 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerThree" />
 
+    <!--        EDITTEXT OF BASIC SETTINGS-->
+
     <EditText
         android:id="@+id/et_meConfig_age"
         android:hint="old input"
@@ -100,7 +103,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_age"
         app:layout_constraintStart_toEndOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
- />
+        />
 
     <EditText
         android:id="@+id/et_meConfig_gender"
@@ -119,7 +122,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_weight"
         app:layout_constraintStart_toEndOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
- />
+        />
 
     <EditText
         android:id="@+id/et_meConfig_height"
@@ -130,6 +133,7 @@
         app:layout_constraintStart_toEndOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+        <!--Dividers-->
 
     <View
         android:id="@+id/meConfig_dividerOne"
@@ -163,7 +167,64 @@
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_height" />
 
+    <View
+        android:id="@+id/meConfig_dividerFive"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/meConfig_headerDM" />
 
+    <View
+        android:id="@+id/meConfig_dividerSix"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_BMI" />
+
+    <View
+        android:id="@+id/meConfig_dividerSeven"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/meConfig_headerDT" />
+
+    <View
+    android:id="@+id/meConfig_dividerEight"
+    android:layout_width="wrap_content"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    app:layout_constraintStart_toEndOf="@id/guideline"
+    app:layout_constraintTop_toBottomOf="@id/tv_meConfig_calories" />
+
+    <View
+        android:id="@+id/meConfig_dividerNine"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/meConfig_headerMissing" />
+
+    <View
+        android:id="@+id/meConfig_dividerTen"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineOne"
+        />
+
+    <View
+        android:id="@+id/meConfig_dividerEleven"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineTwo" />
+
+<!--        OTHER HEADERS-->
     <TextView
         android:id="@+id/meConfig_headerDM"
         android:text="Derived Metrics"
@@ -178,44 +239,6 @@
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         />
-
-    <View
-        android:id="@+id/meConfig_dividerFive"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/meConfig_headerDM" />
-
-    <TextView
-        android:id="@+id/tv_meConfig_BMI"
-        android:text="BMI:"
-        android:textSize="18dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerFive"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@id/barrier"
-        />
-
-    <TextView
-        android:id="@+id/tvOut_meConfig_BMI"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="68dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_BMI"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/meConfig_dividerSix"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_BMI" />
-
     <TextView
         android:id="@+id/meConfig_headerMissing"
         android:text="what you need:"
@@ -230,58 +253,6 @@
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         />
-
-    <View
-        android:id="@+id/meConfig_dividerNine"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/meConfig_headerMissing" />
-
-    <TextView
-        android:id="@+id/tv_meConfig_lineOne"
-        android:text="line One:"
-        android:textSize="18dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerNine"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@id/barrier"
-        />
-
-    <View
-        android:id="@+id/meConfig_dividerTen"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineOne"
-        />
-
-    <TextView
-        android:id="@+id/tv_meConfig_lineTwo"
-        android:text="line Two:"
-        android:textSize="18dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerTen"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintEnd_toStartOf="@id/barrier"
-        />
-
-
-    <View
-        android:id="@+id/meConfig_dividerEleven"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineTwo" />
 
     <TextView
         android:id="@+id/meConfig_headerDT"
@@ -298,13 +269,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <View
-        android:id="@+id/meConfig_dividerSeven"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
+        <!--OTHER DESCRIPTIONS-->
+    <TextView
+        android:id="@+id/tv_meConfig_BMI"
+        android:text="BMI:"
+        android:textSize="18dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerFive"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/meConfig_headerDT" />
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        />
+
+    <TextView
+        android:id="@+id/tv_meConfig_lineOne"
+        android:text="line One:"
+        android:textSize="18dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerNine"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        />
+
+    <TextView
+        android:id="@+id/tv_meConfig_lineTwo"
+        android:text="line Two:"
+        android:textSize="18dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerTen"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        />
 
     <TextView
         android:id="@+id/tv_meConfig_calories"
@@ -313,38 +316,36 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
-
         app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerSeven"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
         app:layout_constraintStart_toEndOf="@id/guideline" />
-    <View
-        android:id="@+id/meConfig_dividerEight"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_calories" />
 
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/meConfig_caloriesGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_calories,tvOut_meConfig_calories" />
+        <!--OTHER TEXTVIEWS-->
 
     <TextView
         android:id="@+id/tvOut_meConfig_calories"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
         android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories"
+        app:layout_constraintStart_toEndOf="@+id/barrier" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/meConfig_bmiGroup"
+    <TextView
+        android:id="@+id/tvOut_meConfig_bmi"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tvOut_meConfig_BMI,tvOut_meConfig_BMI" />
+        android:layout_height="0dp"
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
+        android:paddingVertical="8dp"
+        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_BMI"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_BMI"
+        app:layout_constraintStart_toEndOf="@id/barrier"/>
 
+
+    <!--LAYOUT TOOLS-->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -361,29 +362,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/meConfig_ageGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_age,tvOut_meConfig_age" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/meConfig_genderGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_gender,tvOut_meConfig_gender" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/meConfig_weightGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_weight,tvOut_meConfig_weight" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/meConfig_heightGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tv_meConfig_height,tvOut_meConfig_height" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

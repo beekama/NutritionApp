@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--    TOP - HEADER-->
     <TextView
         android:id="@+id/createItem_tvCreateItem"
         android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
 
         />
 
+    <!--        DESCRIPTION OF ITEMS-->
 
     <TextView
         android:id="@+id/tv_createItem_name"
@@ -64,6 +66,7 @@
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerOne"/>
+
     <TextView
         android:id="@+id/tv_createItem_energy"
         android:layout_width="120dp"
@@ -75,6 +78,7 @@
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerTwo"/>
+
     <TextView
         android:id="@+id/tv_createItem_fiber"
         android:layout_width="120dp"
@@ -86,6 +90,7 @@
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerThree"/>
+
     <TextView
         android:id="@+id/tv_createItem_minerals"
         android:layout_width="120dp"
@@ -97,6 +102,7 @@
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerFour"/>
+
     <TextView
         android:id="@+id/tv_createItem_vitamins"
         android:layout_width="120dp"
@@ -108,6 +114,8 @@
 
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/dividerFive"/>
+
+    <!--        EDITTEXT OF ITEMS-->
 
     <EditText
         android:id="@+id/edit_createItem_name"
@@ -140,6 +148,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_createItem_servingSize"
         app:layout_constraintHorizontal_bias="0.5"
         />
+
     <EditText
         android:id="@+id/edit_createItem_energy"
         android:layout_width="0dp"
@@ -155,6 +164,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_createItem_energy"
         app:layout_constraintHorizontal_bias="0.5"
         />
+
     <EditText
         android:id="@+id/edit_createItem_fiber"
         android:layout_width="0dp"
@@ -172,7 +182,7 @@
         tools:layout_editor_absoluteY="267dp"
         />
 
-
+<!--        BUTTON FOR EXTENDED ITEM-INPUT-->
     <ImageButton
         android:id="@+id/ib_createItem_furtherMinerals"
         android:layout_width="0dp"
@@ -197,6 +207,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_createItem_vitamins"
         />
 
+<!--    DIVIDERS-->
     <View
         android:id="@+id/dividerOne"
         android:layout_width="wrap_content"
@@ -245,6 +256,8 @@
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/tv_createItem_vitamins"
         />
+
+    <!--LAYOUT TOOLS-->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"

@@ -36,8 +36,7 @@ public class create_food extends AppCompatActivity {
         goBack.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(myIntent);
+                finish();
             }
         }));
 }}
