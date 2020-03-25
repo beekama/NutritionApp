@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+
 class Food {
     public String name;
     public String id;
@@ -7,13 +10,21 @@ class Food {
     public int fiber;
     public Minerals minerals;
     public Vitamins vitamins;
+    public LocalDate loggedAt;
 
-    public Food(String name, int energy, int fiber, Minerals minerals, Vitamins vitamins) {
+    public Food(String name, int energy, int fiber, Minerals minerals, Vitamins vitamins, LocalDate logTime) {
         this.name = name;
         this.energy = energy;
         this.fiber = fiber;
         this.minerals = minerals;
         this.vitamins = vitamins;
+        this.loggedAt = logTime;
+    }
+
+    public static Food getEmptyFood(LocalDate logTime){
+        Food f = new Food("<Placeholder>", 0, 0, new Minerals(), new Vitamins(), logTime);
+        f.id = "336106";
+        return f;
     }
 
 }

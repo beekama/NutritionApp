@@ -1,82 +1,86 @@
 package com.example.myapplication;
 
 
+import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.threeten.bp.Duration;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 public class food_journal extends AppCompatActivity {
 
     private ListView zeddel;
 
+    private LocalDate now = LocalDate.now();
+    private LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
+
+    final private Duration ONE_DAY = Duration.ofDays(1);
+    final private Duration ONE_WEEK = Duration.ofDays(7);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.food_journal);
 
+        setContentView(R.layout.food_journal);
         zeddel = (ListView) findViewById(R.id.listview);
         ArrayList<Item> InputListe = new ArrayList<Item>();
+        Application lol = getApplication();
+        AndroidThreeTen.init(lol);
+        final Database db = new Database(this);
+
+        /* add some debug items to db */
+        Food[] debugFoods = { Food.getEmptyFood(LocalDate.now()) };
+        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        Food[] debugFoods2 = { Food.getEmptyFood(LocalDate.now()), Food.getEmptyFood(LocalDate.now()) };
+        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        Food[] debugFoods3 = { Food.getEmptyFood(LocalDate.now().minusDays(1)) };
+        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        Food[] debugFoods4 = { Food.getEmptyFood(LocalDate.now().minusDays(2)) };
+        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+
+        LocalDate startDate = now.atStartOfDay().toLocalDate();
+        HashMap<Integer, ArrayList<Food>> foodGroups =  db.getLoggedFoodsByDate(now, oldestDateShown);
+        for(Integer key : foodGroups.keySet()){
+            String foodNamesInGroup = "";
+            for(Food food : foodGroups.get(key)){
+                if(startDate.isAfter(food.loggedAt)){
+                    InputListe.add(new HeaderItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_LOCAL_TIME)));
+                    startDate = food.loggedAt.atStartOfDay().toLocalDate();
+                }else{
+                    foodNamesInGroup += food.name + ",";
+                }
+            }
+
+            ItemItem nextItem =  new ItemItem(foodNamesInGroup);
+            InputListe.add(nextItem);
+        }
+
         //header:
-        InputListe.add(new HeaderItem("day one"));
+        //InputListe.add(new HeaderItem("day one"));
         //items:
-        InputListe.add(new ItemItem("bla"));
-        InputListe.add(new ItemItem("blaa"));
-        InputListe.add(new ItemItem("blaaa"));
-        InputListe.add(new ItemItem("blaaaa"));
-        //header:
-        InputListe.add(new HeaderItem("day two"));
-        //items:
-        InputListe.add(new ItemItem("bla"));
-        InputListe.add(new ItemItem("blaa"));
-        InputListe.add(new ItemItem("blaaa"));
-        InputListe.add(new ItemItem("blaaaa"));
-        //header:
-        InputListe.add(new HeaderItem("day three"));
-        //items:
-        InputListe.add(new ItemItem("bla"));
-        InputListe.add(new ItemItem("blaa"));
-        InputListe.add(new ItemItem("blaaa"));
-        InputListe.add(new ItemItem("blaaaa"));
-        //header:
-        InputListe.add(new HeaderItem("day four"));
-        //items:
-        InputListe.add(new ItemItem("bla"));
-        InputListe.add(new ItemItem("blaa"));
-        InputListe.add(new ItemItem("blaaa"));
-        InputListe.add(new ItemItem("blaaaa"));
-        //header:
-        InputListe.add(new HeaderItem("day five"));
-        //items:
-        InputListe.add(new ItemItem("bla"));
-        InputListe.add(new ItemItem("blaa"));
-        InputListe.add(new ItemItem("blaaa"));
-        InputListe.add(new ItemItem("blaaaa"));
+        //InputListe.add(new ItemItem("bla"));
 
         //set adapter:
         final myAdapter adapter = new myAdapter(this, InputListe);
         zeddel.setAdapter(adapter);
         zeddel.setTextFilterEnabled(true);
-
-
-        
-        /* connect to sqlite database */
-        Database database = new Database(this);
-        Log.wtf("DEBUG", database.getFoodById("336106").name);
 
         //get back to home with home-button:
         ImageButton backHome = (ImageButton) findViewById(R.id.backHomeFromJournal);

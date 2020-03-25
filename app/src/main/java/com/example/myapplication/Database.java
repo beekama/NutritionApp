@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,11 +17,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.prefs.Preferences;
 
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
@@ -40,7 +39,8 @@ public class Database {
             try {
                 OutputStream out = new FileOutputStream(path);
                 int bytes = IOUtils.copy(in, out);
-                IOUtils.closeQuietly(out);
+                out.close();
+                in.close();
             } catch (FileNotFoundException e) {
                 Log.wtf("WTF", "OUTPUT file not found");
             } catch (IOException e) {
@@ -53,7 +53,7 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized void logExistingFoods(Food[] foods, Timestamp d) {
+    public synchronized void logExistingFoods(Food[] foods, LocalDate d) {
         /* This functions add a list of foods to the journal at a given date */
 
         groupID++;
@@ -62,25 +62,30 @@ public class Database {
             values.put("food_id", f.id);
             values.put("date", d.toString());
             values.put("group_id", groupID);
+            values.put("loggedAt", d.format(DateTimeFormatter.BASIC_ISO_DATE));
             db.insert("foodlog", null, values);
         }
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(Timestamp start, Timestamp end) {
+    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
         /* Return foods logged by dates */
 
         HashMap ret = new HashMap<Integer, ArrayList<Food>>();
 
-        Cursor c = db.rawQuery("SELECT * FROM foodlog where date >= \"" + start + "\" and date <=  \"" + end + "\"", null);
+        String startISO = start.format(DateTimeFormatter.BASIC_ISO_DATE);
+        String endISO = end.format(DateTimeFormatter.BASIC_ISO_DATE);
+
+        Cursor c = db.rawQuery("SELECT * FROM foodlog where date >= \"" + startISO + "\" and date <=  \"" + endISO + "\"", null);
         if (c.moveToFirst()) {
             do {
 
                 groupID = c.getInt(2);
                 String foodId = c.getString(0);
+                String loggedAtISO = c.getString(0);
 
                 if (ret.containsKey(groupID)) {
                     ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
-                    group.add(getFoodById(foodId));
+                    group.add(getFoodById(foodId, loggedAtISO));
                 }
 
             } while (c.moveToNext());
@@ -89,10 +94,16 @@ public class Database {
         return ret;
     }
 
-    public Food getFoodById(String foodId) {
+    public Food getFoodById(String foodId, String loggedAtIso) {
         Cursor c = db.rawQuery("SELECT * FROM food where fdc_id = \"" + foodId + "\"", null);
+
+        LocalDate loggedAt = null;
+        if(loggedAtIso != null){
+            loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.BASIC_ISO_DATE);
+        }
+
         if (c.moveToFirst()) {
-            return new Food(c.getString(2), 100, 100, new Minerals(), new Vitamins());
+            return new Food(c.getString(2), 100, 100, new Minerals(), new Vitamins(), loggedAt);
         }
         throw new RuntimeException("The food didn't exists, that's unfortunate.");
     }
@@ -107,7 +118,7 @@ public class Database {
             do {
                 String foodId = c.getString(0);
                 String fullName = c.getString(2);
-                foods.add(new Food(fullName, 0, 0, null, null));
+                foods.add(new Food(fullName, 0, 0, null, null, null));
             } while (c.moveToNext());
         }
 
