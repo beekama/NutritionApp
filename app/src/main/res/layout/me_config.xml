@@ -97,7 +97,7 @@
 
     <EditText
         android:id="@+id/et_meConfig_age"
-        android:hint="old input"
+        android:hint="age in years"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_age"
@@ -107,7 +107,7 @@
 
     <EditText
         android:id="@+id/et_meConfig_gender"
-        android:hint="old input"
+        android:hint="'male' or 'female'"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_gender"
@@ -116,7 +116,7 @@
 
     <EditText
         android:id="@+id/et_meConfig_weight"
-        android:hint="old input"
+        android:hint="weight in kg"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_weight"
@@ -126,7 +126,7 @@
 
     <EditText
         android:id="@+id/et_meConfig_height"
-        android:hint="old input"
+        android:hint="height in cm"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_height"
@@ -322,16 +322,18 @@
 
         <!--OTHER TEXTVIEWS-->
 
-    <TextView
+    <EditText
         android:id="@+id/tvOut_meConfig_calories"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="18dp"
         android:textColor="@android:color/black"
         android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/barrier" />
+
 
     <TextView
         android:id="@+id/tvOut_meConfig_bmi"

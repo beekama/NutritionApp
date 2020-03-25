@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -78,7 +79,7 @@ public class food_journal extends AppCompatActivity {
         Log.wtf("DEBUG", database.getFoodById("336106").name);
 
         //get back to home with home-button:
-        Button backHome = (Button) findViewById(R.id.backHomeFromJournal);
+        ImageButton backHome = (ImageButton) findViewById(R.id.backHomeFromJournal);
         backHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

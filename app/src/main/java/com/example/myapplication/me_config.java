@@ -1,12 +1,15 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,9 +42,11 @@ public class me_config extends AppCompatActivity {
                 //if enter button is pressed
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //Toast.makeText(getApplicationContext(), et.getText(),Toast.LENGTH_LONG).show();
-
+                    //hide keyboard and clear focus:
+                    hideKeyboard(et);
                     //get setting from edittext
+                    //only write to database if input is not empty:
+                    if (!et.getText().toString().matches("")){
                     int age = Integer.parseInt(et.getText().toString());
                     try {
                         //write to database class
@@ -50,7 +55,7 @@ public class me_config extends AppCompatActivity {
                         //show a notification
                         Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                         toast.show();
-                    }
+                    }}
                     return true;
                 }
                 return false;
@@ -72,9 +77,12 @@ public class me_config extends AppCompatActivity {
                 //if enter button is pressed
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    //hide keyboard and clear focus:
+                    hideKeyboard(etGender);
                     //get setting from edittext
+                    // only write to database if input is not empty:
+                    if (!etGender.getText().toString().matches("")){
                     String gender = etGender.getText().toString();
-                    //Toast.makeText(getApplicationContext(), etGender.getText(), Toast.LENGTH_LONG).show();
                     try {
                         //write to database class
                         db.setPersonGender(gender);
@@ -82,7 +90,7 @@ public class me_config extends AppCompatActivity {
                         //show a notification
                         Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                         toast.show();
-                    }
+                    }}
                     return true;
                 }
                 return false;
@@ -103,9 +111,11 @@ public class me_config extends AppCompatActivity {
                 //if enter button is pressed
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //Toast.makeText(getApplicationContext(), et.getText(),Toast.LENGTH_LONG).show();
-
+                    //hide keyboard and clear focus:
+                    hideKeyboard(etWeight);
                     //get setting from edittext
+                    //only write to database if input is not empty:
+                    if (!etWeight.getText().toString().matches("")){
                     int weight = Integer.parseInt(etWeight.getText().toString());
                     try {
                         //write to database class
@@ -114,7 +124,7 @@ public class me_config extends AppCompatActivity {
                         //show a notification
                         Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                         toast.show();
-                    }
+                    } }
                     return true;
                 }
                 return false;
@@ -135,7 +145,11 @@ public class me_config extends AppCompatActivity {
                 //if enter button is pressed
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    //hide keyboard and clear focus:
+                    hideKeyboard(etHeight);
                     //get setting from edittext
+                    //only write to database if input is not empty:
+                    if (!etHeight.getText().toString().matches("")){
                     int height = Integer.parseInt(etHeight.getText().toString());
                     try {
                         //write to database class
@@ -144,7 +158,7 @@ public class me_config extends AppCompatActivity {
                         //show a notification
                         Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                         toast.show();
-                    }
+                    }}
                     return true;
                 }
                 return false;
@@ -160,11 +174,38 @@ public class me_config extends AppCompatActivity {
         tv_BMI.setText(bmi.toString());
 
         //-- Calories --
+        //set current values:
         final TextView tv_energy = (TextView) findViewById(R.id.tvOut_meConfig_calories);
         Integer energy = db.getPersonEnergyReq();
         if (energy != -1){
             tv_energy.setText(Integer.toString(energy));
         }
+        //submit new calories:
+        final EditText etCalories = (EditText) findViewById(R.id.tvOut_meConfig_calories);
+        etCalories.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //if enter button is pressed
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    //hide keyboard and clear focus:
+                    hideKeyboard(etCalories);
+                    //get setting from edittext
+                    //only write to database if input is not empty:
+                    if (!etCalories.getText().toString().matches("")){
+                    int calories = Integer.parseInt(etCalories.getText().toString());
+                    try {
+                        //write to database class
+                        db.setPersonEnergyReq(calories);
+                    } catch (IllegalArgumentException e) {
+                        //show a notification
+                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                    }}
+                    return true;
+                }
+                return false;
+            }
+        });
 
     //go Back home from me_config:
         final ImageButton backHome = (ImageButton) findViewById(R.id.meConfig_ib_backToHome);
@@ -186,4 +227,9 @@ public class me_config extends AppCompatActivity {
                 startActivity(myIntent);
             }
         }));*/
-}}
+}
+    private void hideKeyboard(EditText et){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+        et.clearFocus();
+    }}
