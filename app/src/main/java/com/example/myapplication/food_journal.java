@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,24 @@ public class food_journal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_journal);
+
+        //replace actionbar with custom toolbar:
+        Toolbar tb = findViewById(R.id.toolbar);
+        TextView tb_title = findViewById(R.id.toolbar_title);
+        ImageButton tb_back = findViewById(R.id.toolbar_back);
+        //back home button:
+        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
+        backHome.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        }));
+        tb.setTitle("");
+        tb_title.setText("JOURNAL");
+        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        setSupportActionBar(tb);
+
 
         zeddel = (ListView) findViewById(R.id.listview);
         ArrayList<Item> InputListe = new ArrayList<Item>();
@@ -73,20 +92,10 @@ public class food_journal extends AppCompatActivity {
         zeddel.setTextFilterEnabled(true);
 
 
-        
+
         /* connect to sqlite database */
         Database database = new Database(this);
         Log.wtf("DEBUG", database.getFoodById("336106").name);
-
-        //get back to home with home-button:
-        ImageButton backHome = (ImageButton) findViewById(R.id.backHomeFromJournal);
-        backHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
 
     }
 

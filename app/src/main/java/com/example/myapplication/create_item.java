@@ -5,22 +5,33 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class create_item extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_item);
 
-        //goBack from create_Item:
-        final ImageButton goBack = (ImageButton) findViewById(R.id.createItem_back_button);
-        goBack.setOnClickListener((new View.OnClickListener() {
+        //replace actionbar with custom toolbar:
+        Toolbar tb = findViewById(R.id.toolbar);
+        TextView tb_title = findViewById(R.id.toolbar_title);
+        ImageButton tb_back = findViewById(R.id.toolbar_back);
+        //back home button:
+        tb_back.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         }));
+        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        tb.setTitle("");
+        tb_title.setText("MY ITEMS");
+        setSupportActionBar(tb);
+
+
 
         //addVitamins:
         final ImageButton addVitamins = (ImageButton) findViewById(R.id.ib_createItem_furtherVitamins);
@@ -43,4 +54,4 @@ public class create_item extends AppCompatActivity {
             }
         }));
 
-}}
+    }}

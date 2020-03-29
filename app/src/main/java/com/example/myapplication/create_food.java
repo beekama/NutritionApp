@@ -1,43 +1,50 @@
 package com.example.myapplication;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class create_food extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.foods);
 
-    //go and add an Item:
-    final ImageButton addItemButton = (ImageButton) findViewById(R.id.addItemButton);
-    addItemButton.setOnClickListener((new View.OnClickListener() {
-        public void onClick(View v) {
-/*            //change color while pressing -- needs something like sleep to be visible
-            v.setSelected(!v.isSelected());
-            if (v.isSelected()){
-                v.getBackground().setAlpha(0);
-            }*/
-            Intent myIntent = new Intent(v.getContext(), create_item.class);
-            startActivity(myIntent);
-/*            v.setSelected(false);
-            if(!v.isSelected()){
-                v.getBackground().setAlpha(255);
-            }*/
-        }
-    }));
-
-    //go back to home with back-button:
-        final ImageButton goBack =(ImageButton) findViewById(R.id.foods_back_button);
-        goBack.setOnClickListener((new View.OnClickListener() {
+        //replace actionbar with custom toolbar:
+        Toolbar tb = findViewById(R.id.toolbar);
+        TextView tb_title = findViewById(R.id.toolbar_title);
+        ImageButton tb_back = findViewById(R.id.toolbar_back);
+        ImageButton tb_forward = findViewById(R.id.toolbar_forward);
+        //back home button:
+        tb_back.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         }));
-}}
+        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        //go to add Item:
+        final ImageButton fw = (ImageButton) findViewById(R.id.toolbar_forward);
+        fw.setOnClickListener((new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), create_item.class);
+                startActivity(myIntent);
+            }
+        }));
+        tb_forward.setImageResource(R.drawable.add_circle_filled);
+        tb.setTitle("");
+        tb_title.setText("ITEMS");
+        setSupportActionBar(tb);
+
+
+    }
+}
+
 

@@ -5,36 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    TOP - HEADER-->
-    <TextView
-        android:id="@+id/meConfig_tvProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="20dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
-
-    <ImageButton
-        android:id="@+id/meConfig_ib_backToHome"
-        android:layout_width="76dp"
-        android:layout_height="45dp"
-        android:background="#00000000"
-
-        app:layout_constraintBottom_toBottomOf="@id/meConfig_tvProfile"
-
-        app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-
-        />
+    <!--        TOOLBAR-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <!--        DESCRIPTION OF BASIC SETTINGS-->
     <TextView
@@ -46,13 +20,12 @@
         android:textSize="18dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_tvProfile"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
 
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/tv_meConfig_gender"
@@ -97,254 +70,257 @@
 
     <EditText
         android:id="@+id/et_meConfig_age"
-        android:hint="age in years"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="39dp"
+        android:hint="age in years"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_age"
-        app:layout_constraintStart_toEndOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/barrier" />
 
     <EditText
         android:id="@+id/et_meConfig_gender"
-        android:hint="'male' or 'female'"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:hint="'male' or 'female'"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_gender"
-        app:layout_constraintStart_toEndOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/barrier" />
 
     <EditText
         android:id="@+id/et_meConfig_weight"
-        android:hint="weight in kg"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:hint="weight in kg"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_weight"
-        app:layout_constraintStart_toEndOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/barrier" />
 
     <EditText
         android:id="@+id/et_meConfig_height"
-        android:hint="height in cm"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:hint="height in cm"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_height"
-        app:layout_constraintStart_toEndOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/barrier" />
 
-        <!--Dividers-->
+    <!--Dividers-->
 
     <View
         android:id="@+id/meConfig_dividerOne"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_age" />
 
     <View
         android:id="@+id/meConfig_dividerTwo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_gender" />
 
     <View
         android:id="@+id/meConfig_dividerThree"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_weight" />
 
     <View
         android:id="@+id/meConfig_dividerFour"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_height" />
 
     <View
         android:id="@+id/meConfig_dividerFive"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/meConfig_headerDM" />
 
     <View
         android:id="@+id/meConfig_dividerSix"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_BMI" />
 
     <View
         android:id="@+id/meConfig_dividerSeven"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/meConfig_headerDT" />
 
     <View
-    android:id="@+id/meConfig_dividerEight"
-    android:layout_width="wrap_content"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"
-    app:layout_constraintStart_toEndOf="@id/guideline"
-    app:layout_constraintTop_toBottomOf="@id/tv_meConfig_calories" />
-
-    <View
-        android:id="@+id/meConfig_dividerNine"
-        android:layout_width="wrap_content"
+        android:id="@+id/meConfig_dividerEight"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_calories" />
+
+    <View
+        android:id="@+id/meConfig_dividerNine"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/meConfig_headerMissing" />
 
     <View
         android:id="@+id/meConfig_dividerTen"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineOne"
-        />
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineOne" />
 
     <View
         android:id="@+id/meConfig_dividerEleven"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_lineTwo" />
 
-<!--        OTHER HEADERS-->
+    <!--        OTHER HEADERS-->
     <TextView
         android:id="@+id/meConfig_headerDM"
-        android:text="Derived Metrics"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="18dp"
-
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerFour"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Derived Metrics"
+        android:textColor="@android:color/holo_orange_light"
+
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerFour" />
+
     <TextView
         android:id="@+id/meConfig_headerMissing"
-        android:text="what you need:"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="18dp"
-
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerEight"
+        android:background="@android:color/holo_blue_dark"
+        android:text="what you need:"
+        android:textColor="@android:color/holo_orange_light"
+
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerEight" />
 
     <TextView
         android:id="@+id/meConfig_headerDT"
-        android:text="Daily Target:"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="18dp"
-
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerSix"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:background="@android:color/holo_blue_dark"
+        android:text="Daily Target:"
+        android:textColor="@android:color/holo_orange_light"
 
-        <!--OTHER DESCRIPTIONS-->
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerSix" />
+
+    <!--OTHER DESCRIPTIONS-->
     <TextView
         android:id="@+id/tv_meConfig_BMI"
-        android:text="BMI:"
-        android:textSize="18dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
+        android:text="BMI:"
+        android:textSize="18dp"
 
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerFive"
-        app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintEnd_toStartOf="@id/barrier"
-        />
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerFive" />
 
     <TextView
         android:id="@+id/tv_meConfig_lineOne"
-        android:text="line One:"
-        android:textSize="18dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
+        android:text="line One:"
+        android:textSize="18dp"
 
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerNine"
-        app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintEnd_toStartOf="@id/barrier"
-        />
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerNine" />
 
     <TextView
         android:id="@+id/tv_meConfig_lineTwo"
-        android:text="line Two:"
-        android:textSize="18dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
+        android:text="line Two:"
+        android:textSize="18dp"
 
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerTen"
-        app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintEnd_toStartOf="@id/barrier"
-        />
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerTen" />
 
     <TextView
         android:id="@+id/tv_meConfig_calories"
-        android:text="Calories:"
-        android:textSize="18dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerSeven"
+        android:text="Calories:"
+        android:textSize="18dp"
         app:layout_constraintEnd_toStartOf="@id/barrier"
-        app:layout_constraintStart_toEndOf="@id/guideline" />
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/meConfig_dividerSeven" />
 
-        <!--OTHER TEXTVIEWS-->
+    <!--OTHER TEXTVIEWS-->
 
     <EditText
         android:id="@+id/tvOut_meConfig_calories"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textSize="18dp"
-        android:textColor="@android:color/black"
         android:paddingVertical="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
-        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/barrier" />
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories" />
 
 
     <TextView
         android:id="@+id/tvOut_meConfig_bmi"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:textSize="18dp"
-        android:textColor="@android:color/black"
         android:paddingVertical="8dp"
-        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_BMI"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_BMI"
-        app:layout_constraintStart_toEndOf="@id/barrier"/>
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_BMI" />
 
 
     <!--LAYOUT TOOLS-->
@@ -362,10 +338,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_end="395dp" />
 
-
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="395dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

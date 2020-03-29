@@ -5,36 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    TOP - HEADER-->
-    <TextView
-        android:id="@+id/createItem_tvCreateItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Items"
-        android:textSize="20dp"
+    <!-- &lt;!&ndash;    TOP - HEADER&ndash;&gt;
+     <TextView
+         android:id="@+id/createItem_tvCreateItem"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="My Items"
+         android:textSize="20dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintVertical_bias="0.025" />
 
-    <ImageButton
-        android:id="@+id/createItem_back_button"
-        android:layout_width="76dp"
-        android:layout_height="45dp"
-        android:background="#00000000"
+     <ImageButton
+         android:id="@+id/createItem_back_button"
+         android:layout_width="76dp"
+         android:layout_height="45dp"
+         android:background="#00000000"
 
-        app:layout_constraintBottom_toBottomOf="@id/createItem_tvCreateItem"
+         app:layout_constraintBottom_toBottomOf="@id/createItem_tvCreateItem"
 
-        app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+         app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
+         app:layout_constraintHorizontal_bias="0.25"
+         app:layout_constraintStart_toStartOf="parent"
+         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
 
-        />
+         />-->
+
+    <!--    TOOLBAR-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
     <!--        DESCRIPTION OF ITEMS-->
 
@@ -51,7 +56,7 @@
         app:layout_constraintEnd_toStartOf="@+id/edit_createItem_name"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/createItem_tvCreateItem"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
 
         app:layout_constraintVertical_bias="0.25"/>
 
@@ -182,7 +187,7 @@
         tools:layout_editor_absoluteY="267dp"
         />
 
-<!--        BUTTON FOR EXTENDED ITEM-INPUT-->
+    <!--        BUTTON FOR EXTENDED ITEM-INPUT-->
     <ImageButton
         android:id="@+id/ib_createItem_furtherMinerals"
         android:layout_width="0dp"
@@ -207,7 +212,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_createItem_vitamins"
         />
 
-<!--    DIVIDERS-->
+    <!--    DIVIDERS-->
     <View
         android:id="@+id/dividerOne"
         android:layout_width="wrap_content"
