@@ -23,6 +23,7 @@ import org.w3c.dom.Text;
 public class me_config extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_config);
 

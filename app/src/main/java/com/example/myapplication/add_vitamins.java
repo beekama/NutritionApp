@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class add_vitamins extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
+            setTheme(R.style.AppTheme);
             super.onCreate(savedInstanceState);
             setContentView(R.layout.add_vitamins);
 

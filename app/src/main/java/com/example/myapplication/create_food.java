@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class create_food extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.foods);
 

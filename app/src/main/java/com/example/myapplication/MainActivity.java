@@ -15,8 +15,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //splash screen: - show only when needed
+        setTheme(R.style.AppTheme);
+
+        //required settings:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //replace actionbar with custom toolbar:
         Toolbar tb = findViewById(R.id.toolbar);

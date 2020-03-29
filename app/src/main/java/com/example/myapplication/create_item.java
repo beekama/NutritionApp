@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class create_item extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_item);
 

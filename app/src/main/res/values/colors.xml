@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorBlack">#000000</color>
+    <color name="white">#ffffff</color>
     <color name="eierschalenfarbe">#efebdc</color>
     <color name="green_strong">#a4de02</color>
     <color name="green_dark">#1e5631</color>
