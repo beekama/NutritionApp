@@ -13,6 +13,16 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="Button_Title" >
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Button_Bottom" >
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <!--splash-->
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
