@@ -20,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
         //required settings:
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.home_screen);
+
+        //get database connection
+        final Database db = new Database(this);
 
 
         //replace actionbar with custom toolbar:
@@ -34,14 +37,26 @@ public class MainActivity extends AppCompatActivity {
         grain.setImageResource(R.drawable.ic_grain);
         graint.setImageResource(R.drawable.ic_grain);
 
+
+        //BUTTON 1:
         //go to food_journal:
-        Button goToFoodJournal = (Button)findViewById(R.id.food_journal);
-        goToFoodJournal.setOnClickListener(new View.OnClickListener(){
+        View v_fj = (View) findViewById(R.id.food_journal);
+        v_fj.setBackgroundResource(R.color.p1);
+        //set buttontext:
+        TextView food_journal_title = (TextView) v_fj.findViewById(R.id.button_title);
+        TextView food_journal_left =(TextView) v_fj.findViewById(R.id.button_left);
+        TextView food_journal_right = (TextView)v_fj.findViewById(R.id.button_right);
+        food_journal_title.setText("FOOD JOURNAL");
+        food_journal_left.setText("weight");
+        food_journal_right.setText("height");
+        //go to food_journal:
+        v_fj.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent myIntent = new Intent(v.getContext(),food_journal.class);
                 startActivity(myIntent);
             }
         });
+
 
         //go to create_food:
         Button goCreateFood = (Button)findViewById(R.id.create_foods);
