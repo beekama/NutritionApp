@@ -57,6 +57,7 @@ public class food_journal extends AppCompatActivity {
 
         LocalDate startDate = now.atStartOfDay().toLocalDate();
         HashMap<Integer, ArrayList<Food>> foodGroups =  db.getLoggedFoodsByDate(now, oldestDateShown);
+        InputListe.add(new HeaderItem("Today"));
         for(Integer key : foodGroups.keySet()){
             String foodNamesInGroup = "";
             for(Food food : foodGroups.get(key)){
