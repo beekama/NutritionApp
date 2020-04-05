@@ -46,14 +46,14 @@ public class food_journal extends AppCompatActivity {
         final Database db = new Database(this);
 
         /* add some debug items to db */
-        Food[] debugFoods = { Food.getEmptyFood(LocalDate.now()) };
-        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        Food[] debugFoods2 = { Food.getEmptyFood(LocalDate.now()), Food.getEmptyFood(LocalDate.now()) };
-        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        Food[] debugFoods3 = { Food.getEmptyFood(LocalDate.now().minusDays(1)) };
-        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        Food[] debugFoods4 = { Food.getEmptyFood(LocalDate.now().minusDays(2)) };
-        db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        // Food[] debugFoods = { Food.getEmptyFood(LocalDate.now()) };
+        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        // Food[] debugFoods2 = { Food.getEmptyFood(LocalDate.now()), Food.getEmptyFood(LocalDate.now()) };
+        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        // Food[] debugFoods3 = { Food.getEmptyFood(LocalDate.now().minusDays(1)) };
+        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        // Food[] debugFoods4 = { Food.getEmptyFood(LocalDate.now().minusDays(2)) };
+        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
 
         LocalDate startDate = now.atStartOfDay().toLocalDate();
         HashMap<Integer, ArrayList<Food>> foodGroups =  db.getLoggedFoodsByDate(now, oldestDateShown);
@@ -72,11 +72,6 @@ public class food_journal extends AppCompatActivity {
             ItemItem nextItem =  new ItemItem(foodNamesInGroup);
             InputListe.add(nextItem);
         }
-
-        //header:
-        //InputListe.add(new HeaderItem("day one"));
-        //items:
-        //InputListe.add(new ItemItem("bla"));
 
         //set adapter:
         final myAdapter adapter = new myAdapter(this, InputListe);
