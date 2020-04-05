@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -79,13 +80,13 @@ public class food_journal extends AppCompatActivity {
         zeddel.setTextFilterEnabled(true);
 
         //get back to home with home-button:
-        ImageButton backHome = (ImageButton) findViewById(R.id.backHomeFromJournal);
-        backHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        //Button backHome = (Button) findViewById(R.id.backHomeFromJournal);
+        //backHome.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        finish();
+        //    }
+        //});
 
 
     }
