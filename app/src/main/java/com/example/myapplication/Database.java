@@ -62,7 +62,7 @@ public class Database {
             values.put("food_id", f.id);
             values.put("date", d.toString());
             values.put("group_id", groupID);
-            values.put("loggedAt", d.format(DateTimeFormatter.BASIC_ISO_DATE));
+            values.put("loggedAt", d.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00")));
             db.insert("foodlog", null, values);
         }
     }
@@ -72,20 +72,24 @@ public class Database {
 
         HashMap ret = new HashMap<Integer, ArrayList<Food>>();
 
-        String startISO = start.format(DateTimeFormatter.BASIC_ISO_DATE);
-        String endISO = end.format(DateTimeFormatter.BASIC_ISO_DATE);
+        String startISO = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
+        String endISO = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
 
-        Cursor c = db.rawQuery("SELECT * FROM foodlog where date >= \"" + startISO + "\" and date <=  \"" + endISO + "\"", null);
+        String sqlRaw = "SELECT * FROM foodlog where date(loggedAT) between date(\"" + endISO + "\") and date(\"" + startISO + "\")";
+        Cursor c = db.rawQuery(sqlRaw, null);
         if (c.moveToFirst()) {
             do {
-
                 groupID = c.getInt(2);
                 String foodId = c.getString(0);
-                String loggedAtISO = c.getString(0);
+                String loggedAtISO = c.getString(3);
 
                 if (ret.containsKey(groupID)) {
                     ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
                     group.add(getFoodById(foodId, loggedAtISO));
+                }else{
+                    ArrayList<Food> group = new ArrayList<Food>();
+                    group.add(getFoodById(foodId, loggedAtISO));
+                    ret.put(groupID, group);
                 }
 
             } while (c.moveToNext());
@@ -99,7 +103,7 @@ public class Database {
 
         LocalDate loggedAt = null;
         if(loggedAtIso != null){
-            loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.BASIC_ISO_DATE);
+            loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
         }
 
         if (c.moveToFirst()) {
