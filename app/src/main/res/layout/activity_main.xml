@@ -19,72 +19,52 @@
         layout="@layout/toolbar"
         />
 
-    <Button
-        android:id="@+id/food_journal"
-        android:layout_height="0dp"
-        android:layout_width="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-
-        android:text="Journal"
-        android:background="@color/p1"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/middle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-
-        android:layout_marginEnd="20dp"
+    <include
+        android:id="@id/food_journal"
+        layout="@layout/tescht"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_height="160dp"
+        android:layout_width="160dp"/>
 
-        app:layout_constraintVertical_bias="0.1" />
-
-    <Button
+    <include
         android:id="@+id/config"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        layout="@layout/tescht"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
 
-        android:text="Config"
-        android:background="@color/p3"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@id/middle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/food_journal"/>
+        app:layout_constraintTop_toTopOf="@+id/food_journal"/>
 
-    <Button
+    <include
         android:id="@+id/create_foods"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        layout="@layout/tescht"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
 
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-
-        android:text="Create Foods"
-        android:background="@color/p2"
-
         app:layout_constraintEnd_toStartOf="@id/middle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/food_journal" />
 
-    <Button
+    <include
         android:id="@+id/recommendations"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        layout="@layout/tescht"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
 
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
 
-        android:text="Recommend"
-        android:background="@color/p4"
-
         app:layout_constraintTop_toBottomOf="@id/config"
         app:layout_constraintStart_toEndOf="@id/middle"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="277dp"
-        tools:layout_editor_absoluteY="363dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

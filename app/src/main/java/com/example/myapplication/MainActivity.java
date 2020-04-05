@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         //required settings:
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+        setContentView(R.layout.activity_main);
 
         //get database connection
         final Database db = new Database(this);
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         tb.setTitle("");
         tb_title.setText("HOME");
         setSupportActionBar(tb);
-        grain.setImageResource(R.drawable.ic_grain);
-        graint.setImageResource(R.drawable.ic_grain);
+/*        grain.setImageResource(R.drawable.ic_grain);
+        graint.setImageResource(R.drawable.ic_grain);*/
 
 
         //BUTTON 1:
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //BUTTON 3:
-        //go to create_food:
+        //BUTTON 4:
+        //go to recommendation:
         View v_recommend = (View) findViewById(R.id.recommendations);
         v_recommend.setBackgroundResource(R.color.p4);
         //set buttontext:
@@ -107,12 +107,7 @@ public class MainActivity extends AppCompatActivity {
 /*        config_left.setText("num of created items");
         config_right.setText("");*/
         //go to food_journal:
-        v_recommend.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent myIntent = new Intent(v.getContext(),create_food.class);
-                startActivity(myIntent);
-            }
-        });
+
 
 
 
