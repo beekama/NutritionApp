@@ -75,13 +75,13 @@ public class Database {
         String startISO = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
         String endISO = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
 
-        String sqlRaw = "SELECT * FROM foodlog where date(loggedAT) between date(\"" + endISO + "\") and date(\"" + startISO + "\")";
+        String sqlRaw = "SELECT food_id, group_id, loggedAt FROM foodlog where date(loggedAt) between date(\"" + endISO + "\") and date(\"" + startISO + "\")";
         Cursor c = db.rawQuery(sqlRaw, null);
         if (c.moveToFirst()) {
             do {
-                groupID = c.getInt(2);
                 String foodId = c.getString(0);
-                String loggedAtISO = c.getString(3);
+                int groupID = c.getInt(1);
+                String loggedAtISO = c.getString(2);
 
                 if (ret.containsKey(groupID)) {
                     ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
@@ -98,8 +98,31 @@ public class Database {
         return ret;
     }
 
+    public HashMap<String,Integer> getNutrientsForFood(String foodId){
+        HashMap<String,Integer> ret = new HashMap<String,Integer>();
+        Cursor nutrients = db.rawQuery("SELECT * FROM food_nutrient00 where fdc_id = \"" + foodId + "\"", null);
+        if (nutrients.moveToFirst()) {
+            do {
+                String nutrientID = nutrients.getString(2);
+                int rawAmount = nutrients.getInt(3);
+                /* convert raw amount into native value */
+                Cursor nutrientConversion = db.rawQuery("SELECT * FROM nutrient where id = \"" + nutrientID + "\"", null);
+                if(nutrientConversion.moveToFirst()){
+                    String unitName = nutrientConversion.getString(2);
+                    int normalizedAmount = Conversions.normalize(unitName, rawAmount);
+                    ret.put(nutrientID, normalizedAmount);
+                }else{
+                    throw new RuntimeException("nutrient not found");
+                }
+            } while (nutrients.moveToNext());
+        }else{
+            throw new RuntimeException("no nutrients found for food_id");
+        }
+        return ret;
+    }
+
     public Food getFoodById(String foodId, String loggedAtIso) {
-        Cursor c = db.rawQuery("SELECT * FROM food where fdc_id = \"" + foodId + "\"", null);
+        Cursor c = db.rawQuery("SELECT description FROM food where fdc_id = \"" + foodId + "\"", null);
 
         LocalDate loggedAt = null;
         if(loggedAtIso != null){
@@ -107,7 +130,8 @@ public class Database {
         }
 
         if (c.moveToFirst()) {
-            return new Food(c.getString(2), 100, 100, new Minerals(), new Vitamins(), loggedAt);
+            String foodName = c.getString(0);
+            return new Food(foodName, foodId, this, loggedAt);
         }
         throw new RuntimeException("The food didn't exists, that's unfortunate.");
     }
