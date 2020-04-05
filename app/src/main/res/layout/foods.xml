@@ -6,52 +6,10 @@
     android:layout_height="match_parent"
     >
 
-    <TextView
-        android:id="@+id/foods_myItemText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Items"
-        android:textSize="20dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.025"
-        />
-
-
-    <ImageButton
-        android:id="@+id/addItemButton"
-        android:layout_width="63dp"
-        android:layout_height="43dp"
-        android:src="@drawable/add_circle_filled"
-
-        android:background="#00000000"
-
-        app:layout_constraintBottom_toBottomOf="@+id/foods_myItemText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/foods_myItemText"
-
-        app:layout_constraintHorizontal_bias="0.75"
- />
-
-    <ImageButton
-        android:id="@+id/foods_back_button"
-        android:layout_width="76dp"
-        android:layout_height="45dp"
-        android:background="#00000000"
-
-        app:layout_constraintBottom_toBottomOf="@id/foods_myItemText"
-
-        app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-
-        />
-
+    <!--    TOOLBAR-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

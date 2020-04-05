@@ -16,14 +16,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
 public class me_config extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_config);
+
+        //replace actionbar with custom toolbar:
+        Toolbar tb = findViewById(R.id.toolbar);
+        TextView tb_title = findViewById(R.id.toolbar_title);
+        ImageButton tb_back = findViewById(R.id.toolbar_back);
+        //back home button:
+        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
+        backHome.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        }));
+        tb.setTitle("");
+        tb_title.setText("PROFILE");
+        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        setSupportActionBar(tb);
+
 
         //get database connection
         final Database db = new Database(this);
@@ -208,7 +228,8 @@ public class me_config extends AppCompatActivity {
 
 
         //-- BMI --
-        Double bmi = db.getPersonWeight() / (Math.sqrt(db.getPersonHeight()));
+        //todo update
+        Double bmi = (db.getPersonWeight() * 1.0) / (((db.getPersonHeight() * 1.0) / 100) * ((db.getPersonHeight() * 1.0) / 100));
         final TextView tv_BMI = (TextView) findViewById(R.id.tvOut_meConfig_bmi);
         bmi = Math.round(bmi * 100.0) / 100.0;
         tv_BMI.setText(bmi.toString());
@@ -257,26 +278,6 @@ public class me_config extends AppCompatActivity {
             }
         });
 
-        //go Back home from me_config:
-        final ImageButton backHome = (ImageButton) findViewById(R.id.meConfig_ib_backToHome);
-        backHome.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        }));
-
-
-
-/*       //update age:
-        final ImageButton imageAge = (ImageButton) findViewById(R.id.iv_meConfig_age);
-        imageAge.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), update_age.class);
-                startActivity(myIntent);
-            }
-        }));*/
     }
 
     private void hideKeyboard(EditText et) {

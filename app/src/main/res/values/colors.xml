@@ -4,4 +4,18 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorBlack">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="eierschalenfarbe">#efebdc</color>
+    <color name="green_strong">#a4de02</color>
+    <color name="green_dark">#1e5631</color>
+    <color name="green_light">#76ba1b</color>
+    <color name="green_soft">#799d86</color>
+    <color name="green_nice">#cde2b8</color>
+    <color name="p1">#00a0dc</color>
+    <color name="p2">#8d6cab</color>
+    <color name="p3">#dd5143</color>
+    <color name="p4">#e68523</color>
+
+
+
 </resources>

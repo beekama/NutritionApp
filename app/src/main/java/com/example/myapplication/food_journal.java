@@ -1,92 +1,102 @@
 package com.example.myapplication;
 
 
-import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.threeten.bp.Duration;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.format.DateTimeFormatter;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.jakewharton.threetenabp.AndroidThreeTen;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 
 public class food_journal extends AppCompatActivity {
 
     private ListView zeddel;
 
-    private LocalDate now = LocalDate.now();
-    private LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
-
-    final private Duration ONE_DAY = Duration.ofDays(1);
-    final private Duration ONE_WEEK = Duration.ofDays(7);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.food_journal);
+
+        //replace actionbar with custom toolbar:
+        Toolbar tb = findViewById(R.id.toolbar);
+        TextView tb_title = findViewById(R.id.toolbar_title);
+        ImageButton tb_back = findViewById(R.id.toolbar_back);
+        //back home button:
+        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
+        backHome.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        }));
+        tb.setTitle("");
+        tb_title.setText("JOURNAL");
+        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        setSupportActionBar(tb);
+
+
         zeddel = (ListView) findViewById(R.id.listview);
         ArrayList<Item> InputListe = new ArrayList<Item>();
-        Application lol = getApplication();
-        AndroidThreeTen.init(lol);
-        final Database db = new Database(this);
-
-        /* add some debug items to db */
-        // Food[] debugFoods = { Food.getEmptyFood(LocalDate.now()) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        // Food[] debugFoods2 = { Food.getEmptyFood(LocalDate.now()), Food.getEmptyFood(LocalDate.now()) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        // Food[] debugFoods3 = { Food.getEmptyFood(LocalDate.now().minusDays(1)) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        // Food[] debugFoods4 = { Food.getEmptyFood(LocalDate.now().minusDays(2)) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-
-        LocalDate startDate = now.atStartOfDay().toLocalDate();
-        HashMap<Integer, ArrayList<Food>> foodGroups =  db.getLoggedFoodsByDate(now, oldestDateShown);
-        InputListe.add(new HeaderItem("Today"));
-        for(Integer key : foodGroups.keySet()){
-            String foodNamesInGroup = "";
-            for(Food food : foodGroups.get(key)){
-                if(startDate.isAfter(food.loggedAt)){
-                    InputListe.add(new HeaderItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_LOCAL_TIME)));
-                    startDate = food.loggedAt.atStartOfDay().toLocalDate();
-                }else{
-                    foodNamesInGroup += food.name + ",";
-                }
-            }
-
-            ItemItem nextItem =  new ItemItem(foodNamesInGroup);
-            InputListe.add(nextItem);
-        }
+        //header:
+        InputListe.add(new HeaderItem("day one"));
+        //items:
+        InputListe.add(new ItemItem("bla"));
+        InputListe.add(new ItemItem("blaa"));
+        InputListe.add(new ItemItem("blaaa"));
+        InputListe.add(new ItemItem("blaaaa"));
+        //header:
+        InputListe.add(new HeaderItem("day two"));
+        //items:
+        InputListe.add(new ItemItem("bla"));
+        InputListe.add(new ItemItem("blaa"));
+        InputListe.add(new ItemItem("blaaa"));
+        InputListe.add(new ItemItem("blaaaa"));
+        //header:
+        InputListe.add(new HeaderItem("day three"));
+        //items:
+        InputListe.add(new ItemItem("bla"));
+        InputListe.add(new ItemItem("blaa"));
+        InputListe.add(new ItemItem("blaaa"));
+        InputListe.add(new ItemItem("blaaaa"));
+        //header:
+        InputListe.add(new HeaderItem("day four"));
+        //items:
+        InputListe.add(new ItemItem("bla"));
+        InputListe.add(new ItemItem("blaa"));
+        InputListe.add(new ItemItem("blaaa"));
+        InputListe.add(new ItemItem("blaaaa"));
+        //header:
+        InputListe.add(new HeaderItem("day five"));
+        //items:
+        InputListe.add(new ItemItem("bla"));
+        InputListe.add(new ItemItem("blaa"));
+        InputListe.add(new ItemItem("blaaa"));
+        InputListe.add(new ItemItem("blaaaa"));
 
         //set adapter:
         final myAdapter adapter = new myAdapter(this, InputListe);
         zeddel.setAdapter(adapter);
         zeddel.setTextFilterEnabled(true);
 
-        //get back to home with home-button:
-        ImageButton backHome = (ImageButton) findViewById(R.id.backHomeFromJournal);
-        backHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
+
+        /* connect to sqlite database */
+        Database database = new Database(this);
+        Log.wtf("DEBUG", database.getFoodById("336106").name);
 
     }
 
