@@ -3,8 +3,10 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
@@ -30,14 +32,14 @@ public class Database {
     private volatile static int groupID = 0;
     private static Activity srcActivity;
 
-    public Database(Activity srcActivity) {
-        String path = srcActivity.getFilesDir().getParent() + "/food.db";
-        File file = new File(path);
+
+    private void copyDatabase(InputStream inputStream, String targetPath){
+        File file = new File(targetPath);
         if (!file.exists()) {
             InputStream in = srcActivity.getResources().openRawResource(R.raw.food);
 
             try {
-                OutputStream out = new FileOutputStream(path);
+                OutputStream out = new FileOutputStream(targetPath);
                 int bytes = IOUtils.copy(in, out);
                 out.close();
                 in.close();
@@ -47,7 +49,12 @@ public class Database {
                 Log.wtf("yeah whatever", "fuck");
             }
         }
+    }
 
+    public Database(Activity srcActivity) {
+        InputStream srcFile = srcActivity.getResources().openRawResource(R.raw.food);
+        String path = srcActivity.getFilesDir().getParent() + "/food.db";
+        copyDatabase(srcFile, path);
         db = SQLiteDatabase.openDatabase(path, null, OPEN_READWRITE);
         this.srcActivity = srcActivity;
     }
@@ -125,7 +132,7 @@ public class Database {
         Cursor c = db.rawQuery("SELECT description FROM food where fdc_id = \"" + foodId + "\"", null);
 
         LocalDate loggedAt = null;
-        if(loggedAtIso != null){
+        if(loggedAtIso != null) {
             loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
         }
 
