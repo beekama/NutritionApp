@@ -1,10 +1,12 @@
 package com.example.nutritionapp.foodJournal;
 
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,43 +31,56 @@ import java.util.HashMap;
 
 public class FoodJournalOverview extends AppCompatActivity {
 
-    private ListView zeddel;
-
     private LocalDate now = LocalDate.now();
     private LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
 
     final private Duration ONE_DAY = Duration.ofDays(1);
     final private Duration ONE_WEEK = Duration.ofDays(7);
+    final private ArrayList<Item> inputList = new ArrayList<Item>();
+
+    private myAdapter adapter;
+    private Database db;
+    private ListView foodsFromDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.food_journal);
-        zeddel = (ListView) findViewById(R.id.listview);
-        ArrayList<Item> InputListe = new ArrayList<Item>();
-        Application lol = getApplication();
-        AndroidThreeTen.init(lol);
-        final Database db = new Database(this);
+        db = new Database(this);
 
-        /* add some debug items to db */
-        // Food[] debugFoods = { Food.getEmptyFood(LocalDate.now()) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        // Food[] debugFoods2 = { Food.getEmptyFood(LocalDate.now()), Food.getEmptyFood(LocalDate.now()) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        // Food[] debugFoods3 = { Food.getEmptyFood(LocalDate.now().minusDays(1)) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
-        // Food[] debugFoods4 = { Food.getEmptyFood(LocalDate.now().minusDays(2)) };
-        // db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+        /* retrieve items */
+        updateFoodJournalList(false);
 
+        /* set adapter */
+        adapter = new myAdapter(this, inputList);
+        foodsFromDatabase = (ListView) findViewById(R.id.listview);
+        foodsFromDatabase.setAdapter(adapter);
+        foodsFromDatabase.setTextFilterEnabled(true);
+
+        final Button addStuff = (Button)findViewById(R.id.add_food);
+        addStuff.setOnClickListener(v -> {
+            startActivity(new Intent(v.getContext(), AddFoodToJournal.class));
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        /* retrieve items */
+        updateFoodJournalList(true);
+    }
+
+    private void updateFoodJournalList(boolean runInvalidation) {
         LocalDate startDate = now.atStartOfDay().toLocalDate();
-        HashMap<Integer, ArrayList<Food>> foodGroups =  db.getLoggedFoodsByDate(now, oldestDateShown);
-        InputListe.add(new HeaderItem("Today"));
+        HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(now, oldestDateShown);
+        inputList.clear();
+        inputList.add(new HeaderItem("Today"));
         for(Integer key : foodGroups.keySet()){
             String foodNamesInGroup = "";
             for(Food food : foodGroups.get(key)){
                 if(startDate.isAfter(food.loggedAt)){
-                    InputListe.add(new HeaderItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_DATE)));
+                    inputList.add(new HeaderItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_DATE)));
                     startDate = food.loggedAt.atStartOfDay().toLocalDate();
                 }else{
                     foodNamesInGroup += food.name + ",";
@@ -73,30 +88,12 @@ public class FoodJournalOverview extends AppCompatActivity {
             }
 
             ItemItem nextItem =  new ItemItem(foodNamesInGroup);
-            InputListe.add(nextItem);
+            inputList.add(nextItem);
         }
-
-        //set adapter:
-        final myAdapter adapter = new myAdapter(this, InputListe);
-        zeddel.setAdapter(adapter);
-        zeddel.setTextFilterEnabled(true);
-
-        //get back to home with home-button:
-        //Button backHome = (Button) findViewById(R.id.backHomeFromJournal);
-        //backHome.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //        finish();
-        //    }
-        //});
-
-        final Button addStuff = (Button)findViewById(R.id.add_food);
-        addStuff.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent myIntent = new Intent(v.getContext(), AddFoodToJournal.class);
-                startActivity(myIntent);
-            }
-        });
+        if(runInvalidation) {
+            adapter.notifyDataSetInvalidated();
+            foodsFromDatabase.invalidate();
+        }
     }
 
 
@@ -188,5 +185,4 @@ public class FoodJournalOverview extends AppCompatActivity {
             return convertView;
         }
     }
-
 }

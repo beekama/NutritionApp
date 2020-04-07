@@ -30,10 +30,17 @@ public class Food {
         this.name = foodName;
         this.id = foodId;
         HashMap<String,Integer> nutrients = db.getNutrientsForFood(foodId);
-        this.fiber = nutrients.get(DB_ID_FIBER);
-        this.energy = nutrients.get(DB_ID_ENERGY);
-        this.minerals = new Minerals(nutrients);
-        this.vitamins = new Vitamins(nutrients);
+        if(nutrients != null) {
+            this.fiber = nutrients.get(DB_ID_FIBER);
+            this.energy = nutrients.get(DB_ID_ENERGY);
+            this.minerals = new Minerals(nutrients);
+            this.vitamins = new Vitamins(nutrients);
+        }else{
+            this.fiber = 0;
+            this.energy = 0;
+            this.minerals = new Minerals();
+            this.vitamins = new Vitamins();
+        }
         this.loggedAt = loggedAt;
     }
 

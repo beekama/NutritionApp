@@ -8,10 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.Conversions;
-import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Minerals;
-import com.example.nutritionapp.other.Vitamins;
 
 import org.apache.commons.io.IOUtils;
 import org.threeten.bp.LocalDate;
@@ -25,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
@@ -33,7 +30,6 @@ public class Database {
     final SQLiteDatabase db;
 
     /* used to track foods added together */
-    private volatile static int groupID = 0;
     private static Activity srcActivity;
 
     private HashMap<String,Food> foodCache = new HashMap<String,Food>();
@@ -65,10 +61,15 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized void logExistingFoods(Food[] foods, LocalDate d) {
+    public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDate d) {
         /* This functions add a list of foods to the journal at a given date */
 
-        groupID++;
+        if(d == null){
+            d = LocalDate.now();
+        }
+
+        Random random = new Random();
+        int groupID =  random.nextInt(1000000);
         for (Food f : foods) {
             ContentValues values = new ContentValues();
             values.put("food_id", f.id);
@@ -128,7 +129,8 @@ public class Database {
                 }
             } while (nutrients.moveToNext());
         }else{
-            throw new RuntimeException("no nutrients found for food_id");
+            Log.w("NA", "No Nutrition found for this foodId" + foodId);
+            return null;
         }
         return ret;
     }
@@ -170,7 +172,9 @@ public class Database {
                 String foodId = c.getString(0);
                 String fullName = c.getString(2);
                 Log.wtf("DEBGUG", fullName);
-                foods.add(new Food(fullName, 0, 0, null, null, null));
+                Food f = new Food(fullName, 0, 0, null, null, null);
+                f.id = foodId;
+                foods.add(f);
             } while (c.moveToNext());
         }
 
