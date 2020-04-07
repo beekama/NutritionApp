@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nutritionapp.ButtonUtils.HideKeyboardOnFocusLoss;
 import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
 import com.example.nutritionapp.other.Database;
@@ -57,6 +58,7 @@ public class AddFoodToJournal extends AppCompatActivity {
 
         searchFieldEditText.addTextChangedListener(filterNameTextWatcher);
         searchFieldEditText.setOnKeyListener(new UnfocusOnEnter());
+        searchFieldEditText.setOnFocusChangeListener(new HideKeyboardOnFocusLoss());
 
 
         Button back = findViewById(R.id.backToJournal);
