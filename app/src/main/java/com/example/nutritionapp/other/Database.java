@@ -57,11 +57,11 @@ public class Database {
     }
 
     public Database(Activity srcActivity) {
+        this.srcActivity = srcActivity;
         InputStream srcFile = srcActivity.getResources().openRawResource(R.raw.food);
         String path = srcActivity.getFilesDir().getParent() + "/food.db";
         copyDatabaseIfMissing(srcFile, path);
         db = SQLiteDatabase.openDatabase(path, null, OPEN_READWRITE);
-        this.srcActivity = srcActivity;
     }
 
     /* ################ FOOD LOGGING ############## */
