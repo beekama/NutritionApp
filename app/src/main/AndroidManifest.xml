@@ -17,6 +17,7 @@
         <activity android:name=".create_item"></activity>
         <activity android:name=".create_food"></activity>
         <activity android:name=".food_journal"></activity>
+        <activity android:name=".AddFoodToJournal"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

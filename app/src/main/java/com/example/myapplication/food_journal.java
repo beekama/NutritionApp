@@ -3,6 +3,7 @@ package com.example.myapplication;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.util.Log;
@@ -63,7 +64,7 @@ public class food_journal extends AppCompatActivity {
             String foodNamesInGroup = "";
             for(Food food : foodGroups.get(key)){
                 if(startDate.isAfter(food.loggedAt)){
-                    InputListe.add(new HeaderItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_LOCAL_TIME)));
+                    InputListe.add(new HeaderItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_DATE)));
                     startDate = food.loggedAt.atStartOfDay().toLocalDate();
                 }else{
                     foodNamesInGroup += food.name + ",";
@@ -88,7 +89,13 @@ public class food_journal extends AppCompatActivity {
         //    }
         //});
 
-
+        final Button addStuff = (Button)findViewById(R.id.add_food);
+        addStuff.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent myIntent = new Intent(v.getContext(), AddFoodToJournal.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
 

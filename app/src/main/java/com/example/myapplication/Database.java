@@ -143,16 +143,21 @@ public class Database {
         throw new RuntimeException("The food didn't exists, that's unfortunate.");
     }
 
-    public ArrayList<Food> getFoodByPartialName(String substring) {
+    public ArrayList<Food> getFoodsByPartialName(String substring) {
         /* This function searches for a given substring */
 
-        Cursor c = db.rawQuery("SELECT * FROM food where description = \"%" + substring + "%\"", null);
+        Cursor c = db.rawQuery("SELECT * FROM food where description LIKE \"%" + substring + "%\" LIMIT 20", null);
         ArrayList<Food> foods = new ArrayList<Food>();
+
+        if(substring.isEmpty()){
+            return foods;
+        }
 
         if (c.moveToFirst()) {
             do {
                 String foodId = c.getString(0);
                 String fullName = c.getString(2);
+                Log.wtf("DEBGUG", fullName);
                 foods.add(new Food(fullName, 0, 0, null, null, null));
             } while (c.moveToNext());
         }
@@ -282,4 +287,9 @@ public class Database {
         String gender = pref.getString("gender", "none");
         return gender;
     }
+
+    public void close() {
+        db.close();
+    }
+
 }

@@ -4,26 +4,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:clickable="true"
+    android:focusable="true" >
+
+    <EditText
+        android:id="@+id/searchField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backToJournal" />
 
     <ListView
         android:id="@+id/listview"
-        android:layout_width="400dp"
-        android:layout_height="444dp"
-
-        android:layout_marginTop="96dp"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_marginBottom="100dp"
-        android:divider="@android:color/background_light"
-        android:dividerHeight="1dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/searchField" />
 
     <Button
-        android:id="@+id/backHomeFromJournal"
+        android:id="@+id/backToJournal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
@@ -36,15 +43,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/listview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backHomeFromJournal"
-        app:layout_constraintVertical_bias="0.372" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
