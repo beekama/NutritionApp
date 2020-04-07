@@ -1,4 +1,4 @@
-package com.example.nutritionapp.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.AddFoodsLists;
 
 import android.content.Context;
 import android.view.LayoutInflater;

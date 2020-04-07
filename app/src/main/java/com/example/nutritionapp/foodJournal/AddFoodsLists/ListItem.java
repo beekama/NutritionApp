@@ -1,4 +1,4 @@
-package com.example.nutritionapp.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.AddFoodsLists;
 
 public class ListItem implements GenericListItem{
         public final String title;

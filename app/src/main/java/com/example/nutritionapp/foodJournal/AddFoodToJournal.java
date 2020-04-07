@@ -10,7 +10,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
-import com.example.nutritionapp.AddFoodsLists.*;
+import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;

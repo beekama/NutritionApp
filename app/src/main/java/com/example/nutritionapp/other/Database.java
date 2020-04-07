@@ -36,6 +36,7 @@ public class Database {
     private volatile static int groupID = 0;
     private static Activity srcActivity;
 
+    private HashMap<String,Food> foodCache = new HashMap<String,Food>();
 
     private void copyDatabase(InputStream inputStream, String targetPath){
         File file = new File(targetPath);
@@ -135,14 +136,21 @@ public class Database {
     public Food getFoodById(String foodId, String loggedAtIso) {
         Cursor c = db.rawQuery("SELECT description FROM food where fdc_id = \"" + foodId + "\"", null);
 
-        LocalDate loggedAt = null;
-        if(loggedAtIso != null) {
-            loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
-        }
+        if(foodCache.containsKey(foodId)){
+            return foodCache.get(foodId);
+        }else {
 
-        if (c.moveToFirst()) {
-            String foodName = c.getString(0);
-            return new Food(foodName, foodId, this, loggedAt);
+            LocalDate loggedAt = null;
+            if (loggedAtIso != null) {
+                loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
+            }
+
+            if (c.moveToFirst()) {
+                String foodName = c.getString(0);
+                Food f = new Food(foodName, foodId, this, loggedAt);
+                foodCache.put(foodId, f);
+                return f;
+            }
         }
         throw new RuntimeException("The food didn't exists, that's unfortunate.");
     }
