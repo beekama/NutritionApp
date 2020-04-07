@@ -1,8 +1,6 @@
-package com.example.myapplication;
+package com.example.nutritionapp.deprecated;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -10,9 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
+import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Database;
 
-public class update_age extends AppCompatActivity {
+public class updateAge extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);

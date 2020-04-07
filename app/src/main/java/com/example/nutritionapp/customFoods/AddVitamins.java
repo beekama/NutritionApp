@@ -1,13 +1,14 @@
-package com.example.myapplication;
+package com.example.nutritionapp.customFoods;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class add_vitamins extends AppCompatActivity {
+import com.example.nutritionapp.R;
+
+public class AddVitamins extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             setTheme(R.style.AppTheme);
             super.onCreate(savedInstanceState);

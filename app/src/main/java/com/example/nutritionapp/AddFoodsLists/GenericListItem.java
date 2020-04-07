@@ -1,4 +1,4 @@
-package com.example.myapplication.lists;
+package com.example.nutritionapp.AddFoodsLists;
 
 public interface GenericListItem {
     public boolean isSection();

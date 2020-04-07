@@ -1,12 +1,8 @@
-package com.example.myapplication;
+package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,9 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import org.w3c.dom.Text;
+import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.R;
 
-public class me_config extends AppCompatActivity {
+public class PersonalInformation extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);

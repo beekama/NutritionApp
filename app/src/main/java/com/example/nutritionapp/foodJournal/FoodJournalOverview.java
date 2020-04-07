@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.nutritionapp.foodJournal;
 
 
 import android.app.Application;
@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,12 +19,15 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Food;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class food_journal extends AppCompatActivity {
+public class FoodJournalOverview extends AppCompatActivity {
 
     private ListView zeddel;
 

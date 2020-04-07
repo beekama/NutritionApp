@@ -1,8 +1,9 @@
-package com.example.myapplication;
+package com.example.nutritionapp;
+
+import com.example.nutritionapp.other.Conversions;
+import com.example.nutritionapp.other.Utils;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

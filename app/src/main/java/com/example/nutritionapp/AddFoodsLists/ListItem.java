@@ -1,6 +1,4 @@
-package com.example.myapplication.lists;
-
-import com.example.myapplication.food_journal;
+package com.example.nutritionapp.AddFoodsLists;
 
 public class ListItem implements GenericListItem{
         public final String title;

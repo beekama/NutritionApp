@@ -1,13 +1,17 @@
-package com.example.myapplication;
+package com.example.nutritionapp.other;
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.util.Log;
+
+import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Conversions;
+import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Minerals;
+import com.example.nutritionapp.other.Vitamins;
 
 import org.apache.commons.io.IOUtils;
 import org.threeten.bp.LocalDate;

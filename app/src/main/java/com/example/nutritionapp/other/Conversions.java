@@ -1,6 +1,6 @@
-package com.example.myapplication;
+package com.example.nutritionapp.other;
 
-class Conversions {
+public class Conversions {
 
     public static final int G_TO_UG = 1_000_000;
     public static final int MG_TO_UG = 1_000;

@@ -1,18 +1,17 @@
-package com.example.myapplication;
+package com.example.nutritionapp.customFoods;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class create_food extends AppCompatActivity {
+import com.example.nutritionapp.R;
+
+public class CreateFoodOverview extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
@@ -35,7 +34,7 @@ public class create_food extends AppCompatActivity {
         final ImageButton fw = (ImageButton) findViewById(R.id.toolbar_forward);
         fw.setOnClickListener((new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), create_item.class);
+                Intent myIntent = new Intent(v.getContext(), CreateNewFoodItem.class);
                 startActivity(myIntent);
             }
         }));

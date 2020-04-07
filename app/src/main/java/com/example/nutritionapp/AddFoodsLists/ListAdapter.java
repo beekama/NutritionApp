@@ -1,4 +1,4 @@
-package com.example.myapplication.lists;
+package com.example.nutritionapp.AddFoodsLists;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.myapplication.R;
-import com.example.myapplication.food_journal;
+import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
 

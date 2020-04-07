@@ -1,8 +1,7 @@
-package com.example.myapplication;
+package com.example.nutritionapp.customFoods;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -10,7 +9,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class create_item extends AppCompatActivity {
+import com.example.nutritionapp.R;
+
+public class CreateNewFoodItem extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class create_item extends AppCompatActivity {
         addVitamins.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), add_vitamins.class);
+                Intent myIntent = new Intent(v.getContext(), AddVitamins.class);
                 startActivity(myIntent);
             }
         }));
@@ -50,7 +51,7 @@ public class create_item extends AppCompatActivity {
         addMinerals.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), add_minerals.class);
+                Intent myIntent = new Intent(v.getContext(), AddMinerals.class);
                 startActivity(myIntent);
             }
         }));

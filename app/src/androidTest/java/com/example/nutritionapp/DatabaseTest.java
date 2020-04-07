@@ -1,17 +1,14 @@
-package com.example.myapplication;
+package com.example.nutritionapp;
 
 import android.app.Application;
-import android.app.Instrumentation;
-import android.content.Context;
-import android.provider.ContactsContract;
 
 import androidx.test.core.app.ActivityScenario;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Food;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.threeten.bp.LocalDate;

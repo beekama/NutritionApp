@@ -1,6 +1,5 @@
-package com.example.myapplication.ButtonUtils;
+package com.example.nutritionapp.ButtonUtils;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 

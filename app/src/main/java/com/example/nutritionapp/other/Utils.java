@@ -1,6 +1,6 @@
-package com.example.myapplication;
+package com.example.nutritionapp.other;
 
-class Utils {
+public class Utils {
     public static int zeroIfNull(Integer integer) {
         if(integer == null){
             return 0;

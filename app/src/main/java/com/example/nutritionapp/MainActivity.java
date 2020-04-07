@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -6,10 +6,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.nutritionapp.configuration.PersonalInformation;
+import com.example.nutritionapp.customFoods.CreateFoodOverview;
+import com.example.nutritionapp.foodJournal.FoodJournalOverview;
+import com.example.nutritionapp.other.Database;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //go to food_journal:
         v_fj.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent myIntent = new Intent(v.getContext(),food_journal.class);
+                Intent myIntent = new Intent(v.getContext(), FoodJournalOverview.class);
                 startActivity(myIntent);
             }
         });
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         //go to food_journal:
         v_conf.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent myIntent = new Intent(v.getContext(),me_config.class);
+                Intent myIntent = new Intent(v.getContext(), PersonalInformation.class);
                 startActivity(myIntent);
             }
         });
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //go to food_journal:
         v_cfood.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent myIntent = new Intent(v.getContext(),create_food.class);
+                Intent myIntent = new Intent(v.getContext(), CreateFoodOverview.class);
                 startActivity(myIntent);
             }
         });
