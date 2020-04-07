@@ -151,8 +151,8 @@ public class Database {
                 foodCache.put(foodId, f);
                 return f;
             }
+            throw new RuntimeException("The food didn't exists, that's unfortunate.");
         }
-        throw new RuntimeException("The food didn't exists, that's unfortunate.");
     }
 
     public ArrayList<Food> getFoodsByPartialName(String substring) {
