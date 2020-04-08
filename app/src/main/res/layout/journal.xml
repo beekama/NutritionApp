@@ -5,38 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    &lt;!&ndash;    TOP - HEADER&ndash;&gt;
-        <TextView
-            android:id="@+id/foodJournal_tvFoodJournal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Journal"
-            android:textSize="20dp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.025" />
-
-        <ImageButton
-            android:id="@+id/backHomeFromJournal"
-            android:layout_width="76dp"
-            android:layout_height="45dp"
-            android:background="#00000000"
-
-            app:layout_constraintBottom_toBottomOf="@id/foodJournal_tvFoodJournal"
-
-            app:layout_constraintEnd_toStartOf="@+id/foods_myItemText"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-
-            />-->
-
-    <!--    TOOLBAR-->
+    <!-- TOOLBAR-->
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_toolbar"/>
