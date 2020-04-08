@@ -15,7 +15,7 @@ public class updateAge extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_age);
+        setContentView(R.layout.deprecated_update_age);
 
         /* get database connection */
         final Database db = new Database(this);

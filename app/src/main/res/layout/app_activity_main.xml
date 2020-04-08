@@ -16,22 +16,22 @@
     <!--    TOOLBAR-->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"
+        layout="@layout/app_toolbar"
         />
 
-<include
-    android:id="@id/food_journal"
-    layout="@layout/tescht"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="20dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
-    android:layout_height="160dp"
-    android:layout_width="160dp"/>
+    <include
+        android:id="@id/food_journal"
+        layout="@layout/deprecated_tescht"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_height="160dp"
+        android:layout_width="160dp"/>
 
     <include
         android:id="@+id/config"
-        layout="@layout/tescht"
+        layout="@layout/deprecated_tescht"
         android:layout_width="160dp"
         android:layout_height="160dp"
 
@@ -39,11 +39,11 @@
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@id/middle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/food_journal"/>
+        app:layout_constraintTop_toTopOf="@+id/food_journal"/>
 
     <include
         android:id="@+id/create_foods"
-        layout="@layout/tescht"
+        layout="@layout/deprecated_tescht"
         android:layout_width="160dp"
         android:layout_height="160dp"
 
@@ -56,7 +56,7 @@
 
     <include
         android:id="@+id/recommendations"
-        layout="@layout/tescht"
+        layout="@layout/deprecated_tescht"
         android:layout_width="160dp"
         android:layout_height="160dp"
 

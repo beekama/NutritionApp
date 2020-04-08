@@ -32,7 +32,7 @@ public class Database {
 
     final SQLiteDatabase db;
 
-    /* used to track foods added together */
+    /* used to track create_foods added together */
     private static Activity srcActivity;
 
     private HashMap<String,Food> foodCache = new HashMap<String,Food>();
@@ -65,7 +65,7 @@ public class Database {
 
     /* ################ FOOD LOGGING ############## */
     public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDate d) {
-        /* This functions add a list of foods to the journal at a given date */
+        /* This functions add a list of create_foods to the journal at a given date */
 
         if(d == null){
             d = LocalDate.now();
@@ -84,7 +84,7 @@ public class Database {
     }
 
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
-        /* Return foods logged by dates */
+        /* Return create_foods logged by dates */
 
         HashMap ret = new HashMap<Integer, ArrayList<Food>>();
 
@@ -205,7 +205,7 @@ public class Database {
     }
 
     public ArrayList<Food> getSuggestionsForCombination(ArrayList<Food> selectedSoFar) {
-        /* This function returns suggestions for foods to log based on previously selected combinations */
+        /* This function returns suggestions for create_foods to log based on previously selected combinations */
 
         HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
         ArrayList<SuggestionHelper> suggestionCounter= new ArrayList<SuggestionHelper>();
@@ -213,7 +213,7 @@ public class Database {
 
         /* try all group keys */
         for(Integer key : prevSelected.keySet()){
-            /* check if any of the foods in the group is already selected */
+            /* check if any of the create_foods in the group is already selected */
             for(Food f : prevSelected.get(key)){
                 if(selectedSoFar.contains(f)) {
                     /* if any is selected, add all but the already selected food */

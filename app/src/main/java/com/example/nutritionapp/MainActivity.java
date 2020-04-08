@@ -23,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
         //required settings:
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.app_activity_main);
 
         //get database connection
         final Database db = new Database(this);
 
 
-        //replace actionbar with custom toolbar:
+        //replace actionbar with custom app_toolbar:
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title =findViewById(R.id.toolbar_title);
         ImageView grain = (ImageView)findViewById(R.id.toolbar_back);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //BUTTON 1:
-        //go to food_journal:
+        //go to journal:
         View v_fj = (View) findViewById(R.id.food_journal);
         v_fj.setBackgroundResource(R.color.p1);
         //set buttontext:
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         food_journal_title.setText("FOOD JOURNAL");
         food_journal_left.setText("calories");
         food_journal_right.setText("everything satisfied?");
-        //go to food_journal:
+        //go to journal:
         v_fj.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent myIntent = new Intent(v.getContext(), FoodJournalOverview.class);
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //BUTTON 2:
-        //go to me_config:
+        //go to configuration:
         View v_conf = (View) findViewById(R.id.config);
         v_conf.setBackgroundResource(R.color.p3);
         //set buttontext:
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         config_title.setText("CONFIG  ");
         config_left.setText("weight");
         config_right.setText("height");
-        //go to food_journal:
+        //go to journal:
         v_conf.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent myIntent = new Intent(v.getContext(), PersonalInformation.class);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         createFood_title.setText("CREATE FOODS");
         createFood_left.setText("num of created items");
         createFood_right.setText("");
-        //go to food_journal:
+        //go to journal:
         v_cfood.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent myIntent = new Intent(v.getContext(), CreateFoodOverview.class);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         recommendation_title.setText("RECOMMEND");
 /*        config_left.setText("num of created items");
         config_right.setText("");*/
-        //go to food_journal:
+        //go to journal:
 
 
 

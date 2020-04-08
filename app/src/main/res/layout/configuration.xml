@@ -8,7 +8,7 @@
     <!--        TOOLBAR-->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/app_toolbar" />
 
     <!--        DESCRIPTION OF BASIC SETTINGS-->
     <TextView

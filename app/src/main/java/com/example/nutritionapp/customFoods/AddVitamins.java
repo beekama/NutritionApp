@@ -12,7 +12,7 @@ public class AddVitamins extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             setTheme(R.style.AppTheme);
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.add_vitamins);
+            setContentView(R.layout.create_foods_new_item_add_vitamins);
 
             //goBack to create_Item:
             final ImageButton goBack = (ImageButton) findViewById(R.id.addVitamins_back_button);

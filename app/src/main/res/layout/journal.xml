@@ -39,7 +39,7 @@
     <!--    TOOLBAR-->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+        layout="@layout/app_toolbar"/>
 
     <!--LIST VIEW-->
     <ListView

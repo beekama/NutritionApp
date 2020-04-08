@@ -3,7 +3,6 @@ package com.example.nutritionapp.foodJournal;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +29,7 @@ public class AddFoodToJournal extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_food_to_journal);
+        setContentView(R.layout.journal_add_food);
 
         EditText searchFieldEditText = findViewById(R.id.searchField);
         TextView selectedTextView = findViewById(R.id.selected_items);

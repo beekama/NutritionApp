@@ -12,7 +12,7 @@ public class AddMinerals extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_minerals);
+        setContentView(R.layout.create_foods_new_item_add_minerals);
 
         //goBack to create_Item:
         final ImageButton goBack = (ImageButton) findViewById(R.id.addMinerals_back_button);

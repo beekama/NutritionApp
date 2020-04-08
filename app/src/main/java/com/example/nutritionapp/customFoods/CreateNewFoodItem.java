@@ -15,9 +15,9 @@ public class CreateNewFoodItem extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_item);
+        setContentView(R.layout.create_foods_new_item);
 
-        //replace actionbar with custom toolbar:
+        //replace actionbar with custom app_toolbar:
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title = findViewById(R.id.toolbar_title);
         ImageButton tb_back = findViewById(R.id.toolbar_back);
