@@ -166,12 +166,12 @@ class FoodOverviewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (item.get(position).isSection()){
-            convertView = inflater.inflate(R.layout.journal_foods_list, parent, false);
+            convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
             TextView HeaderTextView = (TextView) convertView.findViewById(R.id.HeaderTextView);
             HeaderTextView.setText(( item.get(position).getTitle()));
         }
         else{
-            convertView = inflater.inflate(R.layout.journal_foods_item,parent,false);
+            convertView = inflater.inflate(R.layout.journal_foods_foodgroup,parent,false);
             TextView ItemListView = (TextView) convertView.findViewById(R.id.ListTextView);
             ItemListView.setText(( item.get(position).getTitle()));
         }
