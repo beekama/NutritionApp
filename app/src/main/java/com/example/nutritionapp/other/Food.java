@@ -10,7 +10,7 @@ public class Food {
     private static final String DB_ID_FIBER = "1079";
 
     public String name;
-    public String id;
+    public String id = "";
     public int energy;
     public int fiber;
     public Minerals minerals;
@@ -48,6 +48,11 @@ public class Food {
         Food f = new Food("<Placeholder>", 0, 0, new Minerals(), new Vitamins(), logTime);
         f.id = "781105";
         return f;
+    }
+
+    public boolean equals(Object o){
+        Food f = (Food) o;
+        return this.id.equals(f.id) && !this.id.equals("");
     }
 }
 

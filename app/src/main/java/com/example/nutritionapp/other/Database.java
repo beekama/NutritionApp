@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.nutritionapp.R;
 
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -89,6 +92,12 @@ public class Database {
         String endISO = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
 
         String sqlRaw = "SELECT food_id, group_id, loggedAt FROM foodlog where date(loggedAt) between date(\"" + endISO + "\") and date(\"" + startISO + "\")";
+        if(start.equals(LocalDate.MIN) || end.equals(LocalDate.MAX)){
+            Log.w("ERROR", "SQLITE can't handle theses Dates");
+            sqlRaw = "SELECT food_id, group_id, loggedAt FROM foodlog where date(loggedAt)";
+        }
+
+        Log.wtf("DEBUG", sqlRaw);
         Cursor c = db.rawQuery(sqlRaw, null);
         if (c.moveToFirst()) {
             do {
@@ -181,9 +190,60 @@ public class Database {
         return foods;
     }
 
-    public Food[] getSuggestionsForCombination(Food[] selectedSoFar) {
+    private class SuggestionHelper implements Comparable<SuggestionHelper>{
+        public int counter;
+        public Food food;
+        public SuggestionHelper(Food food){
+            this.counter = 1;
+            this.food = food;
+        }
+
+        @Override
+        public int compareTo(SuggestionHelper s) {
+            return Integer.compare(this.counter, s.counter);
+        }
+    }
+
+    public ArrayList<Food> getSuggestionsForCombination(ArrayList<Food> selectedSoFar) {
         /* This function returns suggestions for foods to log based on previously selected combinations */
-        throw new RuntimeException("Suggestions are not yet implemented");
+
+        HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
+        ArrayList<SuggestionHelper> suggestionCounter= new ArrayList<SuggestionHelper>();
+        ArrayList<Food> suggestions = new ArrayList<Food>();
+
+        /* try all group keys */
+        for(Integer key : prevSelected.keySet()){
+            /* check if any of the foods in the group is already selected */
+            for(Food f : prevSelected.get(key)){
+                if(selectedSoFar.contains(f)) {
+                    /* if any is selected, add all but the already selected food */
+                    for(Food toBeAddedFood: prevSelected.get(key)) {
+                        if(selectedSoFar.contains(toBeAddedFood)){
+                            continue;
+                        }
+                        SuggestionHelper current = new SuggestionHelper(toBeAddedFood);
+                        if (suggestionCounter.contains(current)) {
+                            suggestionCounter.get(suggestionCounter.indexOf(current)).counter += 1;
+                        } else {
+                            suggestionCounter.add(current);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        int limit = 10;
+        if(limit >= suggestionCounter.size()){
+            limit = suggestionCounter.size();
+        }
+
+        final ArrayList<Food> results = new ArrayList<Food>();
+        Collections.sort(suggestionCounter);
+        for(int i = 0; i < limit; i++){
+            results.add(suggestionCounter.get(i).food);
+        }
+        return results;
     }
 
     /* ################ NEW FOODS ################## */
