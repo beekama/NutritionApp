@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
         //replace actionbar with custom app_toolbar:
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title =findViewById(R.id.toolbar_title);
-        ImageView grain = (ImageView)findViewById(R.id.toolbar_back);
-        ImageView graint = (ImageView)findViewById(R.id.toolbar_forward);
+        ImageView tbleft = (ImageView)findViewById(R.id.toolbar_back);
+        ImageView tbright = (ImageView)findViewById(R.id.toolbar_forward);
         tb.setTitle("");
         tb_title.setText("HOME");
         setSupportActionBar(tb);
-/*        grain.setImageResource(R.drawable.ic_grain);
-        graint.setImageResource(R.drawable.ic_grain);*/
+        tbleft.setImageResource(R.drawable.ic_grainleft);
+        tbright.setImageResource(R.drawable.ic_grainright);
 
 
         //BUTTON 1:

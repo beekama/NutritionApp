@@ -28,6 +28,9 @@ public class AddFoodToJournal extends AppCompatActivity {
     final ArrayList<Food> selected = new ArrayList<Food>();
 
     protected void onCreate(Bundle savedInstanceState) {
+        //splash screen: - show only when needed
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal_add_food);
 

@@ -40,6 +40,9 @@ public class FoodJournalOverview extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //splash screen: - show only when needed
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal);
         db = new Database(this);
