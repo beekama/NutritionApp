@@ -2,10 +2,14 @@ package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,18 +17,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 
 public class PersonalInformation extends AppCompatActivity {
+    private Integer weight, height;
+
     @SuppressLint("ResourceAsColor")
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuration);
 
-        //replace actionbar with custom app_toolbar:
+        //replace actionbar with custom toolbar:
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title = findViewById(R.id.toolbar_title);
         ImageButton tb_back = findViewById(R.id.toolbar_back);
@@ -45,191 +52,182 @@ public class PersonalInformation extends AppCompatActivity {
         //get database connection
         final Database db = new Database(this);
 
-        // --- AGE ---
-        // set current values:
+        //BASIC CONFIGURATION
+
+        //--SET CURRENT VALUES--
+        //age:
         final TextView tvAge = (TextView) findViewById(R.id.et_meConfig_age);
         final Integer age = db.getPersonAge();
         if (age != -1) {
             tvAge.setText(age.toString());
         }
-        //submit new age:
-        final EditText et = (EditText) findViewById(R.id.et_meConfig_age);
-        et.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if enter button is pressed
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //hide keyboard and clear focus:
-                    hideKeyboard(et);
-                    //get setting from edittext
-                    //only write to database if input can be parsed properly:
-                    try {
-                        int age = Integer.parseInt(et.getText().toString());
-                        try {
-                            //write to database class
-                            db.setPersonAge(age);
-                        } catch (IllegalArgumentException e) {
-                            //show a notification
-                            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                    } catch (IllegalArgumentException e) {
-                        //show notification and old values in textview
-                        Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                        toast.show();
-                        if (age != -1) {
-                            tvAge.setText(age.toString());
-                        } else {
-                            tvAge.setText("");
-                        }
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        // -- GENDER --
-        //set current values:
+        //gender:
         final TextView tvGender = (TextView) findViewById(R.id.et_meConfig_gender);
         final String gender = db.getPersonGender();
         if (!gender.equals("none")) {
             tvGender.setText(gender);
         }
-
-
-        //submit new gender:
-        final EditText etGender = (EditText) findViewById(R.id.et_meConfig_gender);
-        etGender.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if enter button is pressed
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //hide keyboard and clear focus:
-                    hideKeyboard(etGender);
-                    //get setting from edittext
-                    //only write to database if input can be parsed properly:
-                    try {
-                        String gender = etGender.getText().toString();
-                        try {
-                            //write to database class
-                            db.setPersonGender(gender);
-                        } catch (IllegalArgumentException e) {
-                            //show a notification
-                            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                    } catch (IllegalArgumentException e) {
-                        //show notification and old values in textview
-                        Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                        toast.show();
-                        if (!gender.equals("none")) {
-                            tvGender.setText(gender);
-                        } else {
-                            tvGender.setText("");
-                        }
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        // -- WEIGHT --
-        // set current values:
+        // weight:
         final TextView tvWeight = (TextView) findViewById(R.id.et_meConfig_weight);
-        final Integer weight = db.getPersonWeight();
+        weight = db.getPersonWeight();
         if (weight != -1) {
             tvWeight.setText(weight.toString());
         }
-        //submit new weight:
-        final EditText etWeight = (EditText) findViewById(R.id.et_meConfig_weight);
-        etWeight.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if enter button is pressed
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //hide keyboard and clear focus:
-                    hideKeyboard(etWeight);
-                    //get setting from edittext
-                    //only write to database if input can be parsed properly:
-                    try {
-                        int weight = Integer.parseInt(etWeight.getText().toString());
-                        try {
-                            //write to database class
-                            db.setPersonWeight(weight);
-                        } catch (IllegalArgumentException e) {
-                            //show a notification
-                            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                    } catch (IllegalArgumentException e) {
-                        //show notification and old values in textview
-                        Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                        toast.show();
-                        if (weight != -1) {
-                            tvWeight.setText(weight.toString());
-                        } else {
-                            tvWeight.setText("");
-                        }
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        // -- HEIGHT --
-        // set current values:
+        //height:
         final TextView tvHeight = (TextView) findViewById(R.id.et_meConfig_height);
-        final Integer height = db.getPersonHeight();
+        height = db.getPersonHeight();
         if (height != -1) {
             tvHeight.setText(Integer.toString(height));
         }
-        //submit new height:
-        final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
-        etHeight.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if enter button is pressed
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //hide keyboard and clear focus:
-                    hideKeyboard(etHeight);
-                    //get setting from edittext
-                    //only write to database if input can be parsed properly:
+
+
+
+        //SUBMIT CHANGES IN CONFIGURATION:
+        final Button submit = (Button) findViewById(R.id.meConfig_submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //age:
+                final EditText et = (EditText) findViewById(R.id.et_meConfig_age);
+                defaultEditBackground(et);
+                //get setting from edittext
+                //only write to database if input can be parsed properly:
+                try {
+                    int newAge = Integer.parseInt(et.getText().toString());
                     try {
-                        int height = Integer.parseInt(etHeight.getText().toString());
-                        try {
-                            //write to database class
-                            db.setPersonHeight(height);
-                        } catch (IllegalArgumentException e) {
-                            //show a notification
-                            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                            toast.show();
-                        }
+                        //write to database class
+                        db.setPersonAge(newAge);
                     } catch (IllegalArgumentException e) {
-                        //show notification and old values in textview
-                        Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
+                        //show a notification
+                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                         toast.show();
-                        if (height != -1) {
-                            tvHeight.setText(Integer.toString(height));
-                        } else {
-                            tvHeight.setText("");
-                        }
+                        wrongEditBackground(et);
                     }
-                    return true;
+                } catch (IllegalArgumentException e) {
+                    //show notification and old values in textview
+                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
+                    toast.show();
+                    wrongEditBackground(et);
+                    if (age != -1) {
+                        tvAge.setText(age.toString());
+                    } else {
+                        tvAge.setText("");
+                    }
                 }
-                return false;
+
+
+                //gender:
+                final EditText etGender = (EditText) findViewById(R.id.et_meConfig_gender);
+                defaultEditBackground(etGender);
+                //get setting from edittext
+                //only write to database if input can be parsed properly:
+                try {
+                    String newGender = etGender.getText().toString();
+                    try {
+                        //write to database class
+                        db.setPersonGender(newGender);
+                    } catch (IllegalArgumentException e) {
+                        //show a notification
+                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                        wrongEditBackground(etGender);
+                    }
+                } catch (IllegalArgumentException e) {
+                    //show notification and old values in textview
+                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
+                    toast.show();
+                    wrongEditBackground(etGender);
+                    if (!gender.equals("none")) {
+                        tvGender.setText(gender);
+                    } else {
+                        tvGender.setText("");
+                    }
+
+                }
+
+                //submit new weight:
+                final EditText etWeight = (EditText) findViewById(R.id.et_meConfig_weight);
+                defaultEditBackground(etWeight);
+                //get setting from edittext
+                //only write to database if input can be parsed properly:
+                try {
+                    int newWeight = Integer.parseInt(etWeight.getText().toString());
+                    try {
+                        //write to database class
+                        db.setPersonWeight(newWeight);
+                        weight = newWeight;
+                    } catch (IllegalArgumentException e) {
+                        //show a notification
+                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                        wrongEditBackground(etWeight);
+                    }
+                } catch (IllegalArgumentException e) {
+                    //show notification and old values in textview
+                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
+                    toast.show();
+                    wrongEditBackground(etWeight);
+                    if (weight != -1) {
+                        tvWeight.setText(weight.toString());
+                    } else {
+                        tvWeight.setText("");
+                    }
+                }
+
+                //submit new height:
+                final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
+                defaultEditBackground(etHeight);
+                //get setting from edittext
+                //only write to database if input can be parsed properly:
+                try {
+                    int newHeight = Integer.parseInt(etHeight.getText().toString());
+                    try {
+                        //write to database class
+                        db.setPersonHeight(newHeight);
+                        height = newHeight;
+                    } catch (IllegalArgumentException e) {
+                        //show a notification
+                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                        tvHeight.setText(Integer.toString(height));
+                        wrongEditBackground(etHeight);
+                    }
+                } catch (IllegalArgumentException e) {
+                    //show notification and old values in textview
+                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
+                    toast.show();
+                    wrongEditBackground(etHeight);
+                    if (height != -1) {
+                        tvHeight.setText(Integer.toString(height));
+                    } else {
+                        tvHeight.setText("");
+                    }
+                }
+                //hide keyboard - if one is active/a view is focused:
+                try {
+                    View focusedView = getCurrentFocus();
+                    hideKeyboard(focusedView);
+                } catch (RuntimeException e) {
+                }
+                //remove focus
+                ConstraintLayout l = findViewById(R.id.meConfigLayout);
+                l.clearFocus();
+                updateBMI(height.doubleValue(), weight.doubleValue());
             }
         });
 
 
-        //-- BMI --
-        //todo update
-        Double bmi = (db.getPersonWeight() * 1.0) / (((db.getPersonHeight() * 1.0) / 100) * ((db.getPersonHeight() * 1.0) / 100));
-        final TextView tv_BMI = (TextView) findViewById(R.id.tvOut_meConfig_bmi);
-        bmi = Math.round(bmi * 100.0) / 100.0;
-        tv_BMI.setText(bmi.toString());
+
+
+
+
+
+        //EXTENDED CONFIGURATION:
+
+        //calculate BMI
+        updateBMI(height.doubleValue(), weight.doubleValue());
+
 
         //-- Calories --
         //set current values:
@@ -238,14 +236,13 @@ public class PersonalInformation extends AppCompatActivity {
         if (energy != -1) {
             tv_energy.setText(Integer.toString(energy));
         }
-        //submit new calories:
+
+        //submit new calories WITH DONE-key on SoftkeyBoard:
         final EditText etCalories = (EditText) findViewById(R.id.tvOut_meConfig_calories);
-        etCalories.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if enter button is pressed
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //hide keyboard and clear focus:
+        etCalories.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideKeyboard(etCalories);
                     //get setting from edittext
                     //only write to database if input can be parsed properly:
@@ -258,6 +255,8 @@ public class PersonalInformation extends AppCompatActivity {
                             //show a notification
                             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                             toast.show();
+                            //set old/default value:
+                            tv_energy.setText(Integer.toString(energy));
                         }
                     } catch (IllegalArgumentException e) {
                         //show notification and old values in textview
@@ -275,11 +274,30 @@ public class PersonalInformation extends AppCompatActivity {
             }
         });
 
+
+
     }
 
-    private void hideKeyboard(EditText et) {
+    private void hideKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        et.clearFocus();
+        view.clearFocus();
+    }
+
+    //change view bottom line to red, due to wrong input
+    private void wrongEditBackground(EditText et) {
+        et.getBackground().mutate().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
+    }
+
+    //set default bottom line color
+    private void defaultEditBackground(EditText et) {
+        et.getBackground().mutate().setColorFilter(getResources().getColor(R.color.greyLight), PorterDuff.Mode.SRC_ATOP);
+    }
+
+    public void updateBMI(Double height, Double weight) {
+        Double bmi = weight / ((height * height) / 10000);
+        final TextView tv_BMI = (TextView) findViewById(R.id.tvOut_meConfig_bmi);
+        bmi = Math.round(bmi * 100.0) / 100.0;
+        tv_BMI.setText(bmi.toString());
     }
 }

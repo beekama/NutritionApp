@@ -21,7 +21,7 @@
 
 <include
     android:id="@id/food_journal"
-    layout="@layout/deprecated_tescht"
+    layout="@layout/app_activity_main_buttons"
     android:layout_marginStart="20dp"
     android:layout_marginTop="20dp"
     app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
 
     <include
         android:id="@+id/config"
-        layout="@layout/deprecated_tescht"
+        layout="@layout/app_activity_main_buttons"
         android:layout_width="160dp"
         android:layout_height="160dp"
 
@@ -43,7 +43,7 @@
 
     <include
         android:id="@+id/create_foods"
-        layout="@layout/deprecated_tescht"
+        layout="@layout/app_activity_main_buttons"
         android:layout_width="160dp"
         android:layout_height="160dp"
 
@@ -56,7 +56,7 @@
 
     <include
         android:id="@+id/recommendations"
-        layout="@layout/deprecated_tescht"
+        layout="@layout/app_activity_main_buttons"
         android:layout_width="160dp"
         android:layout_height="160dp"
 

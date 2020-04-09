@@ -3,9 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/meConfigLayout">
 
     <!--        TOOLBAR-->
+
+    <Button
+        android:id="@+id/meConfig_submit"
+        android:layout_width="133dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/green_light"
+        android:text="submit changes"
+        app:layout_constraintBottom_toTopOf="@+id/meConfig_headerDM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_meConfig_height" />
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_toolbar" />
@@ -73,6 +88,7 @@
         android:layout_width="0dp"
         android:layout_height="39dp"
         android:hint="age in years"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_age"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@id/barrier" />
@@ -82,6 +98,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:hint="'male' or 'female'"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_gender"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@id/barrier" />
@@ -91,6 +108,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:hint="weight in kg"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_weight"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@id/barrier" />
@@ -100,6 +118,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:hint="height in cm"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_height"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@id/barrier" />
@@ -210,7 +229,7 @@
         android:id="@+id/meConfig_headerDM"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:background="@android:color/holo_blue_dark"
         android:text="Derived Metrics"
         android:textColor="@android:color/holo_orange_light"
@@ -305,6 +324,8 @@
         android:paddingVertical="8dp"
         android:textColor="@android:color/black"
         android:textSize="18dp"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/barrier"
@@ -321,6 +342,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_BMI"
         app:layout_constraintStart_toEndOf="@id/barrier"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_BMI" />
+
 
 
     <!--LAYOUT TOOLS-->
