@@ -106,10 +106,17 @@ public class MainActivity extends AppCompatActivity {
         TextView recommendation_title = (TextView) v_recommend.findViewById(R.id.button_title);
         TextView recommendation_left =(TextView) v_recommend.findViewById(R.id.button_left);
         TextView recommendation_right = (TextView) v_recommend.findViewById(R.id.button_right);
-        recommendation_title.setText("RECOMMEND");
-/*        config_left.setText("num of created items");
-        config_right.setText("");*/
-        //go to journal:
+        recommendation_title.setText("RECOMMENDATION");
+        config_left.setText("deficiencies");
+       /* config_right.setText("");*/
+        //go to recommendations:
+        v_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent =  new Intent(v.getContext(), recommendations.class);
+                startActivity(myIntent);
+            }
+        });
 
 
 
