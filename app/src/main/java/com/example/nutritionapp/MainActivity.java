@@ -13,6 +13,7 @@ import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.customFoods.CreateFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.recommendation.recommendations;
 
 public class MainActivity extends AppCompatActivity {
 

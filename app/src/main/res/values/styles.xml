@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/green_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/green_soft</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
