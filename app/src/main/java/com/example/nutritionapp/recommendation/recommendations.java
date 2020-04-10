@@ -20,6 +20,7 @@ import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class recommendations extends AppCompatActivity {
@@ -86,7 +87,8 @@ public class recommendations extends AppCompatActivity {
         private void updateRecommendations(boolean runInvalidation){
             LocalDate startDate = now.atStartOfDay().toLocalDate();
             inputList.clear();
-            inputList.add(new WeekBreakHeader("Today"));
+            inputList.add(new WeekBreakHeader("current week"));
+            inputList.add(new DeficiencyItem("iron"));
         }
 
 
@@ -169,9 +171,24 @@ class recommendationAdapter extends BaseAdapter{
             TextView tv_header = (TextView) convertView.findViewById(R.id.HeaderTextView);
             tv_header.setText(( item.get(position).getTitle()));
         } else {
-            convertView = inflater.inflate(R.layout.journal_foods_foodgroup,parent,false);
-            TextView tv_itemList = (TextView)convertView.findViewById(R.id.ListTextView);
-            tv_itemList.setText((item.get(position).getTitle()));
+            convertView = inflater.inflate(R.layout.recommendation_deficiencygroup,parent,false);
+            //title:
+            TextView tv_itemList = (TextView)convertView.findViewById(R.id.ListTextView_deficiencyTitle);
+            tv_itemList.setText((item.get(position).getTitle()).toUpperCase());
+            //percentage:
+            TextView tv_percentage =(TextView) convertView.findViewById(R.id.ListTextView_deficiencyPercentage);
+            tv_percentage.setText("80%");
+            //occurance:
+            TextView occurance = (TextView) convertView.findViewById(R.id.ListTextView_deficiencyOccurance);
+            StringBuilder StrOccurance = new StringBuilder();
+            StrOccurance.append("! ");
+            StrOccurance.append("! ");
+            StrOccurance.append("_ ");
+            StrOccurance.append("_ ");
+            StrOccurance.append("_ ");
+            StrOccurance.append(" ");
+            StrOccurance.append("_ ");
+            occurance.setText(StrOccurance);
         }
         return convertView;
     }

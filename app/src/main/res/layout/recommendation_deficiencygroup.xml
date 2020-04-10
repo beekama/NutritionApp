@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/ListTextView_deficiencyTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/green_middle"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintStart_toEndOf="@id/deficiency_guideline"
+        app:layout_constraintEnd_toEndOf="@id/deficiency_guideline2"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/deficiency_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Days with deficits:       "
+        android:textSize="18dp"
+        android:textColor="@color/colorBlack"
+        android:background="@color/green_nice"
+        app:layout_constraintTop_toBottomOf="@id/ListTextView_deficiencyTitle"
+        app:layout_constraintStart_toEndOf="@id/deficiency_guideline"/>
+    <TextView
+        android:id="@+id/ListTextView_deficiencyOccurance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/green_nice"
+        android:textColor="@color/colorBlack"
+        android:textSize="18dp"
+        app:layout_constraintTop_toBottomOf="@id/ListTextView_deficiencyTitle"
+        app:layout_constraintStart_toEndOf="@id/deficiency_description"/>
+    <TextView
+        android:id="@+id/ListTextView_deficiencyPercentage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/green_nice"
+        android:textColor="@color/colorBlack"
+        android:textAlignment="textEnd"
+        android:textSize="18dp"
+        app:layout_constraintTop_toTopOf="@id/ListTextView_deficiencyOccurance"
+        app:layout_constraintEnd_toEndOf="@id/deficiency_guideline2"
+        app:layout_constraintStart_toEndOf="@id/ListTextView_deficiencyOccurance"/>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/deficiency_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="380dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/deficiency_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="395dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
