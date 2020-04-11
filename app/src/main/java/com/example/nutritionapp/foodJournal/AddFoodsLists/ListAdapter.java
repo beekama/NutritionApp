@@ -40,7 +40,7 @@ public class ListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (item.get(position).isSection()){
             convertView = inflater.inflate(R.layout.journal_add_food_selection_list, parent, false);
-            TextView HeaderTextView = (TextView) convertView.findViewById(R.id.HeaderTextView);
+            TextView HeaderTextView = (TextView) convertView.findViewById(R.id.dateText);
             HeaderTextView.setText(( item.get(position).getTitle()));
         }
         else{

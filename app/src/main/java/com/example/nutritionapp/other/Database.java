@@ -181,7 +181,7 @@ public class Database {
                 String foodId = c.getString(0);
                 String fullName = c.getString(2);
                 Log.wtf("DEBGUG", fullName);
-                Food f = new Food(fullName, 0, 0, null, null, null);
+                Food f = new Food(fullName, 0, 0, null, null);
                 f.id = foodId;
                 foods.add(f);
             } while (c.moveToNext());
@@ -253,31 +253,6 @@ public class Database {
     }
 
     /* ########### Calculated from config ########### */
-    public Minerals getMineralRecommendation() {
-        /* Returns the correct mineral recommendation (USDA Values)*/
-
-        Minerals allowance = new Minerals();
-        allowance.calcium = 1200;
-        allowance.iron = 18;
-        allowance.magnesium = 420;
-        allowance.potassium = 4700;
-        allowance.zinc = 11;
-        return allowance;
-    }
-
-    public Vitamins getVitaminRecommendation() {
-        /* Returns the correct vitamin recommendation (USDA Values)*/
-
-        Vitamins allowance = new Vitamins();
-        allowance.A = 900;
-        allowance.B12 = 3;
-        allowance.C = 90000;
-        allowance.D = 15;
-        allowance.E = 15000;
-        allowance.K = 110;
-        return allowance;
-    }
-
     /* ########## SAVE CONFIG ############*/
     public void setPersonWeight(int weightInKg) throws IllegalArgumentException {
         if (weightInKg < 40 || weightInKg > 600) {

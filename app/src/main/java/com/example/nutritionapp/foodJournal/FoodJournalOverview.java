@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.NutritionAnalysis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         updateFoodJournalList(false);
 
         /* set adapter */
-        adapter = new FoodOverviewAdapter(this, inputList);
+        adapter = new FoodOverviewAdapter(this, inputList, null);
         foodsFromDatabase = (ListView) findViewById(R.id.listview);
         foodsFromDatabase.setAdapter(adapter);
         foodsFromDatabase.setTextFilterEnabled(true);
@@ -66,7 +67,6 @@ public class FoodJournalOverview extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        /* retrieve items */
         updateFoodJournalList(true);
     }
 
@@ -74,19 +74,19 @@ public class FoodJournalOverview extends AppCompatActivity {
         LocalDate startDate = now.atStartOfDay().toLocalDate();
         HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(now, oldestDateShown);
         inputList.clear();
-        inputList.add(new DayBreakHeader("Today"));
+        inputList.add(new FoodOverviewListItem("Today"));
         for(Integer key : foodGroups.keySet()){
             String foodNamesInGroup = "";
             for(Food food : foodGroups.get(key)){
                 if(startDate.isAfter(food.loggedAt)){
-                    inputList.add(new DayBreakHeader(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_DATE)));
+                    inputList.add(new FoodOverviewListItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_DATE)));
                     startDate = food.loggedAt.atStartOfDay().toLocalDate();
                 }else{
                     foodNamesInGroup += food.name + ",";
                 }
             }
 
-            FoodGroupSelected nextItem =  new FoodGroupSelected(foodNamesInGroup);
+            FoodOverviewListItem nextItem =  new FoodOverviewListItem(foodNamesInGroup);
             inputList.add(nextItem);
         }
         if(runInvalidation) {
@@ -97,42 +97,13 @@ public class FoodJournalOverview extends AppCompatActivity {
 
 
 }
-interface FoodOverviewListItem {
-    public boolean isSection();
-    public String getTitle();
-}
 
-class DayBreakHeader implements FoodOverviewListItem {
-    private final String title;
-
-    public DayBreakHeader(String title) {
-        this.title = title;
-    }
-
-    @Override
-    public boolean isSection() {
-        return true;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-}
-
-class FoodGroupSelected implements FoodOverviewListItem {
+class FoodOverviewListItem{
     public final String title;
-
-    public FoodGroupSelected(String title) {
+    public FoodOverviewListItem(String title) {
         this.title = title;
     }
 
-    @Override
-    public boolean isSection() {
-        return false;
-    }
-
-    @Override
     public String getTitle() {
         return title;
     }
@@ -140,24 +111,25 @@ class FoodGroupSelected implements FoodOverviewListItem {
 
 class FoodOverviewAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<FoodOverviewListItem> item;
-    private ArrayList<FoodOverviewListItem> originalItem;
+    private ArrayList<FoodOverviewListItem> items;
+    private ArrayList<Food> foodsInThisSection;
 
-    public FoodOverviewAdapter(){
-        super();
-    }
-    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> item){
-        this.context=context;
-        this.item=item;
+    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items, ArrayList<Food> foodsInThisSection){
+        this.context = context;
+        this.items   = items;
+        this.foodsInThisSection = foodsInThisSection;
+        if(this.foodsInThisSection == null){
+            this.foodsInThisSection = new ArrayList<Food>();
+        }
     }
     @Override
     public int getCount() {
-        return item.size();
+        return items.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return item.get(position);
+        return items.get(position);
     }
 
     @Override
@@ -167,17 +139,28 @@ class FoodOverviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (item.get(position).isSection()){
-            convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
-            TextView HeaderTextView = (TextView) convertView.findViewById(R.id.HeaderTextView);
-            HeaderTextView.setText(( item.get(position).getTitle()));
-        }
-        else{
-            convertView = inflater.inflate(R.layout.journal_foods_foodgroup,parent,false);
-            TextView ItemListView = (TextView) convertView.findViewById(R.id.ListTextView);
-            ItemListView.setText(( item.get(position).getTitle()));
-        }
+        FoodOverviewListItem currentListItem = items.get(position);
+
+        FoodOverviewListItem currentListItemTyped = (FoodOverviewListItem) currentListItem;
+        convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
+
+        /* get relevant sub-views */
+        TextView dateText = (TextView) convertView.findViewById(R.id.dateText);
+        TextView energyText = (TextView) convertView.findViewById(R.id.energyBar);
+        TextView nutritionText = (TextView) convertView.findViewById(R.id.nutritionBar);
+
+        /* set the correct date */
+        dateText.setText(items.get(position).getTitle());
+
+        /* calculate and set the energy */
+        energyText.setText("N/A");
+
+        /* calculate and set nutrition */
+        NutritionAnalysis analysis = new NutritionAnalysis(this.foodsInThisSection); //TODO get foods in section somehow
+        nutritionText.setText("N/A");
+
         return convertView;
     }
 }

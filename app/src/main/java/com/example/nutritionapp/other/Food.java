@@ -13,16 +13,14 @@ public class Food {
     public String id = "";
     public int energy;
     public int fiber;
-    public Minerals minerals;
-    public Vitamins vitamins;
+    public Nutrition nutrition;
     public LocalDate loggedAt;
 
-    public Food(String name, int energy, int fiber, Minerals minerals, Vitamins vitamins, LocalDate logTime) {
+    public Food(String name, int energy, int fiber, Nutrition nutrition, LocalDate logTime) {
         this.name = name;
         this.energy = energy;
         this.fiber = fiber;
-        this.minerals = minerals;
-        this.vitamins = vitamins;
+        this.nutrition = nutrition;
         this.loggedAt = logTime;
     }
 
@@ -33,19 +31,17 @@ public class Food {
         if(nutrients != null) {
             this.fiber = nutrients.get(DB_ID_FIBER);
             this.energy = nutrients.get(DB_ID_ENERGY);
-            this.minerals = new Minerals(nutrients);
-            this.vitamins = new Vitamins(nutrients);
+            this.nutrition = new Nutrition();
         }else{
             this.fiber = 0;
             this.energy = 0;
-            this.minerals = new Minerals();
-            this.vitamins = new Vitamins();
+            this.nutrition = new Nutrition();
         }
         this.loggedAt = loggedAt;
     }
 
     public static Food getEmptyFood(LocalDate logTime){
-        Food f = new Food("<Placeholder>", 0, 0, new Minerals(), new Vitamins(), logTime);
+        Food f = new Food("<Placeholder>", 0, 0, new Nutrition(), logTime);
         f.id = "781105";
         return f;
     }
