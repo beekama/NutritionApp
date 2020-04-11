@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.threeten.bp.LocalDate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,8 +42,9 @@ public class DatabaseTest {
                     Application app = activity.getApplication();
                     AndroidThreeTen.init(app);
                     Database db = new Database(activity);
-                    Food[] debugFoods = { Food.getEmptyFood(LocalDate.now()) };
-                    db.logExistingFoods(debugFoods, debugFoods[0].loggedAt);
+                    ArrayList<Food> debugFoods = new ArrayList<>();
+                    debugFoods.add(Food.getEmptyFood(null));
+                    db.logExistingFoods(debugFoods, null);
                     HashMap<Integer, ArrayList<Food>> ret = db.getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
                     assertNotNull(ret);
                     assert(!ret.keySet().isEmpty());
@@ -69,10 +71,7 @@ public class DatabaseTest {
                     Database db = new Database(activity);
                     Food f = db.getFoodById(Food.getEmptyFood(LocalDate.now()).id, null);
                     assertNotNull(f);
-                    assertNotNull(f.vitamins);
-                    assertNotNull(f.minerals);
-                    assert (f.minerals.calcium > 0);
-                    assert (f.energy > 0);
+                    assertNotNull(f.nutrition);
                 }
         );
     }
