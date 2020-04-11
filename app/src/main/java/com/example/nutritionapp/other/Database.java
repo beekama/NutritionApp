@@ -30,6 +30,7 @@ import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
 public class Database {
 
+    final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
 
     /* used to track create_foods added together */
@@ -258,7 +259,7 @@ public class Database {
         if (weightInKg < 40 || weightInKg > 600) {
             throw new IllegalArgumentException("Weight must be between 40 and 600");
         }
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("weight", weightInKg);
         editor.commit();
@@ -268,7 +269,7 @@ public class Database {
         if (age < 18 || age > 150) {
             throw new IllegalArgumentException("Age must be between 18 and 150");
         }
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("age", age);
         editor.commit();
@@ -278,7 +279,7 @@ public class Database {
         if (energyReq < 1000) {
             throw new IllegalArgumentException("Energy target must be above 1000kcal");
         }
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("energyReq", energyReq);
         editor.commit();
@@ -288,7 +289,7 @@ public class Database {
         if (sizeInCm < 0 || sizeInCm > 300) {
             throw new IllegalArgumentException("Height must be between 0 and 300 cm");
         }
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("height", sizeInCm);
         editor.commit();
@@ -298,7 +299,7 @@ public class Database {
         if (!gender.equals("male") && !gender.equals("female")) {
             throw new IllegalArgumentException("Gender must be 'male' or 'female'.");
         }
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("gender", gender);
         editor.commit();
@@ -307,25 +308,25 @@ public class Database {
 
 
     public int getPersonWeight() {
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int weight = pref.getInt("weight", -1);
         return weight;
     }
 
     public int getPersonHeight() {
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int height = pref.getInt("height", -1);
         return height;
     }
 
     public int getPersonAge() {
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int age = pref.getInt("age", -1);
         return age;
     }
 
     public int getPersonEnergyReq() {
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int energyReq = pref.getInt("energyReq", -1);
         if (energyReq == -1) {
             energyReq = 2000; //TODO calc from other values
@@ -334,7 +335,7 @@ public class Database {
     }
 
     public String getPersonGender() {
-        SharedPreferences pref = srcActivity.getPreferences(srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         String gender = pref.getString("gender", "none");
         return gender;
     }
