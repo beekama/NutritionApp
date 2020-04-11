@@ -167,7 +167,7 @@ class recommendationAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (item.get(position).isSection()){
-            convertView = inflater.inflate(R.layout.journal_foods_dayheader,parent,false);
+            convertView = inflater.inflate(R.layout.recommendation_deficiencyheader,parent,false);
             TextView tv_header = (TextView) convertView.findViewById(R.id.HeaderTextView);
             tv_header.setText(( item.get(position).getTitle()));
         } else {
