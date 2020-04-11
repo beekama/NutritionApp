@@ -1,10 +1,12 @@
 package com.example.nutritionapp.foodJournal;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,7 +94,19 @@ public class AddFoodToJournal extends AppCompatActivity {
                 return false;
             }
         });
-        searchFieldEditText.setOnFocusChangeListener(new HideKeyboardOnFocusLoss());
+        searchFieldEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }else{
+                lv.setVisibility(View.VISIBLE);
+                suggestions.setVisibility(View.GONE);
+                ListAdapter adapter = new ListAdapter(getApplicationContext(), new ArrayList<>());
+                suggestions.setAdapter(adapter);
+                lv.invalidate();
+                suggestions.invalidate();
+            }
+        });
 
         Button cancel = findViewById(R.id.cancel);
         Button confirm = findViewById(R.id.confirm);
@@ -104,10 +118,12 @@ public class AddFoodToJournal extends AppCompatActivity {
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GenericListItem> suggestionsPrevSelected, ListView suggestions) {
         suggestionsPrevSelected.clear();
         for(Food f : foods){
+            if(suggestionsPrevSelected.contains(f)){
+                continue;
+            }
             suggestionsPrevSelected.add(new ListFoodItem(f));
         }
 
-        /* I know this looks bad but notifyDatasetChanged() is way too slow */
         suggestions.invalidate();
         ListAdapter adapter = new ListAdapter(getApplicationContext(), suggestionsPrevSelected);
         suggestions.setAdapter(adapter);
@@ -119,7 +135,6 @@ public class AddFoodToJournal extends AppCompatActivity {
             inputList.add(new ListFoodItem(f));
         }
 
-        /* I know this looks bad but notifyDatasetChanged() is way too slow */
         lv.invalidate();
         ListAdapter adapter = new ListAdapter(getApplicationContext(), inputList);
         lv.setAdapter(adapter);
