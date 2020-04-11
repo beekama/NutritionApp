@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -84,11 +85,7 @@ public class AddFoodToJournal extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(super.onKey(v, keyCode, event)){
-                    updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
-                    lv.setVisibility(View.GONE);
-                    suggestions.setVisibility(View.VISIBLE);
-                    lv.invalidate();
-                    suggestions.invalidate();
+                    switchToSuggestionView(db, suggestionsByPrevSelected, suggestions, lv);
                     return true;
                 }
                 return false;
@@ -99,20 +96,43 @@ public class AddFoodToJournal extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }else{
-                lv.setVisibility(View.VISIBLE);
-                suggestions.setVisibility(View.GONE);
-                ListAdapter adapter = new ListAdapter(getApplicationContext(), new ArrayList<>());
-                suggestions.setAdapter(adapter);
-                lv.invalidate();
-                suggestions.invalidate();
+                switchToSearchView(lv, suggestions);
             }
         });
 
         Button cancel = findViewById(R.id.cancel);
         Button confirm = findViewById(R.id.confirm);
 
-        cancel.setOnClickListener(v -> { db.close(); finish(); });
+        cancel.setOnClickListener(v -> {
+            View sf = findViewById(R.id.searchField);
+            if(sf.hasFocus()){
+                sf.clearFocus();
+                switchToSuggestionView(db, new ArrayList<GenericListItem>(), suggestions, lv);
+                Log.wtf("WHAT?", "WAH");
+            }else {
+                Log.wtf("WHAT?", "NO FOCUS");
+                db.close();
+                finish();
+            }
+        });
         confirm.setOnClickListener(v -> { db.logExistingFoods(selected, null); db.close(); finish();});
+    }
+
+    private void switchToSearchView(ListView lv, ListView suggestions) {
+        lv.setVisibility(View.VISIBLE);
+        suggestions.setVisibility(View.GONE);
+        ListAdapter adapter = new ListAdapter(getApplicationContext(), new ArrayList<>());
+        suggestions.setAdapter(adapter);
+        lv.invalidate();
+        suggestions.invalidate();
+    }
+
+    private void switchToSuggestionView(Database db, ArrayList<GenericListItem> suggestionsByPrevSelected, ListView suggestions, ListView lv) {
+        updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
+        lv.setVisibility(View.GONE);
+        suggestions.setVisibility(View.VISIBLE);
+        lv.invalidate();
+        suggestions.invalidate();
     }
 
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GenericListItem> suggestionsPrevSelected, ListView suggestions) {
