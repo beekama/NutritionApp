@@ -86,6 +86,7 @@ public class recommendations extends AppCompatActivity {
 
         private void updateRecommendations(boolean runInvalidation){
             LocalDate startDate = now.atStartOfDay().toLocalDate();
+            /* z.B. db.getByDate(now, now - week); n = new NutritionAnalysis(); n.getPercentagesSorted(); */
             inputList.clear();
             inputList.add(new WeekBreakHeader("current week"));
             inputList.add(new DeficiencyItem("iron"));
