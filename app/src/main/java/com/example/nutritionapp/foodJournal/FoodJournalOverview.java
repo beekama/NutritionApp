@@ -95,14 +95,15 @@ public class FoodJournalOverview extends AppCompatActivity {
         }
         Collections.reverse(keyListReversed);
 
-        for(LocalDateTime key : keyListReversed){
-            HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(key);
+        for(LocalDateTime day : keyListReversed){
+            HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(day);
+            String dateString = day.format(DateTimeFormatter.ISO_DATE);
+            ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();
             for(Integer groupId : localFoodGroups.keySet()){
-                LocalDateTime currentDay = key;
-                String dateString = currentDay.format(DateTimeFormatter.ISO_DATE);
-                FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, localFoodGroups.get(groupId));
-                foodDataList.add(nextItem);
+                foodListForGroupOnDay.addAll(localFoodGroups.get(groupId));
             }
+            FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay);
+            foodDataList.add(nextItem);
         }
         if(runInvalidation) {
             adapter.notifyDataSetInvalidated();
