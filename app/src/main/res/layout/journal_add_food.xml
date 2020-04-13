@@ -7,14 +7,14 @@
     android:clickable="true"
     android:focusable="true">
 
-    <TextView
+    <ListView
         android:id="@+id/selected_items"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+    </ListView>
 
     <EditText
         android:id="@+id/searchField"

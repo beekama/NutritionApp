@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,13 +19,12 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 
 public class AddFoodToJournal extends AppCompatActivity {
 
-    final ArrayList<Food> selected = new ArrayList<>();
+    final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         //splash screen: - show only when needed
@@ -37,7 +34,9 @@ public class AddFoodToJournal extends AppCompatActivity {
         setContentView(R.layout.journal_add_food);
 
         EditText searchFieldEditText = findViewById(R.id.searchField);
-        TextView selectedTextView = findViewById(R.id.selected_items);
+        ListView selectedListView = findViewById(R.id.selected_items);
+        SelectedFoodAdapter selectedAdapter = new SelectedFoodAdapter(getApplicationContext(), new ArrayList<>());
+        selectedListView.setAdapter(selectedAdapter);
 
         final ListView lv = findViewById(R.id.listview);
         final ListView suggestions = findViewById(R.id.suggestions);
@@ -63,18 +62,16 @@ public class AddFoodToJournal extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListFoodItem item = (ListFoodItem)parent.getItemAtPosition(position);
-                selected.add(item.food);
-                selectedTextView.setText(Utils.foodArrayListToString(selected));
-                selectedTextView.invalidate();
+                selected.add(new SelectedFoodItem(item.food, 100));
+                updateSelectedView(selectedListView, selected);
             }
         });
 
         suggestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListFoodItem item = (ListFoodItem)parent.getItemAtPosition(position);
-                selected.add(item.food);
-                selectedTextView.setText(Utils.foodArrayListToString(selected));
-                selectedTextView.invalidate();
+                selected.add(new SelectedFoodItem(item.food, 100));
+                updateSelectedView(selectedListView, selected);
                 updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
             }
         });
@@ -107,14 +104,20 @@ public class AddFoodToJournal extends AppCompatActivity {
             if(sf.hasFocus()){
                 sf.clearFocus();
                 switchToSuggestionView(db, new ArrayList<>(), suggestions, lv);
-                Log.wtf("WHAT?", "WAH");
             }else {
-                Log.wtf("WHAT?", "NO FOCUS");
                 db.close();
                 finish();
             }
         });
-        confirm.setOnClickListener(v -> { db.logExistingFoods(selected, null); db.close(); finish();});
+        confirm.setOnClickListener(v -> { db.logExistingFoods(selected, null, null); db.close(); finish();});
+    }
+
+    /* TODO amount selection (grams) */
+    private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
+        ArrayList<SelectedFoodItem> sfi = new ArrayList<SelectedFoodItem>(alreadySelected);
+        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getApplicationContext(), sfi);
+        selectedListView.setAdapter(newAdapter);
+        selectedListView.invalidate();
     }
 
     private void switchToSearchView(ListView lv, ListView suggestions) {

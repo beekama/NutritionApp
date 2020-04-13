@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
+import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
 import org.apache.commons.io.IOUtils;
 import org.threeten.bp.LocalDate;
@@ -64,6 +66,14 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
+    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDate d, Object hackyhack) {
+        /* This functions add a list of create_foods to the journal at a given date */
+        ArrayList<Food> selectedSoFar = new ArrayList<>();
+        for (SelectedFoodItem item : selectedSoFarItems) {
+            selectedSoFar.add(item.food);
+        }
+        logExistingFoods(selectedSoFar, d);
+    }
     public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDate d) {
         /* This functions add a list of create_foods to the journal at a given date */
 
@@ -230,8 +240,13 @@ public class Database {
         }
     }
 
-    public ArrayList<Food> getSuggestionsForCombination(ArrayList<Food> selectedSoFar) {
+    public ArrayList<Food> getSuggestionsForCombination(ArrayList<SelectedFoodItem> selectedSoFarItems) {
         /* This function returns suggestions for create_foods to log based on previously selected combinations */
+
+        ArrayList<Food> selectedSoFar = new ArrayList<>();
+        for(SelectedFoodItem item : selectedSoFarItems){
+            selectedSoFar.add(item.food);
+        }
 
         HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
         ArrayList<SuggestionHelper> suggestionCounter= new ArrayList<>();
