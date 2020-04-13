@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -169,9 +170,13 @@ public class Database {
     public ArrayList<Food> getFoodsByPartialName(String substring) {
         /* This function searches for a given substring */
 
-        Cursor c = db.rawQuery("SELECT * FROM food where description LIKE \"%" + substring + "%\" LIMIT 20", null);
-        ArrayList<Food> foods = new ArrayList<Food>();
+        String table = "food";
+        String[] columns = {"fdc_id", "description"};
+        String whereStm = String.format("description LIKE \"%%%s%%\"", substring);
+        String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC", substring, substring);
+        Cursor c = db.query(table, columns, whereStm, null, null, null, orderBy, null);
 
+        ArrayList<Food> foods = new ArrayList<Food>();
         if(substring.isEmpty()){
             return foods;
         }
@@ -179,9 +184,8 @@ public class Database {
         if (c.moveToFirst()) {
             do {
                 String foodId = c.getString(0);
-                String fullName = c.getString(2);
-                Food f = new Food(fullName, 0, 0, null, null);
-                f.id = foodId;
+                String description = c.getString(1);
+                Food f = new Food(description, foodId);
                 foods.add(f);
             } while (c.moveToNext());
         }

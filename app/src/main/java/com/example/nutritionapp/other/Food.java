@@ -18,6 +18,11 @@ public class Food {
     public Nutrition nutrition;
     public LocalDate loggedAt;
 
+    public Food(String name, String id){
+        this.id = id;
+        this.name = name;
+    }
+
     public Food(String name, int energy, int fiber, Nutrition nutrition, LocalDate logTime) {
         this.name = name;
         this.energy = energy;
