@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.nutritionapp.R;
 
@@ -20,9 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
@@ -36,9 +33,9 @@ public class Database {
     private static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
 
     /* used to track create_foods added together */
-    private static Activity srcActivity;
+    private final Activity srcActivity;
 
-    private HashMap<String,Food> foodCache = new HashMap<String,Food>();
+    private HashMap<String,Food> foodCache = new HashMap<>();
 
     private void copyDatabaseIfMissing(InputStream inputStream, String targetPath){
         File file = new File(targetPath);
@@ -89,7 +86,7 @@ public class Database {
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
         /* Return create_foods logged by dates */
 
-        HashMap ret = new HashMap<Integer, ArrayList<Food>>();
+        HashMap<Integer, ArrayList<Food>> ret = new HashMap<>();
 
         String startISO = start.format(sqliteDatetimeFormat);
         String endISO = end.format(sqliteDatetimeFormat);
@@ -112,7 +109,7 @@ public class Database {
                     ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
                     group.add(getFoodById(foodId, loggedAtISO));
                 }else{
-                    ArrayList<Food> group = new ArrayList<Food>();
+                    ArrayList<Food> group = new ArrayList<>();
                     group.add(getFoodById(foodId, loggedAtISO));
                     ret.put(groupID, group);
                 }
@@ -124,12 +121,13 @@ public class Database {
     }
 
     public HashMap<String,Integer> getNutrientsForFood(String foodId){
-        HashMap<String,Integer> ret = new HashMap<String,Integer>();
+        HashMap<String,Integer> ret = new HashMap<>();
 
         String table = "food_nutrient00";
         String[] columns = {"nutrient_id", "amount"};
         String whereStm = String.format("fdc_id = \"%s\"", foodId);
         Cursor nutrients = db.query(table, columns, whereStm, null, null, null, null);
+        Cursor nutrientConversion;
 
         if (nutrients.moveToFirst()) {
             do {
@@ -141,20 +139,25 @@ public class Database {
                 String tableNut = "nutrient";
                 String[] columnsNut = {"unit_name"};
                 String whereStmNut = String.format("id = \"%s\"", nutrientID);
-                Cursor nutrientConversion = db.query(tableNut, columnsNut, whereStmNut, null, null, null, null);
+                nutrientConversion = db.query(tableNut, columnsNut, whereStmNut, null, null, null, null);
 
                 if(nutrientConversion.moveToFirst()){
                     String unitName = nutrientConversion.getString(0);
                     int normalizedAmount = Conversions.normalize(unitName, rawAmount);
                     ret.put(nutrientID, normalizedAmount);
                 }else{
+                    nutrients.close();
+                    nutrientConversion.close();
                     throw new RuntimeException("Nutrient not found?!");
                 }
             } while (nutrients.moveToNext());
         }else{
             Log.w("NA", "No Nutrition found for this foodId" + foodId);
+            nutrients.close();
             return null;
         }
+        nutrients.close();
+        nutrientConversion.close();
         return ret;
     }
 
@@ -178,8 +181,10 @@ public class Database {
                 String foodName = c.getString(0);
                 Food f = new Food(foodName, foodId, this, loggedAt);
                 foodCache.put(foodId, f);
+                c.close();
                 return f;
             }
+            c.close();
             throw new RuntimeException("The food didn't exists, that's unfortunate.");
         }
     }
@@ -193,8 +198,9 @@ public class Database {
         String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC", substring, substring);
         Cursor c = db.query(table, columns, whereStm, null, null, null, orderBy, null);
 
-        ArrayList<Food> foods = new ArrayList<Food>();
+        ArrayList<Food> foods = new ArrayList<>();
         if(substring.isEmpty()){
+            c.close();
             return foods;
         }
 
@@ -206,7 +212,7 @@ public class Database {
                 foods.add(f);
             } while (c.moveToNext());
         }
-
+        c.close();
         return foods;
     }
 
@@ -228,8 +234,8 @@ public class Database {
         /* This function returns suggestions for create_foods to log based on previously selected combinations */
 
         HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
-        ArrayList<SuggestionHelper> suggestionCounter= new ArrayList<SuggestionHelper>();
-        ArrayList<Food> suggestions = new ArrayList<Food>();
+        ArrayList<SuggestionHelper> suggestionCounter= new ArrayList<>();
+        ArrayList<Food> suggestions = new ArrayList<>();
 
         /* try all group keys */
         for(Integer key : prevSelected.keySet()){
@@ -258,7 +264,7 @@ public class Database {
             limit = suggestionCounter.size();
         }
 
-        final ArrayList<Food> results = new ArrayList<Food>();
+        final ArrayList<Food> results = new ArrayList<>();
         Collections.sort(suggestionCounter);
         for(int i = 0; i < limit; i++){
             results.add(suggestionCounter.get(i).food);

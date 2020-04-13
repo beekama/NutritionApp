@@ -1,12 +1,8 @@
 package com.example.nutritionapp.other;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
 
 public class NutritionAnalysis {
     private ArrayList<Food> calculatedFrom;

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
 public class HideKeyboardOnFocusLoss implements View.OnFocusChangeListener {
 
     public void onFocusChange(View v, boolean hasFocus){

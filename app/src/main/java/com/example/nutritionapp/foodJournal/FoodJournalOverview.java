@@ -3,9 +3,7 @@ package com.example.nutritionapp.foodJournal;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,16 +25,13 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionPercentageTupel;
 import com.example.nutritionapp.other.Utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.SortedMap;
 
 public class FoodJournalOverview extends AppCompatActivity {
@@ -46,7 +41,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
     final private Duration ONE_DAY = Duration.ofDays(1);
     final private Duration ONE_WEEK = Duration.ofDays(7);
-    final private ArrayList<FoodOverviewListItem> foodDataList = new ArrayList<FoodOverviewListItem>();
+    final private ArrayList<FoodOverviewListItem> foodDataList = new ArrayList<>();
 
     private FoodOverviewAdapter adapter;
     private Database db;
@@ -66,14 +61,12 @@ public class FoodJournalOverview extends AppCompatActivity {
 
         /* set adapter */
         adapter = new FoodOverviewAdapter(this, foodDataList);
-        foodsFromDatabase = (ListView) findViewById(R.id.listview);
+        foodsFromDatabase = findViewById(R.id.listview);
         foodsFromDatabase.setAdapter(adapter);
         foodsFromDatabase.setTextFilterEnabled(true);
 
-        final Button addStuff = (Button)findViewById(R.id.add_food);
-        addStuff.setOnClickListener(v -> {
-            startActivity(new Intent(v.getContext(), AddFoodToJournal.class));
-        });
+        final Button addStuff = findViewById(R.id.add_food);
+        addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddFoodToJournal.class)));
 
     }
 
@@ -90,9 +83,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
         /* generate reversed list */
         ArrayList<LocalDateTime> keyListReversed = new ArrayList<>();
-        for(LocalDateTime key : foodGroupsByDay.keySet()){
-            keyListReversed.add(key);
-        }
+        keyListReversed.addAll(foodGroupsByDay.keySet());
         Collections.reverse(keyListReversed);
 
         for(LocalDateTime day : keyListReversed){
@@ -159,10 +150,10 @@ class FoodOverviewAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
 
         /* get relevant sub-views */
-        TextView dateText = (TextView) convertView.findViewById(R.id.dateText);
-        TextView energyText = (TextView) convertView.findViewById(R.id.energyBar);
-        TextView nutritionText = (TextView) convertView.findViewById(R.id.nutritionBar);
-        ListView subFoodList = (ListView) convertView.findViewById(R.id.list_grouped_foods);
+        TextView dateText = convertView.findViewById(R.id.dateText);
+        TextView energyText = convertView.findViewById(R.id.energyBar);
+        TextView nutritionText = convertView.findViewById(R.id.nutritionBar);
+        ListView subFoodList = convertView.findViewById(R.id.list_grouped_foods);
 
         /* set the correct date */
         dateText.setText(items.get(position).date);

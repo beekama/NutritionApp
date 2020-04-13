@@ -3,7 +3,6 @@ package com.example.nutritionapp.configuration;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -208,7 +207,7 @@ public class PersonalInformation extends AppCompatActivity {
                 try {
                     View focusedView = getCurrentFocus();
                     hideKeyboard(focusedView);
-                } catch (RuntimeException e) {
+                } catch (RuntimeException ignored) {
                 }
                 //remove focus
                 ConstraintLayout l = findViewById(R.id.meConfigLayout);

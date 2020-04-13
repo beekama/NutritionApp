@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nutritionapp.ButtonUtils.HideKeyboardOnFocusLoss;
 import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
 import com.example.nutritionapp.other.Database;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 
 public class AddFoodToJournal extends AppCompatActivity {
 
-    final ArrayList<Food> selected = new ArrayList<Food>();
+    final ArrayList<Food> selected = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         //splash screen: - show only when needed
@@ -40,11 +39,11 @@ public class AddFoodToJournal extends AppCompatActivity {
         EditText searchFieldEditText = findViewById(R.id.searchField);
         TextView selectedTextView = findViewById(R.id.selected_items);
 
-        final ListView lv = (ListView) findViewById(R.id.listview);
-        final ListView suggestions = (ListView) findViewById(R.id.suggestions);
+        final ListView lv = findViewById(R.id.listview);
+        final ListView suggestions = findViewById(R.id.suggestions);
 
-        final ArrayList<GenericListItem> inputList = new ArrayList<GenericListItem>();
-        final ArrayList<GenericListItem> suggestionsByPrevSelected = new ArrayList<GenericListItem>();
+        final ArrayList<GenericListItem> inputList = new ArrayList<>();
+        final ArrayList<GenericListItem> suggestionsByPrevSelected = new ArrayList<>();
         Database db = new Database(this);
 
         TextWatcher filterNameTextWatcher = new TextWatcher() {
@@ -107,7 +106,7 @@ public class AddFoodToJournal extends AppCompatActivity {
             View sf = findViewById(R.id.searchField);
             if(sf.hasFocus()){
                 sf.clearFocus();
-                switchToSuggestionView(db, new ArrayList<GenericListItem>(), suggestions, lv);
+                switchToSuggestionView(db, new ArrayList<>(), suggestions, lv);
                 Log.wtf("WHAT?", "WAH");
             }else {
                 Log.wtf("WHAT?", "NO FOCUS");

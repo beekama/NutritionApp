@@ -10,15 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name="com.example.nutritionapp.recommendation.recommendations"></activity>
-        <activity android:name="com.example.nutritionapp.deprecated.updateAge"></activity>
-        <activity android:name="com.example.nutritionapp.configuration.PersonalInformation"></activity>
-        <activity android:name="com.example.nutritionapp.customFoods.AddMinerals"></activity>
-        <activity android:name="com.example.nutritionapp.customFoods.AddVitamins"></activity>
-        <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem"></activity>
-        <activity android:name="com.example.nutritionapp.customFoods.CreateFoodOverview"></activity>
-        <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview"></activity>
-        <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal"></activity>
+        <activity android:name="com.example.nutritionapp.recommendation.recommendations" />
+        <activity android:name="com.example.nutritionapp.deprecated.updateAge" />
+        <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />
+        <activity android:name="com.example.nutritionapp.customFoods.AddMinerals" />
+        <activity android:name="com.example.nutritionapp.customFoods.AddVitamins" />
+        <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
+        <activity android:name="com.example.nutritionapp.customFoods.CreateFoodOverview" />
+        <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
+        <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal" />
         <activity android:name="com.example.nutritionapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

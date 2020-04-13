@@ -20,7 +20,6 @@ import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class recommendations extends AppCompatActivity {

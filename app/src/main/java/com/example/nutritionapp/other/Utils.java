@@ -1,7 +1,5 @@
 package com.example.nutritionapp.other;
 
-import org.threeten.bp.Duration;
-import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 import java.util.ArrayList;
@@ -19,11 +17,11 @@ public class Utils {
     }
 
     public static String foodArrayListToString(ArrayList<Food> selected) {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for(Food f : selected){
-            ret += f.name + "\n";
+            ret.append(f.name).append("\n");
         }
-        return ret;
+        return ret.toString();
     }
 
     public static SortedMap<LocalDateTime, HashMap<Integer, ArrayList<Food>>> foodGroupsByDays(HashMap<Integer, ArrayList<Food>> foodGroups) {

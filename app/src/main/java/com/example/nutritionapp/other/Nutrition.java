@@ -2,8 +2,6 @@ package com.example.nutritionapp.other;
 
 import android.os.Build;
 
-import androidx.core.app.NavUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,7 +47,7 @@ public class Nutrition {
     }
 
     public Nutrition(Nutrition orig){
-        this.elements = (HashMap<NutritionElement, Integer>)orig.elements.clone();
+        this.elements = new HashMap<NutritionElement, Integer>(orig.elements);
     }
 
 

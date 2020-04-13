@@ -12,7 +12,7 @@ public class Food {
     private static final String DB_ID_FIBER = "1079";
 
     public String name;
-    public String id = "";
+    public String id;
     public int energy;
     public int fiber;
     public Nutrition nutrition;
