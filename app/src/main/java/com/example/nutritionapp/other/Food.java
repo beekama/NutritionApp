@@ -23,14 +23,6 @@ public class Food {
         this.name = name;
     }
 
-    public Food(String name, int energy, int fiber, Nutrition nutrition, LocalDate logTime) {
-        this.name = name;
-        this.energy = energy;
-        this.fiber = fiber;
-        this.nutrition = nutrition;
-        this.loggedAt = logTime;
-    }
-
     public Food(String foodName, String foodId, Database db, LocalDate loggedAt) {
         this.name = foodName;
         this.id = foodId;
@@ -45,12 +37,6 @@ public class Food {
             this.nutrition = new Nutrition();
         }
         this.loggedAt = loggedAt;
-    }
-
-    public static Food getEmptyFood(LocalDate logTime){
-        Food f = new Food("<Placeholder>", 0, 0, new Nutrition(), logTime);
-        f.id = "781105";
-        return f;
     }
 
     public boolean equals(Object o){

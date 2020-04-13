@@ -43,7 +43,7 @@ public class DatabaseTest {
                     AndroidThreeTen.init(app);
                     Database db = new Database(activity);
                     ArrayList<Food> debugFoods = new ArrayList<>();
-                    debugFoods.add(Food.getEmptyFood(null));
+                    debugFoods.add(new Food("DEBUG", "781105"));
                     db.logExistingFoods(debugFoods, null);
                     HashMap<Integer, ArrayList<Food>> ret = db.getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
                     assertNotNull(ret);
@@ -58,7 +58,7 @@ public class DatabaseTest {
                     Database db = new Database(activity);
                     Application app = activity.getApplication();
                     AndroidThreeTen.init(app);
-                    HashMap<String,Integer> nutrients = db.getNutrientsForFood(Food.getEmptyFood(LocalDate.now()).id);
+                    HashMap<String,Integer> nutrients = db.getNutrientsForFood("781105");
                     assertNotNull(nutrients);
                     assert(!nutrients.keySet().isEmpty());
             }
@@ -69,7 +69,7 @@ public class DatabaseTest {
     public void foodQuery() {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
-                    Food f = db.getFoodById(Food.getEmptyFood(LocalDate.now()).id, null);
+                    Food f = db.getFoodById("781105", null);
                     assertNotNull(f);
                     assertNotNull(f.nutrition);
                 }
