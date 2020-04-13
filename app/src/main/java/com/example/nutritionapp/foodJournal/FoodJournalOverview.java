@@ -3,28 +3,41 @@ package com.example.nutritionapp.foodJournal;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nutritionapp.foodJournal.AddFoodsLists.GenericListItem;
+import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
+import com.example.nutritionapp.other.NutritionPercentageTupel;
+import com.example.nutritionapp.other.Utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
 
 public class FoodJournalOverview extends AppCompatActivity {
 
@@ -33,7 +46,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
     final private Duration ONE_DAY = Duration.ofDays(1);
     final private Duration ONE_WEEK = Duration.ofDays(7);
-    final private ArrayList<FoodOverviewListItem> inputList = new ArrayList<FoodOverviewListItem>();
+    final private ArrayList<FoodOverviewListItem> foodDataList = new ArrayList<FoodOverviewListItem>();
 
     private FoodOverviewAdapter adapter;
     private Database db;
@@ -52,7 +65,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         updateFoodJournalList(false);
 
         /* set adapter */
-        adapter = new FoodOverviewAdapter(this, inputList, null);
+        adapter = new FoodOverviewAdapter(this, foodDataList);
         foodsFromDatabase = (ListView) findViewById(R.id.listview);
         foodsFromDatabase.setAdapter(adapter);
         foodsFromDatabase.setTextFilterEnabled(true);
@@ -71,23 +84,25 @@ public class FoodJournalOverview extends AppCompatActivity {
     }
 
     private void updateFoodJournalList(boolean runInvalidation) {
-        LocalDate startDate = now.atStartOfDay().toLocalDate();
         HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(now, oldestDateShown);
-        inputList.clear();
-        inputList.add(new FoodOverviewListItem("Today"));
-        for(Integer key : foodGroups.keySet()){
-            String foodNamesInGroup = "";
-            for(Food food : foodGroups.get(key)){
-                if(startDate.isAfter(food.loggedAt)){
-                    inputList.add(new FoodOverviewListItem(food.loggedAt.atStartOfDay().format(DateTimeFormatter.ISO_DATE)));
-                    startDate = food.loggedAt.atStartOfDay().toLocalDate();
-                }else{
-                    foodNamesInGroup += food.name + ",";
-                }
-            }
+        SortedMap<LocalDateTime, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(foodGroups);
+        foodDataList.clear();
 
-            FoodOverviewListItem nextItem =  new FoodOverviewListItem(foodNamesInGroup);
-            inputList.add(nextItem);
+        /* generate reversed list */
+        ArrayList<LocalDateTime> keyListReversed = new ArrayList<>();
+        for(LocalDateTime key : foodGroupsByDay.keySet()){
+            keyListReversed.add(key);
+        }
+        Collections.reverse(keyListReversed);
+
+        for(LocalDateTime key : keyListReversed){
+            HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(key);
+            for(Integer groupId : localFoodGroups.keySet()){
+                LocalDateTime currentDay = key;
+                String dateString = currentDay.format(DateTimeFormatter.ISO_DATE);
+                FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, localFoodGroups.get(groupId));
+                foodDataList.add(nextItem);
+            }
         }
         if(runInvalidation) {
             adapter.notifyDataSetInvalidated();
@@ -99,28 +114,23 @@ public class FoodJournalOverview extends AppCompatActivity {
 }
 
 class FoodOverviewListItem{
-    public final String title;
-    public FoodOverviewListItem(String title) {
-        this.title = title;
+    public final String date;
+    public ArrayList<Food> foods;
+
+    public FoodOverviewListItem(String date, ArrayList<Food> foods) {
+        this.date = date;
+        this.foods = foods;
     }
 
-    public String getTitle() {
-        return title;
-    }
 }
 
 class FoodOverviewAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<FoodOverviewListItem> items;
-    private ArrayList<Food> foodsInThisSection;
 
-    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items, ArrayList<Food> foodsInThisSection){
+    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items){
         this.context = context;
         this.items   = items;
-        this.foodsInThisSection = foodsInThisSection;
-        if(this.foodsInThisSection == null){
-            this.foodsInThisSection = new ArrayList<Food>();
-        }
     }
     @Override
     public int getCount() {
@@ -140,27 +150,39 @@ class FoodOverviewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        FoodOverviewListItem currentListItem = items.get(position);
+        /* item at postition */
+        FoodOverviewListItem itemAtCurPos = this.items.get(position);
 
-        FoodOverviewListItem currentListItemTyped = (FoodOverviewListItem) currentListItem;
+        /* inflate layout */
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
 
         /* get relevant sub-views */
         TextView dateText = (TextView) convertView.findViewById(R.id.dateText);
         TextView energyText = (TextView) convertView.findViewById(R.id.energyBar);
         TextView nutritionText = (TextView) convertView.findViewById(R.id.nutritionBar);
+        ListView subFoodList = (ListView) convertView.findViewById(R.id.list_grouped_foods);
 
         /* set the correct date */
-        dateText.setText(items.get(position).getTitle());
+        dateText.setText(items.get(position).date);
 
-        /* calculate and set the energy */
-        energyText.setText("N/A");
+
+        NutritionAnalysis analysis = new NutritionAnalysis(itemAtCurPos.foods);
+
 
         /* calculate and set nutrition */
-        NutritionAnalysis analysis = new NutritionAnalysis(this.foodsInThisSection); //TODO get foods in section somehow
-        nutritionText.setText("N/A");
+        ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSorted();
+        String testText =  percentages.get(0).nutritionElement + " : " + percentages.get(0).percentage;
+        nutritionText.setText(testText);
+        energyText.setText(Integer.toString(analysis.getTotalEnergy()));
 
+        /* display the foods in the nested sub-list */
+        ArrayList<GenericListItem> listItemsInThisSection = new ArrayList<>();
+        for(Food f : itemAtCurPos.foods){
+            listItemsInThisSection.add(new ListFoodItem(f));
+        }
+        ListAdapter subListViewAdapter = new com.example.nutritionapp.foodJournal.AddFoodsLists.ListAdapter(context, listItemsInThisSection);
+        subFoodList.setAdapter(subListViewAdapter);
         return convertView;
     }
 }

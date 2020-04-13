@@ -1,7 +1,12 @@
 package com.example.nutritionapp.other;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
 
 public class NutritionAnalysis {
     private ArrayList<Food> calculatedFrom;
@@ -9,6 +14,7 @@ public class NutritionAnalysis {
 
     private Nutrition nutritionActual;
     private Nutrition nutritionMissing;
+    private int totalEnergy;
     private HashMap<NutritionElement, Float> nutritionPercentage;
 
     public NutritionAnalysis(ArrayList<Food> calculatedFrom){
@@ -16,14 +22,7 @@ public class NutritionAnalysis {
         this.nutritionActual = calculateTotalNutrition(calculatedFrom);
         this.nutritionMissing = Nutrition.subtract(nutritionTarget, nutritionActual);
         this.nutritionPercentage = Nutrition.percentages(nutritionActual, nutritionTarget);
-    }
-
-    private static Nutrition calculateTotalMinerals(ArrayList<Food> calculatedFrom) {
-        ArrayList<Nutrition> mineralsCalculatedFrom = new ArrayList<>();
-        for(Food f : calculatedFrom){
-            mineralsCalculatedFrom.add(f.nutrition);
-        }
-        return Nutrition.sum(mineralsCalculatedFrom);
+        this.totalEnergy = Nutrition.totalEnergy(calculatedFrom);
     }
 
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
@@ -44,5 +43,19 @@ public class NutritionAnalysis {
 
     public HashMap<NutritionElement, Float> getNutritionPercentage() {
         return nutritionPercentage;
+    }
+
+    public ArrayList<NutritionPercentageTupel> getNutritionPercentageSorted() {
+        ArrayList<NutritionPercentageTupel> ret = new ArrayList<>();
+        for(NutritionElement key: nutritionPercentage.keySet()){
+            NutritionPercentageTupel n = new NutritionPercentageTupel(key, nutritionPercentage.get(key));
+            ret.add(n);
+        }
+        Collections.sort(ret);
+        return ret;
+    }
+
+    public int getTotalEnergy() {
+        return totalEnergy;
     }
 }

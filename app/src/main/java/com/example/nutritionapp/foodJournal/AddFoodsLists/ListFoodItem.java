@@ -16,4 +16,15 @@ public class ListFoodItem implements GenericListItem{
         public String getTitle() {
             return food.name;
         }
+
+
+    public boolean equals(Object o){
+        try{
+            Food f = (Food) o;
+            return this.food.equals(f);
+        }catch (ClassCastException e){
+            ListFoodItem item = (ListFoodItem) o;
+            return this.food.equals(item.food);
+        }
+    }
 }

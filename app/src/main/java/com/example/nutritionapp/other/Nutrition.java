@@ -108,4 +108,12 @@ public class Nutrition {
         allowance.elements.put(NutritionElement.VITAMIN_K, 110);
         return allowance;
     }
+
+    public static int totalEnergy(ArrayList<Food> calculatedFrom) {
+        int total = 0;
+        for(Food f : calculatedFrom){
+            total += f.energy;
+        }
+        return total;
+    }
 }

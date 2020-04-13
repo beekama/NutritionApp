@@ -1,5 +1,7 @@
 package com.example.nutritionapp.other;
 
+import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
+
 import org.threeten.bp.LocalDate;
 
 import java.util.HashMap;
@@ -47,8 +49,13 @@ public class Food {
     }
 
     public boolean equals(Object o){
-        Food f = (Food) o;
-        return this.id.equals(f.id) && !this.id.equals("");
+        try {
+            Food f = (Food) o;
+            return this.id.equals(f.id) && !this.id.equals("");
+        }catch (ClassCastException e){
+            ListFoodItem f = (ListFoodItem) o;
+            return this.equals(f.food);
+        }
     }
 }
 

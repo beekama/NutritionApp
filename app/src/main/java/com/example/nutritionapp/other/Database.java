@@ -98,7 +98,6 @@ public class Database {
             sqlRaw = "SELECT food_id, group_id, loggedAt FROM foodlog where date(loggedAt)";
         }
 
-        Log.wtf("DEBUG", sqlRaw);
         Cursor c = db.rawQuery(sqlRaw, null);
         if (c.moveToFirst()) {
             do {
@@ -181,7 +180,6 @@ public class Database {
             do {
                 String foodId = c.getString(0);
                 String fullName = c.getString(2);
-                Log.wtf("DEBGUG", fullName);
                 Food f = new Food(fullName, 0, 0, null, null);
                 f.id = foodId;
                 foods.add(f);
