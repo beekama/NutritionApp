@@ -172,9 +172,9 @@ class FoodOverviewAdapter extends BaseAdapter {
 
         /* calculate and set nutrition */
         ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSorted();
-        String testText =  percentages.get(0).nutritionElement + " : " + percentages.get(0).percentage;
+        String testText =  percentages.get(0).nutritionElement + " : Only " + percentages.get(0).percentage + "% of DRI";
         nutritionText.setText(testText);
-        energyText.setText(Integer.toString(analysis.getTotalEnergy()));
+        energyText.setText(Integer.toString(analysis.getTotalEnergy()) + " Joule");
 
         /* display the foods in the nested sub-list */
         ArrayList<GenericListItem> listItemsInThisSection = new ArrayList<>();
