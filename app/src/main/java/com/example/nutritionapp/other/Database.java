@@ -33,6 +33,7 @@ public class Database {
 
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
+    private static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
 
     /* used to track create_foods added together */
     private static Activity srcActivity;
@@ -80,7 +81,7 @@ public class Database {
             values.put("food_id", f.id);
             values.put("date", d.toString());
             values.put("group_id", groupID);
-            values.put("loggedAt", d.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00")));
+            values.put("loggedAt", d.format(sqliteDatetimeFormat));
             db.insert("foodlog", null, values);
         }
     }
@@ -90,16 +91,17 @@ public class Database {
 
         HashMap ret = new HashMap<Integer, ArrayList<Food>>();
 
-        String startISO = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
-        String endISO = end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
+        String startISO = start.format(sqliteDatetimeFormat);
+        String endISO = end.format(sqliteDatetimeFormat);
 
-        String sqlRaw = "SELECT food_id, group_id, loggedAt FROM foodlog where date(loggedAt) between date(\"" + endISO + "\") and date(\"" + startISO + "\")";
+        String table = "foodlog";
+        String[] columns = {"food_id", "group_id", "loggedAt"};
+        String whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")" , endISO, startISO);
         if(start.equals(LocalDate.MIN) || end.equals(LocalDate.MAX)){
-            Log.w("ERROR", "SQLITE can't handle theses Dates");
-            sqlRaw = "SELECT food_id, group_id, loggedAt FROM foodlog where date(loggedAt)";
+            whereStm = "date(loggedAt)";
         }
+        Cursor c = db.query(table, columns, whereStm, null, null, null, null);
 
-        Cursor c = db.rawQuery(sqlRaw, null);
         if (c.moveToFirst()) {
             do {
                 String foodId = c.getString(0);
@@ -123,19 +125,30 @@ public class Database {
 
     public HashMap<String,Integer> getNutrientsForFood(String foodId){
         HashMap<String,Integer> ret = new HashMap<String,Integer>();
-        Cursor nutrients = db.rawQuery("SELECT * FROM food_nutrient00 where fdc_id = \"" + foodId + "\"", null);
+
+        String table = "food_nutrient00";
+        String[] columns = {"nutrient_id", "amount"};
+        String whereStm = String.format("fdc_id = \"%s\"", foodId);
+        Cursor nutrients = db.query(table, columns, whereStm, null, null, null, null);
+
         if (nutrients.moveToFirst()) {
             do {
-                String nutrientID = nutrients.getString(2);
-                int rawAmount = nutrients.getInt(3);
+
                 /* convert raw amount into native value */
-                Cursor nutrientConversion = db.rawQuery("SELECT * FROM nutrient where id = \"" + nutrientID + "\"", null);
+                String nutrientID = nutrients.getString(0);
+                int rawAmount = nutrients.getInt(1);
+
+                String tableNut = "nutrient";
+                String[] columnsNut = {"unit_name"};
+                String whereStmNut = String.format("id = \"%s\"", nutrientID);
+                Cursor nutrientConversion = db.query(tableNut, columnsNut, whereStmNut, null, null, null, null);
+
                 if(nutrientConversion.moveToFirst()){
-                    String unitName = nutrientConversion.getString(2);
+                    String unitName = nutrientConversion.getString(0);
                     int normalizedAmount = Conversions.normalize(unitName, rawAmount);
                     ret.put(nutrientID, normalizedAmount);
                 }else{
-                    throw new RuntimeException("nutrient not found");
+                    throw new RuntimeException("Nutrient not found?!");
                 }
             } while (nutrients.moveToNext());
         }else{
@@ -146,7 +159,11 @@ public class Database {
     }
 
     public Food getFoodById(String foodId, String loggedAtIso) {
-        Cursor c = db.rawQuery("SELECT description FROM food where fdc_id = \"" + foodId + "\"", null);
+
+        String table = "food";
+        String[] columns = {"description"};
+        String whereStm = String.format("fdc_id = \"%s\"", foodId);
+        Cursor c = db.query(table, columns, whereStm, null, null, null, null);
 
         if(foodCache.containsKey(foodId)){
             return foodCache.get(foodId);
@@ -154,7 +171,7 @@ public class Database {
 
             LocalDate loggedAt = null;
             if (loggedAtIso != null) {
-                loggedAt = LocalDate.parse(loggedAtIso, DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
+                loggedAt = LocalDate.parse(loggedAtIso, sqliteDatetimeFormat);
             }
 
             if (c.moveToFirst()) {
