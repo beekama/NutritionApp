@@ -18,6 +18,8 @@ public class Food {
     public Nutrition nutrition;
     public LocalDate loggedAt;
 
+    public int associatedAmount = -1;
+
     public Food(String name, String id){
         this.id = id;
         this.name = name;
@@ -48,5 +50,17 @@ public class Food {
             return this.equals(f.food);
         }
     }
+
+    public void setAssociatedAmount(int associatedAmount) {
+        this.associatedAmount = associatedAmount;
+    }
+
+    public int getAssociatedAmount() {
+        if(associatedAmount == -1){
+            throw new AssertionError("Food for Database must have set associatedAmount in gram");
+        }
+        return associatedAmount;
+    }
+
 }
 

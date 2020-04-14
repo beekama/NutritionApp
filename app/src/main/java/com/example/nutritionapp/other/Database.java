@@ -70,6 +70,8 @@ public class Database {
         /* This functions add a list of create_foods to the journal at a given date */
         ArrayList<Food> selectedSoFar = new ArrayList<>();
         for (SelectedFoodItem item : selectedSoFarItems) {
+            Food f = item.food;
+            f.setAssociatedAmount(item.amount);
             selectedSoFar.add(item.food);
         }
         logExistingFoods(selectedSoFar, d);
@@ -89,6 +91,7 @@ public class Database {
             values.put("date", d.toString());
             values.put("group_id", groupID);
             values.put("loggedAt", d.format(sqliteDatetimeFormat));
+            values.put("amountInGram", f.getAssociatedAmount());
             db.insert("foodlog", null, values);
         }
     }
@@ -102,7 +105,7 @@ public class Database {
         String endISO = end.format(sqliteDatetimeFormat);
 
         String table = "foodlog";
-        String[] columns = {"food_id", "group_id", "loggedAt"};
+        String[] columns = {"food_id", "group_id", "loggedAt", "amountInGram"};
         String whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")" , endISO, startISO);
         if(start.equals(LocalDate.MIN) || end.equals(LocalDate.MAX)){
             whereStm = "date(loggedAt)";
@@ -114,13 +117,18 @@ public class Database {
                 String foodId = c.getString(0);
                 int groupID = c.getInt(1);
                 String loggedAtISO = c.getString(2);
+                int amount = c.getInt(3);
 
                 if (ret.containsKey(groupID)) {
                     ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
-                    group.add(getFoodById(foodId, loggedAtISO));
+                    Food f = getFoodById(foodId, loggedAtISO);
+                    f.setAssociatedAmount(amount);
+                    group.add(f);
                 }else{
                     ArrayList<Food> group = new ArrayList<>();
-                    group.add(getFoodById(foodId, loggedAtISO));
+                    Food f = getFoodById(foodId, loggedAtISO);
+                    f.setAssociatedAmount(amount);
+                    group.add(f);
                     ret.put(groupID, group);
                 }
 

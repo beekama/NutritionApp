@@ -22,11 +22,11 @@ public class NutritionAnalysis {
     }
 
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
-        ArrayList<Nutrition> vitaminsCalculatedFrom = new ArrayList<>();
+        ArrayList<Nutrition> nutritionCalculatedFrom = new ArrayList<>();
         for(Food f : calculatedFrom){
-            vitaminsCalculatedFrom.add(f.nutrition);
+            nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(f.associatedAmount));
         }
-        return Nutrition.sum(vitaminsCalculatedFrom);
+        return Nutrition.sum(nutritionCalculatedFrom);
     }
 
     public Nutrition getNutritionMissing() {

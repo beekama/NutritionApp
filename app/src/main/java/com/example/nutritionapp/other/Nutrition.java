@@ -21,7 +21,6 @@ public class Nutrition {
     public static final String DB_ID_VITAMIN_K = "1183";
     public static final String DB_ID_VITAMIN_B12 = "1178";
 
-
     public Nutrition(HashMap<String, Integer> nutrients) {
 
         /* Minerals */
@@ -48,6 +47,16 @@ public class Nutrition {
 
     public Nutrition(Nutrition orig){
         this.elements = new HashMap<NutritionElement, Integer>(orig.elements);
+    }
+
+    public Nutrition getNutritionForAmount(int amountInGram){
+        Nutrition newNut = new Nutrition(this);
+        for(NutritionElement el : newNut.elements.keySet()){
+            float content = (float)newNut.elements.get(el);
+            content = content*amountInGram/100f;
+            newNut.elements.put(el, (int)content);
+        }
+        return newNut;
     }
 
 
