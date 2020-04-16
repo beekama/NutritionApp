@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -65,6 +66,13 @@ public class AddFoodToJournal extends AppCompatActivity {
                 selected.add(new SelectedFoodItem(item.food, 100));
                 updateSelectedView(selectedListView, selected);
             }
+        });
+
+        selectedListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            selected.remove(parent.getItemAtPosition(position));
+            updateSelectedView(selectedListView, selected);
+            updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
+            return false;
         });
 
         suggestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
