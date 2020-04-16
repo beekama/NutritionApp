@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -42,8 +41,8 @@ public class AddFoodToJournal extends AppCompatActivity {
         final ListView lv = findViewById(R.id.listview);
         final ListView suggestions = findViewById(R.id.suggestions);
 
-        final ArrayList<GenericListItem> inputList = new ArrayList<>();
-        final ArrayList<GenericListItem> suggestionsByPrevSelected = new ArrayList<>();
+        final ArrayList<GroupListItem> inputList = new ArrayList<>();
+        final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
         Database db = new Database(this);
 
         TextWatcher filterNameTextWatcher = new TextWatcher() {
@@ -137,7 +136,7 @@ public class AddFoodToJournal extends AppCompatActivity {
         suggestions.invalidate();
     }
 
-    private void switchToSuggestionView(Database db, ArrayList<GenericListItem> suggestionsByPrevSelected, ListView suggestions, ListView lv) {
+    private void switchToSuggestionView(Database db, ArrayList<GroupListItem> suggestionsByPrevSelected, ListView suggestions, ListView lv) {
         updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
         lv.setVisibility(View.GONE);
         suggestions.setVisibility(View.VISIBLE);
@@ -145,7 +144,7 @@ public class AddFoodToJournal extends AppCompatActivity {
         suggestions.invalidate();
     }
 
-    private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GenericListItem> suggestionsPrevSelected, ListView suggestions) {
+    private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
         suggestionsPrevSelected.clear();
         for(Food f : foods){
             if(suggestionsPrevSelected.contains(f)){
@@ -159,7 +158,7 @@ public class AddFoodToJournal extends AppCompatActivity {
         suggestions.setAdapter(adapter);
     }
 
-    private void updateSearchList(ArrayList<Food> foods, ArrayList<GenericListItem> inputList, ListView lv) {
+    private void updateSearchList(ArrayList<Food> foods, ArrayList<GroupListItem> inputList, ListView lv) {
         inputList.clear();
         for(Food f : foods){
             inputList.add(new ListFoodItem(f));

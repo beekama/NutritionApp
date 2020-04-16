@@ -96,6 +96,17 @@ public class Database {
         }
     }
 
+    public void deleteLoggedFood(ArrayList<Food> foods, LocalDate d){
+        for(Food f:foods){
+            deleteLoggedFood(f, d);
+        }
+    }
+
+    public synchronized void deleteLoggedFood(Food f, LocalDate d) {
+        String whereClause = String.format("food_id = \"%s\" AND loggedAt = \"%s\"", f.id, d.format(sqliteDatetimeFormat));
+        db.delete("foodlog", whereClause, null);
+    }
+
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
         /* Return create_foods logged by dates */
 

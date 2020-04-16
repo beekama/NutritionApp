@@ -1,17 +1,10 @@
 package com.example.nutritionapp.foodJournal;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDate;
@@ -20,13 +13,11 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nutritionapp.foodJournal.AddFoodsLists.GenericListItem;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewAdapter;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.NutritionAnalysis;
-import com.example.nutritionapp.other.NutritionPercentageTupel;
 import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
@@ -93,7 +84,7 @@ public class FoodJournalOverview extends AppCompatActivity {
             for(Integer groupId : localFoodGroups.keySet()){
                 foodListForGroupOnDay.addAll(localFoodGroups.get(groupId));
             }
-            FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay);
+            FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
             foodDataList.add(nextItem);
         }
         if(runInvalidation) {
@@ -105,76 +96,3 @@ public class FoodJournalOverview extends AppCompatActivity {
 
 }
 
-class FoodOverviewListItem{
-    public final String date;
-    public ArrayList<Food> foods;
-
-    public FoodOverviewListItem(String date, ArrayList<Food> foods) {
-        this.date = date;
-        this.foods = foods;
-    }
-
-}
-
-class FoodOverviewAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<FoodOverviewListItem> items;
-
-    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items){
-        this.context = context;
-        this.items   = items;
-    }
-    @Override
-    public int getCount() {
-        return items.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return items.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        /* item at postition */
-        FoodOverviewListItem itemAtCurPos = this.items.get(position);
-
-        /* inflate layout */
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
-
-        /* get relevant sub-views */
-        TextView dateText = convertView.findViewById(R.id.dateText);
-        TextView energyText = convertView.findViewById(R.id.energyBar);
-        TextView nutritionText = convertView.findViewById(R.id.nutritionBar);
-        ListView subFoodList = convertView.findViewById(R.id.list_grouped_foods);
-
-        /* set the correct date */
-        dateText.setText(items.get(position).date);
-
-
-        NutritionAnalysis analysis = new NutritionAnalysis(itemAtCurPos.foods);
-
-
-        /* calculate and set nutrition */
-        ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSorted();
-        String testText =  percentages.get(0).nutritionElement + " : Only " + percentages.get(0).percentage + "% of DRI";
-        nutritionText.setText(testText);
-        energyText.setText(Integer.toString(analysis.getTotalEnergy()) + " Joule");
-
-        /* display the foods in the nested sub-list */
-        ArrayList<GenericListItem> listItemsInThisSection = new ArrayList<>();
-        for(Food f : itemAtCurPos.foods){
-            listItemsInThisSection.add(new ListFoodItem(f));
-        }
-        ListAdapter subListViewAdapter = new com.example.nutritionapp.foodJournal.AddFoodsLists.ListAdapter(context, listItemsInThisSection);
-        subFoodList.setAdapter(subListViewAdapter);
-        return convertView;
-    }
-}

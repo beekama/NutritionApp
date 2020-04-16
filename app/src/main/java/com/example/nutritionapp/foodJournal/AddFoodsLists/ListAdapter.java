@@ -13,13 +13,13 @@ import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<GenericListItem> item;
-    private ArrayList<GenericListItem> originalItem;
+    private ArrayList<GroupListItem> item;
+    private ArrayList<GroupListItem> originalItem;
 
     public ListAdapter(){
         super();
     }
-    public ListAdapter(Context context, ArrayList<GenericListItem> item){
+    public ListAdapter(Context context, ArrayList<GroupListItem> item){
         this.context=context;
         this.item=item;
     }

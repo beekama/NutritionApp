@@ -2,7 +2,7 @@ package com.example.nutritionapp.foodJournal.AddFoodsLists;
 
 import com.example.nutritionapp.other.Food;
 
-public class ListFoodItem implements GenericListItem{
+public class ListFoodItem implements GroupListItem {
         public final Food food;
 
         public ListFoodItem(Food food) {

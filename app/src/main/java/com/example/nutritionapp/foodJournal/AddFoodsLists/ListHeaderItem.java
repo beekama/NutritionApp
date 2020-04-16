@@ -1,6 +1,6 @@
 package com.example.nutritionapp.foodJournal.AddFoodsLists;
 
-public class ListHeaderItem implements  GenericListItem{
+public class ListHeaderItem implements GroupListItem {
         private final String title;
 
         public ListHeaderItem(String title) {
