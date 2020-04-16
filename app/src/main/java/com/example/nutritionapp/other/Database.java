@@ -13,6 +13,7 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
 import org.apache.commons.io.IOUtils;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
@@ -32,7 +33,8 @@ public class Database {
 
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
-    private static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
+    private static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter sqliteDateOnlyFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
 
     /* used to track create_foods added together */
     private final Activity srcActivity;
@@ -66,7 +68,7 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDate d, Object hackyhack) {
+    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyhack) {
         /* This functions add a list of create_foods to the journal at a given date */
         ArrayList<Food> selectedSoFar = new ArrayList<>();
         for (SelectedFoodItem item : selectedSoFarItems) {
@@ -76,16 +78,17 @@ public class Database {
         }
         logExistingFoods(selectedSoFar, d);
     }
-    public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDate d) {
+    public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDateTime d) {
         /* This functions add a list of create_foods to the journal at a given date */
 
         if(d == null){
-            d = LocalDate.now();
+            d = LocalDateTime.now();
         }
 
         Random random = new Random();
         int groupID =  random.nextInt(1000000);
         for (Food f : foods) {
+            Log.wtf("FOOD", d.format(sqliteDatetimeFormat));
             ContentValues values = new ContentValues();
             values.put("food_id", f.id);
             values.put("date", d.toString());
@@ -96,13 +99,13 @@ public class Database {
         }
     }
 
-    public void deleteLoggedFood(ArrayList<Food> foods, LocalDate d){
+    public void deleteLoggedFood(ArrayList<Food> foods, LocalDateTime d){
         for(Food f:foods){
             deleteLoggedFood(f, d);
         }
     }
 
-    public synchronized void deleteLoggedFood(Food f, LocalDate d) {
+    public synchronized void deleteLoggedFood(Food f, LocalDateTime d) {
         String whereClause = String.format("food_id = \"%s\" AND loggedAt = \"%s\"", f.id, d.format(sqliteDatetimeFormat));
         db.delete("foodlog", whereClause, null);
     }
@@ -112,8 +115,8 @@ public class Database {
 
         HashMap<Integer, ArrayList<Food>> ret = new HashMap<>();
 
-        String startISO = start.format(sqliteDatetimeFormat);
-        String endISO = end.format(sqliteDatetimeFormat);
+        String startISO = start.format(sqliteDateOnlyFormat);
+        String endISO = end.format(sqliteDateOnlyFormat);
 
         String table = "foodlog";
         String[] columns = {"food_id", "group_id", "loggedAt", "amountInGram"};
@@ -201,9 +204,9 @@ public class Database {
             return foodCache.get(foodId);
         }else {
 
-            LocalDate loggedAt = null;
+            LocalDateTime loggedAt = null;
             if (loggedAtIso != null) {
-                loggedAt = LocalDate.parse(loggedAtIso, sqliteDatetimeFormat);
+                loggedAt = LocalDateTime.parse(loggedAtIso, sqliteDatetimeFormat);
             }
 
             if (c.moveToFirst()) {

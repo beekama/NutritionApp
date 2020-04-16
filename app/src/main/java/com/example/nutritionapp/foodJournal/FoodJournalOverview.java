@@ -69,15 +69,15 @@ public class FoodJournalOverview extends AppCompatActivity {
 
     private void updateFoodJournalList(boolean runInvalidation) {
         HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(now, oldestDateShown);
-        SortedMap<LocalDateTime, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(foodGroups);
+        SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(foodGroups);
         foodDataList.clear();
 
         /* generate reversed list */
-        ArrayList<LocalDateTime> keyListReversed = new ArrayList<>();
+        ArrayList<LocalDate> keyListReversed = new ArrayList<>();
         keyListReversed.addAll(foodGroupsByDay.keySet());
         Collections.reverse(keyListReversed);
 
-        for(LocalDateTime day : keyListReversed){
+        for(LocalDate day : keyListReversed){
             HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(day);
             String dateString = day.format(DateTimeFormatter.ISO_DATE);
             ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();

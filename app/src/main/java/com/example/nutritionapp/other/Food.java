@@ -3,6 +3,7 @@ package com.example.nutritionapp.other;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 
 import java.util.HashMap;
 
@@ -16,7 +17,7 @@ public class Food {
     public int energy;
     public int fiber;
     public Nutrition nutrition;
-    public LocalDate loggedAt;
+    public LocalDateTime loggedAt;
 
     public int associatedAmount = -1;
 
@@ -25,7 +26,7 @@ public class Food {
         this.name = name;
     }
 
-    public Food(String foodName, String foodId, Database db, LocalDate loggedAt) {
+    public Food(String foodName, String foodId, Database db, LocalDateTime loggedAt) {
         this.name = foodName;
         this.id = foodId;
         HashMap<String,Integer> nutrients = db.getNutrientsForFood(foodId);

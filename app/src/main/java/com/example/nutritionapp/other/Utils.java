@@ -1,5 +1,6 @@
 package com.example.nutritionapp.other;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 import java.util.ArrayList;
@@ -24,14 +25,14 @@ public class Utils {
         return ret.toString();
     }
 
-    public static SortedMap<LocalDateTime, HashMap<Integer, ArrayList<Food>>> foodGroupsByDays(HashMap<Integer, ArrayList<Food>> foodGroups) {
-        SortedMap<LocalDateTime, HashMap<Integer, ArrayList<Food>>> foodByDate = new TreeMap<>();
+    public static SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDays(HashMap<Integer, ArrayList<Food>> foodGroups) {
+        SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodByDate = new TreeMap<>();
         if(foodGroups.size() == 0){
             return foodByDate;
         }
         for(Integer groupID : foodGroups.keySet()){
             for(Food f : foodGroups.get(groupID)){
-                LocalDateTime day = f.loggedAt.atStartOfDay();
+                LocalDate day = LocalDate.from(f.loggedAt);
                 if(!foodByDate.containsKey(day)) {
                     foodByDate.put(day, new HashMap<>());
                 }
