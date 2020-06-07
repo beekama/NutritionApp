@@ -1,6 +1,8 @@
 *.swp
+sqlite3-full.init
 *.sqlite
 *.db
+*.csv
 *.iml
 .gradle
 /local.properties
