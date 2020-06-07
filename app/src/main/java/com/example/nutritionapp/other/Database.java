@@ -199,7 +199,7 @@ public class Database {
                 }
             } while (nutrients.moveToNext());
         }else{
-            Log.w("NA", "No Nutrition found for this foodId" + foodId);
+            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in subdb: "+ subDbName);
             nutrients.close();
             return null;
         }
