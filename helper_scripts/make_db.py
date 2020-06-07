@@ -19,7 +19,7 @@ SCHEMA = '''"id","fdc_id","nutrient_id","amount"\n'''
 with open(TMP_FILE) as f:
     for line in f:
         curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT))
-        if os.path.isfile(curFileName):
+        if os.path.isfile(curFileName) or count == 0:
             with open(curFileName, "a") as fout:
                 fout.write(line)
         else:
