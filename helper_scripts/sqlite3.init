@@ -8,8 +8,10 @@ create TABLE person(
 
 create TABLE foodlog(
     "food_id"   TEXT,
-    "date",     INTEGER,
-    "group_id"  TEXT
+    "date"  INTEGER,
+    "group_id"  TEXT,
+    "amountInGram" INTEGER,
+    "loggedAt"  INTEGER
 );
 
 .mode csv
