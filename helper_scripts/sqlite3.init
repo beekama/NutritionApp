@@ -17,4 +17,5 @@ create TABLE foodlog(
 .mode csv
 .import food.csv food
 .import food_portion.csv food_portion
+.import nutrient.csv nutrient
 
