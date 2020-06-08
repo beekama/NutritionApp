@@ -155,8 +155,6 @@ public class Database {
     public HashMap<String,Integer> getNutrientsForFood(String foodId){
         HashMap<String,Integer> ret = new HashMap<>();
 
-        String table = "food_nutrient_";
-
         // TODO autogenerate these numbers (first id in subtable)
         Integer[] subDbIds = { 9071041, 9161600, 9247740, 9222210, 9224110, 9389550,9348225,
                             9439175, 9504580, 9560300, 9613095, 9506835, 9071041 };
@@ -169,7 +167,7 @@ public class Database {
                 count++;
             }
         }
-        String subDbName = String.format("%02d", count);;
+        String subDbName = String.format("food_nutrient_%02d", count);;
 
         String[] columns = {"nutrient_id", "amount"};
         String whereStm = String.format("fdc_id = \"%s\"", foodId);
