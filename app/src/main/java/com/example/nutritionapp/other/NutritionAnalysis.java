@@ -51,6 +51,19 @@ public class NutritionAnalysis {
         return ret;
     }
 
+    public ArrayList<NutritionPercentageTupel> getNutritionPercentageSortedFilterZero() {
+        ArrayList<NutritionPercentageTupel> ret = new ArrayList<>();
+        for(NutritionElement key: nutritionPercentage.keySet()){
+            NutritionPercentageTupel n = new NutritionPercentageTupel(key, nutritionPercentage.get(key));
+            if(n.percentage == 0){
+                continue;
+            }
+            ret.add(n);
+        }
+        Collections.sort(ret);
+        return ret;
+    }
+
     public int getTotalEnergy() {
         return totalEnergy;
     }

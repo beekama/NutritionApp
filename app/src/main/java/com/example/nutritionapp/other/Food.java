@@ -1,5 +1,7 @@
 package com.example.nutritionapp.other;
 
+import android.util.Log;
+
 import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 
 import org.threeten.bp.LocalDate;
@@ -33,11 +35,12 @@ public class Food {
         if(nutrients != null) {
             this.fiber = nutrients.get(DB_ID_FIBER);
             this.energy = nutrients.get(DB_ID_ENERGY);
-            this.nutrition = new Nutrition();
+            this.nutrition = new Nutrition(nutrients);
         }else{
             this.fiber = 0;
             this.energy = 0;
             this.nutrition = new Nutrition();
+            Log.w("FOOD_DB", "Nutrition Information was Null");
         }
         this.loggedAt = loggedAt;
     }
