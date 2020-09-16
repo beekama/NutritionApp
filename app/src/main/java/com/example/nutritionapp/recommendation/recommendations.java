@@ -1,6 +1,7 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.Test_chart;
+import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
 
 import org.threeten.bp.Duration;
@@ -62,6 +65,8 @@ public class recommendations extends AppCompatActivity {
         ImageButton tb_forward = findViewById(R.id.toolbar_forward);
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+
+        //FOR CHART TESTING
         tb_forward.setImageResource(R.drawable.add_circle_filled);
         tb.setTitle("");
         tb_title.setText("RECOMMENDATIONS");
@@ -70,7 +75,9 @@ public class recommendations extends AppCompatActivity {
         tb_forward.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateRecommendations(true);
+               // updateRecommendations(true);
+                Intent myIntent = new Intent(v.getContext(), Test_chart.class);
+                startActivity(myIntent);
             }
         }));
 
