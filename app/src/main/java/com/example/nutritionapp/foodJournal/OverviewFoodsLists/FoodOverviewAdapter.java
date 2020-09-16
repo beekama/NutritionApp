@@ -65,7 +65,12 @@ public class FoodOverviewAdapter extends BaseAdapter {
 
         /* calculate and set nutrition */
         ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSortedFilterZero();
-        String testText = String.format("%s : Only %d%%", percentages.get(0).nutritionElement, (int) (percentages.get(0).percentage * 100));
+        String testText;
+        if(!percentages.isEmpty()) {
+            testText = String.format("%s : Only %d%%", percentages.get(0).nutritionElement, (int) (percentages.get(0).percentage * 100));
+        }else{
+            testText = "";
+        }
         nutritionText.setText(testText);
         energyText.setText(Conversions.jouleToKCal(analysis.getTotalEnergy()) + " KCAL");
 
