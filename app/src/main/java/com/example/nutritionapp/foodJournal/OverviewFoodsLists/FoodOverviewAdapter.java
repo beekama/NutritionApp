@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionPercentageTupel;
 
@@ -63,10 +64,15 @@ public class FoodOverviewAdapter extends BaseAdapter {
 
 
         /* calculate and set nutrition */
-        ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSorted();
-        String testText =  percentages.get(0).nutritionElement + " : Only " + percentages.get(0).percentage + "% of DRI";
+        ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSortedFilterZero();
+        String testText;
+        if(!percentages.isEmpty()) {
+            testText = String.format("%s : Only %d%%", percentages.get(0).nutritionElement, (int) (percentages.get(0).percentage * 100));
+        }else{
+            testText = "";
+        }
         nutritionText.setText(testText);
-        energyText.setText(Integer.toString(analysis.getTotalEnergy()) + " Joule");
+        energyText.setText(Conversions.jouleToKCal(analysis.getTotalEnergy()) + " KCAL");
 
         /* display the foods in the nested sub-list */
         ArrayList<GroupFoodItem> listItemsInThisSection = new ArrayList<>();

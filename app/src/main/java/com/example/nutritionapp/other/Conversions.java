@@ -22,4 +22,8 @@ public class Conversions {
                 throw new RuntimeException("Unknown unitName: " + unitName);
         }
     }
+
+    public static int jouleToKCal(int joule){
+        return joule/KCAL_TO_JOULE;
+    }
 }

@@ -8,11 +8,11 @@ import android.widget.ListView;
 
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.Database;
@@ -59,6 +59,13 @@ public class FoodJournalOverview extends AppCompatActivity {
         final Button addStuff = findViewById(R.id.add_food);
         addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddFoodToJournal.class)));
 
+        foodsFromDatabase.setOnItemClickListener((parent, view, position, id) -> {
+            FoodOverviewListItem tmpItem = (FoodOverviewListItem) parent.getItemAtPosition(position);
+            Intent target = new Intent(view.getContext(), NutritionOverview.class);
+            target.putExtra("startDate", tmpItem.date);
+            target.putExtra("endDate", tmpItem.date);
+            startActivity(target);
+        });
     }
 
     @Override
