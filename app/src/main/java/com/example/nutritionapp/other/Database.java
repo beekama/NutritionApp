@@ -11,7 +11,7 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.IOUtil;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -48,7 +48,7 @@ public class Database {
 
             try {
                 OutputStream out = new FileOutputStream(targetPath);
-                int bytes = IOUtils.copy(in, out);
+                IOUtil.copy(in, out);
                 out.close();
                 in.close();
             } catch (FileNotFoundException e) {
