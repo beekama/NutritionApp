@@ -2,6 +2,7 @@ package com.example.nutritionapp.NutritionOverview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -16,29 +17,42 @@ import com.example.nutritionapp.other.Database;
 import org.threeten.bp.LocalDate;
 
 public class NutritionOverview extends AppCompatActivity {
+    /* TODO display overview of nutrition based on food ids or dates */
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
+        // TODO set correct layout
         setContentView(R.layout.journal);
 
         Intent intent = getIntent();
         String startDate = intent.getStringExtra("startDate");
         String endDate = intent.getStringExtra("endDate");
 
-        LocalDate startDateParsed = LocalDate.now();
-        LocalDate endDateParsed = LocalDate.now();
+        String foodIds = intent.getStringExtra("foodIds");
+        String foodAmount = intent.getStringExtra("amounts");
 
         Database db = new Database(this);
+        if (startDate != null) {
+            LocalDate startDateParsed = LocalDate.now();
+            LocalDate endDateParsed = null;
+            if(endDate != null) {
+                endDateParsed = LocalDate.now();
+            }
+            db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
 
-        db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
+            // TODO display based on nutrion
+        } else if (foodIds != null && foodAmount != null){
+            // TODO display based on ids
+            //for(String id : foodIds){
+            //    db.getFoodById()
+            //}
+        }else {
+            throw new AssertionError("No food ids and amount or dates given in intent extras!?");
+        }
 
-        /* set adapter */
-        BaseAdapter adapter = new NutritionOverviewAdapter();
-        ListView foodsFromDatabase = findViewById(R.id.listview);
-        foodsFromDatabase.setAdapter(adapter);
-        foodsFromDatabase.setTextFilterEnabled(true);
 
-        final Button addStuff = findViewById(R.id.add_food);
-        addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddFoodToJournal.class)));
+        Log.wtf("INFO", startDate);
+
     }
 }
