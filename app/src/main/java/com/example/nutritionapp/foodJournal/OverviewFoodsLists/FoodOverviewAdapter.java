@@ -1,6 +1,7 @@
 package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -59,6 +61,12 @@ public class FoodOverviewAdapter extends BaseAdapter {
         /* set the correct date */
         dateText.setText(items.get(position).date);
 
+        dateText.setOnClickListener(view -> {
+            Log.wtf("WTF", "on click listener");
+            Intent target = new Intent(view.getContext(), NutritionOverview.class);
+            target.putExtra("startDate", items.get(position).date);
+            context.startActivity(target);
+        });
 
         NutritionAnalysis analysis = new NutritionAnalysis(itemAtCurPos.foods);
 
