@@ -22,7 +22,7 @@ import org.threeten.bp.LocalDate;
 import java.util.ArrayList;
 
 
-public class recommendations extends AppCompatActivity {
+public class Recommendations extends AppCompatActivity {
 
     //time-data:
     private LocalDate now = LocalDate.now();
@@ -30,9 +30,9 @@ public class recommendations extends AppCompatActivity {
     final private Duration ONE_DAY = Duration.ofDays(1);
     final private Duration ONE_WEEK = Duration.ofDays(7);
 /*    final private ArrayList<RecommendationListItem> inputList = new ArrayList<RecommendationListItem>();*/
-    final private ArrayList<com.example.nutritionapp.recommendation.recommendationListItem> inputList = new ArrayList<>();
+    final private ArrayList<RecommendationListItem> inputList = new ArrayList<>();
 
-    private recommendationAdapter adapter;
+    private RecommendationAdapter adapter;
     private Database db;
     private ListView deficienciesList;
 
@@ -50,7 +50,7 @@ public class recommendations extends AppCompatActivity {
         updateRecommendations(false);   //todo
 
         //adapter:
-        adapter = new recommendationAdapter(this, inputList);
+        adapter = new RecommendationAdapter(this, inputList);
         deficienciesList = (ListView) findViewById(R.id.listview);
         deficienciesList.setAdapter(adapter);
         deficienciesList.setTextFilterEnabled(true);
@@ -94,7 +94,7 @@ public class recommendations extends AppCompatActivity {
 
     }
 
-class WeekBreakHeader implements recommendationListItem{
+class WeekBreakHeader implements RecommendationListItem {
     private final String title;
 
     public WeekBreakHeader(String title){
@@ -112,7 +112,7 @@ class WeekBreakHeader implements recommendationListItem{
     }
 }
 
-class DeficiencyItem implements recommendationListItem{
+class DeficiencyItem implements RecommendationListItem {
     private final String title;
     public DeficiencyItem(String title){
         this.title = title;
@@ -130,20 +130,20 @@ class DeficiencyItem implements recommendationListItem{
     }
 }
 
-interface recommendationListItem{
+interface RecommendationListItem {
     public boolean isSection();
     public String getTitle();
         }
 
-class recommendationAdapter extends BaseAdapter{
+class RecommendationAdapter extends BaseAdapter{
     private Context context;
-    private ArrayList<recommendationListItem> item;
+    private ArrayList<RecommendationListItem> item;
 
-    public recommendationAdapter(){
+    public RecommendationAdapter(){
         super();
     }
 
-    public recommendationAdapter(Context context, ArrayList<recommendationListItem> item){
+    public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> item){
         this.context = context;
         this.item = item;
     }
