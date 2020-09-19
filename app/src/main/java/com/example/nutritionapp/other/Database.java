@@ -115,6 +115,9 @@ public class Database {
 
         HashMap<Integer, ArrayList<Food>> ret = new HashMap<>();
 
+        if(end == null){
+            end = start.plusDays(1);
+        }
         String startISO = start.format(sqliteDateOnlyFormat);
         String endISO = end.format(sqliteDateOnlyFormat);
 
