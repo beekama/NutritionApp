@@ -33,8 +33,8 @@ public class Database {
 
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
-    private static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private static final DateTimeFormatter sqliteDateOnlyFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
+    public static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter sqliteDateOnlyFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
 
     /* used to track create_foods added together */
     private final Activity srcActivity;
