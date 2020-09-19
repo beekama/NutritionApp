@@ -33,8 +33,6 @@ public class Database {
 
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
-    public static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    public static final DateTimeFormatter sqliteDateOnlyFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
 
     /* used to track create_foods added together */
     private final Activity srcActivity;
@@ -88,12 +86,12 @@ public class Database {
         Random random = new Random();
         int groupID =  random.nextInt(1000000);
         for (Food f : foods) {
-            Log.wtf("FOOD", d.format(sqliteDatetimeFormat));
+            Log.wtf("FOOD", d.format(Utils.sqliteDatetimeFormat));
             ContentValues values = new ContentValues();
             values.put("food_id", f.id);
             values.put("date", d.toString());
             values.put("group_id", groupID);
-            values.put("loggedAt", d.format(sqliteDatetimeFormat));
+            values.put("loggedAt", d.format(Utils.sqliteDatetimeFormat));
             values.put("amountInGram", f.getAssociatedAmount());
             db.insert("foodlog", null, values);
         }
@@ -106,7 +104,7 @@ public class Database {
     }
 
     public synchronized void deleteLoggedFood(Food f, LocalDateTime d) {
-        String whereClause = String.format("food_id = \"%s\" AND loggedAt = \"%s\"", f.id, d.format(sqliteDatetimeFormat));
+        String whereClause = String.format("food_id = \"%s\" AND loggedAt = \"%s\"", f.id, d.format(Utils.sqliteDatetimeFormat));
         db.delete("foodlog", whereClause, null);
     }
 
@@ -118,8 +116,8 @@ public class Database {
         if(end == null){
             end = start.plusDays(1);
         }
-        String startISO = start.format(sqliteDateOnlyFormat);
-        String endISO = end.format(sqliteDateOnlyFormat);
+        String startISO = start.format(Utils.sqliteDateOnlyFormat);
+        String endISO = end.format(Utils.sqliteDateOnlyFormat);
 
         String table = "foodlog";
         String[] columns = {"food_id", "group_id", "loggedAt", "amountInGram"};
@@ -222,7 +220,7 @@ public class Database {
 
             LocalDateTime loggedAt = null;
             if (loggedAtIso != null) {
-                loggedAt = LocalDateTime.parse(loggedAtIso, sqliteDatetimeFormat);
+                loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
             }
 
             if (c.moveToFirst()) {

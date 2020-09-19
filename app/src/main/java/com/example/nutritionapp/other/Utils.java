@@ -2,6 +2,7 @@ package com.example.nutritionapp.other;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,10 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class Utils {
+
+    public static final DateTimeFormatter sqliteDatetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter sqliteDateOnlyFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
+
     public static int zeroIfNull(Integer integer) {
         if(integer == null){
             return 0;
@@ -47,4 +52,6 @@ public class Utils {
         }
         return foodByDate;
     }
+
+
 }
