@@ -20,6 +20,9 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Utils;
+
+import org.threeten.bp.LocalDateTime;
 
 import java.util.ArrayList;
 
@@ -50,14 +53,18 @@ public class AddFoodToJournal extends AppCompatActivity {
         /* set existing items if edit mode */
 
         int groupId = this.getIntent().getIntExtra("groupId", -1);
+        final LocalDateTime loggedAt;
         if(groupId >= 0){
             this.editMode = true;
             ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
             for(Food f : foods) {
                 selected.add(new SelectedFoodItem(f, f.associatedAmount));
             }
+            loggedAt = foods.get(0).loggedAt;
             updateSelectedView(selectedListView, selected);
             updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
+        }else{
+            loggedAt = null;
         }
 
 
@@ -137,7 +144,7 @@ public class AddFoodToJournal extends AppCompatActivity {
         });
         confirm.setOnClickListener(v -> {
             if(this.editMode){
-                db.updateFoodGroup(selected, groupId);
+                db.updateFoodGroup(selected, groupId, loggedAt);
             }else {
                 db.logExistingFoods(selected, null, null);
             }

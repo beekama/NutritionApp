@@ -263,20 +263,19 @@ public class Database {
         return foods;
     }
 
-    public void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId) {
+    public void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
+
+        String where = String.format("group_id = %d", groupId);
+        db.delete("foodlog",  where, null);
+
         for(SelectedFoodItem fItem : updatedListWithAmounts){
             Food f = fItem.food;
-            if(f.loggedAt == null){
-                f.loggedAt = LocalDateTime.now();
-            }
             ContentValues values = new ContentValues();
             values.put("food_id", f.id);
-            values.put("date", f.loggedAt.toString());
+            values.put("date", loggedAt.toString());
             values.put("group_id", groupId);
-            values.put("loggedAt", f.loggedAt.format(Utils.sqliteDatetimeFormat));
+            values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
             values.put("amountInGram", 100);
-            String where = String.format("group_id = %d AND food_id = %s", groupId, f.id);
-            db.delete("foodlog",  where, null);
             db.insert("foodlog", null, values);
         }
     }
