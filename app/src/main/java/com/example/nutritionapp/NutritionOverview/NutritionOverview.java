@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodToJournal;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Utils;
 
 import org.threeten.bp.LocalDate;
 
@@ -34,10 +35,10 @@ public class NutritionOverview extends AppCompatActivity {
 
         Database db = new Database(this);
         if (startDate != null) {
-            LocalDate startDateParsed = LocalDate.now();
+            LocalDate startDateParsed = LocalDate.parse(startDate, Utils.sqliteDatetimeFormat);
             LocalDate endDateParsed = null;
             if(endDate != null) {
-                endDateParsed = LocalDate.now();
+                endDateParsed = LocalDate.parse(endDate, Utils.sqliteDatetimeFormat) ;
             }
             db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
 
