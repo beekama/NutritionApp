@@ -3,7 +3,7 @@
 Databse abstracts all Database Information into Constructs of Classes and returns simple configuration values. It also supports special functions for copying new Databases. Supported functions are:
 
 ### Initialize the Database
-The Database must be instantiated first, every Activity shoul have it's own Database. Each instance of a Database has it's own connection.
+The Database must be instantiated first, every Activity should have it's own Database. Each instance of a Database has it's own connection.
 
     Database d = new Database(srcActivity)
 
@@ -24,7 +24,7 @@ Returns a HashMap with keys being group-ids (every logging event has an Id for a
 
     HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
 
-### Nutriends for Food
+### Nutrients for Food
 Build a *Nutrition*-Class for a given Food-Id from the Database.
 
     getNutrientsForFood(String foodId)
