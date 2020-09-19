@@ -59,6 +59,19 @@ Simple Getter and Setter for basic Values that may or may not be actually be sav
     public int getPersonEnergyReq()
     public String getPersonGender()
 
+# Food Journal Structure
+
+    FoodJournalOverview
+    --- ListView mainListOfFoodsWithDayHeaders
+    --- --- FoodOVerviewAdapter
+    --- --- --- TextView Date -> clickListener -> NutritionOverview (with this day as timeframe)
+    --- --- --- TextView Energy
+    --- --- --- ListView subList
+    --- --- --- --- GroupListApapter
+    --- --- --- --- --- TextView foods -> clickListener -> AddFoodToJournal (as edit)
+    
+
+
 ## Building the Database
 Goto the [USDA Website](https://fdc.nal.usda.gov/download-datasets.html), download the **FNDDS** dataset and the **Suporting data for Downloads** and unpack it into the *"helper\_scripts"*-directory. Then execute the ``make_db.py``-script. (sqlite3 + python3 is required for this).
 
