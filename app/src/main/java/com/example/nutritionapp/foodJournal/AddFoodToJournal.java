@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nutritionapp.BuildConfig;
 import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
 import com.example.nutritionapp.other.Database;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class AddFoodToJournal extends AppCompatActivity {
 
     final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
+    private boolean editMode = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         //splash screen: - show only when needed
@@ -45,12 +47,29 @@ public class AddFoodToJournal extends AppCompatActivity {
         final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
         Database db = new Database(this);
 
+        /* set existing items if edit mode */
+
+        int groupId = this.getIntent().getIntExtra("groupId", -1);
+        if(groupId >= 0){
+            this.editMode = true;
+            ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
+            for(Food f : foods) {
+                selected.add(new SelectedFoodItem(f, f.associatedAmount));
+            }
+            updateSelectedView(selectedListView, selected);
+            updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
+        }
+
+
+
         TextWatcher filterNameTextWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -61,7 +80,7 @@ public class AddFoodToJournal extends AppCompatActivity {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListFoodItem item = (ListFoodItem)parent.getItemAtPosition(position);
+                ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
                 selected.add(new SelectedFoodItem(item.food, 100));
                 updateSelectedView(selectedListView, selected);
             }
@@ -76,7 +95,7 @@ public class AddFoodToJournal extends AppCompatActivity {
 
         suggestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListFoodItem item = (ListFoodItem)parent.getItemAtPosition(position);
+                ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
                 selected.add(new SelectedFoodItem(item.food, 100));
                 updateSelectedView(selectedListView, selected);
                 updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
@@ -84,10 +103,10 @@ public class AddFoodToJournal extends AppCompatActivity {
         });
 
         searchFieldEditText.addTextChangedListener(filterNameTextWatcher);
-        searchFieldEditText.setOnKeyListener(new UnfocusOnEnter(){
+        searchFieldEditText.setOnKeyListener(new UnfocusOnEnter() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(super.onKey(v, keyCode, event)){
+                if (super.onKey(v, keyCode, event)) {
                     switchToSuggestionView(db, suggestionsByPrevSelected, suggestions, lv);
                     return true;
                 }
@@ -95,10 +114,10 @@ public class AddFoodToJournal extends AppCompatActivity {
             }
         });
         searchFieldEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if(!hasFocus) {
+            if (!hasFocus) {
                 InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            }else{
+            } else {
                 switchToSearchView(lv, suggestions);
             }
         });
@@ -108,15 +127,23 @@ public class AddFoodToJournal extends AppCompatActivity {
 
         cancel.setOnClickListener(v -> {
             View sf = findViewById(R.id.searchField);
-            if(sf.hasFocus()){
+            if (sf.hasFocus()) {
                 sf.clearFocus();
                 switchToSuggestionView(db, new ArrayList<>(), suggestions, lv);
-            }else {
+            } else {
                 db.close();
                 finish();
             }
         });
-        confirm.setOnClickListener(v -> { db.logExistingFoods(selected, null, null); db.close(); finish();});
+        confirm.setOnClickListener(v -> {
+            if(this.editMode){
+                db.updateFoodGroup(selected, groupId);
+            }else {
+                db.logExistingFoods(selected, null, null);
+            }
+            db.close();
+            finish();
+        });
     }
 
     /* TODO amount selection (grams) */

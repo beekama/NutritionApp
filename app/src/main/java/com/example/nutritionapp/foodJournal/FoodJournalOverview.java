@@ -62,7 +62,6 @@ public class FoodJournalOverview extends AppCompatActivity {
 
         final Button addStuff = findViewById(R.id.add_food);
         addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddFoodToJournal.class)));
-
     }
 
     @Override

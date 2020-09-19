@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewListItem;
 
 import org.apache.commons.io.IOUtil;
 import org.threeten.bp.LocalDate;
@@ -260,6 +261,43 @@ public class Database {
         }
         c.close();
         return foods;
+    }
+
+    public void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId) {
+        for(SelectedFoodItem fItem : updatedListWithAmounts){
+            Food f = fItem.food;
+            if(f.loggedAt == null){
+                f.loggedAt = LocalDateTime.now();
+            }
+            ContentValues values = new ContentValues();
+            values.put("food_id", f.id);
+            values.put("date", f.loggedAt.toString());
+            values.put("group_id", groupId);
+            values.put("loggedAt", f.loggedAt.format(Utils.sqliteDatetimeFormat));
+            values.put("amountInGram", 100);
+            String where = String.format("group_id = %d AND food_id = %s", groupId, f.id);
+            db.delete("foodlog",  where, null);
+            db.insert("foodlog", null, values);
+        }
+    }
+
+    public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
+        String whereStm = String.format("group_id = %d" , groupId);
+        String[] columns = {"food_id", "loggedAt", "amountInGram"};
+        Cursor c = db.query("foodlog", columns, whereStm, null, null, null, null);
+
+        ArrayList<Food> ret = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                String foodId = c.getString(0);
+                String date = c.getString(1);
+                int amount = c.getInt(2);
+                Food f = this.getFoodById(foodId, date);
+                f.associatedAmount = amount;
+                ret.add(f);
+            } while (c.moveToNext());
+        }
+        return ret;
     }
 
     private class SuggestionHelper implements Comparable<SuggestionHelper>{

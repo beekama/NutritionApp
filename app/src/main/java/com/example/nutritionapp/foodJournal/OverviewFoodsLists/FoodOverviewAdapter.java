@@ -85,7 +85,7 @@ public class FoodOverviewAdapter extends BaseAdapter {
         /* display the foods in the nested sub-list */
         ArrayList<GroupFoodItem> listItemsInThisSection = new ArrayList<>();
         for(int group : itemAtCurPos.foodGroups.keySet()){
-            listItemsInThisSection.add(new GroupFoodItem(itemAtCurPos.foodGroups.get(group)));
+            listItemsInThisSection.add(new GroupFoodItem(itemAtCurPos.foodGroups.get(group), group));
         }
         Log.wtf("FOOD", "--------");
         ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection);
