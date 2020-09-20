@@ -18,43 +18,30 @@ public class CreateNewFoodItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_foods_new_item);
 
-        //replace actionbar with custom app_toolbar:
+        /* replace actionbar with custom app_toolbar */
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title = findViewById(R.id.toolbar_title);
         ImageButton tb_back = findViewById(R.id.toolbar_back);
-        //back home button:
-        tb_back.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        }));
+
+        /* return  button */
+        tb_back.setOnClickListener((v -> finish()));
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         tb.setTitle("");
         tb_title.setText("MY ITEMS");
         setSupportActionBar(tb);
 
-
-
-        //addVitamins:
+        /* Vitamins Button */
         final ImageButton addVitamins = (ImageButton) findViewById(R.id.ib_createItem_furtherVitamins);
-        addVitamins.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), AddVitamins.class);
-                startActivity(myIntent);
-            }
+        addVitamins.setOnClickListener((v -> {
+            Intent myIntent = new Intent(v.getContext(), AddVitamins.class);
+            startActivity(myIntent);
         }));
 
-
-        //addMinerals:
+        /* Minerals Button */
         final ImageButton addMinerals = (ImageButton) findViewById(R.id.ib_createItem_furtherMinerals);
-        addMinerals.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), AddMinerals.class);
-                startActivity(myIntent);
-            }
+        addMinerals.setOnClickListener((v -> {
+            Intent myIntent = new Intent(v.getContext(), AddMinerals.class);
+            startActivity(myIntent);
         }));
 
     }}
