@@ -8,14 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewListItem;
 
 import org.apache.commons.io.IOUtil;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -154,8 +151,8 @@ public class Database {
         if(end == null){
             end = start.plusDays(1);
         }
-        String startISO = start.format(Utils.sqliteDateOnlyFormat);
-        String endISO = end.format(Utils.sqliteDateOnlyFormat);
+        String startISO = start.format(Utils.sqliteDateZeroPaddedFormat);
+        String endISO = end.format(Utils.sqliteDateZeroPaddedFormat);
 
         String table = "foodlog";
         String[] columns = {"food_id", "group_id", "loggedAt", "amountInGram"};

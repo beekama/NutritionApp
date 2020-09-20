@@ -3,15 +3,10 @@ package com.example.nutritionapp.NutritionOverview;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodToJournal;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Utils;
 
@@ -34,11 +29,12 @@ public class NutritionOverview extends AppCompatActivity {
         String foodAmount = intent.getStringExtra("amounts");
 
         Database db = new Database(this);
+        LocalDate endDateParsed = null;
+        LocalDate startDateParsed = null;
         if (startDate != null) {
-            LocalDate startDateParsed = LocalDate.parse(startDate, Utils.sqliteDatetimeFormat);
-            LocalDate endDateParsed = null;
+            startDateParsed = LocalDate.parse(startDate, Utils.sqliteDateFormat);
             if(endDate != null) {
-                endDateParsed = LocalDate.parse(endDate, Utils.sqliteDatetimeFormat) ;
+                endDateParsed = LocalDate.parse(endDate, Utils.sqliteDateFormat) ;
             }
             db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
 
