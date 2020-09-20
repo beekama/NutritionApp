@@ -68,8 +68,6 @@ public class Database {
         /* This functions add a list of create_foods to the journal at a given date */
         ArrayList<Food> selectedSoFar = new ArrayList<>();
         for (SelectedFoodItem item : selectedSoFarItems) {
-            Food f = item.food;
-            f.setAssociatedAmount(item.amount);
             selectedSoFar.add(item.food);
         }
         logExistingFoods(selectedSoFar, d);
@@ -106,7 +104,7 @@ public class Database {
             values.put("date", loggedAt.toString());
             values.put("group_id", groupId);
             values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
-            values.put("amountInGram", 100);
+            values.put("amountInGram", f.getAssociatedAmount());
             db.insert("foodlog", null, values);
         }
     }

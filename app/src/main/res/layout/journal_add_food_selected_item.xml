@@ -18,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
         android:id="@+id/amount_selector"
+        android:inputType="number"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@id/guideline"

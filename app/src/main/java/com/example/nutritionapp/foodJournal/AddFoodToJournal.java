@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class AddFoodToJournal extends AppCompatActivity {
 
+    private static final int DEFAULT_AMOUNT = 100;
     final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
     private boolean editMode = false;
 
@@ -103,7 +104,7 @@ public class AddFoodToJournal extends AppCompatActivity {
         suggestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
-                selected.add(new SelectedFoodItem(item.food, 100));
+                selected.add(new SelectedFoodItem(item.food, DEFAULT_AMOUNT));
                 updateSelectedView(selectedListView, selected);
                 updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
             }
@@ -143,6 +144,9 @@ public class AddFoodToJournal extends AppCompatActivity {
             }
         });
         confirm.setOnClickListener(v -> {
+            for(int i = 0; i < selectedAdapter.getCount(); i++){
+                SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
+            }
             if(this.editMode){
                 db.updateFoodGroup(selected, groupId, loggedAt);
             }else {
