@@ -396,7 +396,7 @@ public class Database {
                 int fdcId = c.getInt(0);
                 String[] argsNut = { Integer.toString(fdcId) };
                 db.delete("food", "description = ?", args);
-                db.delete("nutrient_custom", "fdc_id = ?", argsNut);
+                db.delete("food_nutrient_custom", "fdc_id = ?", argsNut);
             }
         }
     }
