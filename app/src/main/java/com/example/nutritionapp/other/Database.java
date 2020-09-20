@@ -34,10 +34,7 @@ public class Database {
 
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
-
-    /* used to track create_foods added together */
     private final Activity srcActivity;
-
     private HashMap<String,Food> foodCache = new HashMap<>();
 
     private void copyDatabaseIfMissing(InputStream inputStream, String targetPath){
@@ -97,18 +94,60 @@ public class Database {
             db.insert("foodlog", null, values);
         }
     }
+    public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
+
+        String where = String.format("group_id = %d", groupId);
+        db.delete("foodlog",  where, null);
+
+        for(SelectedFoodItem fItem : updatedListWithAmounts){
+            Food f = fItem.food;
+            ContentValues values = new ContentValues();
+            values.put("food_id", f.id);
+            values.put("date", loggedAt.toString());
+            values.put("group_id", groupId);
+            values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
+            values.put("amountInGram", 100);
+            db.insert("foodlog", null, values);
+        }
+    }
 
     public void deleteLoggedFood(ArrayList<Food> foods, LocalDateTime d){
         for(Food f:foods){
             deleteLoggedFood(f, d);
         }
     }
-
     public synchronized void deleteLoggedFood(Food f, LocalDateTime d) {
         String whereClause = String.format("food_id = \"%s\" AND loggedAt = \"%s\"", f.id, d.format(Utils.sqliteDatetimeFormat));
         db.delete("foodlog", whereClause, null);
     }
 
+    public Food getFoodById(String foodId, String loggedAtIso) {
+
+        String table = "food";
+        String[] columns = {"description"};
+        String whereStm = String.format("fdc_id = \"%s\"", foodId);
+        Cursor c = db.query(table, columns, whereStm, null, null, null, null);
+
+        if(foodCache.containsKey(foodId)){
+            return foodCache.get(foodId);
+        }else {
+
+            LocalDateTime loggedAt = null;
+            if (loggedAtIso != null) {
+                loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
+            }
+
+            if (c.moveToFirst()) {
+                String foodName = c.getString(0);
+                Food f = new Food(foodName, foodId, this, loggedAt);
+                foodCache.put(foodId, f);
+                c.close();
+                return f;
+            }
+            c.close();
+            throw new RuntimeException("The food didn't exists, that's unfortunate.");
+        }
+    }
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
         /* Return create_foods logged by dates */
 
@@ -154,12 +193,38 @@ public class Database {
         return ret;
     }
 
+    public ArrayList<Food> getFoodsByPartialName(String substring) {
+        /* This function searches for a given substring */
+
+        String table = "food";
+        String[] columns = {"fdc_id", "description"};
+        String whereStm = String.format("description LIKE \"%%%s%%\"", substring);
+        String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC", substring, substring);
+        Cursor c = db.query(table, columns, whereStm, null, null, null, orderBy, null);
+
+        ArrayList<Food> foods = new ArrayList<>();
+        if(substring.isEmpty()){
+            c.close();
+            return foods;
+        }
+
+        if (c.moveToFirst()) {
+            do {
+                String foodId = c.getString(0);
+                String description = c.getString(1);
+                Food f = new Food(description, foodId);
+                foods.add(f);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return foods;
+    }
     public HashMap<String,Integer> getNutrientsForFood(String foodId){
         HashMap<String,Integer> ret = new HashMap<>();
 
         // TODO autogenerate these numbers (first id in subtable)
         Integer[] subDbIds = { 9071041, 9161600, 9247740, 9222210, 9224110, 9389550,9348225,
-                            9439175, 9504580, 9560300, 9613095, 9506835, 9071041 };
+                9439175, 9504580, 9560300, 9613095, 9506835, 9071041 };
 
         int count = 0;
         for(Integer el : subDbIds){
@@ -207,79 +272,6 @@ public class Database {
         nutrientConversion.close();
         return ret;
     }
-
-    public Food getFoodById(String foodId, String loggedAtIso) {
-
-        String table = "food";
-        String[] columns = {"description"};
-        String whereStm = String.format("fdc_id = \"%s\"", foodId);
-        Cursor c = db.query(table, columns, whereStm, null, null, null, null);
-
-        if(foodCache.containsKey(foodId)){
-            return foodCache.get(foodId);
-        }else {
-
-            LocalDateTime loggedAt = null;
-            if (loggedAtIso != null) {
-                loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
-            }
-
-            if (c.moveToFirst()) {
-                String foodName = c.getString(0);
-                Food f = new Food(foodName, foodId, this, loggedAt);
-                foodCache.put(foodId, f);
-                c.close();
-                return f;
-            }
-            c.close();
-            throw new RuntimeException("The food didn't exists, that's unfortunate.");
-        }
-    }
-
-    public ArrayList<Food> getFoodsByPartialName(String substring) {
-        /* This function searches for a given substring */
-
-        String table = "food";
-        String[] columns = {"fdc_id", "description"};
-        String whereStm = String.format("description LIKE \"%%%s%%\"", substring);
-        String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC", substring, substring);
-        Cursor c = db.query(table, columns, whereStm, null, null, null, orderBy, null);
-
-        ArrayList<Food> foods = new ArrayList<>();
-        if(substring.isEmpty()){
-            c.close();
-            return foods;
-        }
-
-        if (c.moveToFirst()) {
-            do {
-                String foodId = c.getString(0);
-                String description = c.getString(1);
-                Food f = new Food(description, foodId);
-                foods.add(f);
-            } while (c.moveToNext());
-        }
-        c.close();
-        return foods;
-    }
-
-    public void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
-
-        String where = String.format("group_id = %d", groupId);
-        db.delete("foodlog",  where, null);
-
-        for(SelectedFoodItem fItem : updatedListWithAmounts){
-            Food f = fItem.food;
-            ContentValues values = new ContentValues();
-            values.put("food_id", f.id);
-            values.put("date", loggedAt.toString());
-            values.put("group_id", groupId);
-            values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
-            values.put("amountInGram", 100);
-            db.insert("foodlog", null, values);
-        }
-    }
-
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
         String whereStm = String.format("group_id = %d" , groupId);
         String[] columns = {"food_id", "loggedAt", "amountInGram"};
@@ -312,7 +304,6 @@ public class Database {
             return Integer.compare(this.counter, s.counter);
         }
     }
-
     public ArrayList<Food> getSuggestionsForCombination(ArrayList<SelectedFoodItem> selectedSoFarItems) {
         /* This function returns suggestions for create_foods to log based on previously selected combinations */
 
@@ -360,14 +351,11 @@ public class Database {
         return results;
     }
 
-    /* ################ NEW FOODS ################## */
     public void createNewFood(String name) {
         /* This function adds a new food to the database */
         throw new RuntimeException("Creating new Foods not implemented");
     }
 
-    /* ########### Calculated from config ########### */
-    /* ########## SAVE CONFIG ############*/
     public void setPersonWeight(int weightInKg) throws IllegalArgumentException {
         if (weightInKg < 40 || weightInKg > 600) {
             throw new IllegalArgumentException("Weight must be between 40 and 600");
@@ -377,7 +365,6 @@ public class Database {
         editor.putInt("weight", weightInKg);
         editor.commit();
     }
-
     public void setPersonAge(int age) throws IllegalArgumentException {
         if (age < 18 || age > 150) {
             throw new IllegalArgumentException("Age must be between 18 and 150");
@@ -387,7 +374,6 @@ public class Database {
         editor.putInt("age", age);
         editor.commit();
     }
-
     public void setPersonEnergyReq(int energyReq) throws IllegalArgumentException {
         if (energyReq < 1000) {
             throw new IllegalArgumentException("Energy target must be above 1000kcal");
@@ -397,7 +383,6 @@ public class Database {
         editor.putInt("energyReq", energyReq);
         editor.commit();
     }
-
     public void setPersonHeight(int sizeInCm) throws IllegalArgumentException {
         if (sizeInCm < 0 || sizeInCm > 300) {
             throw new IllegalArgumentException("Height must be between 0 and 300 cm");
@@ -407,7 +392,6 @@ public class Database {
         editor.putInt("height", sizeInCm);
         editor.commit();
     }
-
     public void setPersonGender(String gender) throws IllegalArgumentException {
         if (!gender.equals("male") && !gender.equals("female")) {
             throw new IllegalArgumentException("Gender must be 'male' or 'female'.");
@@ -417,9 +401,6 @@ public class Database {
         editor.putString("gender", gender);
         editor.commit();
     }
-
-
-
     public int getPersonWeight() {
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int weight = pref.getInt("weight", -1);
@@ -431,13 +412,11 @@ public class Database {
         int height = pref.getInt("height", -1);
         return height;
     }
-
     public int getPersonAge() {
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int age = pref.getInt("age", -1);
         return age;
     }
-
     public int getPersonEnergyReq() {
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         int energyReq = pref.getInt("energyReq", -1);
@@ -446,7 +425,6 @@ public class Database {
         }
         return energyReq;
     }
-
     public String getPersonGender() {
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
         String gender = pref.getString("gender", "none");
@@ -456,5 +434,4 @@ public class Database {
     public void close() {
         db.close();
     }
-
 }
