@@ -74,6 +74,35 @@ Simple Getter and Setter for basic Values that may or may not be actually be sav
     --- --- --- --- GroupListApapter
     --- --- --- --- --- TextView foods -> clickListener -> AddFoodToJournal (as edit)
 
+# Nutrition Analysis
+The *NutritionAnalysis* class provides analysis based on a List of Foods and the users personal settings. Afters instanciation, it provides to following functions:
+
+    getTotalEnergy() /* convenience function to get the total energy */
+    Nutrition getNutritionMissing() /* get the absolute nutrition missing (per day) */
+    Nutrition getNutritionActual()  /* get the total amount of nutrion collected */
+    HashMap<NutritionElement, Float> getNutritionPercentage() /* calculate .XX float values from the above information */
+    ArrayList<NutritionPercentageTupel> getNutritionPercentageSorted() /* get the above information sorted */
+    ArrayList<NutritionPercentageTupel> getNutritionPercentageSortedFilterZero() /* get the above information without zero-values */
+
+# Conversions
+All conversions (milligram, microgram, joule, kcal, etc..) are handled in static functions in *other.Conversions*. Only the following units should be persisted in fields of instanciated object:
+
+    microgram (UG) for weights
+    joule for energy
+
+The static function *normalize(String unitName, int inputAmount)* should be used to obtain those values.
+
+# Handling Date
+All date(-time) formats are listed as public static fields in *other.Utils*, new formats shoul only be added when absolutely nessesary. The dates can be parsed as follows:
+
+    LocalDate d = LocalDate.parse(other.Utils.sqliteDateFormat, STRING);
+    LocalDateTime dt = LocalDate.parse(other.Utils.sqliteDatetimeFormat, STRING);
+    LocalDateTime dt = LocalDate.parse(other.Utils.sqliteDateZeroPaddedFormat, STRING);
+
+The last one basicly replacing the hours, minutes and sections values with zeros to get the start of the day. Formating works analogous:
+
+    String formated = dt.format(other.Utils.XXXXX);
+
 ## Building the Database
 Goto the [USDA Website](https://fdc.nal.usda.gov/download-datasets.html), download the **FNDDS** dataset and the **Suporting data for Downloads** and unpack it into the *"helper\_scripts"*-directory. Then execute the ``make_db.py``-script. (sqlite3 + python3 is required for this).
 
