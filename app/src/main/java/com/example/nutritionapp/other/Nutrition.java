@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Nutrition {
+
     private HashMap<NutritionElement,Integer> elements = new HashMap<>();
 
     public static final String DB_ID_IRON = "1089";
@@ -20,6 +21,23 @@ public class Nutrition {
     public static final String DB_ID_VITAMIN_E = "1158";
     public static final String DB_ID_VITAMIN_K = "1183";
     public static final String DB_ID_VITAMIN_B12 = "1178";
+
+    private final static HashMap<NutritionElement, String> nutritionElementToDatabaseId = new HashMap<>();
+    static{
+        nutritionElementToDatabaseId.put(NutritionElement.IRON, DB_ID_IRON);
+        nutritionElementToDatabaseId.put(NutritionElement.MAGNESIUM, DB_ID_MAGNESIUM);
+        nutritionElementToDatabaseId.put(NutritionElement.ZINC, DB_ID_ZINC);
+        nutritionElementToDatabaseId.put(NutritionElement.CALCIUM, DB_ID_CALCIUM);
+        nutritionElementToDatabaseId.put(NutritionElement.POTASSIUM, DB_ID_POTASSIUM);
+
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_A, DB_ID_VITAMIN_A);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B12, DB_ID_VITAMIN_C);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_C, DB_ID_VITAMIN_D);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_D, DB_ID_VITAMIN_E);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_E, DB_ID_VITAMIN_K);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_K, DB_ID_VITAMIN_B12);
+    }
+
 
     public Nutrition(HashMap<String, Integer> nutrients) {
 
@@ -47,6 +65,10 @@ public class Nutrition {
 
     public Nutrition(Nutrition orig){
         this.elements = new HashMap<NutritionElement, Integer>(orig.elements);
+    }
+
+    public static int databaseIdFromEnum(NutritionElement ne) {
+        return Integer.parseInt(nutritionElementToDatabaseId.get(ne));
     }
 
     public Nutrition getNutritionForAmount(int amountInGram){
@@ -123,4 +145,9 @@ public class Nutrition {
         }
         return total;
     }
+
+    public HashMap<NutritionElement, Integer> getElements() {
+        return elements;
+    }
+
 }

@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
 public class Database {
 
+    private static final int DEFAULT_MIN_CUSTOM_ID = 100000000;
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
     private final Activity srcActivity;
@@ -230,6 +232,9 @@ public class Database {
             }
         }
         String subDbName = String.format("food_nutrient_%02d", count);;
+        if(Integer.parseInt(foodId) > DEFAULT_MIN_CUSTOM_ID){
+            subDbName = "food_nutrient_custom";
+        }
 
         String[] columns = {"nutrient_id", "amount"};
         String whereStm = String.format("fdc_id = \"%s\"", foodId);
@@ -346,9 +351,54 @@ public class Database {
         return results;
     }
 
-    public void createNewFood(String name) {
-        /* This function adds a new food to the database */
-        throw new RuntimeException("Creating new Foods not implemented");
+    public boolean checkCustomFoodExists(String description){
+        String[] args = { description };
+        String[] columns = {"fdc_id"};
+        Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
+        if(c.moveToNext()) {
+            return true;
+        }
+        return false;
+    }
+    public void createNewFood(Food food) {
+
+        String[] columns = {"fdc_id, data_type"};
+        Cursor c = db.query("food", columns, "data_type = \"app_custom\"", null, null, null, "fdc_id", "1");
+        int maxUsedID = DEFAULT_MIN_CUSTOM_ID;
+        if(c.moveToNext()) {
+            maxUsedID = c.getInt(0);
+        }
+
+        /* insert the foods */
+        ContentValues valuesFood = new ContentValues();
+        valuesFood.put("fdc_id", maxUsedID + 1);
+        valuesFood.put("data_type", "app_custom");
+        valuesFood.put("description", food.name);
+        valuesFood.put("food_category_id", "");
+        db.insert("food", null, valuesFood);
+
+        /* insert the nutrition for the food */
+        for(NutritionElement ne : food.nutrition.getElements().keySet()){
+            ContentValues valuesNutrient = new ContentValues();
+            valuesNutrient.put("id", 0);
+            valuesNutrient.put("fdc_id", maxUsedID + 1);
+            valuesNutrient.put("nutrient_id", Nutrition.databaseIdFromEnum(ne));
+            valuesNutrient.put("amount", food.nutrition.getElements().get(ne));
+            db.insert("food_nutrient_custom", null, valuesNutrient);
+        }
+    }
+    public void deleteCustomFood(String description){
+        if(checkCustomFoodExists(description)){
+            String[] args = { description };
+            String[] columns = {"fdc_id"};
+            Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
+            if(c.moveToNext()) {
+                int fdcId = c.getInt(0);
+                String[] argsNut = { Integer.toString(fdcId) };
+                db.delete("food", "description = ?", args);
+                db.delete("nutrient_custom", "fdc_id = ?", argsNut);
+            }
+        }
     }
 
     public void setPersonWeight(int weightInKg) throws IllegalArgumentException {

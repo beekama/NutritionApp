@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Database;
 
 public class CreateNewFoodItem extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
