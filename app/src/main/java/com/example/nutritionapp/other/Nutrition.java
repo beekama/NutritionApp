@@ -55,12 +55,14 @@ public class Nutrition {
         elements.put(NutritionElement.VITAMIN_D, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_D)));
         elements.put(NutritionElement.VITAMIN_E, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_E)));
         elements.put(NutritionElement.VITAMIN_K, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_K)));
+
     }
 
     public Nutrition(){
         for(NutritionElement el: NutritionElement.values()){
             elements.put(el, 0);
         }
+
     }
 
     public Nutrition(Nutrition orig){
