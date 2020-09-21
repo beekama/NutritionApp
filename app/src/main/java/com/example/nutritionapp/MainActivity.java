@@ -13,7 +13,7 @@ import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.customFoods.CreateFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.recommendation.recommendations;
+import com.example.nutritionapp.recommendation.Recommendations;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         v_recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent =  new Intent(v.getContext(), recommendations.class);
+                Intent myIntent =  new Intent(v.getContext(), Recommendations.class);
                 startActivity(myIntent);
             }
         });

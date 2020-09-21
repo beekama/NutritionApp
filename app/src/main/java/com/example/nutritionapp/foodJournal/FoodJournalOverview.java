@@ -3,6 +3,7 @@ package com.example.nutritionapp.foodJournal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -36,7 +37,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
     private FoodOverviewAdapter adapter;
     private Database db;
-    private ListView foodsFromDatabase;
+    private ListView mainListOfFoodsWithDayHeaders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +52,16 @@ public class FoodJournalOverview extends AppCompatActivity {
         updateFoodJournalList(false);
 
         /* set adapter */
+        /* this is a list of layout of type journal_dayheader, which contains the dayheader and
+        a nested sublist of the foods (foodgroups) on this
+         */
         adapter = new FoodOverviewAdapter(this, foodDataList);
-        foodsFromDatabase = findViewById(R.id.listview);
-        foodsFromDatabase.setAdapter(adapter);
-        foodsFromDatabase.setTextFilterEnabled(true);
+        mainListOfFoodsWithDayHeaders = findViewById(R.id.listview);
+        mainListOfFoodsWithDayHeaders.setAdapter(adapter);
+        mainListOfFoodsWithDayHeaders.setTextFilterEnabled(true);
 
         final Button addStuff = findViewById(R.id.add_food);
         addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddFoodToJournal.class)));
-
-        foodsFromDatabase.setOnItemClickListener((parent, view, position, id) -> {
-            FoodOverviewListItem tmpItem = (FoodOverviewListItem) parent.getItemAtPosition(position);
-            Intent target = new Intent(view.getContext(), NutritionOverview.class);
-            target.putExtra("startDate", tmpItem.date);
-            target.putExtra("endDate", tmpItem.date);
-            startActivity(target);
-        });
     }
 
     @Override
@@ -96,7 +92,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         }
         if(runInvalidation) {
             adapter.notifyDataSetInvalidated();
-            foodsFromDatabase.invalidate();
+            mainListOfFoodsWithDayHeaders.invalidate();
         }
     }
 

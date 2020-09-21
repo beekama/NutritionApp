@@ -14,6 +14,13 @@ create TABLE foodlog(
     "loggedAt"  INTEGER
 );
 
+CREATE TABLE food_nutrient_custom(
+    "id" TEXT,
+    "fdc_id" TEXT,
+    "nutrient_id" TEXT,
+    "amount" TEXT
+ );
+
 .mode csv
 .import food.csv food
 .import food_portion.csv food_portion

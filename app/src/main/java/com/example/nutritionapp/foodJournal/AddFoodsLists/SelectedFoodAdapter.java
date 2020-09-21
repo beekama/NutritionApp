@@ -1,16 +1,20 @@
 package com.example.nutritionapp.foodJournal.AddFoodsLists;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
+import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
 
 public class SelectedFoodAdapter extends BaseAdapter {
 
@@ -44,8 +48,21 @@ public class SelectedFoodAdapter extends BaseAdapter {
         SelectedFoodItem currentItem = items.get(position);
         TextView nameView = convertView.findViewById(R.id.item_name);
         EditText amountSelectorView = convertView.findViewById(R.id.amount_selector);
+
+        amountSelectorView.setOnKeyListener(new UnfocusOnEnter());
+        amountSelectorView.setOnKeyListener((v, key, keyEvent) -> {
+            SelectedFoodItem item = (SelectedFoodItem) this.getItem(position);
+            try{
+                item.food.associatedAmount = Integer.parseInt(amountSelectorView.getText().toString());
+            }catch(NumberFormatException e){
+                Toast toast = Toast.makeText(context, "Amount is not a Number,", Toast.LENGTH_LONG);
+                toast.show();
+            }
+            return false;
+        });
+
         nameView.setText(currentItem.food.name);
-        amountSelectorView.setText(Integer.toString(currentItem.amount));
+        amountSelectorView.setText(Integer.toString(currentItem.food.associatedAmount));
         return  convertView;
     }
 }

@@ -1,14 +1,19 @@
 package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.foodJournal.AddFoodToJournal;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 
@@ -37,6 +42,13 @@ public class GroupListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.journal_foods_foodgroup, parent, false);
         TextView test = convertView.findViewById(R.id.foodsInGroup);
+
+        GroupFoodItem item = (GroupFoodItem) this.getItem(position);
+        test.setOnClickListener(view -> {
+            Intent target = new Intent(view.getContext(), AddFoodToJournal.class);
+            target.putExtra("groupId", item.groupId);
+            context.startActivity(target);
+        });
 
         String allFoods = "";
         for(Food f : ((GroupFoodItem)getItem(position)).foods){

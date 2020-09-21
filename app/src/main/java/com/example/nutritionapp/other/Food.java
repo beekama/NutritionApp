@@ -31,7 +31,10 @@ public class Food {
     public Food(String foodName, String foodId, Database db, LocalDateTime loggedAt) {
         this.name = foodName;
         this.id = foodId;
-        HashMap<String,Integer> nutrients = db.getNutrientsForFood(foodId);
+        HashMap<String, Integer> nutrients = null;
+        if(db != null) {
+            nutrients = db.getNutrientsForFood(foodId);
+        }
         if(nutrients != null) {
             this.fiber = nutrients.get(DB_ID_FIBER);
             this.energy = nutrients.get(DB_ID_ENERGY);
