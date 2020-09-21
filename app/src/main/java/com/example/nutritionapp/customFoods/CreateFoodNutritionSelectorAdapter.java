@@ -32,6 +32,7 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
         this.context = context;
         this.items   = items;
     }
+
     @Override
     public int getCount() {
         return items.size();
@@ -67,12 +68,22 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
         }
 
         name.setText(item.tag);
+        if(item.amount >= 0) {
+            value.setText(item.amount);
+        }else if(item.data != null){
+            value.setText(item.data);
+        }else{
+            value.setText("");
+        }
         value.setHint(item.unit);
 
-        value.setOnKeyListener((v, key, keyEvent) -> {
+        value.setOnFocusChangeListener((v, hasFocus) -> {
+            if(hasFocus){
+                return;
+            }
             String cur = value.getText().toString();
             if(cur.equals("")){
-                return false;
+                return;
             }
             try{
                 if(item.inputTypeString){
@@ -85,7 +96,7 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
                 Toast toast = Toast.makeText(context, "Amount is not a Number when it should be.", Toast.LENGTH_LONG);
                 toast.show();
             }
-            return false;
+            return;
         });
 
         return convertView;

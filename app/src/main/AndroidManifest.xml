@@ -13,10 +13,8 @@
         <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
         <activity android:name="com.example.nutritionapp.deprecated.updateAge" />
         <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />
-        <activity android:name="com.example.nutritionapp.customFoods.AddMinerals" />
-        <activity android:name="com.example.nutritionapp.customFoods.AddVitamins" />
         <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
-        <activity android:name="com.example.nutritionapp.customFoods.CreateFoodOverview" />
+        <activity android:name="com.example.nutritionapp.customFoods.CustomFoodOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal" />
         <activity android:name="com.example.nutritionapp.NutritionOverview.NutritionOverview" />

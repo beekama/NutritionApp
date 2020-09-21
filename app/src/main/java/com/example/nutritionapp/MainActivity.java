@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nutritionapp.configuration.PersonalInformation;
-import com.example.nutritionapp.customFoods.CreateFoodOverview;
+import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.recommendation.Recommendations;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         //go to journal:
         v_cfood.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent myIntent = new Intent(v.getContext(), CreateFoodOverview.class);
+                Intent myIntent = new Intent(v.getContext(), CustomFoodOverview.class);
                 startActivity(myIntent);
             }
         });

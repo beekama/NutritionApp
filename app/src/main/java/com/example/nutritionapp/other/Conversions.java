@@ -18,6 +18,9 @@ public class Conversions {
                 return inputAmount * MG_TO_UG;
             case "KCAL":
                 return inputAmount * KCAL_TO_JOULE;
+            case "N/A":
+                /* N/A is ok for now */
+                return inputAmount;
             default:
                 throw new RuntimeException("Unknown unitName: " + unitName);
         }
