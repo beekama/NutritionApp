@@ -50,7 +50,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", false));
+        staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true));
         staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false));
         staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", false));
         staticSelectors.add(new CreateFoodNutritionSelectorItem("fiber", false));
@@ -64,12 +64,13 @@ public class CreateNewFoodItem extends AppCompatActivity {
         }
         Collections.sort(nutritionSelectors);
 
+        /* setup adapter */
         allItems.addAll(staticSelectors);
         allItems.addAll(nutritionSelectors);
-
         CreateFoodNutritionSelectorAdapter newAdapter = new CreateFoodNutritionSelectorAdapter(getApplicationContext(), allItems);
         mainLv.setAdapter(newAdapter);
 
+        /* setup buttons */
         Button cancel = findViewById(R.id.cancel);
         Button confirm = findViewById(R.id.confirm);
         cancel.setOnClickListener(v -> {
@@ -106,7 +107,8 @@ public class CreateNewFoodItem extends AppCompatActivity {
                         f.fiber = (int) Conversions.normalize(item.unit, item.amount);
                     case "Name":
                         if (item.data == null || item.data.equals("")) {
-                            // Todo show warning
+                            Toast toast = Toast.makeText(getApplicationContext(), "Name must be set.", Toast.LENGTH_LONG);
+                            toast.show();
                             return null;
                         } else {
                             f.name = item.data;
