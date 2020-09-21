@@ -33,15 +33,15 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* Vitamins Button */
         final ImageButton addVitamins = (ImageButton) findViewById(R.id.ib_createItem_furtherVitamins);
         addVitamins.setOnClickListener((v -> {
-            Intent myIntent = new Intent(v.getContext(), AddVitamins.class);
-            startActivity(myIntent);
+            Intent vitaminSelection = new Intent(v.getContext(), AddVitamins.class);
+            startActivityForResult(vitaminSelection, -1);
         }));
 
         /* Minerals Button */
         final ImageButton addMinerals = (ImageButton) findViewById(R.id.ib_createItem_furtherMinerals);
         addMinerals.setOnClickListener((v -> {
-            Intent myIntent = new Intent(v.getContext(), AddMinerals.class);
-            startActivity(myIntent);
+            Intent mineralSelection = new Intent(v.getContext(), AddMinerals.class);
+            startActivityForResult(mineralSelection, -1);
         }));
 
     }}

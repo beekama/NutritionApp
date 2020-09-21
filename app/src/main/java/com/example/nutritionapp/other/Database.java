@@ -20,7 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.MessageDigest;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,6 +33,7 @@ public class Database {
     private static final int DEFAULT_MIN_CUSTOM_ID = 100000000;
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
+    private final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private final Activity srcActivity;
     private HashMap<String,Food> foodCache = new HashMap<>();
 
@@ -53,6 +54,61 @@ public class Database {
             }
         }
     }
+    private void generateNutritionTableSelectionMap(){
+        /* This function populates an array with information about which
+        fdc_id can be found in which food_nutrient_table.
+         */
+
+        ArrayList<String> tmpDbNames = new ArrayList<>();
+        String[] columns = { "name" };
+        Cursor c = db.query("sqlite_master", columns, "type = \"table\" AND name LIKE \"food_nutrient_%\"", null, null, null, null);
+        while(c.moveToNext()){
+            String tmpDbName = c.getString(0);
+            if(tmpDbName.contains("custom")){
+                continue;
+            }
+            tmpDbNames.add(tmpDbName);
+        }
+
+        Collections.sort(tmpDbNames);
+        for(String table : tmpDbNames){
+            String[] columnsNut = { "fdc_id" };
+            Cursor nutC = db.query(table, columnsNut, null, null, null, null, "fdc_id ASC", "1");
+            if(nutC.moveToNext()) {
+                int minFdcId = nutC.getInt(0);
+                fdcIdToDbNumber.add(minFdcId);
+            }else{
+                throw new AssertionError("Food Nutrition tables missing?!");
+            }
+        }
+
+    }
+    private String getNutrientTableForFdcId(String foodId) {
+
+        if(Integer.parseInt(foodId) > DEFAULT_MIN_CUSTOM_ID){
+            return "food_nutrient_custom";
+        }
+        int count = 0;
+        for(Integer el : fdcIdToDbNumber){
+            if(Integer.parseInt(foodId) < el){
+                /* the number in the fdcIdToDbNumber is the lowest id in the respective db  */
+                /* so if we are below that number we must select the previous db            */
+                if(count == 0){
+                    /* this means we have DB so low it isn't even in the first db   */
+                    /* in this case we return the first db, if we returned a bad db */
+                    /* the app would crash, which seems a bit extreme in this case  */
+                    break;
+                }
+                return String.format("food_nutrient_%02d", count - 1);
+            }else{
+                count++;
+            }
+        }
+        Log.w("WARNING", "ID " + foodId +" has no associated Database. (nut good)");
+        final String DEFAULT_DB = "food_nutrient_00";
+        return DEFAULT_DB;
+    }
+
 
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
@@ -60,6 +116,7 @@ public class Database {
         String path = srcActivity.getFilesDir().getParent() + "/food.db";
         copyDatabaseIfMissing(srcFile, path);
         db = SQLiteDatabase.openDatabase(path, null, OPEN_READWRITE);
+        generateNutritionTableSelectionMap();
     }
 
     /* ################ FOOD LOGGING ############## */
@@ -219,26 +276,11 @@ public class Database {
     public HashMap<String,Integer> getNutrientsForFood(String foodId){
         HashMap<String,Integer> ret = new HashMap<>();
 
-        // TODO autogenerate these numbers (first id in subtable)
-        Integer[] subDbIds = { 9071041, 9161600, 9247740, 9222210, 9224110, 9389550,9348225,
-                9439175, 9504580, 9560300, 9613095, 9506835, 9071041 };
-
-        int count = 0;
-        for(Integer el : subDbIds){
-            if(Integer.parseInt(foodId) < el){
-                break;
-            }else{
-                count++;
-            }
-        }
-        String subDbName = String.format("food_nutrient_%02d", count);;
-        if(Integer.parseInt(foodId) > DEFAULT_MIN_CUSTOM_ID){
-            subDbName = "food_nutrient_custom";
-        }
+        String table = getNutrientTableForFdcId(foodId);
 
         String[] columns = {"nutrient_id", "amount"};
         String whereStm = String.format("fdc_id = \"%s\"", foodId);
-        Cursor nutrients = db.query(subDbName, columns, whereStm, null, null, null, null);
+        Cursor nutrients = db.query(table, columns, whereStm, null, null, null, null);
         Cursor nutrientConversion;
 
         if (nutrients.moveToFirst()) {
@@ -264,7 +306,7 @@ public class Database {
                 }
             } while (nutrients.moveToNext());
         }else{
-            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in subdb: "+ subDbName);
+            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in subdb: "+ table);
             nutrients.close();
             return null;
         }
@@ -272,6 +314,7 @@ public class Database {
         nutrientConversion.close();
         return ret;
     }
+
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
         String whereStm = String.format("group_id = %d" , groupId);
         String[] columns = {"food_id", "loggedAt", "amountInGram"};
