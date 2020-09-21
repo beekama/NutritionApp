@@ -333,11 +333,6 @@ public class Database {
         return ret;
     }
 
-    public ArrayList<Food> getAllCustomFoods() {
-        // TODO
-        return null;
-    }
-
     private class SuggestionHelper implements Comparable<SuggestionHelper>{
         public int counter;
         public Food food;
@@ -410,7 +405,7 @@ public class Database {
     public void createNewFood(Food food) {
 
         String[] columns = {"fdc_id, data_type"};
-        Cursor c = db.query("food", columns, "data_type = \"app_custom\"", null, null, null, "fdc_id", "1");
+        Cursor c = db.query("food", columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
         int maxUsedID = DEFAULT_MIN_CUSTOM_ID;
         if(c.moveToNext()) {
             maxUsedID = c.getInt(0);
@@ -446,6 +441,27 @@ public class Database {
                 db.delete("food_nutrient_custom", "fdc_id = ?", argsNut);
             }
         }
+    }
+    public ArrayList<Food> getAllCustomFoods() {
+        ArrayList<Food> ret = new ArrayList<>();
+        String[] columns = {"fdc_id"};
+        Cursor c = db.query(true,"food_nutrient_custom", columns, null, null, null, null, null, null);
+        if(c.moveToNext()) {
+            do{
+                String[] columnsFood = {"description"};
+                String fdc_id = c.getString(0);
+                String[] selectionArgs = { fdc_id };
+                Cursor cFood = db.query("food", columnsFood, "fdc_id = ?", selectionArgs, null, null, null, null);
+                if(cFood.moveToNext()) {
+                    do{
+                        ret.add(new Food(cFood.getString(0), fdc_id));
+                        Log.wtf("WTF", ret.get(ret.size()-1).name);
+                    }while(cFood.moveToNext());
+                }
+            }while(c.moveToNext());
+        }
+
+        return ret;
     }
 
     public void setPersonWeight(int weightInKg) throws IllegalArgumentException {

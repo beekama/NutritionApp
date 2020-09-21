@@ -1,6 +1,7 @@
 package com.example.nutritionapp.other;
 
 import android.os.Build;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,7 +71,12 @@ public class Nutrition {
     }
 
     public static int databaseIdFromEnum(NutritionElement ne) {
-        return Integer.parseInt(nutritionElementToDatabaseId.get(ne));
+        String dbId =  nutritionElementToDatabaseId.get(ne);
+        if(dbId == null){
+            Log.wtf("DB-ID NULL", ne.toString());
+            return -1;
+        }
+        return Integer.parseInt(dbId);
     }
 
     public Nutrition getNutritionForAmount(int amountInGram){

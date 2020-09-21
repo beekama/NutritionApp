@@ -44,9 +44,9 @@ public class FoodOverviewAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.food_overview_item, parent, false);
 
-        FoodOverviewItem currentItem = items.get(position);
-        // TextView nameView = convertView.findViewById(R.id.item_name);
-        // TODO
+        FoodOverviewItem item = items.get(position);
+        TextView nameView = convertView.findViewById(R.id.custom_food_name);
+        nameView.setText(item.food.name);
         return  convertView;
     }
 }

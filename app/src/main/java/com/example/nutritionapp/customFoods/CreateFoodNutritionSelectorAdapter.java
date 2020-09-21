@@ -2,6 +2,7 @@ package com.example.nutritionapp.customFoods;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,7 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
 
         name.setText(item.tag);
         if(item.amount >= 0) {
-            value.setText(item.amount);
+            value.setText(Integer.toString(item.amount));
         }else if(item.data != null){
             value.setText(item.data);
         }else{
@@ -77,10 +78,7 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
         }
         value.setHint(item.unit);
 
-        value.setOnFocusChangeListener((v, hasFocus) -> {
-            if(hasFocus){
-                return;
-            }
+        value.setOnFocusChangeListener((v, i) -> {
             String cur = value.getText().toString();
             if(cur.equals("")){
                 return;

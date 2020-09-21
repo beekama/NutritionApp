@@ -96,15 +96,22 @@ public class CreateNewFoodItem extends AppCompatActivity {
         f.nutrition = n;
         for (CreateFoodNutritionSelectorItem item : allItems) {
             if (item.ne != null) {
-                f.nutrition.getElements().put(item.ne, item.amount / this.servingSize);
+                int servingSizeTmp = 1;
+                if(this.servingSize != 0){
+                    servingSizeTmp = servingSize;
+                }
+                f.nutrition.getElements().put(item.ne, item.amount / servingSizeTmp);
             } else {
                 switch (item.tag) {
                     case "Service Size":
                         this.servingSize = item.amount;  /* next level hack */
+                        break;
                     case "Energy":
                         f.energy = (int) Conversions.normalize(item.unit, item.amount);
+                        break;
                     case "Fiber":
                         f.fiber = (int) Conversions.normalize(item.unit, item.amount);
+                        break;
                     case "Name":
                         if (item.data == null || item.data.equals("")) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Name must be set.", Toast.LENGTH_LONG);
@@ -113,6 +120,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
                         } else {
                             f.name = item.data;
                         }
+                        break;
                 }
             }
         }
