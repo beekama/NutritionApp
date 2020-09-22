@@ -10,34 +10,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.Test_chart;
-import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
-
-import org.threeten.bp.Duration;
+import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.NutritionAnalysis;
+import com.example.nutritionapp.other.NutritionElement;
 import org.threeten.bp.LocalDate;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Recommendations extends AppCompatActivity {
 
-    //time-data:
-    private LocalDate now = LocalDate.now();
-    private LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
-    final private Duration ONE_DAY = Duration.ofDays(1);
-    final private Duration ONE_WEEK = Duration.ofDays(7);
-/*    final private ArrayList<RecommendationListItem> inputList = new ArrayList<RecommendationListItem>();*/
-    final private ArrayList<RecommendationListItem> inputList = new ArrayList<>();
-
-    private RecommendationAdapter adapter;
     private Database db;
-    private ListView deficienciesList;
+    HashMap<Integer, ArrayList<Food>> foodList;
+    ArrayList<Food> allFood = new ArrayList<>();
+    NutritionAnalysis nutritionAnalysis;
+
+
+    LocalDate startDateParsed = LocalDate.now();
+    LocalDate endDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -47,22 +42,16 @@ public class Recommendations extends AppCompatActivity {
         //basic settings:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation);
-        Database db =new Database(this);
+        db = new Database(this);
+        foodList = db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
 
-        //retrieve items:
-        updateRecommendations(false);   //todo
-
-        //adapter:
-        adapter = new RecommendationAdapter(this, inputList);
-        deficienciesList = (ListView) findViewById(R.id.listview);
-        deficienciesList.setAdapter(adapter);
-        deficienciesList.setTextFilterEnabled(true);
 
         //replace actionbar with custom app_toolbar:
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title = findViewById(R.id.toolbar_title);
         ImageButton tb_back = findViewById(R.id.toolbar_back);
         ImageButton tb_forward = findViewById(R.id.toolbar_forward);
+
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
@@ -75,11 +64,37 @@ public class Recommendations extends AppCompatActivity {
         tb_forward.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // updateRecommendations(true);
+                // updateRecommendations(true);
                 Intent myIntent = new Intent(v.getContext(), Test_chart.class);
                 startActivity(myIntent);
             }
         }));
+
+        // NutritionAnalysis-data:
+        //todo: implement in db?
+        for (ArrayList<Food> al : foodList.values()) {
+            for (Food food : al) {
+                if (food != null) {
+                    allFood.add(food);
+                }
+            }
+        }
+
+
+        // add nutrition items:
+        ArrayList<RecommendationListItem> nutritionItems = new ArrayList<>();
+        ListView mainLv = findViewById(R.id.listview);
+        if (!(allFood == null)) {
+            nutritionAnalysis = new NutritionAnalysis(allFood);
+            for (NutritionElement ne : NutritionElement.values()) {
+                nutritionItems.add(new RecommendationListItem(ne.toString(), nutritionAnalysis.getNutritionPercentage().get(ne)));
+            }
+
+        }
+
+        //adapter:
+        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), nutritionItems);
+        mainLv.setAdapter(newAdapter);
 
 
         //back home button:
@@ -88,76 +103,39 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-        }));}
-
-        private void updateRecommendations(boolean runInvalidation){
-            LocalDate startDate = now.atStartOfDay().toLocalDate();
-            /* z.B. db.getByDate(now, now - week); n = new NutritionAnalysis(); n.getPercentagesSorted(); */
-            inputList.clear();
-            inputList.add(new WeekBreakHeader("current week"));
-            inputList.add(new DeficiencyItem("iron"));
-        }
-
-
+        }));
     }
 
-class WeekBreakHeader implements RecommendationListItem {
-    private final String title;
-
-    public WeekBreakHeader(String title){
-        this.title = title;
-    }
-
-    @Override
-    public boolean isSection() {
-        return true;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
 }
 
-class DeficiencyItem implements RecommendationListItem {
-    private final String title;
-    public DeficiencyItem(String title){
-        this.title = title;
-    }
+class RecommendationListItem {
+        final String tag;
+        float percentage;
 
-
-    @Override
-    public boolean isSection() {
-        return false;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-}
-
-interface RecommendationListItem {
-    public boolean isSection();
-    public String getTitle();
+        public RecommendationListItem(String tag, float percentage) {
+            this.tag = tag;
+            this.percentage = percentage;
         }
+    }
 
-class RecommendationAdapter extends BaseAdapter{
+
+
+class RecommendationAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<RecommendationListItem> item;
+    private ArrayList<RecommendationListItem> items;
 
-    public RecommendationAdapter(){
+    public RecommendationAdapter() {
         super();
     }
 
-    public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> item){
+    public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> items) {
         this.context = context;
-        this.item = item;
+        this.items = items;
     }
 
     @Override
     public int getCount() {
-        return item.size();
+        return items.size();
     }
 
     @Override
@@ -172,31 +150,20 @@ class RecommendationAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (item.get(position).isSection()){
-            convertView = inflater.inflate(R.layout.recommendation_deficiencyheader,parent,false);
-            TextView tv_header = (TextView) convertView.findViewById(R.id.HeaderTextView);
-            tv_header.setText(( item.get(position).getTitle()));
-        } else {
-            convertView = inflater.inflate(R.layout.recommendation_deficiencygroup,parent,false);
-            //title:
-            TextView tv_itemList = (TextView)convertView.findViewById(R.id.ListTextView_deficiencyTitle);
-            tv_itemList.setText((item.get(position).getTitle()).toUpperCase());
-            //percentage:
-            TextView tv_percentage =(TextView) convertView.findViewById(R.id.ListTextView_deficiencyPercentage);
-            tv_percentage.setText("80%");
-            //occurance:
-            TextView occurance = (TextView) convertView.findViewById(R.id.ListTextView_deficiencyOccurance);
-            StringBuilder StrOccurance = new StringBuilder();
-            StrOccurance.append("! ");
-            StrOccurance.append("! ");
-            StrOccurance.append("_ ");
-            StrOccurance.append("_ ");
-            StrOccurance.append("_ ");
-            StrOccurance.append(" ");
-            StrOccurance.append("_ ");
-            occurance.setText(StrOccurance);
+
+        RecommendationListItem item = this.items.get(position);
+
+        /* initiate LayoutInflater */
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.recommendation_nutritions, parent, false);
         }
+
+        /* sub views */
+        TextView rec_item = convertView.findViewById(R.id.nutritionName);
+
+        rec_item.setText(item.tag);
+
+
         return convertView;
-    }
-}
+    }}
