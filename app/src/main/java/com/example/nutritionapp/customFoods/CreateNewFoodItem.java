@@ -2,6 +2,7 @@ package com.example.nutritionapp.customFoods;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +21,7 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
+import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +31,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
     private final ArrayList<CreateFoodNutritionSelectorItem> allItems = new ArrayList<>();
     private int servingSize;
     private Database db;
+    private boolean editMode;
 
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -48,19 +51,44 @@ public class CreateNewFoodItem extends AppCompatActivity {
         tb_title.setText("Create Item");
         setSupportActionBar(tb);
 
+        Nutrition n;
+        Food editFood = null;
+        String fdc_id = this.getIntent().getStringExtra("fdc_id");
+        if(fdc_id != null){
+            Log.wtf("YES", "EDIT MODE");
+            this.editMode = true;
+            editFood = db.getFoodById(fdc_id, null);
+            if(editFood == null){
+                throw new AssertionError("DB Return null for existing custom food id: " + fdc_id);
+            }
+            n = editFood.nutrition;
+        }else{
+            n = new Nutrition();
+        }
+
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true));
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false));
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", false));
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("fiber", false));
+        if(this.editMode){
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", 1, false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", editFood.energy, false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("fiber", editFood.fiber,false));
+        }else {
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("fiber", false));
+        }
 
-        /* add nutrition inputs */
-        Nutrition n = new Nutrition();
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
         ListView mainLv = findViewById(R.id.main_lv);
         for (NutritionElement ne : n.getElements().keySet()) {
-            nutritionSelectors.add(new CreateFoodNutritionSelectorItem(ne, false));
+            if(this.editMode){
+                Integer presetAmount = n.getElements().get(ne);
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(ne, Utils.zeroIfNull(presetAmount), false));
+            }else{
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(ne, 0, false));
+            }
         }
         Collections.sort(nutritionSelectors);
 
@@ -84,6 +112,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
             db.createNewFood(f);
             finish();
         });
+
 
     }
 
@@ -115,6 +144,10 @@ public class CreateNewFoodItem extends AppCompatActivity {
                     case "Name":
                         if (item.data == null || item.data.equals("")) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Name must be set.", Toast.LENGTH_LONG);
+                            toast.show();
+                            return null;
+                        }else if (db.checkCustomFoodExists(item.data)) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "A food with this name already exists.", Toast.LENGTH_LONG);
                             toast.show();
                             return null;
                         } else {

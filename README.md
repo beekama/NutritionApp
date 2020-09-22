@@ -56,6 +56,8 @@ While the primary key of all foods is 'fdc_id', custom foods must have a globall
     checkCustomFoodExists(String description)
     deleteCustomFood(String description)
 
+If a food is still in the journal, deleteCustomFood will deaktivate it, removing it from the list of custom foods and from the food selection process. For this process the helper functions *markFoodAsDeactivated(int fdcId)* and *checkFoodInJournal(fdcId) exist.
+
 #### Create
 Function to create completely new foods from the CreateFood activity, not log them the journal.
 This function retrives the highest used Id, of a food, of the type **"app_custom"** from the *'food'*-table, or uses the variable *DEFAULT_MIN_CUSTOM_ID* if no such food exists yet.

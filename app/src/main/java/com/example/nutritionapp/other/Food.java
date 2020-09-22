@@ -36,8 +36,10 @@ public class Food {
             nutrients = db.getNutrientsForFood(foodId);
         }
         if(nutrients != null) {
-            this.fiber = nutrients.get(DB_ID_FIBER);
-            this.energy = nutrients.get(DB_ID_ENERGY);
+            Integer fiber = nutrients.get(DB_ID_FIBER);
+            Integer energy = nutrients.get(DB_ID_ENERGY);
+            this.fiber = Utils.zeroIfNull(fiber);
+            this.energy = Utils.zeroIfNull(energy);
             this.nutrition = new Nutrition(nutrients);
         }else{
             this.fiber = 0;

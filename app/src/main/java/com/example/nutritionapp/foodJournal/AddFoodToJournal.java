@@ -61,7 +61,11 @@ public class AddFoodToJournal extends AppCompatActivity {
             for(Food f : foods) {
                 selected.add(new SelectedFoodItem(f, f.associatedAmount));
             }
-            loggedAt = foods.get(0).loggedAt;
+            if(!foods.isEmpty()) {
+                loggedAt = foods.get(0).loggedAt;
+            }else{
+                loggedAt = null;
+            }
             updateSelectedView(selectedListView, selected);
             updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
         }else{

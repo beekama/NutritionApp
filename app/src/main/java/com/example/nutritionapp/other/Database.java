@@ -1,12 +1,15 @@
 package com.example.nutritionapp.other;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
@@ -185,9 +188,11 @@ public class Database {
             return foodCache.get(foodId);
         }else {
 
-            LocalDateTime loggedAt = null;
+            final LocalDateTime loggedAt;
             if (loggedAtIso != null) {
                 loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
+            }else{
+                loggedAt = null;
             }
 
             if (c.moveToFirst()) {
@@ -198,7 +203,21 @@ public class Database {
                 return f;
             }
             c.close();
-            throw new RuntimeException("The food didn't exists, that's unfortunate.");
+
+            AlertDialog alertDialog = new AlertDialog.Builder(srcActivity).create();
+            alertDialog.setTitle("Error");
+            alertDialog.setMessage("A food wasn't found in the Database (id: " + foodId + " )");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Remove the faulty id (recommended)", (dialog, which) -> {
+                String whereClausePurgeId = "food_id = ?";
+                String[] whereArgsPurgeId = { foodId };
+                db.delete("foodlog", whereClausePurgeId, whereArgsPurgeId);
+                dialog.dismiss();
+            });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Ignore the Problem", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+            return null;
         }
     }
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
@@ -230,13 +249,17 @@ public class Database {
                 if (ret.containsKey(groupID)) {
                     ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
                     Food f = getFoodById(foodId, loggedAtISO);
-                    f.setAssociatedAmount(amount);
-                    group.add(f);
+                    if(f != null) {
+                        f.setAssociatedAmount(amount);
+                        group.add(f);
+                    }
                 }else{
                     ArrayList<Food> group = new ArrayList<>();
                     Food f = getFoodById(foodId, loggedAtISO);
-                    f.setAssociatedAmount(amount);
-                    group.add(f);
+                    if(f != null) {
+                        f.setAssociatedAmount(amount);
+                        group.add(f);
+                    }
                     ret.put(groupID, group);
                 }
 
@@ -326,8 +349,10 @@ public class Database {
                 String date = c.getString(1);
                 int amount = c.getInt(2);
                 Food f = this.getFoodById(foodId, date);
-                f.associatedAmount = amount;
-                ret.add(f);
+                if(f == null) {
+                    f.associatedAmount = amount;
+                    ret.add(f);
+                }
             } while (c.moveToNext());
         }
         return ret;
@@ -398,11 +423,13 @@ public class Database {
         String[] columns = {"fdc_id"};
         Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
         if(c.moveToNext()) {
+            c.close();
             return true;
         }
+        c.close();
         return false;
     }
-    public void createNewFood(Food food) {
+    public synchronized void createNewFood(Food food) {
 
         String[] columns = {"fdc_id, data_type"};
         Cursor c = db.query("food", columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
@@ -436,20 +463,40 @@ public class Database {
             Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
             if(c.moveToNext()) {
                 int fdcId = c.getInt(0);
-                String[] argsNut = { Integer.toString(fdcId) };
-                db.delete("food", "description = ?", args);
-                db.delete("food_nutrient_custom", "fdc_id = ?", argsNut);
+                if(checkFoodInJournal(fdcId)){
+                    markFoodAsDeactivated(fdcId);
+                }else{
+                    String[] argsNut = { Integer.toString(fdcId) };
+                    db.delete("food", "description = ?", args);
+                    db.delete("food_nutrient_custom", "fdc_id = ?", argsNut);
+                }
             }
         }
     }
+
+    private void markFoodAsDeactivated(int fdcId) {
+        String[] whereArgs = { Integer.toString(fdcId) };
+        ContentValues values = new ContentValues();
+        values.put("data_type", "disabled");
+        db.update("food", values,"fdc_id = ?", whereArgs);
+    }
+
+    private boolean checkFoodInJournal(int fdcId) {
+        String[] columns = { "food_id" };
+        String[] whereArgs = { Integer.toString(fdcId) };
+        Cursor c = db.query("foodlog", columns, "food_id = ?", whereArgs, null, null, null);
+        return c.moveToNext();
+    }
+
     public ArrayList<Food> getAllCustomFoods() {
         ArrayList<Food> ret = new ArrayList<>();
         String[] columns = {"fdc_id"};
-        Cursor c = db.query(true,"food_nutrient_custom", columns, null, null, null, null, null, null);
+        Cursor c = db.query(true,"food_nutrient_custom", columns, null, null, "fdc_id", null, null, null);
         if(c.moveToNext()) {
             do{
                 String[] columnsFood = {"description"};
                 String fdc_id = c.getString(0);
+                Log.wtf("WTF", fdc_id);
                 String[] selectionArgs = { fdc_id };
                 Cursor cFood = db.query("food", columnsFood, "fdc_id = ?", selectionArgs, null, null, null, null);
                 if(cFood.moveToNext()) {

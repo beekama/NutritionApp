@@ -69,7 +69,7 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
         }
 
         name.setText(item.tag);
-        if(item.amount >= 0) {
+        if(!item.inputTypeString) {
             value.setText(Integer.toString(item.amount));
         }else if(item.data != null){
             value.setText(item.data);

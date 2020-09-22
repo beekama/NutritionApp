@@ -25,6 +25,8 @@ public class CustomFoodOverview extends AppCompatActivity {
 
     private Database db;
     private ListView mainLv;
+    ArrayList<FoodOverviewItem> foodItems = new ArrayList<>();
+    FoodOverviewAdapter foodOverviewAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -46,30 +48,35 @@ public class CustomFoodOverview extends AppCompatActivity {
 
         /* add new food item */
         tb_forward.setOnClickListener((v -> {
-            Intent myIntent = new Intent(v.getContext(), CreateNewFoodItem.class);
-            startActivity(myIntent);
+            Intent createCustomFood = new Intent(v.getContext(), CreateNewFoodItem.class);
+            startActivity(createCustomFood);
         }));
 
         /* display existing custom foods */
         db = new Database(this);
         updateFoodList();
         mainLv.setOnItemClickListener((adapterView, view, i, l) -> {
-            // TODO edit mode
+            FoodOverviewItem item = (FoodOverviewItem) adapterView.getAdapter().getItem(i);
+            Intent editCustomFood = new Intent(view.getContext(), CreateNewFoodItem.class);
+            editCustomFood.putExtra("fdc_id", item.food.id);
+            startActivity(editCustomFood);
         });
         mainLv.setOnItemLongClickListener((adapterView, view, i, l) -> {
-            // TODO delete
+            FoodOverviewItem item = (FoodOverviewItem) adapterView.getAdapter().getItem(i);
+            db.deleteCustomFood(item.food.name);
+            foodItems.remove(item);
+            foodOverviewAdapter.notifyDataSetChanged();
             return true;
         });
     }
 
     private void updateFoodList(){
-        ArrayList<Food> foods = db.getAllCustomFoods();
-        ArrayList<FoodOverviewItem> foodItems = new ArrayList<>();
-        for (Food f : foods) {
+        ArrayList<Food> displayedFoods = db.getAllCustomFoods();
+        for (Food f : displayedFoods) {
             foodItems.add(new FoodOverviewItem(f));
         }
-        FoodOverviewAdapter newAdapter = new FoodOverviewAdapter(getApplicationContext(), foodItems);
-        mainLv.setAdapter(newAdapter);
+        foodOverviewAdapter = new FoodOverviewAdapter(getApplicationContext(), foodItems);
+        mainLv.setAdapter(foodOverviewAdapter);
         mainLv.invalidate();
     }
 
