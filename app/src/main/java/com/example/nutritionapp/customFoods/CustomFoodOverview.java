@@ -72,6 +72,7 @@ public class CustomFoodOverview extends AppCompatActivity {
 
     private void updateFoodList(){
         ArrayList<Food> displayedFoods = db.getAllCustomFoods();
+        foodItems.clear();
         for (Food f : displayedFoods) {
             foodItems.add(new FoodOverviewItem(f));
         }

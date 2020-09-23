@@ -15,6 +15,7 @@ public class Conversions {
             case "G":
                 return inputAmount * G_TO_UG;
             case "MG":
+            case "MG_ATE":
                 return inputAmount * MG_TO_UG;
             case "KCAL":
                 return inputAmount * KCAL_TO_JOULE;

@@ -125,12 +125,18 @@ public class CreateNewFoodItem extends AppCompatActivity {
         f.nutrition = n;
         for (CreateFoodNutritionSelectorItem item : allItems) {
             if (item.ne != null) {
+                if(item.amount == -1){
+                    continue;
+                }
                 int servingSizeTmp = 1;
                 if(this.servingSize != 0){
                     servingSizeTmp = servingSize;
                 }
                 f.nutrition.getElements().put(item.ne, item.amount / servingSizeTmp);
             } else {
+                if(item.amount == -1){
+                    item.amount = 0;
+                }
                 switch (item.tag) {
                     case "Service Size":
                         this.servingSize = item.amount;  /* next level hack */

@@ -322,9 +322,13 @@ public class Database {
                     int normalizedAmount = Conversions.normalize(unitName, rawAmount);
                     ret.put(nutrientID, normalizedAmount);
                 }else{
-                    nutrients.close();
                     nutrientConversion.close();
-                    throw new RuntimeException("Nutrient not found?!");
+                    if(nutrientID.equals("-1")){
+                        Log.w("JOURNAL", "Nutrient ID -1 ignored for food id: " + foodId);
+                    }else {
+                        nutrients.close();
+                        throw new RuntimeException("Nutrient not found: " + nutrientID);
+                    }
                 }
             } while (nutrients.moveToNext());
         }else{
@@ -349,7 +353,7 @@ public class Database {
                 String date = c.getString(1);
                 int amount = c.getInt(2);
                 Food f = this.getFoodById(foodId, date);
-                if(f == null) {
+                if(f != null) {
                     f.associatedAmount = amount;
                     ret.add(f);
                 }
@@ -444,6 +448,7 @@ public class Database {
         valuesFood.put("data_type", "app_custom");
         valuesFood.put("description", food.name);
         valuesFood.put("food_category_id", "");
+        Log.wtf("FOOD_CREATE", "" + (maxUsedID+1));
         db.insert("food", null, valuesFood);
 
         /* insert the nutrition for the food */
