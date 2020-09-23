@@ -17,6 +17,14 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.33"/>
 
+   <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+       app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guidelineRecommendation"
+        />
+
 
 
 

@@ -18,9 +18,15 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import org.threeten.bp.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Recommendations extends AppCompatActivity {
@@ -84,16 +90,19 @@ public class Recommendations extends AppCompatActivity {
         // add nutrition items:
         ArrayList<RecommendationListItem> nutritionItems = new ArrayList<>();
         ListView mainLv = findViewById(R.id.listview);
-        if (!(allFood == null)) {
+        if (!(allFood.isEmpty())) {
             nutritionAnalysis = new NutritionAnalysis(allFood);
             for (NutritionElement ne : NutritionElement.values()) {
-                nutritionItems.add(new RecommendationListItem(ne.toString(), nutritionAnalysis.getNutritionPercentage().get(ne)));
+                nutritionItems.add(new RecommendationListItem(ne.toString(), 5));// nutritionAnalysis.getNutritionPercentage().get(ne)));
             }
 
         }
 
         //adapter:
-        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), nutritionItems);
+        ArrayList<RecommendationListItem> test = new ArrayList<>();
+        test.add(nutritionItems.get(0));
+        test.add(nutritionItems.get(1));
+        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), test);
         mainLv.setAdapter(newAdapter);
 
 
@@ -123,6 +132,11 @@ class RecommendationListItem {
 class RecommendationAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<RecommendationListItem> items;
+    List<PieEntry> pieEntryList = new ArrayList<>();
+    PieData pieData;
+
+
+
 
     public RecommendationAdapter() {
         super();
@@ -161,9 +175,21 @@ class RecommendationAdapter extends BaseAdapter {
 
         /* sub views */
         TextView rec_item = convertView.findViewById(R.id.nutritionName);
+        PieChart rec_chart = convertView.findViewById(R.id.pieChar);
 
         rec_item.setText(item.tag);
 
+        rec_chart.setUsePercentValues(true);
+       // if(position==0) {
+            pieEntryList.add(new PieEntry(item.percentage, item.tag));
+       // }
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntryList, "overview");
+        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        pieData = new PieData(pieDataSet);
+        rec_chart.setData(pieData);
+        //rec_chart.setFitsSystemWindows(true);
+        rec_chart.invalidate();
 
         return convertView;
     }}

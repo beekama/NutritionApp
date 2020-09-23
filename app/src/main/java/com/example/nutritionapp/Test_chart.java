@@ -43,7 +43,7 @@ public class Test_chart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_chart);
 
-        pieChart = findViewById(R.id.pieChart);
+        pieChart = findViewById(R.id.pieChar);
         pieChart.setUsePercentValues(true);
 
 
@@ -71,6 +71,7 @@ public class Test_chart extends AppCompatActivity {
             Float missing = nutritionAnalysis.getNutritionPercentage().get(NutritionElement.VITAMIN_D);
             pieEntryList.add(new PieEntry(1 - missing, NutritionElement.VITAMIN_D.toString()));
             pieEntryList.add(new PieEntry(missing, "missing"));
+
         }
         PieDataSet pieDataSet = new PieDataSet(pieEntryList, "nutrition-missing");
 
