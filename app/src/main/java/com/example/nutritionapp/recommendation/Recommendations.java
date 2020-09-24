@@ -2,16 +2,26 @@ package com.example.nutritionapp.recommendation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.Test_chart;
 import com.example.nutritionapp.other.Database;
@@ -19,11 +29,14 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+
 import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,16 +106,13 @@ public class Recommendations extends AppCompatActivity {
         if (!(allFood.isEmpty())) {
             nutritionAnalysis = new NutritionAnalysis(allFood);
             for (NutritionElement ne : NutritionElement.values()) {
-                nutritionItems.add(new RecommendationListItem(ne.toString(), 5));// nutritionAnalysis.getNutritionPercentage().get(ne)));
+                nutritionItems.add(new RecommendationListItem(ne.toString(), nutritionAnalysis.getNutritionPercentage().get(ne), new ArrayList<>()));// ;
             }
 
         }
 
         //adapter:
-        ArrayList<RecommendationListItem> test = new ArrayList<>();
-        test.add(nutritionItems.get(0));
-        test.add(nutritionItems.get(1));
-        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), test);
+        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), nutritionItems);
         mainLv.setAdapter(newAdapter);
 
 
@@ -118,24 +128,23 @@ public class Recommendations extends AppCompatActivity {
 }
 
 class RecommendationListItem {
-        final String tag;
-        float percentage;
+    final String tag;
+    float percentage;
+    ArrayList<PieEntry> pieEntryList;
 
-        public RecommendationListItem(String tag, float percentage) {
-            this.tag = tag;
-            this.percentage = percentage;
-        }
+    public RecommendationListItem(String tag, float percentage, ArrayList<PieEntry> pieEntryList) {
+        this.tag = tag;
+        this.percentage = percentage;
+        this.pieEntryList = pieEntryList;
     }
-
+}
 
 
 class RecommendationAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<RecommendationListItem> items;
-    List<PieEntry> pieEntryList = new ArrayList<>();
+    // List<PieEntry> pieEntryList = new ArrayList<>();
     PieData pieData;
-
-
 
 
     public RecommendationAdapter() {
@@ -177,19 +186,45 @@ class RecommendationAdapter extends BaseAdapter {
         TextView rec_item = convertView.findViewById(R.id.nutritionName);
         PieChart rec_chart = convertView.findViewById(R.id.pieChar);
 
+        /*Text-column*/
         rec_item.setText(item.tag);
 
-        rec_chart.setUsePercentValues(true);
-       // if(position==0) {
-            pieEntryList.add(new PieEntry(item.percentage, item.tag));
-       // }
+        /*chart*/
+        ArrayList<PieEntry> pieEntryList = item.pieEntryList;
+        pieEntryList.add(new PieEntry(item.percentage, item.tag));
+        pieEntryList.add(new PieEntry(100 - item.percentage, "missing"));
+        PieDataSet pieDataSet = new PieDataSet(pieEntryList, "alldata");
+        //Log.wtf("ZZZ--"+item.tag,((Float)item.percentage).toString());
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntryList, "overview");
-        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        //STYLING:
+        rec_chart.setUsePercentValues(true);
+        pieDataSet.setColors(Color.parseColor("#006400"), Color.parseColor("#C8FFC8"), Color.GRAY, Color.BLACK, Color.BLUE); //!! extra color for debugging
+        pieDataSet.setDrawValues(false);
+        // rec_chart.setCenterText(generateCenterSpannableText((Float)item.percentage));
+        // rec_chart.getDescription().setEnabled(false);
+        rec_chart.getLegend().setEnabled(false);
+        rec_chart.setDrawSliceText(false);
+        rec_chart.setRotationEnabled(false);
+        rec_chart.setHighlightPerTapEnabled(false);
+        rec_chart.setHoleColor(Color.TRANSPARENT);
+
+        //PERCENTAGE-LABEL:
+        rec_chart.getDescription().setText(String.format("%.2f %%", item.percentage));
+        rec_chart.getDescription().setPosition(300f, 25f);   //!! anpassen bei einfügen von 'recommendations'-textview
+        rec_chart.notifyDataSetChanged();
+
         pieData = new PieData(pieDataSet);
         rec_chart.setData(pieData);
-        //rec_chart.setFitsSystemWindows(true);
-        rec_chart.invalidate();
+
+
 
         return convertView;
-    }}
+    }
+
+    private SpannableString generateCenterSpannableText(Float in) {
+        String inString = String.format("%.2f %%", in);
+        SpannableString s = new SpannableString(inString);
+        s.setSpan(new RelativeSizeSpan(0.8f), 0, inString.length(), 0);
+        return s;
+    }
+}

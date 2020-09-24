@@ -19,8 +19,8 @@
 
    <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guidelineRecommendation"
         />
