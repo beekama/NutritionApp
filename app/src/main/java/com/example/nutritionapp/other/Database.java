@@ -177,6 +177,14 @@ public class Database {
         db.delete("foodlog", whereClause, null);
     }
 
+    public boolean checkFoodExists(Food f){
+        return getFoodById(f.id) != null;
+    }
+
+    public Food getFoodById(String foodId) {
+        return getFoodById(foodId, null);
+    }
+
     public Food getFoodById(String foodId, String loggedAtIso) {
 
         String table = "food";
@@ -362,19 +370,6 @@ public class Database {
         return ret;
     }
 
-    private class SuggestionHelper implements Comparable<SuggestionHelper>{
-        public int counter;
-        public Food food;
-        public SuggestionHelper(Food food){
-            this.counter = 1;
-            this.food = food;
-        }
-
-        @Override
-        public int compareTo(SuggestionHelper s) {
-            return Integer.compare(this.counter, s.counter);
-        }
-    }
     public ArrayList<Food> getSuggestionsForCombination(ArrayList<SelectedFoodItem> selectedSoFarItems) {
         /* This function returns suggestions for create_foods to log based on previously selected combinations */
 
@@ -393,7 +388,7 @@ public class Database {
             for(Food f : prevSelected.get(key)){
                 if(selectedSoFar.contains(f)) {
                     /* if any is selected, add all but the already selected food */
-                    for(Food toBeAddedFood: prevSelected.get(key)) {
+                    for(Food toBeAddedFood: prevSelected.getOrDefault(key, new ArrayList<Food>())) {
                         if(selectedSoFar.contains(toBeAddedFood)){
                             continue;
                         }
@@ -422,7 +417,7 @@ public class Database {
         return results;
     }
 
-    public boolean checkCustomFoodExists(String description){
+    public boolean checkCustomNameFoodExists(String description){
         String[] args = { description };
         String[] columns = {"fdc_id"};
         Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
@@ -433,6 +428,12 @@ public class Database {
         c.close();
         return false;
     }
+
+    public void changeCustomFood(Food origFood, Food changedFood){
+        deleteCustomFood(origFood);
+        createNewFood(changedFood);
+    }
+
     public synchronized void createNewFood(Food food) {
 
         String[] columns = {"fdc_id, data_type"};
@@ -441,6 +442,7 @@ public class Database {
         if(c.moveToNext()) {
             maxUsedID = c.getInt(0);
         }
+        c.close();
 
         /* insert the foods */
         ContentValues valuesFood = new ContentValues();
@@ -461,36 +463,37 @@ public class Database {
             db.insert("food_nutrient_custom", null, valuesNutrient);
         }
     }
-    public void deleteCustomFood(String description){
-        if(checkCustomFoodExists(description)){
-            String[] args = { description };
+    public void deleteCustomFood(Food f){
+        if(checkFoodExists(f)){
+            String[] args = { f.id };
             String[] columns = {"fdc_id"};
-            Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
+            Cursor c = db.query("food", columns, "fdc_id = ?", args, null, null, null);
             if(c.moveToNext()) {
-                int fdcId = c.getInt(0);
-                if(checkFoodInJournal(fdcId)){
-                    markFoodAsDeactivated(fdcId);
+                if(checkFoodInJournal(f)){
+                    markFoodAsDeactivated(f);
                 }else{
-                    String[] argsNut = { Integer.toString(fdcId) };
-                    db.delete("food", "description = ?", args);
-                    db.delete("food_nutrient_custom", "fdc_id = ?", argsNut);
+                    db.delete("food", "fdc_id = ?", args);
+                    db.delete("food_nutrient_custom", "fdc_id = ?", args);
                 }
             }
+            c.close();
         }
     }
 
-    private void markFoodAsDeactivated(int fdcId) {
-        String[] whereArgs = { Integer.toString(fdcId) };
+    private void markFoodAsDeactivated(Food f) {
+        String[] whereArgs = { f.id };
         ContentValues values = new ContentValues();
         values.put("data_type", "disabled");
         db.update("food", values,"fdc_id = ?", whereArgs);
     }
 
-    private boolean checkFoodInJournal(int fdcId) {
+    private boolean checkFoodInJournal(Food f) {
         String[] columns = { "food_id" };
-        String[] whereArgs = { Integer.toString(fdcId) };
+        String[] whereArgs = { f.id };
         Cursor c = db.query("foodlog", columns, "food_id = ?", whereArgs, null, null, null);
-        return c.moveToNext();
+        boolean hasNext = c.moveToNext();
+        c.close();
+        return hasNext;
     }
 
     public ArrayList<Food> getAllCustomFoods() {
@@ -512,7 +515,7 @@ public class Database {
                 }
             }while(c.moveToNext());
         }
-
+        c.close();
         return ret;
     }
 
@@ -593,5 +596,20 @@ public class Database {
 
     public void close() {
         db.close();
+    }
+
+
+    private static class SuggestionHelper implements Comparable<SuggestionHelper>{
+        public int counter;
+        public Food food;
+        public SuggestionHelper(Food food){
+            this.counter = 1;
+            this.food = food;
+        }
+
+        @Override
+        public int compareTo(SuggestionHelper s) {
+            return Integer.compare(this.counter, s.counter);
+        }
     }
 }

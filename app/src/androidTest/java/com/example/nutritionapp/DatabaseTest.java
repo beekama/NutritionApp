@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Nutrition;
+import com.example.nutritionapp.other.NutritionElement;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.junit.Test;
@@ -74,4 +76,72 @@ public class DatabaseTest {
                 }
         );
     }
+
+    @Test
+    public void addCustomAndQueryCustomFood() {
+        ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
+                    Database db = new Database(activity);
+                    String name = "FOOD_A";
+                    Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(name);
+                    db.createNewFood(f1);
+                    ArrayList<Food> foods = db.getFoodsByPartialName("FOOD_A");
+                    assertNotEquals("DB failed to retrieve custom food", 0, foods.size());
+                    assertTrue("DB responded with more than one food.", foods.size() > 1);
+                    assertEquals("Name of retrieve food didn't match", foods.get(0).name, name);
+                }
+        );
+    }
+
+    @Test
+    public void checkAddAndDeleteCustomFood() {
+        ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
+                    Database db = new Database(activity);
+                    String name = "FOOD_A";
+                    Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(name);
+                    db.createNewFood(f1);
+                    db.deleteCustomFood(f1.name);
+                    ArrayList<Food> foods = db.getFoodsByPartialName("FOOD_A");
+                    assertEquals("Custom Food was apparently not delete from DB", 0, foods.size());
+                }
+        );
+    }
+
+    @Test
+    public void checkCustomFoodExistsQuery() {
+        ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
+                    Database db = new Database(activity);
+                    String name = "FOOD_A";
+                    Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(name);
+                    db.createNewFood(f1);
+                    assertTrue("checkCustomFood exists returns false when it should return true",  db.checkCustomFoodExists(f1.name));
+                    db.deleteCustomFood(f1.name);
+                    assertFalse("checkCustomFood exists returns true when it should return false",  db.checkCustomFoodExists(f1.name));
+                }
+        );
+    }
+
+    @Test
+    public void addAndEditCustomFood() {
+        ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
+                Database db = new Database(activity);
+                String name = "FOOD_A";
+                Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(name);
+                db.createNewFood(f1);
+                f1.nutrition.getElements().replace(NutritionElement.CALCIUM, 7);
+                db.createNewFood(f1);
+                ArrayList<Food> foods = db.getFoodsByPartialName("FOOD_");
+                assertEquals("DB failed to retrieve custom food", 0, foods.size());
+                assertTrue("DB responded with more than one food.", foods.size() > 1);
+                assertEquals("Name of retrieve food didn't match", foods.get(0).name, name);
+            }
+        );
+    }
+
+    public void addEditDeleteCustomFood() {
+        ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
+                    // TODO
+                }
+        );
+    }
+
 }
