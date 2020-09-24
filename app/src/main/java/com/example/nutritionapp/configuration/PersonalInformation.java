@@ -2,9 +2,7 @@ package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -21,8 +19,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 
+
+import java.util.Locale;
+
 public class PersonalInformation extends AppCompatActivity {
-    private Integer weight, height;
 
     @SuppressLint("ResourceAsColor")
     public void onCreate(final Bundle savedInstanceState) {
@@ -30,273 +30,139 @@ public class PersonalInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuration);
 
-        //replace actionbar with custom toolbar:
-        Toolbar tb = findViewById(R.id.toolbar);
-        TextView tb_title = findViewById(R.id.toolbar_title);
-        ImageButton tb_back = findViewById(R.id.toolbar_back);
-        //back home button:
-        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
-        backHome.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        }));
-        tb.setTitle("");
-        tb_title.setText("PROFILE");
-        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        setSupportActionBar(tb);
-
-
-        //get database connection
         final Database db = new Database(this);
 
-        //BASIC CONFIGURATION
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        final TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
 
-        //--SET CURRENT VALUES--
-        //age:
-        final TextView tvAge = (TextView) findViewById(R.id.et_meConfig_age);
-        final Integer age = db.getPersonAge();
-        if (age != -1) {
-            tvAge.setText(age.toString());
-        }
-        //gender:
-        final TextView tvGender = (TextView) findViewById(R.id.et_meConfig_gender);
-        final String gender = db.getPersonGender();
-        if (!gender.equals("none")) {
-            tvGender.setText(gender);
-        }
-        // weight:
-        final TextView tvWeight = (TextView) findViewById(R.id.et_meConfig_weight);
-        weight = db.getPersonWeight();
-        if (weight != -1) {
-            tvWeight.setText(weight.toString());
-        }
-        //height:
-        final TextView tvHeight = (TextView) findViewById(R.id.et_meConfig_height);
-        height = db.getPersonHeight();
-        if (height != -1) {
-            tvHeight.setText(Integer.toString(height));
-        }
-
-
-
-        //SUBMIT CHANGES IN CONFIGURATION:
+        backHome.setOnClickListener((v -> finish()));
+        toolbar.setTitle("");
+        toolbarTitle.setText("PROFILE");
+        backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        setSupportActionBar(toolbar);
         final Button submit = (Button) findViewById(R.id.meConfig_submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //age:
-                final EditText et = (EditText) findViewById(R.id.et_meConfig_age);
-                defaultEditBackground(et);
-                //get setting from edittext
-                //only write to database if input can be parsed properly:
-                try {
-                    int newAge = Integer.parseInt(et.getText().toString());
-                    try {
-                        //write to database class
-                        db.setPersonAge(newAge);
-                    } catch (IllegalArgumentException e) {
-                        //show a notification
-                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                        toast.show();
-                        wrongEditBackground(et);
-                    }
-                } catch (IllegalArgumentException e) {
-                    //show notification and old values in textview
-                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                    toast.show();
-                    wrongEditBackground(et);
-                    if (age != -1) {
-                        tvAge.setText(age.toString());
-                    } else {
-                        tvAge.setText("");
-                    }
-                }
+        final EditText etGender = (EditText) findViewById(R.id.et_meConfig_gender);
+        final EditText etAge    = (EditText) findViewById(R.id.et_meConfig_age);
+        final EditText etWeight = (EditText) findViewById(R.id.et_meConfig_weight);
+        final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
+        final EditText etCalories = (EditText) findViewById(R.id.et_meConfig_calories);
+        final TextView bmiDisplay = (TextView) findViewById(R.id.tv_meConfig_BMI);
 
 
-                //gender:
-                final EditText etGender = (EditText) findViewById(R.id.et_meConfig_gender);
-                defaultEditBackground(etGender);
-                //get setting from edittext
-                //only write to database if input can be parsed properly:
-                try {
-                    String newGender = etGender.getText().toString();
-                    try {
-                        //write to database class
-                        db.setPersonGender(newGender);
-                    } catch (IllegalArgumentException e) {
-                        //show a notification
-                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                        toast.show();
-                        wrongEditBackground(etGender);
-                    }
-                } catch (IllegalArgumentException e) {
-                    //show notification and old values in textview
-                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                    toast.show();
-                    wrongEditBackground(etGender);
-                    if (!gender.equals("none")) {
-                        tvGender.setText(gender);
-                    } else {
-                        tvGender.setText("");
-                    }
+        ConstraintLayout layout = findViewById(R.id.meConfigLayout);
+        loadAndSetGender(db, etGender);
+        loadAndSetAge(db, etAge);
+        loadAndSetWeight(db, etWeight);
+        loadAndSetHeight(db, etHeight);
+        loadAndSetEnergyReq(db, etCalories);
+        calculateAndSetBmi(db, bmiDisplay);
 
-                }
-
-                //submit new weight:
-                final EditText etWeight = (EditText) findViewById(R.id.et_meConfig_weight);
-                defaultEditBackground(etWeight);
-                //get setting from edittext
-                //only write to database if input can be parsed properly:
-                try {
-                    int newWeight = Integer.parseInt(etWeight.getText().toString());
-                    try {
-                        //write to database class
-                        db.setPersonWeight(newWeight);
-                        weight = newWeight;
-                    } catch (IllegalArgumentException e) {
-                        //show a notification
-                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                        toast.show();
-                        wrongEditBackground(etWeight);
-                    }
-                } catch (IllegalArgumentException e) {
-                    //show notification and old values in textview
-                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                    toast.show();
-                    wrongEditBackground(etWeight);
-                    if (weight != -1) {
-                        tvWeight.setText(weight.toString());
-                    } else {
-                        tvWeight.setText("");
-                    }
-                }
-
-                //submit new height:
-                final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
-                defaultEditBackground(etHeight);
-                //get setting from edittext
-                //only write to database if input can be parsed properly:
-                try {
-                    int newHeight = Integer.parseInt(etHeight.getText().toString());
-                    try {
-                        //write to database class
-                        db.setPersonHeight(newHeight);
-                        height = newHeight;
-                    } catch (IllegalArgumentException e) {
-                        //show a notification
-                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                        toast.show();
-                        tvHeight.setText(Integer.toString(height));
-                        wrongEditBackground(etHeight);
-                    }
-                } catch (IllegalArgumentException e) {
-                    //show notification and old values in textview
-                    Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                    toast.show();
-                    wrongEditBackground(etHeight);
-                    if (height != -1) {
-                        tvHeight.setText(Integer.toString(height));
-                    } else {
-                        tvHeight.setText("");
-                    }
-                }
-                //hide keyboard - if one is active/a view is focused:
-                try {
-                    View focusedView = getCurrentFocus();
-                    hideKeyboard(focusedView);
-                } catch (RuntimeException ignored) {
-                }
-                //remove focus
-                ConstraintLayout l = findViewById(R.id.meConfigLayout);
-                l.clearFocus();
-                updateBMI(height.doubleValue(), weight.doubleValue());
-            }
+        submit.setOnClickListener((View.OnClickListener) v -> {
+            collectData(db, etGender, etAge, etWeight, etHeight);
+            calculateAndSetBmi(db, bmiDisplay);
+            hideKeyboard();
+            layout.clearFocus();
         });
 
+        /* submit with DONE-key on SoftKeyboard */
+        etCalories.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard();
+                manuallySetEnergyReq(db, etCalories);
+                return true;
+            }
+            return false;
+        });
+    }
 
-
-
-
-
-
-        //EXTENDED CONFIGURATION:
-
-        //calculate BMI
-        updateBMI(height.doubleValue(), weight.doubleValue());
-
-
-        //-- Calories --
-        //set current values:
-        final TextView tv_energy = (TextView) findViewById(R.id.tvOut_meConfig_calories);
-        final Integer energy = db.getPersonEnergyReq();
-        if (energy != -1) {
-            tv_energy.setText(Integer.toString(energy));
+    private void manuallySetEnergyReq(Database db, EditText etCalories) {
+        try {
+            int calories = Integer.parseInt(etCalories.getText().toString());
+            db.setPersonEnergyReq(calories);
+        } catch (IllegalArgumentException e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Bad manual Input for calories", Toast.LENGTH_LONG);
+            toast.show();
+            loadAndSetEnergyReq(db, etCalories);
         }
-
-        //submit new calories WITH DONE-key on SoftkeyBoard:
-        final EditText etCalories = (EditText) findViewById(R.id.tvOut_meConfig_calories);
-        etCalories.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    hideKeyboard(etCalories);
-                    //get setting from edittext
-                    //only write to database if input can be parsed properly:
-                    try {
-                        int calories = Integer.parseInt(etCalories.getText().toString());
-                        try {
-                            //write to database class
-                            db.setPersonEnergyReq(calories);
-                        } catch (IllegalArgumentException e) {
-                            //show a notification
-                            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                            toast.show();
-                            //set old/default value:
-                            tv_energy.setText(Integer.toString(energy));
-                        }
-                    } catch (IllegalArgumentException e) {
-                        //show notification and old values in textview
-                        Toast toast = Toast.makeText(getApplicationContext(), "unaccepted input", Toast.LENGTH_LONG);
-                        toast.show();
-                        if (energy != -1) {
-                            tv_energy.setText(Integer.toString(energy));
-                        } else {
-                            tv_energy.setText("");
-                        }
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-
-
     }
 
-    private void hideKeyboard(View view) {
+    private void collectData(Database db, EditText etGender, EditText etAge, EditText etWeight, EditText etHeight) {
+        try {
+            int newAge = Integer.parseInt(etAge.getText().toString());
+            String newGender = etGender.getText().toString();
+            int newWeight = Integer.parseInt(etWeight.getText().toString());
+            int newHeight = Integer.parseInt(etHeight.getText().toString());
+            db.setPersonGender(newGender);
+            db.setPersonAge(newAge);
+            db.setPersonWeight(newWeight);
+            db.setPersonHeight(newHeight);
+        } catch (NumberFormatException e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Need Numeric Value as Input for Age, Weight and Height", Toast.LENGTH_LONG);
+            toast.show();
+        } catch (IllegalArgumentException e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Only 'male' or 'female' are supported", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loadAndSetWeight(Database db, EditText etWeight) {
+        int weight = db.getPersonWeight();
+        if (weight != -1) {
+            etWeight.setText(Integer.toString(weight));
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loadAndSetAge(Database db, EditText etAge) {
+        int age = db.getPersonAge();
+        if (age != -1) {
+            etAge.setText(Integer.toString(age));
+        }
+    }
+
+    private void loadAndSetGender(Database db, EditText etGender) {
+        String gender = db.getPersonGender();
+        if (!gender.equals("none")) {
+            etGender.setText(gender);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loadAndSetHeight(Database db, EditText etHeight) {
+        int height = db.getPersonHeight();
+        if (height != -1) {
+            etHeight.setText(Integer.toString(height));
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loadAndSetEnergyReq(Database db, EditText etEnergy){
+        int energy = db.getPersonEnergyReq();
+        if (energy != -1) {
+            etEnergy.setText(Integer.toString(energy));
+        }
+    }
+
+    private void hideKeyboard() {
+        View focusedView = getCurrentFocus();
+        if(focusedView == null){
+            return;
+        }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        view.clearFocus();
+        imm.hideSoftInputFromWindow(focusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        focusedView.clearFocus();
     }
 
-    //change view bottom line to red, due to wrong input
-    private void wrongEditBackground(EditText et) {
-        et.getBackground().mutate().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
-    }
-
-    //set default bottom line color
-    private void defaultEditBackground(EditText et) {
-        et.getBackground().mutate().setColorFilter(getResources().getColor(R.color.greyLight), PorterDuff.Mode.SRC_ATOP);
-    }
-
-    public void updateBMI(Double height, Double weight) {
-        Double bmi = weight / ((height * height) / 10000);
-        final TextView tv_BMI = (TextView) findViewById(R.id.tvOut_meConfig_bmi);
+    public void calculateAndSetBmi(Database db, TextView bmiDisplay) {
+        int height = db.getPersonHeight();
+        int weight = db.getPersonWeight();
+        double bmi = weight / ((height * height) / 10000.0);
         bmi = Math.round(bmi * 100.0) / 100.0;
-        tv_BMI.setText(bmi.toString());
+        if(bmi > 0) {
+            bmiDisplay.setText(String.format(Locale.getDefault(), "%d", (int)bmi));
+        }
     }
 }
