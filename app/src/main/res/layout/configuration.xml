@@ -95,7 +95,9 @@
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_age"
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/barrier" />
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        android:inputType="number"
+        />
 
     <EditText
         android:id="@+id/et_meConfig_gender"
@@ -115,7 +117,9 @@
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_weight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline" />
+        app:layout_constraintStart_toStartOf="@id/centerGuideline"
+        android:inputType="number"
+        />
 
     <EditText
         android:id="@+id/et_meConfig_height"
@@ -125,7 +129,9 @@
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_height"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"/>
+        app:layout_constraintStart_toStartOf="@id/centerGuideline"
+        android:inputType="number"
+        />
 
 
     <!-- derived metrics -->
@@ -187,7 +193,9 @@
             app:layout_constraintStart_toStartOf="@id/centerGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
+            android:inputType="number"
+            />
 
         <Button
             android:id="@+id/meConfig_submit"
