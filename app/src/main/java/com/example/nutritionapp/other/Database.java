@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
+import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
 public class Database {
@@ -35,7 +36,7 @@ public class Database {
     private static final int DEFAULT_MIN_CUSTOM_ID = 100000000;
     private static final String DATABASE_NAME = "food.db";
     final String FILE_KEY = "DEFAULT";
-    final SQLiteDatabase db;
+    private SQLiteDatabase db;
     private final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private final Activity srcActivity;
     private HashMap<String,Food> foodCache = new HashMap<>();
@@ -45,19 +46,24 @@ public class Database {
         this.srcActivity = srcActivity;
         targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
         createDatabase(false);
-        db = SQLiteDatabase.openDatabase(targetPath, null, OPEN_READWRITE);
+        db = SQLiteDatabase.openDatabase(targetPath, null,  NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
         generateNutritionTableSelectionMap();
     }
 
     @SuppressWarnings("unused")
     public void purgeDatabase(){
+        db.close();
         createDatabase(true);
+        db = SQLiteDatabase.openDatabase(targetPath, null, OPEN_READWRITE);
     }
 
     private void createDatabase(boolean forceOverwrite){
         File file = new File(targetPath);
         if(forceOverwrite && file.exists()){
-            this.srcActivity.getApplicationContext().deleteFile(DATABASE_NAME);
+            boolean deleted = file.delete();
+            if(!deleted){
+                throw new AssertionError("Database could not be deleted.");
+            }
         }
         if (!file.exists()) {
             InputStream in = srcActivity.getResources().openRawResource(R.raw.food);
@@ -196,8 +202,8 @@ public class Database {
 
         String table = "food";
         String[] columns = {"description"};
-        String whereStm = String.format("fdc_id = \"%s\"", foodId);
-        Cursor c = db.query(table, columns, whereStm, null, null, null, null);
+        String[] whereArgs = { foodId };
+        Cursor c = db.query(table, columns, "fdc_id = ?", whereArgs, null, null, null);
 
         if(foodCache.containsKey(foodId)){
             return foodCache.get(foodId);
@@ -459,12 +465,20 @@ public class Database {
         return false;
     }
 
-    public void changeCustomFood(Food origFood, Food changedFood){
-        deleteCustomFood(origFood);
-        createNewFood(changedFood);
+    public boolean changeCustomFood(Food origFood, Food changedFood){
+        if(!origFood.isIdValid() || !checkFoodExists(origFood)){
+            return false;
+        }
+        ContentValues valuesFood = new ContentValues();
+        valuesFood.put("data_type", "app_custom");
+        valuesFood.put("description", changedFood.name);
+        valuesFood.put("food_category_id", "");
+        String[] whereArgs = { origFood.id };
+        db.update("food", valuesFood, "fdc_id = ?", whereArgs);
+        return true;
     }
 
-    public synchronized void createNewFood(Food food) {
+    public synchronized Food createNewFood(Food food) {
 
         String[] columns = {"fdc_id, data_type"};
         Cursor c = db.query("food", columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
@@ -475,25 +489,29 @@ public class Database {
         c.close();
 
         /* insert the foods */
+        int currentId = maxUsedID + 1;
         ContentValues valuesFood = new ContentValues();
-        valuesFood.put("fdc_id", maxUsedID + 1);
+        valuesFood.put("fdc_id", currentId);
         valuesFood.put("data_type", "app_custom");
         valuesFood.put("description", food.name);
         valuesFood.put("food_category_id", "");
-        Log.wtf("FOOD_CREATE", "" + (maxUsedID+1));
+        Log.wtf("FOOD_CREATE", "" + currentId);
         db.insert("food", null, valuesFood);
 
         /* insert the nutrition for the food */
         for(NutritionElement ne : food.nutrition.getElements().keySet()){
             ContentValues valuesNutrient = new ContentValues();
             valuesNutrient.put("id", 0);
-            valuesNutrient.put("fdc_id", maxUsedID + 1);
+            valuesNutrient.put("fdc_id", currentId);
             valuesNutrient.put("nutrient_id", Nutrition.databaseIdFromEnum(ne));
             valuesNutrient.put("amount", food.nutrition.getElements().get(ne));
             db.insert("food_nutrient_custom", null, valuesNutrient);
         }
+
+        food.id = Integer.toString(currentId);
+        return food;
     }
-    public void deleteCustomFood(Food f){
+    public boolean deleteCustomFood(Food f){
         if(checkFoodExists(f)){
             String[] args = { f.id };
             String[] columns = {"fdc_id"};
@@ -504,10 +522,13 @@ public class Database {
                 }else{
                     db.delete("food", "fdc_id = ?", args);
                     db.delete("food_nutrient_custom", "fdc_id = ?", args);
+                    foodCache.remove(f.id);
                 }
+                return true;
             }
             c.close();
         }
+        return false;
     }
 
     public void markFoodAsDeactivated(Food f) {

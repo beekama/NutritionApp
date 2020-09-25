@@ -81,5 +81,9 @@ public class Food {
         clone.nutrition = new Nutrition(this.nutrition);
         return clone;
     }
+
+    public boolean isIdValid() {
+        return this.id != null && !this.id.equals("") && !this.id.equals("-1");
+    }
 }
 
