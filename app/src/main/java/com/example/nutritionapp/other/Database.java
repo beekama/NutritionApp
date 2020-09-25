@@ -41,7 +41,15 @@ public class Database {
     private final Activity srcActivity;
     private HashMap<String,Food> foodCache = new HashMap<>();
 
-    private void copyDatabaseIfMissing(InputStream inputStream, String targetPath){
+    public Database(Activity srcActivity) {
+        this.srcActivity = srcActivity;
+        String path = srcActivity.getFilesDir().getParent() + "/food.db";
+        copyDatabaseIfMissing(path);
+        db = SQLiteDatabase.openDatabase(path, null, OPEN_READWRITE);
+        generateNutritionTableSelectionMap();
+    }
+
+    private void copyDatabaseIfMissing(String targetPath){
         File file = new File(targetPath);
         if (!file.exists()) {
             InputStream in = srcActivity.getResources().openRawResource(R.raw.food);
@@ -111,16 +119,6 @@ public class Database {
         Log.w("WARNING", "ID " + foodId +" has no associated Database. (nut good)");
         final String DEFAULT_DB = "food_nutrient_00";
         return DEFAULT_DB;
-    }
-
-
-    public Database(Activity srcActivity) {
-        this.srcActivity = srcActivity;
-        InputStream srcFile = srcActivity.getResources().openRawResource(R.raw.food);
-        String path = srcActivity.getFilesDir().getParent() + "/food.db";
-        copyDatabaseIfMissing(srcFile, path);
-        db = SQLiteDatabase.openDatabase(path, null, OPEN_READWRITE);
-        generateNutritionTableSelectionMap();
     }
 
     /* ################ FOOD LOGGING ############## */
@@ -277,6 +275,29 @@ public class Database {
         }
         c.close();
         return ret;
+    }
+
+    @SuppressWarnings("unused")
+    public ArrayList<Food> getFoodsByExactName(String name) {
+        /* function currently only used for unit testing */
+
+        String table = "food";
+        String[] columns = {"fdc_id", "description"};
+        String[] whereArgs = { name };
+        Cursor c = db.query(table, columns, "description = ?", whereArgs, null, null, null);
+
+        ArrayList<Food> foods = new ArrayList<>();
+
+        if (c.moveToFirst()) {
+            do {
+                String foodId = c.getString(0);
+                String description = c.getString(1);
+                Food f = new Food(description, foodId);
+                foods.add(f);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return foods;
     }
 
     public ArrayList<Food> getFoodsByPartialName(String substring) {
