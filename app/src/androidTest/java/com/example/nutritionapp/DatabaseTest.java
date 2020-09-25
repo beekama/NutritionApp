@@ -203,12 +203,14 @@ public class DatabaseTest {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
                     Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(defaultName);
+                    f1.name = "FOOD_A_ABCDFGH";
                     f1 = db.createNewFood(f1);
                     f1.setAssociatedAmount(100);
                     ArrayList<Food> foods = new ArrayList<>();
                     foods.add(f1);
                     db.logExistingFoods(foods, LocalDateTime.now());
                     db.deleteCustomFood(f1);
+                    foods = db.getFoodsByPartialName("FOOD_A_ABCDFGH");
                     assertEquals("Food should be deactivated by deletion but was still found", 0, foods.size());
                     Food f =  db.getFoodById(f1.id);
                     assertNotNull("Custom food was deleted while it was in journal", f);
