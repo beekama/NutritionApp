@@ -25,6 +25,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
@@ -35,6 +36,12 @@ public class Database {
 
     private static final int DEFAULT_MIN_CUSTOM_ID = 100000000;
     private static final String DATABASE_NAME = "food.db";
+
+    private static final String CUSTOM_FOOD_ACTIVE_TYPE  = "app_custom";
+    private static final String JOURNAL_TABLE = "foodlog";
+    private static final String FOOD_TABLE = "food";
+    private static final String DEFAULT_NUTRIENT_DB = "food_nutrient_00";
+
     final String FILE_KEY = "DEFAULT";
     private SQLiteDatabase db;
     private final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
@@ -94,6 +101,7 @@ public class Database {
             }
             tmpDbNames.add(tmpDbName);
         }
+        c.close();
 
         Collections.sort(tmpDbNames);
         for(String table : tmpDbNames){
@@ -103,10 +111,11 @@ public class Database {
                 int minFdcId = nutC.getInt(0);
                 fdcIdToDbNumber.add(minFdcId);
             }else{
+                nutC.close();
                 throw new AssertionError("Food Nutrition tables missing?!");
             }
+            nutC.close();
         }
-
     }
     private String getNutrientTableForFdcId(String foodId) {
 
@@ -124,19 +133,21 @@ public class Database {
                     /* the app would crash, which seems a bit extreme in this case  */
                     break;
                 }
-                return String.format("food_nutrient_%02d", count - 1);
+                return String.format(Locale.ENGLISH, "food_nutrient_%02d", count - 1);
             }else{
                 count++;
             }
         }
         Log.w("WARNING", "ID " + foodId +" has no associated Database. (nut good)");
-        final String DEFAULT_DB = "food_nutrient_00";
-        return DEFAULT_DB;
+        return DEFAULT_NUTRIENT_DB;
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyhack) {
+    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack) {
         /* This functions add a list of create_foods to the journal at a given date */
+        if(hackyHack != null){
+            Log.w("WARN", "HackyHack parameter should always be null");
+        }
         ArrayList<Food> selectedSoFar = new ArrayList<>();
         for (SelectedFoodItem item : selectedSoFarItems) {
             selectedSoFar.add(item.food);
@@ -160,13 +171,13 @@ public class Database {
             values.put("group_id", groupID);
             values.put("loggedAt", d.format(Utils.sqliteDatetimeFormat));
             values.put("amountInGram", f.getAssociatedAmount());
-            db.insert("foodlog", null, values);
+            db.insert(JOURNAL_TABLE, null, values);
         }
     }
     public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
 
-        String where = String.format("group_id = %d", groupId);
-        db.delete("foodlog",  where, null);
+        String[] whereArgs = { Integer.toString(groupId) };
+        db.delete(JOURNAL_TABLE,  "group_id = ?", whereArgs);
 
         for(SelectedFoodItem fItem : updatedListWithAmounts){
             Food f = fItem.food;
@@ -176,7 +187,7 @@ public class Database {
             values.put("group_id", groupId);
             values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
             values.put("amountInGram", f.getAssociatedAmount());
-            db.insert("foodlog", null, values);
+            db.insert(JOURNAL_TABLE, null, values);
         }
     }
 
@@ -186,8 +197,8 @@ public class Database {
         }
     }
     public synchronized void deleteLoggedFood(Food f, LocalDateTime d) {
-        String whereClause = String.format("food_id = \"%s\" AND loggedAt = \"%s\"", f.id, d.format(Utils.sqliteDatetimeFormat));
-        db.delete("foodlog", whereClause, null);
+        String[] whereArgs = { f.id, d.format(Utils.sqliteDatetimeFormat) };
+        db.delete(JOURNAL_TABLE, "food_id = ? AND loggedAt = ?", whereArgs);
     }
 
     public boolean checkFoodExists(Food f){
@@ -200,10 +211,9 @@ public class Database {
 
     public Food getFoodById(String foodId, String loggedAtIso) {
 
-        String table = "food";
         String[] columns = {"description"};
         String[] whereArgs = { foodId };
-        Cursor c = db.query(table, columns, "fdc_id = ?", whereArgs, null, null, null);
+        Cursor c = db.query(FOOD_TABLE, columns, "fdc_id = ?", whereArgs, null, null, null);
 
         if(foodCache.containsKey(foodId)){
             return foodCache.get(foodId);
@@ -224,20 +234,6 @@ public class Database {
                 return f;
             }
             c.close();
-
-            AlertDialog alertDialog = new AlertDialog.Builder(srcActivity).create();
-            alertDialog.setTitle("Error");
-            alertDialog.setMessage("A food wasn't found in the Database (id: " + foodId + " )");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Remove the faulty id (recommended)", (dialog, which) -> {
-                String whereClausePurgeId = "food_id = ?";
-                String[] whereArgsPurgeId = { foodId };
-                db.delete("foodlog", whereClausePurgeId, whereArgsPurgeId);
-                dialog.dismiss();
-            });
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Ignore the Problem", (dialog, which) -> {
-                dialog.dismiss();
-            });
-            alertDialog.show();
             return null;
         }
     }
@@ -267,15 +263,15 @@ public class Database {
                 String loggedAtISO = c.getString(2);
                 int amount = c.getInt(3);
 
-                if (ret.containsKey(groupID)) {
-                    ArrayList<Food> group = (ArrayList<Food>) ret.get(groupID);
+                ArrayList<Food> group = ret.get(groupID);
+                if (group != null) {
                     Food f = getFoodById(foodId, loggedAtISO);
                     if(f != null) {
                         f.setAssociatedAmount(amount);
                         group.add(f);
                     }
                 }else{
-                    ArrayList<Food> group = new ArrayList<>();
+                    group = new ArrayList<>();
                     Food f = getFoodById(foodId, loggedAtISO);
                     if(f != null) {
                         f.setAssociatedAmount(amount);
@@ -294,10 +290,9 @@ public class Database {
     public ArrayList<Food> getFoodsByExactName(String name) {
         /* function currently only used for unit testing */
 
-        String table = "food";
         String[] columns = {"fdc_id", "description"};
         String[] whereArgs = { name };
-        Cursor c = db.query(table, columns, "description = ?", whereArgs, null, null, null);
+        Cursor c = db.query(FOOD_TABLE, columns, "description = ?", whereArgs, null, null, null);
 
         ArrayList<Food> foods = new ArrayList<>();
 
@@ -318,9 +313,9 @@ public class Database {
 
         String table = "food";
         String[] columns = {"fdc_id", "description"};
-        String whereStm = String.format("description LIKE \"%%%s%%\"", substring);
+        String[] whereArgs = { "%" + substring + "%", "disabled"};
         String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC", substring, substring);
-        Cursor c = db.query(table, columns, whereStm, null, null, null, orderBy, null);
+        Cursor c = db.query(table, columns, "description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
 
         ArrayList<Food> foods = new ArrayList<>();
         if(substring.isEmpty()){
@@ -386,9 +381,9 @@ public class Database {
     }
 
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
-        String whereStm = String.format("group_id = %d" , groupId);
+        String[] whereArgs ={ Integer.toString(groupId) };
         String[] columns = {"food_id", "loggedAt", "amountInGram"};
-        Cursor c = db.query("foodlog", columns, whereStm, null, null, null, null);
+        Cursor c = db.query(JOURNAL_TABLE, columns, "group_id = ?", whereArgs, null, null, null);
 
         ArrayList<Food> ret = new ArrayList<>();
         if (c.moveToFirst()) {
@@ -403,6 +398,7 @@ public class Database {
                 }
             } while (c.moveToNext());
         }
+        c.close();
         return ret;
     }
 
@@ -416,7 +412,6 @@ public class Database {
 
         HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
         ArrayList<SuggestionHelper> suggestionCounter= new ArrayList<>();
-        ArrayList<Food> suggestions = new ArrayList<>();
 
         /* try all group keys */
         for(Integer key : prevSelected.keySet()){
@@ -424,7 +419,11 @@ public class Database {
             for(Food f : Objects.requireNonNull(prevSelected.get(key))){
                 if(selectedSoFar.contains(f)) {
                     /* if any is selected, add all but the already selected food */
-                    for(Food toBeAddedFood: prevSelected.get(key)) {
+                    ArrayList<Food> toBeAddedFoodList = prevSelected.get(key);
+                    if(toBeAddedFoodList == null){
+                        continue;
+                    }
+                    for(Food toBeAddedFood: toBeAddedFoodList) {
                         if(selectedSoFar.contains(toBeAddedFood)){
                             continue;
                         }
@@ -456,7 +455,7 @@ public class Database {
     public boolean checkCustomNameFoodExists(String description){
         String[] args = { description };
         String[] columns = {"fdc_id"};
-        Cursor c = db.query("food", columns, "description = ?", args, null, null, null);
+        Cursor c = db.query(FOOD_TABLE, columns, "description = ?", args, null, null, null);
         if(c.moveToNext()) {
             c.close();
             return true;
@@ -474,14 +473,14 @@ public class Database {
         valuesFood.put("description", changedFood.name);
         valuesFood.put("food_category_id", "");
         String[] whereArgs = { origFood.id };
-        db.update("food", valuesFood, "fdc_id = ?", whereArgs);
+        db.update(FOOD_TABLE, valuesFood, "fdc_id = ?", whereArgs);
         return true;
     }
 
     public synchronized Food createNewFood(Food food) {
 
         String[] columns = {"fdc_id, data_type"};
-        Cursor c = db.query("food", columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
+        Cursor c = db.query(FOOD_TABLE, columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
         int maxUsedID = DEFAULT_MIN_CUSTOM_ID;
         if(c.moveToNext()) {
             maxUsedID = c.getInt(0);
@@ -496,7 +495,7 @@ public class Database {
         valuesFood.put("description", food.name);
         valuesFood.put("food_category_id", "");
         Log.wtf("FOOD_CREATE", "" + currentId);
-        db.insert("food", null, valuesFood);
+        db.insert(FOOD_TABLE, null, valuesFood);
 
         /* insert the nutrition for the food */
         for(NutritionElement ne : food.nutrition.getElements().keySet()){
@@ -515,7 +514,7 @@ public class Database {
         if(checkFoodExists(f)){
             String[] args = { f.id };
             String[] columns = {"fdc_id"};
-            Cursor c = db.query("food", columns, "fdc_id = ?", args, null, null, null);
+            Cursor c = db.query(FOOD_TABLE, columns, "fdc_id = ?", args, null, null, null);
             if(c.moveToNext()) {
                 if(checkFoodInJournal(f)){
                     markFoodAsDeactivated(f);
@@ -535,20 +534,20 @@ public class Database {
         String[] whereArgs = { f.id };
         ContentValues values = new ContentValues();
         values.put("data_type", "disabled");
-        db.update("food", values,"fdc_id = ?", whereArgs);
+        db.update(FOOD_TABLE, values,"fdc_id = ?", whereArgs);
     }
 
     public void markFoodAsActivated(Food f) {
         String[] whereArgs = { f.id };
         ContentValues values = new ContentValues();
-        values.put("data_type", "disabled");
-        db.update("food", values,"fdc_id = ?", whereArgs);
+        values.put("data_type", "app_custom");
+        db.update(FOOD_TABLE, values,"fdc_id = ?", whereArgs);
     }
 
     private boolean checkFoodInJournal(Food f) {
         String[] columns = { "food_id" };
         String[] whereArgs = { f.id };
-        Cursor c = db.query("foodlog", columns, "food_id = ?", whereArgs, null, null, null);
+        Cursor c = db.query(JOURNAL_TABLE, columns, "food_id = ?", whereArgs, null, null, null);
         boolean hasNext = c.moveToNext();
         c.close();
         return hasNext;
@@ -564,8 +563,8 @@ public class Database {
                 String[] columnsFood = {"description"};
                 String fdc_id = c.getString(0);
                 Log.wtf("WTF", fdc_id);
-                String[] selectionArgs = { fdc_id };
-                cFood = db.query("food", columnsFood, "fdc_id = ?", selectionArgs, null, null, null, null);
+                String[] selectionArgs = { fdc_id, "disabled" };
+                cFood = db.query(FOOD_TABLE, columnsFood, "fdc_id = ? AND data_type != ?", selectionArgs, null, null, null, null);
                 if(cFood.moveToNext()) {
                     do{
                         ret.add(new Food(cFood.getString(0), fdc_id));

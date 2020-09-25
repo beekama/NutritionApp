@@ -173,10 +173,13 @@ public class DatabaseTest {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
                     Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(defaultName);
-                    db.createNewFood(f1);
+                    f1 = db.createNewFood(f1);
                     db.markFoodAsDeactivated(f1);
-                    ArrayList<Food> foods = db.getFoodsByExactName("FOOD_A");
-                    assertEquals("Food should be deactivated but was still found", 0, foods.size());
+                    ArrayList<Food> foods = db.getFoodsByPartialName("FOOD_A");
+                    assertFalse("Food should be deactivated but was still found by db.getFoodsByPartialName", foods.contains(f1));
+                    foods = db.getAllCustomFoods();
+                    assertFalse("Food should be deactivated but was still found by db.getAllCustomFoods", foods.contains(f1));
+                    assertNotNull("Food missing after deactivation??", db.getFoodById(f1.id));
                 }
         );
     }
@@ -200,8 +203,10 @@ public class DatabaseTest {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
                     Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(defaultName);
-                    db.createNewFood(f1);
-                    ArrayList<Food> foods = JournalFoodSampleGenerator.generateSampleFoodGroup(db);
+                    f1 = db.createNewFood(f1);
+                    f1.setAssociatedAmount(100);
+                    ArrayList<Food> foods = new ArrayList<>();
+                    foods.add(f1);
                     db.logExistingFoods(foods, LocalDateTime.now());
                     db.deleteCustomFood(f1);
                     assertEquals("Food should be deactivated by deletion but was still found", 0, foods.size());

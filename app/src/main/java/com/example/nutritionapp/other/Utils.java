@@ -1,5 +1,8 @@
 package com.example.nutritionapp.other;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -53,6 +56,4 @@ public class Utils {
         }
         return foodByDate;
     }
-
-
 }
