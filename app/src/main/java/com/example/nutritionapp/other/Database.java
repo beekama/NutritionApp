@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
@@ -35,34 +33,43 @@ import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 public class Database {
 
     private static final int DEFAULT_MIN_CUSTOM_ID = 100000000;
+    private static final String DATABASE_NAME = "food.db";
     final String FILE_KEY = "DEFAULT";
     final SQLiteDatabase db;
     private final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private final Activity srcActivity;
     private HashMap<String,Food> foodCache = new HashMap<>();
+    String targetPath;
 
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
-        String path = srcActivity.getFilesDir().getParent() + "/food.db";
-        copyDatabaseIfMissing(path);
-        db = SQLiteDatabase.openDatabase(path, null, OPEN_READWRITE);
+        targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
+        createDatabase(false);
+        db = SQLiteDatabase.openDatabase(targetPath, null, OPEN_READWRITE);
         generateNutritionTableSelectionMap();
     }
 
-    private void copyDatabaseIfMissing(String targetPath){
+    @SuppressWarnings("unused")
+    public void purgeDatabase(){
+        createDatabase(true);
+    }
+
+    private void createDatabase(boolean forceOverwrite){
         File file = new File(targetPath);
+        if(forceOverwrite && file.exists()){
+            this.srcActivity.getApplicationContext().deleteFile(DATABASE_NAME);
+        }
         if (!file.exists()) {
             InputStream in = srcActivity.getResources().openRawResource(R.raw.food);
-
             try {
                 OutputStream out = new FileOutputStream(targetPath);
                 IOUtil.copy(in, out);
                 out.close();
                 in.close();
             } catch (FileNotFoundException e) {
-                Log.wtf("WTF", "OUTPUT file not found");
+                throw new AssertionError("Database resource 'food.db' not found.", e);
             } catch (IOException e) {
-                Log.wtf("yeah whatever", "fuck");
+                throw new AssertionError("Failed to copy 'food.db' to internal storage.", e);
             }
         }
     }
