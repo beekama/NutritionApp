@@ -1,9 +1,7 @@
 package com.example.nutritionapp.customFoods;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -14,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
@@ -25,13 +21,14 @@ import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 public class CreateNewFoodItem extends AppCompatActivity {
     private final ArrayList<CreateFoodNutritionSelectorItem> allItems = new ArrayList<>();
     private int servingSize;
     private Database db;
     private boolean editMode;
+    private Food editModeOrigFood;
+
 
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -61,6 +58,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
             if(editFood == null){
                 throw new AssertionError("DB Return null for existing custom food id: " + fdc_id);
             }
+            editModeOrigFood = editFood.deepclone();
             n = editFood.nutrition;
         }else{
             n = new Nutrition();
@@ -69,6 +67,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
         if(this.editMode){
+            assert editFood != null;
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true));
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", 1, false));
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", editFood.energy, false));
@@ -101,15 +100,17 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* setup buttons */
         Button cancel = findViewById(R.id.cancel);
         Button confirm = findViewById(R.id.confirm);
-        cancel.setOnClickListener(v -> {
-            finish();
-        });
+        cancel.setOnClickListener(v -> finish());
         confirm.setOnClickListener(v -> {
             Food f = collectData();
             if (f == null) {
                 return;
             }
-            db.createNewFood(f);
+            if(this.editMode){
+                db.changeCustomFood(this.editModeOrigFood, f);
+            }else {
+                db.createNewFood(f);
+            }
             finish();
         });
 
@@ -152,7 +153,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
                             Toast toast = Toast.makeText(getApplicationContext(), "Name must be set.", Toast.LENGTH_LONG);
                             toast.show();
                             return null;
-                        }else if (db.checkCustomFoodExists(item.data)) {
+                        }else if (editModeOrigFood == null && db.checkCustomNameFoodExists(item.data)) {
                             Toast toast = Toast.makeText(getApplicationContext(), "A food with this name already exists.", Toast.LENGTH_LONG);
                             toast.show();
                             return null;

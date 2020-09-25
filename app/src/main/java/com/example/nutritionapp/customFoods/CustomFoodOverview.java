@@ -63,7 +63,7 @@ public class CustomFoodOverview extends AppCompatActivity {
         });
         mainLv.setOnItemLongClickListener((adapterView, view, i, l) -> {
             FoodOverviewItem item = (FoodOverviewItem) adapterView.getAdapter().getItem(i);
-            db.deleteCustomFood(item.food.name);
+            db.deleteCustomFood(item.food);
             foodItems.remove(item);
             foodOverviewAdapter.notifyDataSetChanged();
             return true;

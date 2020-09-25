@@ -67,7 +67,7 @@ public class Nutrition {
     }
 
     public Nutrition(Nutrition orig){
-        this.elements = new HashMap<NutritionElement, Integer>(orig.elements);
+        this.elements = new HashMap<>(orig.elements);
     }
 
     public static int databaseIdFromEnum(NutritionElement ne) {
@@ -157,5 +157,4 @@ public class Nutrition {
     public HashMap<NutritionElement, Integer> getElements() {
         return elements;
     }
-
 }

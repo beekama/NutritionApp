@@ -3,6 +3,7 @@ package com.example.nutritionapp.other;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
@@ -385,10 +387,10 @@ public class Database {
         /* try all group keys */
         for(Integer key : prevSelected.keySet()){
             /* check if any of the create_foods in the group is already selected */
-            for(Food f : prevSelected.get(key)){
+            for(Food f : Objects.requireNonNull(prevSelected.get(key))){
                 if(selectedSoFar.contains(f)) {
                     /* if any is selected, add all but the already selected food */
-                    for(Food toBeAddedFood: prevSelected.getOrDefault(key, new ArrayList<Food>())) {
+                    for(Food toBeAddedFood: prevSelected.get(key)) {
                         if(selectedSoFar.contains(toBeAddedFood)){
                             continue;
                         }
@@ -480,7 +482,14 @@ public class Database {
         }
     }
 
-    private void markFoodAsDeactivated(Food f) {
+    public void markFoodAsDeactivated(Food f) {
+        String[] whereArgs = { f.id };
+        ContentValues values = new ContentValues();
+        values.put("data_type", "disabled");
+        db.update("food", values,"fdc_id = ?", whereArgs);
+    }
+
+    public void markFoodAsActivated(Food f) {
         String[] whereArgs = { f.id };
         ContentValues values = new ContentValues();
         values.put("data_type", "disabled");
@@ -501,12 +510,13 @@ public class Database {
         String[] columns = {"fdc_id"};
         Cursor c = db.query(true,"food_nutrient_custom", columns, null, null, "fdc_id", null, null, null);
         if(c.moveToNext()) {
+            Cursor cFood;
             do{
                 String[] columnsFood = {"description"};
                 String fdc_id = c.getString(0);
                 Log.wtf("WTF", fdc_id);
                 String[] selectionArgs = { fdc_id };
-                Cursor cFood = db.query("food", columnsFood, "fdc_id = ?", selectionArgs, null, null, null, null);
+                cFood = db.query("food", columnsFood, "fdc_id = ?", selectionArgs, null, null, null, null);
                 if(cFood.moveToNext()) {
                     do{
                         ret.add(new Food(cFood.getString(0), fdc_id));
@@ -514,6 +524,7 @@ public class Database {
                     }while(cFood.moveToNext());
                 }
             }while(c.moveToNext());
+            cFood.close();
         }
         c.close();
         return ret;
@@ -523,65 +534,62 @@ public class Database {
         if (weightInKg < 40 || weightInKg > 600) {
             throw new IllegalArgumentException("Weight must be between 40 and 600");
         }
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("weight", weightInKg);
-        editor.commit();
+        editor.apply();
     }
     public void setPersonAge(int age) throws IllegalArgumentException {
         if (age < 18 || age > 150) {
             throw new IllegalArgumentException("Age must be between 18 and 150");
         }
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("age", age);
-        editor.commit();
+        editor.apply();
     }
     public void setPersonEnergyReq(int energyReq) throws IllegalArgumentException {
         if (energyReq < 1000) {
             throw new IllegalArgumentException("Energy target must be above 1000kcal");
         }
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("energyReq", energyReq);
-        editor.commit();
+        editor.apply();
     }
     public void setPersonHeight(int sizeInCm) throws IllegalArgumentException {
         if (sizeInCm < 0 || sizeInCm > 300) {
             throw new IllegalArgumentException("Height must be between 0 and 300 cm");
         }
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("height", sizeInCm);
-        editor.commit();
+        editor.apply();
     }
     public void setPersonGender(String gender) throws IllegalArgumentException {
         if (!gender.equals("male") && !gender.equals("female")) {
             throw new IllegalArgumentException("Gender must be 'male' or 'female'.");
         }
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("gender", gender);
-        editor.commit();
+        editor.apply();
     }
     public int getPersonWeight() {
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
-        int weight = pref.getInt("weight", -1);
-        return weight;
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        return pref.getInt("weight", -1);
     }
 
     public int getPersonHeight() {
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
-        int height = pref.getInt("height", -1);
-        return height;
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        return pref.getInt("height", -1);
     }
     public int getPersonAge() {
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
-        int age = pref.getInt("age", -1);
-        return age;
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        return pref.getInt("age", -1);
     }
     public int getPersonEnergyReq() {
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         int energyReq = pref.getInt("energyReq", -1);
         if (energyReq == -1) {
             energyReq = 2000; //TODO calc from other values
@@ -589,9 +597,8 @@ public class Database {
         return energyReq;
     }
     public String getPersonGender() {
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, srcActivity.MODE_PRIVATE);
-        String gender = pref.getString("gender", "none");
-        return gender;
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        return pref.getString("gender", "none");
     }
 
     public void close() {

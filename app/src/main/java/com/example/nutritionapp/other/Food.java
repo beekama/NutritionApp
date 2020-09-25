@@ -71,5 +71,15 @@ public class Food {
         return associatedAmount;
     }
 
+    public Food deepclone() {
+        Food clone = new Food(this.name, this.id, null, this.loggedAt);
+        if(this.associatedAmount != -1) {
+            clone.setAssociatedAmount(this.associatedAmount);
+        }
+        clone.energy = this.energy;
+        clone.fiber = this.fiber;
+        clone.nutrition = new Nutrition(this.nutrition);
+        return clone;
+    }
 }
 
