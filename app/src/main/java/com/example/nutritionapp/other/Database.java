@@ -655,10 +655,16 @@ public class Database {
         return pref.getString("gender", "none");
     }
 
+    public double getPersonBmi() {
+        int height = this.getPersonHeight();
+        int weight = this.getPersonWeight();
+        double bmi = weight / ((height * height) / 10000.0);
+        return Math.round(bmi * 100.0) / 100.0;
+    }
+
     public void close() {
         db.close();
     }
-
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper>{
         public int counter;

@@ -156,11 +156,8 @@ public class PersonalInformation extends AppCompatActivity {
         focusedView.clearFocus();
     }
 
-    public void calculateAndSetBmi(Database db, TextView bmiDisplay) {
-        int height = db.getPersonHeight();
-        int weight = db.getPersonWeight();
-        double bmi = weight / ((height * height) / 10000.0);
-        bmi = Math.round(bmi * 100.0) / 100.0;
+    public void setBmi(Database db, TextView bmiDisplay) {
+        double bmi = db.getPersonBmi();
         if(bmi > 0) {
             bmiDisplay.setText(String.format(Locale.getDefault(), "%d", (int)bmi));
         }
