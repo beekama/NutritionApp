@@ -1,5 +1,6 @@
 package com.example.nutritionapp.other;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -57,11 +58,16 @@ public class Database {
         generateNutritionTableSelectionMap();
     }
 
+    @SuppressLint("ApplySharedPref")
     @SuppressWarnings("unused")
     public void purgeDatabase(){
         db.close();
         createDatabase(true);
         db = SQLiteDatabase.openDatabase(targetPath, null, OPEN_READWRITE);
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
     }
 
     private void createDatabase(boolean forceOverwrite){
