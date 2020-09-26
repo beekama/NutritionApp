@@ -57,11 +57,11 @@ public class PersonalInformation extends AppCompatActivity {
         loadAndSetWeight(db, etWeight);
         loadAndSetHeight(db, etHeight);
         loadAndSetEnergyReq(db, etCalories);
-        calculateAndSetBmi(db, bmiDisplay);
+        setBmi(db, bmiDisplay);
 
         submit.setOnClickListener((View.OnClickListener) v -> {
             collectData(db, etGender, etAge, etWeight, etHeight);
-            calculateAndSetBmi(db, bmiDisplay);
+            setBmi(db, bmiDisplay);
             hideKeyboard();
             layout.clearFocus();
         });
