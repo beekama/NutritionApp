@@ -8,16 +8,15 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionElement;
-import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,7 +38,6 @@ public class DatabaseTest {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
             Database db = new Database(activity);
             Application app = activity.getApplication();
-            AndroidThreeTen.init(app);
             db.purgeDatabase();
             db.close();
         });
@@ -73,7 +71,6 @@ public class DatabaseTest {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
                     Application app = activity.getApplication();
-                    AndroidThreeTen.init(app);
                     HashMap<String,Integer> nutrients = db.getNutrientsForFood("781105");
                     assertNotNull(nutrients);
                     assert(!nutrients.keySet().isEmpty());

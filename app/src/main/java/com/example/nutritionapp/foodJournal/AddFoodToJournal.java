@@ -22,8 +22,8 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Utils;
 
-import org.threeten.bp.LocalDateTime;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class AddFoodToJournal extends AppCompatActivity {

@@ -4,9 +4,7 @@ import android.util.Log;
 
 import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
-
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class Food {

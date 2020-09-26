@@ -14,8 +14,6 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
 import org.apache.commons.io.IOUtil;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -242,6 +242,11 @@ public class Database {
             c.close();
             return null;
         }
+
+    }
+
+    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
+        return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.from(end));
     }
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
         /* Return create_foods logged by dates */

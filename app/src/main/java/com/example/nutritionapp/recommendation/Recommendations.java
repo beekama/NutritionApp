@@ -16,9 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 
-import org.threeten.bp.Duration;
-import org.threeten.bp.LocalDate;
-
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 

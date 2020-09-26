@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -47,5 +47,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     /*   implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'*/
     implementation 'commons-io:commons-io:20030203.000550'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+    //implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
 }

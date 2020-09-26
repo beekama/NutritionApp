@@ -7,10 +7,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.threeten.bp.Duration;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.format.DateTimeFormatter;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nutritionapp.NutritionOverview.NutritionOverview;
@@ -21,6 +17,9 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Utils;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

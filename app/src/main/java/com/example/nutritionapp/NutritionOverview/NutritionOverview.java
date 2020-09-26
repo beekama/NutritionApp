@@ -10,7 +10,8 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Utils;
 
-import org.threeten.bp.LocalDate;
+import java.time.LocalDate;
+
 
 public class NutritionOverview extends AppCompatActivity {
     /* TODO display overview of nutrition based on food ids or dates */
