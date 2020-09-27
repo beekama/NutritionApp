@@ -10,20 +10,48 @@
         android:id="@+id/toolbar"
         layout="@layout/app_toolbar" />
 
+    <TextView
+        android:id="@+id/textviewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/listview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/dateBackButton"
+        android:text="@string/backArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/textviewDate"
+        app:layout_constraintEnd_toStartOf="@+id/textviewDate"
+        app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/dateForewardButton"
+        android:text="@string/ForewArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/textviewDate"
+        app:layout_constraintStart_toEndOf="@+id/textviewDate"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="200dp"
         android:layout_marginBottom="75dp"
         android:divider="@android:color/background_light"
         android:dividerHeight="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

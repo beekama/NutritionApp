@@ -1,23 +1,12 @@
 package com.example.nutritionapp.recommendation;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,30 +17,20 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class Recommendations extends AppCompatActivity {
 
     private Database db;
     HashMap<Integer, ArrayList<Food>> foodList;
-    ArrayList<Food> allFood ;
-    NutritionAnalysis nutritionAnalysis;
+    ArrayList<Food> allFood;
 
-
-    LocalDate startDateParsed = LocalDate.now();
-    LocalDate endDateParsed = LocalDate.now();
+    LocalDate currentDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +41,7 @@ public class Recommendations extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation);
         db = new Database(this);
-        foodList = db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
+        foodList = db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed);
 
 
         //replace actionbar with custom app_toolbar:
@@ -93,19 +72,42 @@ public class Recommendations extends AppCompatActivity {
         allFood = db.getFoodsFromHashmap(foodList);
 
         // add nutrition items:
-        ArrayList<RecommendationListItem> nutritionItems = new ArrayList<>();
         ListView mainLv = findViewById(R.id.listview);
-        if (!(allFood.isEmpty())) {
-            nutritionAnalysis = new NutritionAnalysis(allFood);
-            for (NutritionElement ne : NutritionElement.values()) {
-                nutritionItems.add(new RecommendationListItem(ne.toString(), nutritionAnalysis.getNutritionPercentage().get(ne)));// ;
-            }
-
-        }
+        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
 
         //adapter:
-        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), nutritionItems);
+        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         mainLv.setAdapter(newAdapter);
+
+        //date textview:
+        TextView currentDate = findViewById(R.id.textviewDate);
+        currentDate.setText(currentDateParsed.toString());
+
+        //dateBack:
+        Button dateBack = findViewById(R.id.dateBackButton);
+        dateBack.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.minusDays(1);
+                currentDate.setText(currentDateParsed.toString());
+                ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+                RecommendationAdapter foredeayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+                mainLv.setAdapter(foredeayAdapter);
+            }
+        }));
+
+        //dateForeward:
+        Button dateForeward = findViewById(R.id.dateForewardButton);
+        dateForeward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusDays(1);
+                currentDate.setText(currentDateParsed.toString());  //todo only update?
+                ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+                RecommendationAdapter nextdayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+                mainLv.setAdapter(nextdayAdapter);
+            }
+        }));
 
 
         //back home button:
@@ -115,6 +117,20 @@ public class Recommendations extends AppCompatActivity {
                 finish();
             }
         }));
+    }
+
+    ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
+        /* generate Adapter-content for RecommendationAdapter */
+
+        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
+        ArrayList<RecommendationListItem> listItems = new ArrayList<>();
+        if (!(foods.isEmpty())) {
+            NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
+            for (NutritionElement ne : NutritionElement.values()) {
+                listItems.add(new RecommendationListItem(ne.toString(), dayNutritionAnalysis.getNutritionPercentage().get(ne)));
+            }
+        }
+        return listItems;
     }
 
 }
