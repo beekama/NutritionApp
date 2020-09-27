@@ -46,7 +46,7 @@ public class Recommendations extends AppCompatActivity {
 
     private Database db;
     HashMap<Integer, ArrayList<Food>> foodList;
-    ArrayList<Food> allFood = new ArrayList<>();
+    ArrayList<Food> allFood ;
     NutritionAnalysis nutritionAnalysis;
 
 
@@ -90,15 +90,7 @@ public class Recommendations extends AppCompatActivity {
         }));
 
         // NutritionAnalysis-data:
-        //todo: implement in db?
-        for (ArrayList<Food> al : foodList.values()) {
-            for (Food food : al) {
-                if (food != null) {
-                    allFood.add(food);
-                }
-            }
-        }
-
+        allFood = db.getFoodsFromHashmap(foodList);
 
         // add nutrition items:
         ArrayList<RecommendationListItem> nutritionItems = new ArrayList<>();
