@@ -16,8 +16,10 @@ class RecommendationListItem {
     public RecommendationListItem(String tag, float percentage) {
         this.tag = tag;
         this.percentage = percentage;
-        this.pieEntryList.add(new PieEntry(percentage,tag));
-        this.pieEntryList.add(new PieEntry(100-percentage,"missing"));
-        this.pieDataSet = new PieDataSet(pieEntryList,"alldata");
+        this.pieEntryList.add(new PieEntry(percentage, tag));
+        if (percentage < 100) {
+            this.pieEntryList.add(new PieEntry(100 - percentage, "missing"));
+        }
+        this.pieDataSet = new PieDataSet(pieEntryList, "alldata");
     }
 }
