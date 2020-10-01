@@ -284,6 +284,18 @@ public class Database {
         return ret;
     }
 
+    public ArrayList<Food> getFoodsFromHashmap(HashMap<Integer, ArrayList<Food>> groupedFood) {
+        /* This function returns ArrayList of all foods from a given Hashmap */
+
+        ArrayList<Food> foodList = new ArrayList<>();
+        for (ArrayList<Food> arrayList : groupedFood.values()) {
+            foodList.addAll(arrayList);
+        }
+
+        return foodList;
+    }
+
+
     @SuppressWarnings("unused")
     public ArrayList<Food> getFoodsByExactName(String name) {
         /* function currently only used for unit testing */
