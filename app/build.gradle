@@ -37,6 +37,11 @@ android {
 
 }
 
+repositories{
+    //MPAndroidCharts
+    maven { url 'https://jitpack.io'}
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -48,4 +53,8 @@ dependencies {
     /*   implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'*/
     implementation 'commons-io:commons-io:20030203.000550'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+
+    //MPAndroidCharts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }

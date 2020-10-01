@@ -1,35 +1,28 @@
 package com.example.nutritionapp.recommendation;
 
-import android.content.Intent;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.Test_chart;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -39,15 +32,12 @@ import org.threeten.bp.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-public class Recommendations extends AppCompatActivity {
+public class RecommendationsWeek extends AppCompatActivity {
 
     private Database db;
     HashMap<Integer, ArrayList<Food>> foodList;
     ArrayList<Food> allFood;
-
     LocalDate currentDateParsed = LocalDate.now();
-
 
     public void onCreate(Bundle savedInstanceState) {
         //splash screen when needed:
@@ -55,10 +45,9 @@ public class Recommendations extends AppCompatActivity {
 
         //basic settings:
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recommendation);
+        setContentView(R.layout.recommendation_week);
         db = new Database(this);
         foodList = db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed);
-
 
         /* APP TOOLBAR */
         //replace actionbar with custom app_toolbar:
@@ -78,38 +67,31 @@ public class Recommendations extends AppCompatActivity {
             }
         }));
 
-        //FOR CHART TESTING
-        tb_forward.setImageResource(R.drawable.add_circle_filled);
-        tb.setTitle("");
-        tb_title.setText("RECOMMENDATIONS");
-        setSupportActionBar(tb);
-        //refresh:
-        tb_forward.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // updateRecommendations(true);
-                Intent myIntent = new Intent(v.getContext(), RecommendationsWeek.class);
-                startActivity(myIntent);
-            }
-        }));
+        /*         BARCHART - WEEEK */
+        //styling
+        BarChart chartWeek = findViewById(R.id.barchartWeekW);
+        chartWeek.setPinchZoom(false);
+        chartWeek.setDrawBarShadow(false);
+        chartWeek.setDrawValueAboveBar(true);
+        chartWeek.getDescription().setText(currentDateParsed.minusWeeks(1).toString() + " - " + currentDateParsed.toString());
+        chartWeek.setDrawGridBackground(false);
+        XAxis xAxis = chartWeek.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelCount(7);
+        YAxis yAxis = chartWeek.getAxisLeft();
+        yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        yAxis.setSpaceTop(15f);
+        yAxis.setGranularity(1f);
+        yAxis.setAxisMinimum(0f);
+        chartWeek.animateY(1000);
 
-
-        /* LISTVIEW */
-        // NutritionAnalysis-data:
-        allFood = db.getFoodsFromHashmap(foodList);
-
-        // add nutrition items:
-        ListView mainLv = findViewById(R.id.listview);
-        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
-
-        //adapter:
-        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-        mainLv.setAdapter(newAdapter);
+        //data
+        setDataWeekChart(xAxis,chartWeek);
 
         //date textview:
-        TextView currentDate = findViewById(R.id.textviewDate);
-        currentDate.setText(currentDateParsed.toString());
-
+        TextView currentDate = findViewById(R.id.textviewDateW);
+        currentDate.setText(currentDateParsed.minusWeeks(1).toString() + " to " + currentDateParsed.toString());
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -119,9 +101,8 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
                 currentDate.setText(currentDateParsed.toString());
-                ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
-                RecommendationAdapter foredeayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-                mainLv.setAdapter(foredeayAdapter);
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
             }
         }));
 
@@ -132,31 +113,45 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
                 currentDate.setText(currentDateParsed.toString());
-                ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
-                RecommendationAdapter nextdayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-                mainLv.setAdapter(nextdayAdapter);
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
             }
         }));
 
-
-
     }
 
 
-    ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
-        /* generate Adapter-content for RecommendationAdapter */
-
-        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
-        ArrayList<RecommendationListItem> listItems = new ArrayList<>();
+    void setDataWeekChart(XAxis xAxis, BarChart chartWeek){
+        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
         if (!(foods.isEmpty())) {
-            NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
+            NutritionAnalysis weekNutritionAnalysis = new NutritionAnalysis(foods);
+            int index =0;
             for (NutritionElement ne : NutritionElement.values()) {
-                listItems.add(new RecommendationListItem(ne.toString(), dayNutritionAnalysis.getNutritionPercentage().get(ne)));
+                barEntries.add(new BarEntry(index++,Math.round(weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne))));
             }
         }
-        return listItems;
+
+        ArrayList<String> xAxisLabels = new ArrayList<>();
+        for(NutritionElement ne : NutritionElement.values()){
+            xAxisLabels.add(ne.toString());
+        }
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return xAxisLabels.get((int) value);
+            }
+        });
+        BarDataSet barDataSet = new BarDataSet(barEntries, "cells");
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(barDataSet);
+        BarData data = new BarData(barDataSet);
+        data.setValueTextSize(10f);
+        data.setBarWidth(0.9f);
+        chartWeek.setData(data);
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        chartWeek.setHighlightPerTapEnabled(false);
+        chartWeek.invalidate();
     }
 
 }
-
-

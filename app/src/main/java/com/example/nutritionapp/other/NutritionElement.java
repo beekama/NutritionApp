@@ -8,7 +8,7 @@ public enum NutritionElement {
     POTASSIUM,
     VITAMIN_A,
     VITAMIN_C,
-    VITAMIN_B6,
+    //VITAMIN_B6,
     VITAMIN_B12,
     VITAMIN_D,
     VITAMIN_E,

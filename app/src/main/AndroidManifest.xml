@@ -11,13 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
         <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
+        <activity android:name="com.example.nutritionapp.recommendation.RecommendationsWeek"/>
+        <activity android:name="com.example.nutritionapp.Test_chart"/>
         <activity android:name="com.example.nutritionapp.deprecated.updateAge" />
         <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />
         <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
         <activity android:name="com.example.nutritionapp.customFoods.CustomFoodOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal" />
-        <activity android:name="com.example.nutritionapp.NutritionOverview.NutritionOverview" />
         <activity android:name="com.example.nutritionapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
