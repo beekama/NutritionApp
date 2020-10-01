@@ -102,6 +102,7 @@ public class Recommendations extends AppCompatActivity {
         chartWeek.setDrawValueAboveBar(true);
         chartWeek.getDescription().setText(currentDateParsed.minusWeeks(1).toString() + " - " + currentDateParsed.toString());
         chartWeek.setDrawGridBackground(false);
+        chartWeek.setHighlightPerTapEnabled(false);
         XAxis xAxis = chartWeek.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
@@ -111,41 +112,10 @@ public class Recommendations extends AppCompatActivity {
         yAxis.setSpaceTop(15f);
         yAxis.setGranularity(1f);
         yAxis.setAxisMinimum(0f);
+        chartWeek.animateY(1000);
 
         //data
-        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        if (!(foods.isEmpty())) {
-            NutritionAnalysis weekNutritionAnalysis = new NutritionAnalysis(foods);
-            int index =0;
-            for (NutritionElement ne : NutritionElement.values()) {
-                barEntries.add(new BarEntry(index++,Math.round(weekNutritionAnalysis.getNutritionPercentage().get(ne))));
-            }
-        }
-
-        ArrayList<String> xAxisLabels = new ArrayList<>();
-        for(NutritionElement ne : NutritionElement.values()){
-            xAxisLabels.add(ne.toString());
-        }
-        xAxis.setValueFormatter(new ValueFormatter() {
-                                    @Override
-                                    public String getAxisLabel(float value, AxisBase axis) {
-                                        return xAxisLabels.get((int) value);
-                                    }
-                                });
-        BarDataSet barDataSet = new BarDataSet(barEntries, "cells");
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-        dataSets.add(barDataSet);
-        BarData data = new BarData(barDataSet);
-        data.setValueTextSize(10f);
-        data.setBarWidth(0.9f);
-        chartWeek.setData(data);
-         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        chartWeek.animateY(5000);
-
-
-
-
+        setDataWeekChart(xAxis,chartWeek);
 
 
         /* LISTVIEW */
@@ -176,6 +146,8 @@ public class Recommendations extends AppCompatActivity {
                 ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
                 RecommendationAdapter foredeayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
                 mainLv.setAdapter(foredeayAdapter);
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
             }
         }));
 
@@ -189,11 +161,44 @@ public class Recommendations extends AppCompatActivity {
                 ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
                 RecommendationAdapter nextdayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
                 mainLv.setAdapter(nextdayAdapter);
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
             }
         }));
 
 
 
+    }
+    void setDataWeekChart(XAxis xAxis, BarChart chartWeek){
+        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        if (!(foods.isEmpty())) {
+            NutritionAnalysis weekNutritionAnalysis = new NutritionAnalysis(foods);
+            int index =0;
+            for (NutritionElement ne : NutritionElement.values()) {
+                barEntries.add(new BarEntry(index++,Math.round(weekNutritionAnalysis.getNutritionPercentage().get(ne))));
+            }
+        }
+
+        ArrayList<String> xAxisLabels = new ArrayList<>();
+        for(NutritionElement ne : NutritionElement.values()){
+            xAxisLabels.add(ne.toString());
+        }
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return xAxisLabels.get((int) value);
+            }
+        });
+        BarDataSet barDataSet = new BarDataSet(barEntries, "cells");
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(barDataSet);
+        BarData data = new BarData(barDataSet);
+        data.setValueTextSize(10f);
+        data.setBarWidth(0.9f);
+        chartWeek.setData(data);
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        chartWeek.invalidate();
     }
 
 
