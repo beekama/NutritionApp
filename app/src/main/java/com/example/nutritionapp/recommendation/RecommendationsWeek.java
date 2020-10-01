@@ -1,11 +1,13 @@
 package com.example.nutritionapp.recommendation;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -118,6 +120,7 @@ public class RecommendationsWeek extends AppCompatActivity {
 
     }
 
+
     void setDataWeekChart(XAxis xAxis, BarChart chartWeek){
         ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
         ArrayList<BarEntry> barEntries = new ArrayList<>();
@@ -125,7 +128,7 @@ public class RecommendationsWeek extends AppCompatActivity {
             NutritionAnalysis weekNutritionAnalysis = new NutritionAnalysis(foods);
             int index =0;
             for (NutritionElement ne : NutritionElement.values()) {
-                barEntries.add(new BarEntry(index++,Math.round(weekNutritionAnalysis.getNutritionPercentage().get(ne))));
+                barEntries.add(new BarEntry(index++,Math.round(weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne))));
             }
         }
 

@@ -94,30 +94,6 @@ public class Recommendations extends AppCompatActivity {
         }));
 
 
-/*        *//* BARCHART - WEEEK *//*
-        //styling
-        BarChart chartWeek = findViewById(R.id.barchartWeek);
-        chartWeek.setPinchZoom(false);
-        chartWeek.setDrawBarShadow(false);
-        chartWeek.setDrawValueAboveBar(true);
-        chartWeek.getDescription().setText(currentDateParsed.minusWeeks(1).toString() + " - " + currentDateParsed.toString());
-        chartWeek.setDrawGridBackground(false);
-        chartWeek.setHighlightPerTapEnabled(false);
-        XAxis xAxis = chartWeek.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setLabelCount(7);
-        YAxis yAxis = chartWeek.getAxisLeft();
-        yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        yAxis.setSpaceTop(15f);
-        yAxis.setGranularity(1f);
-        yAxis.setAxisMinimum(0f);
-        chartWeek.animateY(1000);
-
-        //data
-        setDataWeekChart(xAxis,chartWeek);*/
-
-
         /* LISTVIEW */
         // NutritionAnalysis-data:
         allFood = db.getFoodsFromHashmap(foodList);
@@ -146,8 +122,6 @@ public class Recommendations extends AppCompatActivity {
                 ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
                 RecommendationAdapter foredeayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
                 mainLv.setAdapter(foredeayAdapter);
-/*                //update weekchart:
-                setDataWeekChart(xAxis,chartWeek);*/
             }
         }));
 
@@ -157,12 +131,10 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                currentDate.setText(currentDateParsed.toString());  //todo only update?
+                currentDate.setText(currentDateParsed.toString());
                 ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
                 RecommendationAdapter nextdayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
                 mainLv.setAdapter(nextdayAdapter);
-/*                //update weekchart:
-                setDataWeekChart(xAxis,chartWeek);*/
             }
         }));
 

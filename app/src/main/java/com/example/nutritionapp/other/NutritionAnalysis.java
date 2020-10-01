@@ -1,5 +1,10 @@
 package com.example.nutritionapp.other;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,6 +54,11 @@ public class NutritionAnalysis {
         }
         Collections.sort(ret);
         return ret;
+    }
+
+
+    public HashMap<NutritionElement, Float> getNutritionPercentageMultipleDays(Integer days){
+        return Nutrition.percentages(nutritionActual, Nutrition.getRecommendationMultipleDays(days));
     }
 
     public ArrayList<NutritionPercentageTupel> getNutritionPercentageSortedFilterZero() {

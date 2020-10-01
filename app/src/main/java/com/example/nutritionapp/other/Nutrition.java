@@ -2,6 +2,8 @@ package com.example.nutritionapp.other;
 
 import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -138,6 +140,15 @@ public class Nutrition {
         allowance.elements.put(NutritionElement.VITAMIN_E, 15000);
         allowance.elements.put(NutritionElement.VITAMIN_K, 110);
         return allowance;
+    }
+
+
+    public static Nutrition getRecommendationMultipleDays(Integer days){
+        Nutrition allowanceMultipleDays = getRecommendation();
+        for(NutritionElement ne : allowanceMultipleDays.elements.keySet()){
+            allowanceMultipleDays.elements.put(ne, allowanceMultipleDays.elements.get(ne)*days);
+        }
+        return allowanceMultipleDays;
     }
 
     public static int totalEnergy(ArrayList<Food> calculatedFrom) {
