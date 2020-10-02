@@ -31,6 +31,7 @@ import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RecommendationsWeek extends AppCompatActivity {
 
@@ -73,18 +74,21 @@ public class RecommendationsWeek extends AppCompatActivity {
         chartWeek.setPinchZoom(false);
         chartWeek.setDrawBarShadow(false);
         chartWeek.setDrawValueAboveBar(true);
-        chartWeek.getDescription().setText(currentDateParsed.minusWeeks(1).toString() + " - " + currentDateParsed.toString());
+        chartWeek.getDescription().setText("");
         chartWeek.setDrawGridBackground(false);
         XAxis xAxis = chartWeek.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
-        xAxis.setLabelCount(7);
         YAxis yAxis = chartWeek.getAxisLeft();
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         yAxis.setSpaceTop(15f);
         yAxis.setGranularity(1f);
         yAxis.setAxisMinimum(0f);
         chartWeek.animateY(1000);
+
+        //no labels since we use legend
+        xAxis.setDrawLabels(false);
+        //xAxis.setLabelCount(7);
 
         //data
         setDataWeekChart(xAxis,chartWeek);
@@ -122,34 +126,49 @@ public class RecommendationsWeek extends AppCompatActivity {
 
 
     void setDataWeekChart(XAxis xAxis, BarChart chartWeek){
+
+        ArrayList<String> xAxisLabels = new ArrayList<>();
+        ArrayList<IBarDataSet> barDataSets = new ArrayList<>();
+
+        /* get foods of week from database */
         ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        if (!(foods.isEmpty())) {
+
+        /* add food to chart */
+        if (!(foods.isEmpty())){
             NutritionAnalysis weekNutritionAnalysis = new NutritionAnalysis(foods);
-            int index =0;
-            for (NutritionElement ne : NutritionElement.values()) {
-                barEntries.add(new BarEntry(index++,Math.round(weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne))));
+            int xValue = 0;
+            int[] colors = super.getApplicationContext().getResources().getIntArray(R.array.chartColorCollection);
+            for (NutritionElement ne : NutritionElement.values()){
+                ArrayList<BarEntry> barEntries = new ArrayList<>();
+                BarEntry barEntry = new BarEntry(xValue++,weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne));
+                barEntries.add(barEntry);
+                BarDataSet barDataSet = new BarDataSet(barEntries,ne.toString());
+                //add color:
+                barDataSet.setColor(colors[xValue]);
+                barDataSets.add((IBarDataSet) barDataSet);
+                //collection labels for x-axis:
+                //xAxisLabels.add(ne.toString());
             }
         }
 
-        ArrayList<String> xAxisLabels = new ArrayList<>();
-        for(NutritionElement ne : NutritionElement.values()){
-            xAxisLabels.add(ne.toString());
-        }
+/*        *//* set x-axis label *//*
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
                 return xAxisLabels.get((int) value);
             }
-        });
-        BarDataSet barDataSet = new BarDataSet(barEntries, "cells");
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-        dataSets.add(barDataSet);
-        BarData data = new BarData(barDataSet);
+        });*/
+
+
+
+/*        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(barDataSet);*/
+        BarData data = new BarData(barDataSets);
         data.setValueTextSize(10f);
         data.setBarWidth(0.9f);
         chartWeek.setData(data);
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        /*barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);*/
+        data.setHighlightEnabled(false);
         chartWeek.setHighlightPerTapEnabled(false);
         chartWeek.invalidate();
     }
