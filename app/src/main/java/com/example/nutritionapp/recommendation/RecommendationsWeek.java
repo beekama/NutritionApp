@@ -18,6 +18,7 @@ import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -121,8 +122,9 @@ public class RecommendationsWeek extends AppCompatActivity {
                 setDataWeekChart(xAxis,chartWeek);
             }
         }));
-
     }
+
+
 
 
     void setDataWeekChart(XAxis xAxis, BarChart chartWeek){
@@ -146,6 +148,8 @@ public class RecommendationsWeek extends AppCompatActivity {
                 //add color:
                 barDataSet.setColor(colors[xValue]);
                 barDataSets.add((IBarDataSet) barDataSet);
+                Legend l = chartWeek.getLegend();
+                l.setWordWrapEnabled(true);
                 //collection labels for x-axis:
                 //xAxisLabels.add(ne.toString());
             }
