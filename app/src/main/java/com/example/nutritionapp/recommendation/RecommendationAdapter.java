@@ -65,7 +65,7 @@ class RecommendationAdapter extends BaseAdapter {
         PieChart rec_chart = convertView.findViewById(R.id.pieChar);
 
         /*Text-column*/
-        rec_item.setText(item.tag);
+        rec_item.setText(item.nutritionElement.toString());
 
         /*chart*/
         PieDataSet pieDataSet = item.pieDataSet;

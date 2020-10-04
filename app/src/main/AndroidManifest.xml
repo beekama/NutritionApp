@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
+        <activity android:name="com.example.nutritionapp.recommendation.RecommendationsElement"/>
         <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
         <activity android:name="com.example.nutritionapp.recommendation.RecommendationsWeek"/>
         <activity android:name="com.example.nutritionapp.Test_chart"/>

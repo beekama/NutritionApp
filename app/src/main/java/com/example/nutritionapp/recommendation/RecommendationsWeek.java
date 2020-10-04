@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,7 +98,7 @@ public class RecommendationsWeek extends AppCompatActivity {
 
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDateW);
-        currentDate.setText(currentDateParsed.minusWeeks(1).toString() + " to " + currentDateParsed.toString());
+        currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString());
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -105,7 +107,7 @@ public class RecommendationsWeek extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                currentDate.setText(currentDateParsed.toString());
+                currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString());
                 //update weekchart:
                 setDataWeekChart(xAxis,chartWeek);
             }
@@ -117,12 +119,13 @@ public class RecommendationsWeek extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                currentDate.setText(currentDateParsed.toString());
+                currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString()); //this will be changed later
                 //update weekchart:
                 setDataWeekChart(xAxis,chartWeek);
             }
         }));
     }
+
 
 
 
@@ -171,7 +174,6 @@ public class RecommendationsWeek extends AppCompatActivity {
         data.setValueTextSize(10f);
         data.setBarWidth(0.9f);
         chartWeek.setData(data);
-        /*barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);*/
         data.setHighlightEnabled(false);
         chartWeek.setHighlightPerTapEnabled(false);
         chartWeek.invalidate();

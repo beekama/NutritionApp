@@ -2,4 +2,6 @@
     <string name="app_name">Nutrition App</string>
     <string name="backArrow"><![CDATA[<]]></string>
     <string name="ForewArrow"><![CDATA[>]]></string>
+    <string name="backDoubleArrow"><![CDATA[<<]]></string>
+    <string name="ForeDoublewArrow"><![CDATA[>>]]></string>
 </resources>

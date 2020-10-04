@@ -1,41 +1,21 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.Test_chart;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
 import org.threeten.bp.LocalDate;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -106,6 +86,16 @@ public class Recommendations extends AppCompatActivity {
         RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         mainLv.setAdapter(newAdapter);
 
+        mainLv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(view.getContext(), RecommendationsElement.class);;
+                NutritionElement nutritionElement= listItems.get(position).nutritionElement;
+                myIntent.putExtra("nutritionelement", nutritionElement);
+                startActivity(myIntent);
+            }
+        });
+
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDate);
         currentDate.setText(currentDateParsed.toString());
@@ -133,6 +123,8 @@ public class Recommendations extends AppCompatActivity {
         }));
     }
 
+
+
     /* change date */
     private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv){
         tv.setText(currentDateParsed.toString());
@@ -150,7 +142,7 @@ public class Recommendations extends AppCompatActivity {
         if (!(foods.isEmpty())) {
             NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
             for (NutritionElement ne : NutritionElement.values()) {
-                listItems.add(new RecommendationListItem(ne.toString(), dayNutritionAnalysis.getNutritionPercentage().get(ne)));
+                listItems.add(new RecommendationListItem(ne, dayNutritionAnalysis.getNutritionPercentage().get(ne)));
             }
         }
         return listItems;
