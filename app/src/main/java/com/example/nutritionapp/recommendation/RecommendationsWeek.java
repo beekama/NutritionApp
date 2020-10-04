@@ -1,5 +1,6 @@
 package com.example.nutritionapp.recommendation;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +27,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.threeten.bp.LocalDate;
@@ -96,6 +100,21 @@ public class RecommendationsWeek extends AppCompatActivity {
         //data
         setDataWeekChart(xAxis,chartWeek);
 
+        //listen on bars for clicks:
+        chartWeek.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Intent myIntent = new Intent(chartWeek.getContext(), RecommendationsElement.class);
+                myIntent.putExtra("nutritionelement", (NutritionElement) e.getData());
+                startActivity(myIntent);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDateW);
         currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString());
@@ -145,7 +164,8 @@ public class RecommendationsWeek extends AppCompatActivity {
             int[] colors = super.getApplicationContext().getResources().getIntArray(R.array.chartColorCollection);
             for (NutritionElement ne : NutritionElement.values()){
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
-                BarEntry barEntry = new BarEntry(xValue++,weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne));
+                //create barEntry - add nutritionElement as data for accessing RecommendationElement later:
+                BarEntry barEntry = new BarEntry(xValue++,weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne),ne);
                 barEntries.add(barEntry);
                 BarDataSet barDataSet = new BarDataSet(barEntries,ne.toString());
                 //add color:
@@ -174,8 +194,8 @@ public class RecommendationsWeek extends AppCompatActivity {
         data.setValueTextSize(10f);
         data.setBarWidth(0.9f);
         chartWeek.setData(data);
-        data.setHighlightEnabled(false);
-        chartWeek.setHighlightPerTapEnabled(false);
+        data.setHighlightEnabled(true);
+        chartWeek.setHighlightPerTapEnabled(true);
         chartWeek.invalidate();
     }
 
