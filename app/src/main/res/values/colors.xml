@@ -36,6 +36,26 @@
     <color name="chartGreenly">#41aea9</color>
     <color name="chartBrownTwo">#87431d</color>
 
+    <color name="DayChartLigthGreen">#C8FFC8</color>
+    <color name="DayChartDarkGreen">#006400</color>
+    <color name="DayChartLightOrange">#ffd27f</color>
+    <color name="DayChartDarkOrange">#e68523</color>
+    <color name="DayChartLightRed">#ffaaab</color>
+    <color name="DayChartDarkRed">#931a25</color>
+
+    <array name="DayChartGreen">
+        <item>@color/DayChartDarkGreen</item>
+        <item>@color/DayChartLigthGreen</item>
+    </array>
+    <array name="DayChartOrange">
+        <item>@color/DayChartDarkOrange</item>
+        <item>@color/DayChartLightOrange</item>
+    </array>
+    <array name="DayChartRed">
+        <item>@color/DayChartDarkRed</item>
+        <item>@color/DayChartLightRed</item>
+    </array>
+
     <array name="chartColorCollection">
         <item>@color/chartBlue</item>
         <item>@color/chartOrange</item>

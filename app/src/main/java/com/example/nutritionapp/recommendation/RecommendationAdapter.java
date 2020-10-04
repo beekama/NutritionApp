@@ -73,7 +73,15 @@ class RecommendationAdapter extends BaseAdapter {
 
         //STYLING:
         rec_chart.setUsePercentValues(true);
-        pieDataSet.setColors(Color.parseColor("#006400"), Color.parseColor("#C8FFC8"), Color.GRAY, Color.BLACK, Color.BLUE); //!! extra color for debugging
+
+        // set chartColors - AmpelTheme:
+        if (item.percentage< 40){
+            item.pieDataSet.setColors(context.getResources().getIntArray(R.array.DayChartRed));
+        }else if (item.percentage < 80) {
+            item.pieDataSet.setColors(context.getResources().getIntArray(R.array.DayChartOrange));
+        }else {
+            item.pieDataSet.setColors(context.getResources().getIntArray(R.array.DayChartGreen));
+        }
         pieDataSet.setDrawValues(false);
         // rec_chart.setCenterText(generateCenterSpannableText((Float)item.percentage));
         // rec_chart.getDescription().setEnabled(false);

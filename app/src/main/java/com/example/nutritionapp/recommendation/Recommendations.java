@@ -118,10 +118,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                currentDate.setText(currentDateParsed.toString());
-                ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
-                RecommendationAdapter foredeayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-                mainLv.setAdapter(foredeayAdapter);
+                updateDate(currentDateParsed,mainLv,currentDate);
             }
         }));
 
@@ -131,15 +128,17 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                currentDate.setText(currentDateParsed.toString());
-                ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
-                RecommendationAdapter nextdayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-                mainLv.setAdapter(nextdayAdapter);
+                updateDate(currentDateParsed,mainLv,currentDate);
             }
         }));
+    }
 
-
-
+    /* change date */
+    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv){
+        tv.setText(currentDateParsed.toString());
+        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+        RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+        lv.setAdapter(newDayAdapter);
     }
 
 
