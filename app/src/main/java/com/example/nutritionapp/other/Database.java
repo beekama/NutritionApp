@@ -589,6 +589,20 @@ public class Database {
         return ret;
     }
 
+    @SuppressWarnings("unused")
+    public String debugDumpFoodlog(){
+        StringBuilder ret = new StringBuilder();
+        Cursor all = db.query(JOURNAL_TABLE, null, null , null, null, null, null);
+        while(all.moveToNext()){
+            for(int i = 0; i < all.getColumnCount(); i++){
+                ret.append(all.getString(i)).append(" | ");
+            }
+            ret.append("\n");
+        }
+
+        return ret.toString();
+    }
+
     public void setPersonWeight(int weightInKg) throws IllegalArgumentException {
         if (weightInKg < 40 || weightInKg > 600) {
             throw new IllegalArgumentException("Weight must be between 40 and 600");
