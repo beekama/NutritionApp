@@ -1,6 +1,7 @@
 package com.example.nutritionapp;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -92,8 +93,11 @@ public class JournalTest {
             db.logExistingFoods(foods, day3);
 
             HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(prev, post);
+            if(foodGroups.keySet().size() != 3){
+                Log.wtf("WTF", db.debugDumpFoodlog());
+            }
 
-            assertEquals("Amount of expect food groups doesn't match", 3, foodGroups.keySet().size());
+            assertEquals( "Amount of expect food groups doesn't match", 3, foodGroups.keySet().size());
             assertEquals("Amount of expect food groups doesn't match", 3, foodGroups.values().size());
             for(ArrayList<Food> af : foodGroups.values()){
                 assertEquals("food group doesn't match input", af.size(), foods.size());
