@@ -1,11 +1,10 @@
 package com.example.nutritionapp.recommendation;
 
-import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,27 +13,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.Test_chart;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Nutrition;
+import com.example.nutritionapp.other.NutritionAnalysis;
+import com.example.nutritionapp.other.NutritionElement;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Recommendations extends AppCompatActivity {
 
-    //time-data:
-    private LocalDate now = LocalDate.now();
-    private LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
-    final private Duration ONE_DAY = Duration.ofDays(1);
-    final private Duration ONE_WEEK = Duration.ofDays(7);
-/*    final private ArrayList<RecommendationListItem> inputList = new ArrayList<RecommendationListItem>();*/
-    final private ArrayList<RecommendationListItem> inputList = new ArrayList<>();
-
-    private RecommendationAdapter adapter;
     private Database db;
-    private ListView deficienciesList;
+    HashMap<Integer, ArrayList<Food>> foodList;
+    ArrayList<Food> allFood;
+
+    LocalDate currentDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -44,24 +56,29 @@ public class Recommendations extends AppCompatActivity {
         //basic settings:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation);
-        Database db =new Database(this);
+        db = new Database(this);
+        foodList = db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed);
 
-        //retrieve items:
-        updateRecommendations(false);   //todo
 
-        //adapter:
-        adapter = new RecommendationAdapter(this, inputList);
-        deficienciesList = (ListView) findViewById(R.id.listview);
-        deficienciesList.setAdapter(adapter);
-        deficienciesList.setTextFilterEnabled(true);
-
+        /* APP TOOLBAR */
         //replace actionbar with custom app_toolbar:
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title = findViewById(R.id.toolbar_title);
         ImageButton tb_back = findViewById(R.id.toolbar_back);
         ImageButton tb_forward = findViewById(R.id.toolbar_forward);
+
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+
+        //back home button:
+        tb_back.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        }));
+
+        //FOR CHART TESTING
         tb_forward.setImageResource(R.drawable.add_circle_filled);
         tb.setTitle("");
         tb_title.setText("RECOMMENDATIONS");
@@ -70,126 +87,75 @@ public class Recommendations extends AppCompatActivity {
         tb_forward.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateRecommendations(true);
+                // updateRecommendations(true);
+                Intent myIntent = new Intent(v.getContext(), RecommendationsWeek.class);
+                startActivity(myIntent);
             }
         }));
 
 
-        //back home button:
-        tb_back.setOnClickListener((new View.OnClickListener() {
+        /* LISTVIEW */
+        // NutritionAnalysis-data:
+        allFood = db.getFoodsFromHashmap(foodList);
+
+        // add nutrition items:
+        ListView mainLv = findViewById(R.id.listview);
+        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+
+        //adapter:
+        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+        mainLv.setAdapter(newAdapter);
+
+        //date textview:
+        TextView currentDate = findViewById(R.id.textviewDate);
+        currentDate.setText(currentDateParsed.toString());
+
+
+        /* SWITCH BETWEEN DAYS */
+        //dateBack:
+        Button dateBack = findViewById(R.id.dateBackButton);
+        dateBack.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                currentDateParsed = currentDateParsed.minusDays(1);
+                updateDate(currentDateParsed,mainLv,currentDate);
             }
-        }));}
+        }));
 
-        private void updateRecommendations(boolean runInvalidation){
-            LocalDate startDate = now.atStartOfDay().toLocalDate();
-            /* z.B. db.getByDate(now, now - week); n = new NutritionAnalysis(); n.getPercentagesSorted(); */
-            inputList.clear();
-            inputList.add(new WeekBreakHeader("current week"));
-            inputList.add(new DeficiencyItem("iron"));
+        //dateForeward:
+        Button dateForeward = findViewById(R.id.dateForewardButton);
+        dateForeward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusDays(1);
+                updateDate(currentDateParsed,mainLv,currentDate);
+            }
+        }));
+    }
+
+    /* change date */
+    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv){
+        tv.setText(currentDateParsed.toString());
+        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+        RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+        lv.setAdapter(newDayAdapter);
+    }
+
+
+    ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
+        /* generate Adapter-content for RecommendationAdapter */
+
+        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
+        ArrayList<RecommendationListItem> listItems = new ArrayList<>();
+        if (!(foods.isEmpty())) {
+            NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
+            for (NutritionElement ne : NutritionElement.values()) {
+                listItems.add(new RecommendationListItem(ne.toString(), dayNutritionAnalysis.getNutritionPercentage().get(ne)));
+            }
         }
-
-
+        return listItems;
     }
 
-class WeekBreakHeader implements RecommendationListItem {
-    private final String title;
-
-    public WeekBreakHeader(String title){
-        this.title = title;
-    }
-
-    @Override
-    public boolean isSection() {
-        return true;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
 }
 
-class DeficiencyItem implements RecommendationListItem {
-    private final String title;
-    public DeficiencyItem(String title){
-        this.title = title;
-    }
 
-
-    @Override
-    public boolean isSection() {
-        return false;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-}
-
-interface RecommendationListItem {
-    public boolean isSection();
-    public String getTitle();
-        }
-
-class RecommendationAdapter extends BaseAdapter{
-    private Context context;
-    private ArrayList<RecommendationListItem> item;
-
-    public RecommendationAdapter(){
-        super();
-    }
-
-    public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> item){
-        this.context = context;
-        this.item = item;
-    }
-
-    @Override
-    public int getCount() {
-        return item.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return getItem(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (item.get(position).isSection()){
-            convertView = inflater.inflate(R.layout.recommendation_deficiencyheader,parent,false);
-            TextView tv_header = (TextView) convertView.findViewById(R.id.HeaderTextView);
-            tv_header.setText(( item.get(position).getTitle()));
-        } else {
-            convertView = inflater.inflate(R.layout.recommendation_deficiencygroup,parent,false);
-            //title:
-            TextView tv_itemList = (TextView)convertView.findViewById(R.id.ListTextView_deficiencyTitle);
-            tv_itemList.setText((item.get(position).getTitle()).toUpperCase());
-            //percentage:
-            TextView tv_percentage =(TextView) convertView.findViewById(R.id.ListTextView_deficiencyPercentage);
-            tv_percentage.setText("80%");
-            //occurance:
-            TextView occurance = (TextView) convertView.findViewById(R.id.ListTextView_deficiencyOccurance);
-            StringBuilder StrOccurance = new StringBuilder();
-            StrOccurance.append("! ");
-            StrOccurance.append("! ");
-            StrOccurance.append("_ ");
-            StrOccurance.append("_ ");
-            StrOccurance.append("_ ");
-            StrOccurance.append(" ");
-            StrOccurance.append("_ ");
-            occurance.setText(StrOccurance);
-        }
-        return convertView;
-    }
-}

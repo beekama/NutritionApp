@@ -24,6 +24,8 @@ import com.example.nutritionapp.other.Utils;
 
 import org.threeten.bp.LocalDateTime;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.util.ArrayList;
 
 public class AddFoodToJournal extends AppCompatActivity {
@@ -210,4 +212,23 @@ public class AddFoodToJournal extends AppCompatActivity {
         ListAdapter adapter = new ListAdapter(getApplicationContext(), inputList);
         lv.setAdapter(adapter);
     }
+
+/*    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyhack) {
+        *//* This functions add a list of create_foods to the journal at a given date *//*
+        ArrayList<Food> selectedSoFar = new ArrayList<>();
+        for (SelectedFoodItem item : selectedSoFarItems) {
+            Food f = item.food;
+            f.setAssociatedAmount(item.amount);
+            selectedSoFar.add(item.food);
+        }
+        logExistingFoods(selectedSoFar, d);
+    }
+
+    private void updatePieChartData(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d ){
+        *//* add selected Food to (test)chart *//*
+        ArrayList<Food> selected = new ArrayList<>();
+        for (SelectedFoodItem item : selectedSoFarItems){
+            Food f = item.food
+        }
+    }*/
 }
