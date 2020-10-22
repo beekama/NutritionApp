@@ -6,6 +6,9 @@ public class Conversions {
     public static final int MG_TO_UG = 1_000;
     public static final int KCAL_TO_JOULE = 4184;
 
+    public static final String JOULE = "JOULE";
+    public static final String KCAL = "KCAL";
+
     public static int normalize(String unitName, int inputAmount){
         /* normalize unitValues to their base values (microgramm or joule) */
         switch (unitName){
