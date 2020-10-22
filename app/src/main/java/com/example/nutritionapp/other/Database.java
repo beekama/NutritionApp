@@ -53,7 +53,7 @@ public class Database {
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
         targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
-        createDatabase(true);
+        createDatabase(false);
         db = SQLiteDatabase.openDatabase(targetPath, null,  NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
         generateNutritionTableSelectionMap();
     }
