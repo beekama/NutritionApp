@@ -96,20 +96,13 @@ public class FoodOverviewAdapter extends BaseAdapter {
 
         /* calculate and set nutrition */
         ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSortedFilterZero();
-        String testText;
-        if(!percentages.isEmpty()) {
-            testText = String.format("%s : Only %d%%", percentages.get(0).nutritionElement, (int) (percentages.get(0).percentage * 100));
-        }else{
-            testText = "";
-        }
-        //energyText.setText(Conversions.jouleToKCal(analysis.getTotalEnergy()) + " KCAL");
 
         /* display the foods in the nested sub-list */
         ArrayList<GroupFoodItem> listItemsInThisSection = new ArrayList<>();
         for(int group : itemAtCurPos.foodGroups.keySet()){
             listItemsInThisSection.add(new GroupFoodItem(itemAtCurPos.foodGroups.get(group), group));
         }
-        Log.wtf("FOOD", "--------");
+
         ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection);
         subFoodList.setAdapter(subListViewAdapter);
         return convertView;
