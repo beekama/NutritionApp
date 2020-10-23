@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewAdapter;
@@ -49,11 +52,18 @@ public class FoodJournalOverview extends AppCompatActivity {
 
         /* retrieve items */
         updateFoodJournalList(false);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
+        toolbar.setTitle("");
+        toolbarTitle.setText("JOURNAL");
+        setSupportActionBar(toolbar);
+        toolbarBack.setOnClickListener((v -> finish()));
+        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         /* set adapter */
         /* this is a list of layout of type journal_dayheader, which contains the dayheader and
-        a nested sublist of the foods (foodgroups) on this
-         */
+        a nested sublist of the foods (foodgroups) on this */
         adapter = new FoodOverviewAdapter(this, foodDataList);
         mainListOfFoodsWithDayHeaders = findViewById(R.id.listview);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
@@ -92,6 +102,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         if(runInvalidation) {
             adapter.notifyDataSetInvalidated();
             mainListOfFoodsWithDayHeaders.invalidate();
+            mainListOfFoodsWithDayHeaders.setAdapter(adapter);
         }
     }
 
