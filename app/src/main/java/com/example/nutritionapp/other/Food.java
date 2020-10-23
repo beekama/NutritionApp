@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 
+import org.json.JSONObject;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -82,6 +84,10 @@ public class Food {
 
     public boolean isIdValid() {
         return this.id != null && !this.id.equals("") && !this.id.equals("-1");
+    }
+
+    public JSONObject toJsonObject() {
+        return null;
     }
 }
 

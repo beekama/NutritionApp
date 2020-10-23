@@ -14,6 +14,9 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 
 import org.apache.commons.io.IOUtil;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -600,6 +603,77 @@ public class Database {
         }
         c.close();
         return ret;
+    }
+
+    public JSONObject exportDatabase(boolean exportLog, boolean exportCustomFoods) throws JSONException{
+        JSONObject ret = new JSONObject();
+
+        if(exportLog){
+            JSONArray journal = new JSONArray();
+            HashMap<Integer, ArrayList<Food>> journalEntries = this.getLoggedFoodsByDate(LocalDateTime.MIN, LocalDateTime.MAX);
+            if(journalEntries != null) {
+                for (Integer key : journalEntries.keySet()){
+                    JSONObject foodGroup = new JSONObject();
+
+                    ArrayList<Food> foodGroupEntries = journalEntries.get(key);
+                    if(foodGroupEntries == null || foodGroupEntries.isEmpty()){
+                        continue;
+                    }
+
+                    LocalDateTime loggedAt = null;
+                    JSONArray foodsInGroup = new JSONArray();
+                    for(Food f : foodGroupEntries){
+                        loggedAt = f.loggedAt;
+                        foodsInGroup.put(f.toJsonObject());
+                    }
+                    foodGroup.put("foods", foodsInGroup);
+                    foodGroup.put("date", loggedAt.format(Utils.sqliteDatetimeFormat));
+                    journal.put(foodGroup);
+                }
+            }
+
+            ret.put("journal", journal);
+        }
+
+        if(exportCustomFoods){
+            JSONArray customFoods = new JSONArray();
+            ArrayList<Food> allCustomFoods = getAllCustomFoods();
+
+            if(allCustomFoods != null) {
+                for (Food f : allCustomFoods){
+                    customFoods.put(f.toJsonObject());
+                }
+            }
+
+            ret.put("custom", customFoods);
+        }
+
+        return ret;
+    }
+
+    public void importDatabaseBackup(JSONObject in){
+        JSONArray journal = null;
+        JSONArray custom = null;
+
+        try {
+            journal = in.getJSONArray("journal");
+        } catch (JSONException e) {
+            Log.wtf("INFO", "No Journal Info in Import");
+        }
+
+        try {
+            custom = in.getJSONArray("custom");
+        } catch (JSONException e) {
+            Log.wtf("INFO", "No Custom Food Info in Import");
+        }
+
+        if(journal != null){
+            //TODO
+        }
+
+        if(custom != null){
+            //TODO
+        }
     }
 
     @SuppressWarnings("unused")
