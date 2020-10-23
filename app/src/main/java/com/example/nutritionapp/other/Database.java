@@ -337,7 +337,7 @@ public class Database {
         String table = "food";
         String[] columns = {"fdc_id", "description"};
         String[] whereArgs = { "%" + substring + "%", "disabled"};
-        String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC", substring, substring);
+        String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC, LENGTH(description) ASC", substring, substring);
         Cursor c = db.query(table, columns, "description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
 
         ArrayList<Food> foods = new ArrayList<>();
@@ -472,6 +472,7 @@ public class Database {
         for(int i = 0; i < limit; i++){
             results.add(suggestionCounter.get(i).food);
         }
+
         return results;
     }
 
