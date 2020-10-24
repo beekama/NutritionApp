@@ -8,21 +8,21 @@
         android:id="@+id/nutritionName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRecommendation" />
+        app:layout_constraintEnd_toStartOf="@id/guidelineRecommendation"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRecommendation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_percent="0.33"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChar"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guidelineRecommendation" />
+        app:layout_constraintStart_toEndOf="@+id/guidelineRecommendation"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
