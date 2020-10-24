@@ -145,6 +145,12 @@ public class Recommendations extends AppCompatActivity {
                 listItems.add(new RecommendationListItem(ne, dayNutritionAnalysis.getNutritionPercentage().get(ne)));
             }
         }
+        //case no foods added:
+        else{
+            for (NutritionElement ne : NutritionElement.values()){
+                listItems.add(new RecommendationListItem(ne, 0));
+            }
+        }
         return listItems;
     }
 

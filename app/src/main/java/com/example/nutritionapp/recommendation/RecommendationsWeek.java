@@ -177,7 +177,23 @@ public class RecommendationsWeek extends AppCompatActivity {
                 //xAxisLabels.add(ne.toString());
             }
         }
-
+        //case no food added within this period:
+        else {
+            int xValue = 0;
+            int[] colors = super.getApplicationContext().getResources().getIntArray(R.array.chartColorCollection);
+            for (NutritionElement ne : NutritionElement.values()) {
+                ArrayList<BarEntry> barEntries = new ArrayList<>();
+                //create barEntry - add nutritionElement as data for accessing RecommendationElement later:
+                BarEntry barEntry = new BarEntry(xValue++, 0, ne);
+                barEntries.add(barEntry);
+                BarDataSet barDataSet = new BarDataSet(barEntries, ne.toString());
+                //add color:
+                barDataSet.setColor(colors[xValue]);
+                barDataSets.add((IBarDataSet) barDataSet);
+                Legend l = chartWeek.getLegend();
+                l.setWordWrapEnabled(true);
+            }
+        }
 /*        *//* set x-axis label *//*
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
