@@ -39,39 +39,10 @@ public class AddFoodToJournal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal_add_food);
 
-        EditText searchFieldEditText = findViewById(R.id.searchField);
-        ListView selectedListView = findViewById(R.id.selected_items);
-        SelectedFoodAdapter selectedAdapter = new SelectedFoodAdapter(getApplicationContext(), new ArrayList<>());
-        selectedListView.setAdapter(selectedAdapter);
-
+        final EditText searchFieldEditText = findViewById(R.id.searchField);
         final ListView lv = findViewById(R.id.listview);
-        final ListView suggestions = findViewById(R.id.suggestions);
-
         final ArrayList<GroupListItem> inputList = new ArrayList<>();
-        final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
-        Database db = new Database(this);
-
-        /* set existing items if edit mode */
-
-        int groupId = this.getIntent().getIntExtra("groupId", -1);
-        final LocalDateTime loggedAt;
-        if(groupId >= 0){
-            this.editMode = true;
-            ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
-            for(Food f : foods) {
-                selected.add(new SelectedFoodItem(f, f.associatedAmount));
-            }
-            if(!foods.isEmpty()) {
-                loggedAt = foods.get(0).loggedAt;
-            }else{
-                loggedAt = null;
-            }
-            updateSelectedView(selectedListView, selected);
-            updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
-        }else{
-            loggedAt = null;
-        }
-
+        final Database db = new Database(this);
 
 
         TextWatcher filterNameTextWatcher = new TextWatcher() {
@@ -90,36 +61,12 @@ public class AddFoodToJournal extends AppCompatActivity {
             }
         };
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
-                selected.add(new SelectedFoodItem(item.food, 100));
-                updateSelectedView(selectedListView, selected);
-            }
-        });
-
-        selectedListView.setOnItemLongClickListener((parent, view, position, id) -> {
-            selected.remove(parent.getItemAtPosition(position));
-            updateSelectedView(selectedListView, selected);
-            updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
-            return false;
-        });
-
-        suggestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
-                selected.add(new SelectedFoodItem(item.food, DEFAULT_AMOUNT));
-                updateSelectedView(selectedListView, selected);
-                updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
-            }
-        });
-
         searchFieldEditText.addTextChangedListener(filterNameTextWatcher);
         searchFieldEditText.setOnKeyListener(new UnfocusOnEnter() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (super.onKey(v, keyCode, event)) {
-                    switchToSuggestionView(db, suggestionsByPrevSelected, suggestions, lv);
+                    //switchToSuggestionView(db, suggestionsByPrevSelected, suggestions, lv);
                     return true;
                 }
                 return false;
@@ -130,7 +77,7 @@ public class AddFoodToJournal extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             } else {
-                switchToSearchView(lv, suggestions);
+                //switchToSearchView(lv, suggestions);
             }
         });
 
@@ -138,35 +85,23 @@ public class AddFoodToJournal extends AppCompatActivity {
         Button confirm = findViewById(R.id.confirm);
 
         cancel.setOnClickListener(v -> {
-            View sf = findViewById(R.id.searchField);
-            if (sf.hasFocus()) {
-                sf.clearFocus();
-                switchToSuggestionView(db, new ArrayList<>(), suggestions, lv);
+            if (searchFieldEditText.hasFocus()) {
+                searchFieldEditText.clearFocus();
+                //switchToSuggestionView(db, new ArrayList<>(), suggestions, lv);
             } else {
                 db.close();
                 finish();
             }
         });
         confirm.setOnClickListener(v -> {
-            for(int i = 0; i < selectedAdapter.getCount(); i++){
-                SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
-            }
             if(this.editMode){
-                db.updateFoodGroup(selected, groupId, loggedAt);
+                //db.updateFoodGroup(selected, groupId, loggedAt);
             }else {
                 db.logExistingFoods(selected, null, null);
             }
             db.close();
             finish();
         });
-    }
-
-    /* TODO amount selection (grams) */
-    private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
-        ArrayList<SelectedFoodItem> sfi = new ArrayList<SelectedFoodItem>(alreadySelected);
-        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getApplicationContext(), sfi);
-        selectedListView.setAdapter(newAdapter);
-        selectedListView.invalidate();
     }
 
     private void switchToSearchView(ListView lv, ListView suggestions) {
@@ -179,25 +114,10 @@ public class AddFoodToJournal extends AppCompatActivity {
     }
 
     private void switchToSuggestionView(Database db, ArrayList<GroupListItem> suggestionsByPrevSelected, ListView suggestions, ListView lv) {
-        updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
         lv.setVisibility(View.GONE);
         suggestions.setVisibility(View.VISIBLE);
         lv.invalidate();
         suggestions.invalidate();
-    }
-
-    private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
-        suggestionsPrevSelected.clear();
-        for(Food f : foods){
-            if(suggestionsPrevSelected.contains(f)){
-                continue;
-            }
-            suggestionsPrevSelected.add(new ListFoodItem(f));
-        }
-
-        suggestions.invalidate();
-        ListAdapter adapter = new ListAdapter(getApplicationContext(), suggestionsPrevSelected);
-        suggestions.setAdapter(adapter);
     }
 
     private void updateSearchList(ArrayList<Food> foods, ArrayList<GroupListItem> inputList, ListView lv) {
@@ -211,22 +131,4 @@ public class AddFoodToJournal extends AppCompatActivity {
         lv.setAdapter(adapter);
     }
 
-/*    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyhack) {
-        *//* This functions add a list of create_foods to the journal at a given date *//*
-        ArrayList<Food> selectedSoFar = new ArrayList<>();
-        for (SelectedFoodItem item : selectedSoFarItems) {
-            Food f = item.food;
-            f.setAssociatedAmount(item.amount);
-            selectedSoFar.add(item.food);
-        }
-        logExistingFoods(selectedSoFar, d);
-    }
-
-    private void updatePieChartData(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d ){
-        *//* add selected Food to (test)chart *//*
-        ArrayList<Food> selected = new ArrayList<>();
-        for (SelectedFoodItem item : selectedSoFarItems){
-            Food f = item.food
-        }
-    }*/
 }

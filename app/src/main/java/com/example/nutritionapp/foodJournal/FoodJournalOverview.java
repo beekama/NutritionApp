@@ -70,7 +70,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         mainListOfFoodsWithDayHeaders.setTextFilterEnabled(true);
 
         final Button addStuff = findViewById(R.id.add_food);
-        addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddFoodToJournal.class)));
+        addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FoodGroupOverview.class)));
     }
 
     @Override
