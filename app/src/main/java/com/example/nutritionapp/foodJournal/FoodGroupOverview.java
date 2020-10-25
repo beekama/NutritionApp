@@ -1,5 +1,7 @@
 package com.example.nutritionapp.foodJournal;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -28,14 +31,20 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Utils;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FoodGroupOverview extends AppCompatActivity {
 
     private static final int DEFAULT_AMOUNT = 100;
     final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
     private boolean editMode = false;
+
+    private TextView dateView;
+    private TextView timeView;
 
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -56,12 +65,21 @@ public class FoodGroupOverview extends AppCompatActivity {
         SelectedFoodAdapter selectedAdapter = new SelectedFoodAdapter(getApplicationContext(), new ArrayList<>());
         selectedListView.setAdapter(selectedAdapter);
 
+        dateView = findViewById(R.id.date);
+        timeView = findViewById(R.id.time);
+
+        TextView nutOverviewPlaceholder = findViewById(R.id.nutritionOverview);
+        nutOverviewPlaceholder.setText("PLACEHOLDER PLACEHOLDER PLACEHOLDER");
+        Button addNewButton = findViewById(R.id.addButton);
+        addNewButton.setText("Add..");
+
         final ListView suggestions = findViewById(R.id.suggestions);
         final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
         Database db = new Database(this);
 
         /* set existing items if edit mode */
         int groupId = this.getIntent().getIntExtra("groupId", -1);
+
         final LocalDateTime loggedAt;
         if (groupId >= 0) {
             this.editMode = true;
@@ -72,16 +90,18 @@ public class FoodGroupOverview extends AppCompatActivity {
             if (!foods.isEmpty()) {
                 loggedAt = foods.get(0).loggedAt;
             } else {
-                loggedAt = null;
+                loggedAt = LocalDateTime.now();;
             }
             updateSelectedView(selectedListView, selected);
             updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
         } else {
-            loggedAt = null;
+            loggedAt = LocalDateTime.now();
         }
 
-        final TextView date = findViewById(R.id.date);
-        date.setText(loggedAt.format(Utils.sqliteDatetimeFormat));
+        dateView.setText(loggedAt.format(Utils.sqliteDateFormat));
+        timeView.setText(loggedAt.format(Utils.sqliteTimeFormat));
+        dateView.setOnClickListener(v -> dateUpdateDialog(loggedAt));
+        timeView.setOnClickListener(v -> timeUpdateDialog(loggedAt));
 
         selectedListView.setOnItemLongClickListener((parent, view, position, id) -> {
             final SelectedFoodItem item = (SelectedFoodItem) parent.getItemAtPosition(position);
@@ -98,6 +118,23 @@ public class FoodGroupOverview extends AppCompatActivity {
             updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
         });
 
+    }
+
+
+    private void dateUpdateDialog(final LocalDateTime loggedAt) {
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            LocalDateTime selected = LocalDateTime.of(year, month, dayOfMonth, 0 ,0);
+            this.dateView.setText(selected.format(Utils.sqliteDateFormat));
+        }, loggedAt.getYear(), loggedAt.getMonthValue(), loggedAt.getDayOfMonth());
+        dialog.show();
+    }
+
+    private void timeUpdateDialog(LocalDateTime loggedAt) {
+        TimePickerDialog dialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+            LocalTime selected = LocalTime.of(hourOfDay, minute);
+            this.timeView.setText(selected.format(Utils.sqliteTimeFormat));
+        }, loggedAt.getHour(), loggedAt.getMinute(), true);
+        dialog.show();
     }
 
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
@@ -120,4 +157,5 @@ public class FoodGroupOverview extends AppCompatActivity {
         ListAdapter adapter = new ListAdapter(getApplicationContext(), suggestionsPrevSelected);
         suggestions.setAdapter(adapter);
     }
+
 }
