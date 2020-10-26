@@ -160,7 +160,11 @@ public class Nutrition {
     public static int totalEnergy(ArrayList<Food> calculatedFrom) {
         int total = 0;
         for(Food f : calculatedFrom){
-            total += f.energy;
+            if(f.associatedAmount > 0) {
+                total += f.energy * (f.associatedAmount/100f);
+            }else{
+                total += f.energy;
+            }
         }
         return total;
     }
