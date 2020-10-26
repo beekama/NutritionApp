@@ -102,8 +102,8 @@ public class Recommendations extends AppCompatActivity {
 
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDate);
-        currentDate.setText(currentDateParsed.compareTo(LocalDate.now()) == 0 ? "today" : currentDateParsed.toString());
-
+        //currentDate.setText(currentDateParsed.compareTo(LocalDate.now()) == 0 ? "today" : currentDateParsed.toString());
+        updateDate(currentDateParsed, mainLv, currentDate);
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -152,7 +152,7 @@ public class Recommendations extends AppCompatActivity {
 
     /* change date */
     private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
-        tv.setText(currentDateParsed.toString());
+        tv.setText(LocalDate.now().compareTo(currentDateParsed) == 0 ? "today" : currentDateParsed.toString());
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         lv.setAdapter(newDayAdapter);
@@ -178,6 +178,7 @@ public class Recommendations extends AppCompatActivity {
         }
         return listItems;
     }
+
 
 }
 
