@@ -50,11 +50,17 @@ public class GroupListAdapter extends BaseAdapter {
             context.startActivity(target);
         });
 
-        String allFoods = "";
+        StringBuilder allFoods = new StringBuilder();
+        boolean firstLoop = true;
         for(Food f : ((GroupFoodItem)getItem(position)).foods){
-            allFoods += f.name;
+            if(firstLoop){
+                firstLoop = false;
+            }else{
+                allFoods.append(", ");
+            }
+            allFoods.append(f.name);
         }
-        test.setText(allFoods);
+        test.setText(allFoods.toString());
         return convertView;
     }
 }
