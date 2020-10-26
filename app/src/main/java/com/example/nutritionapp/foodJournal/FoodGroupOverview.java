@@ -20,7 +20,8 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectableFoodListAdap
 import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.JournalDialogAmountSelector;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogFoodSelector;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogAmountSelector;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.PortionTypes;
@@ -190,11 +191,11 @@ public class FoodGroupOverview extends AppCompatActivity {
         if(selectedFood == null){
             return;
         }
-        JournalDialogAmountSelector amountSelector = new JournalDialogAmountSelector(this);
+        DialogAmountSelector amountSelector = new DialogAmountSelector(this);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
-            JournalDialogAmountSelector castedDialog = (JournalDialogAmountSelector) dialog;
+            DialogAmountSelector castedDialog = (DialogAmountSelector) dialog;
             int amountSelected = castedDialog.amountSelected;
             amountSelected = DEFAULT_AMOUNT;
             PortionTypes typeSelected = castedDialog.typeSelected;

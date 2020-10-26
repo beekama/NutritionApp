@@ -15,13 +15,13 @@ import androidx.annotation.NonNull;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.PortionTypes;
 
-public class JournalDialogAmountSelector extends Dialog {
+public class DialogAmountSelector extends Dialog {
 
     public PortionTypes typeSelected = null;
     public int amountSelected = 0;
     Activity context;
 
-    public JournalDialogAmountSelector(@NonNull Activity context) {
+    public DialogAmountSelector(@NonNull Activity context) {
         super(context);
         this.context = context;
     }
