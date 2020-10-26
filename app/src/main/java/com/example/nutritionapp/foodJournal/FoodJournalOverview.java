@@ -66,7 +66,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         /* this is a list of layout of type journal_day_header, which contains the day-header and
         a nested sublist of the foods (food groups) on this */
         adapter = new FoodOverviewAdapter(this, foodDataList);
-        mainListOfFoodsWithDayHeaders = findViewById(R.id.listview);
+        mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
         mainListOfFoodsWithDayHeaders.setTextFilterEnabled(true);
 

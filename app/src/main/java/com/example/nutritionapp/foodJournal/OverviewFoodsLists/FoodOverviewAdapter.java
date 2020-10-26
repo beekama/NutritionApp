@@ -71,9 +71,11 @@ public class FoodOverviewAdapter extends BaseAdapter {
         dateText.setText(items.get(position).date);
 
         dateText.setOnClickListener(view -> {
+            /* TODO reactivate this when it's fixed
             Intent target = new Intent(view.getContext(), NutritionOverview.class);
             target.putExtra("startDate", items.get(position).date);
             context.startActivity(target);
+             */
         });
 
         NutritionAnalysis analysis = new NutritionAnalysis(itemAtCurPos.foods);

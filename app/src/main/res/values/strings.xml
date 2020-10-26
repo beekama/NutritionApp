@@ -9,4 +9,5 @@
     <string name="addSingleFood">Add..</string>
     <string name="placeholder">PLACEHOLDER PLACEHOLDER PLACEHOLDER</string>
     <string name="journalToolbarText">JOURNAL</string>
+    <string name="journalAddMeal">Add Meal</string>
 </resources>
