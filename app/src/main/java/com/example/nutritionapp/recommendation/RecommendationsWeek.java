@@ -172,6 +172,7 @@ public class RecommendationsWeek extends AppCompatActivity {
                 barDataSet.setColor(colors[xValue]);
                 barDataSets.add((IBarDataSet) barDataSet);
                 Legend l = chartWeek.getLegend();
+                //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);
                 //collection labels for x-axis:
                 //xAxisLabels.add(ne.toString());
@@ -191,6 +192,7 @@ public class RecommendationsWeek extends AppCompatActivity {
                 barDataSet.setColor(colors[xValue]);
                 barDataSets.add((IBarDataSet) barDataSet);
                 Legend l = chartWeek.getLegend();
+                //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);
             }
         }

@@ -8,14 +8,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+
 import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -58,10 +62,10 @@ public class Recommendations extends AppCompatActivity {
             }
         }));
 
-        //FOR CHART TESTING
+        //Goto Week-Chart
         tb_forward.setImageResource(R.drawable.add_circle_filled);
         tb.setTitle("");
-        tb_title.setText("RECOMMENDATIONS");
+        tb_title.setText("daily targets");
         setSupportActionBar(tb);
         //refresh:
         tb_forward.setOnClickListener((new View.OnClickListener() {
@@ -86,11 +90,11 @@ public class Recommendations extends AppCompatActivity {
         RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         mainLv.setAdapter(newAdapter);
 
-        mainLv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        mainLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(view.getContext(), RecommendationsElement.class);;
-                NutritionElement nutritionElement= listItems.get(position).nutritionElement;
+                Intent myIntent = new Intent(view.getContext(), RecommendationsElement.class);
+                NutritionElement nutritionElement = listItems.get(position).nutritionElement;
                 myIntent.putExtra("nutritionelement", nutritionElement);
                 startActivity(myIntent);
             }
@@ -98,7 +102,7 @@ public class Recommendations extends AppCompatActivity {
 
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDate);
-        currentDate.setText(currentDateParsed.toString());
+        currentDate.setText(currentDateParsed.compareTo(LocalDate.now()) == 0 ? "today" : currentDateParsed.toString());
 
 
         /* SWITCH BETWEEN DAYS */
@@ -108,7 +112,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                updateDate(currentDateParsed,mainLv,currentDate);
+                updateDate(currentDateParsed, mainLv, currentDate);
             }
         }));
 
@@ -118,15 +122,36 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                updateDate(currentDateParsed,mainLv,currentDate);
+                updateDate(currentDateParsed, mainLv, currentDate);
+            }
+        }));
+
+
+        /* SWITCH BETWEEN WEEKS */
+        //dateBack:
+        Button weekBack = findViewById(R.id.dateBackButtonWeek);
+        weekBack.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.minusWeeks(1);
+                updateDate(currentDateParsed, mainLv, currentDate);
+            }
+        }));
+
+        //dateForeward:
+        Button weekForeward = findViewById(R.id.dateForewardButtonWeek);
+        weekForeward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusWeeks(1);
+                updateDate(currentDateParsed, mainLv, currentDate);
             }
         }));
     }
 
 
-
     /* change date */
-    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv){
+    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
         tv.setText(currentDateParsed.toString());
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
@@ -135,8 +160,8 @@ public class Recommendations extends AppCompatActivity {
 
 
     ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
-        /* generate Adapter-content for RecommendationAdapter */
 
+        /* generate Adapter-content for RecommendationAdapter */
         ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();
         if (!(foods.isEmpty())) {
@@ -146,8 +171,8 @@ public class Recommendations extends AppCompatActivity {
             }
         }
         //case no foods added:
-        else{
-            for (NutritionElement ne : NutritionElement.values()){
+        else {
+            for (NutritionElement ne : NutritionElement.values()) {
                 listItems.add(new RecommendationListItem(ne, 0));
             }
         }

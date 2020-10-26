@@ -18,7 +18,7 @@ class RecommendationListItem {
     public RecommendationListItem(NutritionElement nutritionElement, float percentage) {
         this.nutritionElement = nutritionElement;
         this.percentage = percentage;
-        this.pieEntryList.add(new PieEntry(percentage, nutritionElement.toString()));
+        this.pieEntryList.add(new PieEntry(percentage,nutritionElement.toString()));
         if (percentage < 100) {
             this.pieEntryList.add(new PieEntry(100 - percentage, "missing"));
         }

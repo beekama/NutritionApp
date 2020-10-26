@@ -1,6 +1,7 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -9,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -93,7 +96,8 @@ class RecommendationAdapter extends BaseAdapter {
 
         //PERCENTAGE-LABEL:
         rec_chart.getDescription().setText(String.format("%.2f %%", item.percentage));
-        rec_chart.getDescription().setPosition(300f, 25f);   //!! anpassen bei einfügen von 'recommendations'-textview
+        rec_chart.getDescription().setPosition(225f, 25f);
+
         rec_chart.notifyDataSetChanged();
 
         pieData = new PieData(pieDataSet);
