@@ -1,9 +1,9 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -13,29 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.Test_chart;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.threeten.bp.LocalDate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -78,10 +62,10 @@ public class Recommendations extends AppCompatActivity {
             }
         }));
 
-        //FOR CHART TESTING
+        //Goto Week-Chart
         tb_forward.setImageResource(R.drawable.add_circle_filled);
         tb.setTitle("");
-        tb_title.setText("RECOMMENDATIONS");
+        tb_title.setText("daily targets");
         setSupportActionBar(tb);
         //refresh:
         tb_forward.setOnClickListener((new View.OnClickListener() {
@@ -106,10 +90,20 @@ public class Recommendations extends AppCompatActivity {
         RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         mainLv.setAdapter(newAdapter);
 
+        mainLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(view.getContext(), RecommendationsElement.class);
+                NutritionElement nutritionElement = listItems.get(position).nutritionElement;
+                myIntent.putExtra("nutritionelement", nutritionElement);
+                startActivity(myIntent);
+            }
+        });
+
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDate);
-        currentDate.setText(currentDateParsed.toString());
-
+        //currentDate.setText(currentDateParsed.compareTo(LocalDate.now()) == 0 ? "today" : currentDateParsed.toString());
+        updateDate(currentDateParsed, mainLv, currentDate);
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -118,7 +112,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                updateDate(currentDateParsed,mainLv,currentDate);
+                updateDate(currentDateParsed, mainLv, currentDate);
             }
         }));
 
@@ -128,14 +122,37 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                updateDate(currentDateParsed,mainLv,currentDate);
+                updateDate(currentDateParsed, mainLv, currentDate);
+            }
+        }));
+
+
+        /* SWITCH BETWEEN WEEKS */
+        //dateBack:
+        Button weekBack = findViewById(R.id.dateBackButtonWeek);
+        weekBack.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.minusWeeks(1);
+                updateDate(currentDateParsed, mainLv, currentDate);
+            }
+        }));
+
+        //dateForeward:
+        Button weekForeward = findViewById(R.id.dateForewardButtonWeek);
+        weekForeward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusWeeks(1);
+                updateDate(currentDateParsed, mainLv, currentDate);
             }
         }));
     }
 
+
     /* change date */
-    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv){
-        tv.setText(currentDateParsed.toString());
+    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
+        tv.setText(LocalDate.now().compareTo(currentDateParsed) == 0 ? "today" : currentDateParsed.toString());
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         lv.setAdapter(newDayAdapter);
@@ -143,18 +160,25 @@ public class Recommendations extends AppCompatActivity {
 
 
     ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
-        /* generate Adapter-content for RecommendationAdapter */
 
+        /* generate Adapter-content for RecommendationAdapter */
         ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();
         if (!(foods.isEmpty())) {
             NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
             for (NutritionElement ne : NutritionElement.values()) {
-                listItems.add(new RecommendationListItem(ne.toString(), dayNutritionAnalysis.getNutritionPercentage().get(ne)));
+                listItems.add(new RecommendationListItem(ne, dayNutritionAnalysis.getNutritionPercentage().get(ne)));
+            }
+        }
+        //case no foods added:
+        else {
+            for (NutritionElement ne : NutritionElement.values()) {
+                listItems.add(new RecommendationListItem(ne, 0));
             }
         }
         return listItems;
     }
+
 
 }
 

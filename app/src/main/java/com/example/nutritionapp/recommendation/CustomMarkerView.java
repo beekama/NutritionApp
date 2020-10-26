@@ -12,7 +12,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 
-import org.threeten.bp.LocalDate;
+import java.time.LocalDate;
 
 /* necessary to show marker_view (with text) on click - according to Philipp Jahoda example */
 public class CustomMarkerView extends MarkerView {
