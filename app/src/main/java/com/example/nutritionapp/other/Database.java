@@ -170,7 +170,7 @@ public class Database {
             d = LocalDateTime.now();
         }
 
-        Random random = new Random();
+        Random random = new Random(); // TODO this is bs, will eventually lead to a id conflict
         int groupID =  random.nextInt(1000000);
         for (Food f : foods) {
             Log.wtf("FOOD", d.format(Utils.sqliteDatetimeFormat));

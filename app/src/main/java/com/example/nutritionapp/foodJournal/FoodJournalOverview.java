@@ -22,6 +22,7 @@ import com.example.nutritionapp.other.Utils;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,14 +57,14 @@ public class FoodJournalOverview extends AppCompatActivity {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
         toolbar.setTitle("");
-        toolbarTitle.setText("JOURNAL");
+        toolbarTitle.setText(R.string.journalToolbarText);
         setSupportActionBar(toolbar);
         toolbarBack.setOnClickListener((v -> finish()));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         /* set adapter */
-        /* this is a list of layout of type journal_dayheader, which contains the dayheader and
-        a nested sublist of the foods (foodgroups) on this */
+        /* this is a list of layout of type journal_day_header, which contains the day-header and
+        a nested sublist of the foods (food groups) on this */
         adapter = new FoodOverviewAdapter(this, foodDataList);
         mainListOfFoodsWithDayHeaders = findViewById(R.id.listview);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
@@ -80,13 +81,12 @@ public class FoodJournalOverview extends AppCompatActivity {
     }
 
     private void updateFoodJournalList(boolean runInvalidation) {
-        HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(now, oldestDateShown);
+        HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(LocalDate.MIN, oldestDateShown);
         SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(foodGroups);
         foodDataList.clear();
 
         /* generate reversed list */
-        ArrayList<LocalDate> keyListReversed = new ArrayList<>();
-        keyListReversed.addAll(foodGroupsByDay.keySet());
+        ArrayList<LocalDate> keyListReversed = new ArrayList<>(foodGroupsByDay.keySet());
         Collections.reverse(keyListReversed);
 
         for(LocalDate day : keyListReversed){
@@ -105,7 +105,4 @@ public class FoodJournalOverview extends AppCompatActivity {
             mainListOfFoodsWithDayHeaders.setAdapter(adapter);
         }
     }
-
-
 }
-

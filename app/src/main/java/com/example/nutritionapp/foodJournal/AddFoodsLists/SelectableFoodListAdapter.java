@@ -11,15 +11,12 @@ import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends BaseAdapter {
+public class SelectableFoodListAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<GroupListItem> item;
     private ArrayList<GroupListItem> originalItem;
 
-    public ListAdapter(){
-        super();
-    }
-    public ListAdapter(Context context, ArrayList<GroupListItem> item){
+    public SelectableFoodListAdapter(Context context, ArrayList<GroupListItem> item){
         this.context=context;
         this.item=item;
     }

@@ -41,8 +41,10 @@
 
     <ListView
         android:id="@+id/selected_items"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date">
@@ -61,7 +63,6 @@
         android:id="@+id/suggestions"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

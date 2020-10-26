@@ -3,17 +3,10 @@ package com.example.nutritionapp.foodJournal;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,11 +14,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.nutritionapp.BuildConfig;
-import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.GroupListItem;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.ListAdapter;
+import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectableFoodListAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
@@ -35,11 +26,9 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.PortionTypes;
 import com.example.nutritionapp.other.Utils;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodGroupOverview extends AppCompatActivity {
 
@@ -51,6 +40,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     private TextView dateView;
     private TextView timeView;
 
+    LocalDateTime loggedAt;
     ListView selectedListView;
     final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
     ListView suggestions;
@@ -66,9 +56,9 @@ public class FoodGroupOverview extends AppCompatActivity {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
         toolbar.setTitle("");
-        toolbarTitle.setText("DETAILS");
+        toolbarTitle.setText(R.string.toolbarStringGroupDetails);
         setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener((v -> finish()));
+
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         selectedListView = findViewById(R.id.selected_items);
@@ -79,9 +69,9 @@ public class FoodGroupOverview extends AppCompatActivity {
         timeView = findViewById(R.id.time);
 
         TextView nutOverviewPlaceholder = findViewById(R.id.nutritionOverview);
-        nutOverviewPlaceholder.setText("PLACEHOLDER PLACEHOLDER PLACEHOLDER");
+        nutOverviewPlaceholder.setText(R.string.placeholder);
         Button addNewButton = findViewById(R.id.addButton);
-        addNewButton.setText("Add..");
+        addNewButton.setText(R.string.addSingleFood);
 
         addNewButton.setOnClickListener(v -> {
             runFoodSelectionPipeline(null, NO_UPDATE_EXISTING);
@@ -93,7 +83,6 @@ public class FoodGroupOverview extends AppCompatActivity {
         /* set existing items if edit mode */
         int groupId = this.getIntent().getIntExtra("groupId", -1);
 
-        final LocalDateTime loggedAt;
         if (groupId >= 0) {
             this.editMode = true;
             ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
@@ -133,6 +122,20 @@ public class FoodGroupOverview extends AppCompatActivity {
             runFoodSelectionPipeline(item, NO_UPDATE_EXISTING);
         });
 
+        toolbarBack.setOnClickListener(v -> {
+            String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
+            LocalDateTime computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
+            for(int i = 0; i < selectedAdapter.getCount(); i++){
+                SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
+            }
+            if(this.editMode){
+                db.updateFoodGroup(selected, groupId, computedLoggedAt);
+            }else {
+                db.logExistingFoods(selected, computedLoggedAt, null);
+            }
+            db.close();
+            finish();
+        });
     }
 
     private void addSelectedFoodItem(SelectedFoodItem foodItem) {
@@ -158,17 +161,44 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     private void runFoodSelectionPipeline(ListFoodItem selectedFood, int position) {
         if(selectedFood == null){
-            // TODO
-            Dialog foodSelectionDialog = null;
+            Dialog foodSelectionDialog = new DialogFoodSelector(this);
+            foodSelectionDialog.setOnDismissListener(dialog -> {
+                DialogFoodSelector castedDialog = (DialogFoodSelector) dialog;
+                runAmountSelectorDialog(castedDialog.selectedFood, position);
+            });
+            displaySelectorDialog(foodSelectionDialog);
+        }else {
+            runAmountSelectorDialog(selectedFood.food, position);
         }
+    }
 
+    private void displaySelectorDialog(Dialog foodSelectionDialog) {
+
+        /* Prof. Dr. StackOverflow https://stackoverflow.com/questions/2306503/how-to-make-an-alert-dialog-fill-90-of-screen-size */
+        foodSelectionDialog.show();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = foodSelectionDialog.getWindow();
+        if(window != null){
+            lp.copyFrom(window.getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes(lp);
+        }
+    }
+
+    private void runAmountSelectorDialog(Food selectedFood, int position) {
+        if(selectedFood == null){
+            return;
+        }
         JournalDialogAmountSelector amountSelector = new JournalDialogAmountSelector(this);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
             JournalDialogAmountSelector castedDialog = (JournalDialogAmountSelector) dialog;
             int amountSelected = castedDialog.amountSelected;
+            amountSelected = DEFAULT_AMOUNT;
             PortionTypes typeSelected = castedDialog.typeSelected;
+            typeSelected = PortionTypes.GRAM;
 
             /* abort if bad selection */
             if(amountSelected == 0 || typeSelected == null){
@@ -177,16 +207,17 @@ public class FoodGroupOverview extends AppCompatActivity {
 
             // TODO normalize selected amount
             /* update */
-            SelectedFoodItem sf = new SelectedFoodItem(new Food(null, null), amountSelected);
+            SelectedFoodItem sf = new SelectedFoodItem(selectedFood, amountSelected);
             if(position < 0){
-                //addSelectedFoodItem(sf);
+                addSelectedFoodItem(sf);
             }else{
-                //updateSelectedFoodItem(sf, position);
+                updateSelectedFoodItem(sf, position);
             }
 
             //TODO update nutrition overview
         });
-        amountSelector.show();
+
+        displaySelectorDialog(amountSelector);
     }
 
 
@@ -223,7 +254,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         }
 
         suggestions.invalidate();
-        ListAdapter adapter = new ListAdapter(getApplicationContext(), suggestionsPrevSelected);
+        SelectableFoodListAdapter adapter = new SelectableFoodListAdapter(getApplicationContext(), suggestionsPrevSelected);
         suggestions.setAdapter(adapter);
     }
 

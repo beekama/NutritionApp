@@ -2,4 +2,11 @@
     <string name="app_name">Nutrition App</string>
     <string name="backArrow"><![CDATA[<]]></string>
     <string name="ForewArrow"><![CDATA[>]]></string>
+    <string name="textConfirm">Confirm</string>
+    <string name="textCancel">Cancel</string>
+    <string name="searchHint">searchHint</string>
+    <string name="toolbarStringGroupDetails">DETAILS</string>
+    <string name="addSingleFood">Add..</string>
+    <string name="placeholder">PLACEHOLDER PLACEHOLDER PLACEHOLDER</string>
+    <string name="journalToolbarText">JOURNAL</string>
 </resources>

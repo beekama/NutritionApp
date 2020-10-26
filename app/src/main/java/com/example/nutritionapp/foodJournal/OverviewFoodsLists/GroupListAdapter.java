@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodToJournal;
+import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Utils;
 
@@ -45,7 +45,7 @@ public class GroupListAdapter extends BaseAdapter {
 
         GroupFoodItem item = (GroupFoodItem) this.getItem(position);
         test.setOnClickListener(view -> {
-            Intent target = new Intent(view.getContext(), AddFoodToJournal.class);
+            Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
             target.putExtra("groupId", item.groupId);
             context.startActivity(target);
         });
