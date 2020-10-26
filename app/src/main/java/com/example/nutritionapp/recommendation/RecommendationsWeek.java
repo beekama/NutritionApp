@@ -66,6 +66,7 @@ public class RecommendationsWeek extends AppCompatActivity {
 
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        tb_title.setText("weekly targets");
 
         //back home button:
         tb_back.setOnClickListener((new View.OnClickListener() {
@@ -92,6 +93,9 @@ public class RecommendationsWeek extends AppCompatActivity {
         yAxis.setGranularity(1f);
         yAxis.setAxisMinimum(0f);
         chartWeek.animateY(1000);
+        YAxis rightAxis = chartWeek.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setDrawLabels(false);
 
         //no labels since we use legend
         xAxis.setDrawLabels(false);
@@ -117,7 +121,7 @@ public class RecommendationsWeek extends AppCompatActivity {
 
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDateW);
-        currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString());
+        currentDate.setText(printDate(currentDateParsed));
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -126,7 +130,7 @@ public class RecommendationsWeek extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString());
+                currentDate.setText(printDate(currentDateParsed));
                 //update weekchart:
                 setDataWeekChart(xAxis,chartWeek);
             }
@@ -138,7 +142,32 @@ public class RecommendationsWeek extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                currentDate.setText(currentDateParsed.minusWeeks(1).toString() + "\nto\n" + currentDateParsed.toString()); //this will be changed later
+                currentDate.setText(printDate(currentDateParsed)); //this will be changed later
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
+            }
+        }));
+
+        /* SWITCH BETWEEN WEEKS */
+        //dateBack:
+        Button weekBack = findViewById(R.id.dateBackButtonWeek);
+        weekBack.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.minusWeeks(1);
+                currentDate.setText(printDate(currentDateParsed));
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
+            }
+        }));
+
+        //dateForeward:
+        Button weekForeward = findViewById(R.id.dateForewardButtonWeek);
+        weekForeward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusWeeks(1);
+                currentDate.setText(printDate(currentDateParsed)); //this will be changed later
                 //update weekchart:
                 setDataWeekChart(xAxis,chartWeek);
             }
@@ -215,6 +244,10 @@ public class RecommendationsWeek extends AppCompatActivity {
         data.setHighlightEnabled(true);
         chartWeek.setHighlightPerTapEnabled(true);
         chartWeek.invalidate();
+    }
+
+    String printDate(LocalDate localDate){
+        return localDate.compareTo(LocalDate.now())==0? "current week" : localDate.minusWeeks(1).toString() + "\nto\n" + localDate.toString();
     }
 
 }
