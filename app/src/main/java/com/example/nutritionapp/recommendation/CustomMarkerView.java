@@ -14,7 +14,7 @@ import com.github.mikephil.charting.utils.Utils;
 
 import org.threeten.bp.LocalDate;
 
-/* necessary to show marker_view (with text) on click - Philipp Jahoda */
+/* necessary to show marker_view (with text) on click - according to Philipp Jahoda example */
 public class CustomMarkerView extends MarkerView {
 
     private final TextView tv;
@@ -44,12 +44,14 @@ public class CustomMarkerView extends MarkerView {
             //tv.setText(Utils.formatNumber(ce.get));
         } else {
 
-            tv.setText(oneWeekAgo.plusDays((long) e.getX()).toString() + "\nNutrition value: " + Utils.formatNumber(e.getY(),2,true));
+            String printDate = oneWeekAgo.plusDays((long) e.getX()).compareTo(LocalDate.now())==0? "today" : oneWeekAgo.plusDays((long) e.getX()).toString();
+            tv.setText(printDate + "\nNutrition value: " + Utils.formatNumber(e.getY(),2,true));
             //tv.setText(Utils.formatNumber(e.getX(),0,true));
         }
 
         super.refreshContent(e, highlight);
     }
+
 
     @Override
     public MPPointF getOffset() {

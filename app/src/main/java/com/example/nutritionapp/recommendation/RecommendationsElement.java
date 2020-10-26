@@ -3,8 +3,10 @@ package com.example.nutritionapp.recommendation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,6 +34,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -45,6 +49,7 @@ public class RecommendationsElement extends AppCompatActivity {
     private NutritionElement nutritionElement;
     HashMap<Integer, ArrayList<Food>> foodList;
     ArrayList<Food> allFood;
+    LocalDate currentDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,7 @@ public class RecommendationsElement extends AppCompatActivity {
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
+
         //back home button:
         tb_back.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -95,9 +101,6 @@ public class RecommendationsElement extends AppCompatActivity {
         chartElement.getDescription().setText("");
         chartElement.setDrawGridBackground(false);
 
-
-
-
 /*        chartElement.setTouchEnabled(false);
         chartElement.getLegend().setEnabled(false);*/
 
@@ -113,7 +116,6 @@ public class RecommendationsElement extends AppCompatActivity {
         yAxis.setGranularity(1f);
         yAxis.setAxisMinimum(0);
 
-        xAxis.setDrawLabels(false);
 
         //Marker
         MarkerView mv = new CustomMarkerView(this, R.layout.marker_view);
@@ -122,11 +124,39 @@ public class RecommendationsElement extends AppCompatActivity {
 
         //data
         setData(chartElement);
+
+        //headline
+        TextView headline = findViewById(R.id.textViewHeadline);
+        headline.setText("week overview");
+
+
+        /* SWITCH BETWEEN WEEKS */
+        //dateBack:
+        Button weekBack = findViewById(R.id.dateBackButtonWeek);
+        weekBack.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.minusWeeks(1);
+                //update chart:
+                setData(chartElement);
+            }
+        }));
+
+        //dateForward:
+        Button weekForward = findViewById(R.id.dateForewardButtonWeek);
+        weekForward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusWeeks(1);
+                //update chart:
+                setData(chartElement);
+            }
+        }));
     }
 
 
     void setData(LineChart lineChart) {
-        LocalDate currentDateParsed = LocalDate.now();
+        LocalDate oneWeekAgo = currentDateParsed.minusWeeks(1);
         ArrayList<Entry> entries = new ArrayList<>();
         /* daily NutritionAnalysis - ONE WEEK */
         for  (int i = 6; i >= 0; i--) {
@@ -141,6 +171,20 @@ public class RecommendationsElement extends AppCompatActivity {
         //style
         lineDataSet.setLineWidth(3f);
         lineDataSet.setCircleRadius(5f);
+
+
+
+        /* set x-axis label */
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setLabelCount(7);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                Integer doM = oneWeekAgo.plusDays((int)value).getDayOfMonth();
+                Integer moY = oneWeekAgo.plusDays((int)value).getMonthValue();
+                return doM.toString() + "." + moY.toString();
+            }
+        });
         LineData data = new LineData(lineDataSet);
         lineChart.setData(data);
         lineChart.invalidate();
