@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/markerView"
+    android:layout_width="wrap_content"
+    android:layout_height="55dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/marker_box"
+    tools:ignore="Overdraw">
+
+    <TextView
+        android:id="@+id/tv_marker_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:text=""
+        android:textColor="@color/colorBlack"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

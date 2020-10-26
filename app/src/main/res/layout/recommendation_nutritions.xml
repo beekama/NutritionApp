@@ -8,21 +8,48 @@
         android:id="@+id/nutritionName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRecommendation" />
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="@id/startNE"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startNE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRecommendation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_percent="0.5"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChar"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guidelineRecommendation" />
-
+        app:layout_constraintStart_toEndOf="@+id/guidelineRecommendation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!--
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRecommendationv2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <Button
+        android:id="@+id/toRecommendation"
+        android:text="Rec"
+        style="@style/Buttontext_toRec"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="@id/guidelineRecommendationv2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout> -->

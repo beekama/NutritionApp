@@ -17,32 +17,71 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
+    <!-- guidline veritcal since we use scalable strings in textview -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuidline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vGuidline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7"/>
+
     <TextView
         android:id="@+id/textviewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/target_overview_dateText"
+        app:layout_constraintStart_toEndOf="@id/vGuidline1"
+        app:layout_constraintEnd_toStartOf="@+id/vGuidline2"
         app:layout_constraintTop_toTopOf="@id/dateGuidline"
+        android:layout_marginTop="5dp"
         />
 
 
     <Button
-        android:id="@+id/dateBackButton"
-        android:text="@string/backArrow"
+        android:id="@+id/dateBackButtonWeek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/textviewDate"
-        app:layout_constraintEnd_toStartOf="@+id/textviewDate"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@android:color/transparent"
+        android:text="@string/backDoubleArrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dateGuidline" />
+
+    <Button
+        android:id="@+id/dateBackButton"
+        android:text="@string/backArrow"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/dateBackButtonWeek"
+        app:layout_constraintStart_toEndOf="@id/dateBackButtonWeek"
+        app:layout_constraintEnd_toStartOf="@id/vGuidline1"
+        />
 
     <Button
         android:id="@+id/dateForewardButton"
         android:text="@string/ForewArrow"
+        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/textviewDate"
-        app:layout_constraintStart_toEndOf="@+id/textviewDate"
+        app:layout_constraintTop_toTopOf="@+id/dateBackButtonWeek"
+        app:layout_constraintStart_toEndOf="@id/vGuidline2"
+        app:layout_constraintEnd_toStartOf="@id/dateForewardButtonWeek" />
+
+    <Button
+        android:id="@+id/dateForewardButtonWeek"
+        android:text="@string/ForeDoublewArrow"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/dateBackButtonWeek"
+
         app:layout_constraintEnd_toEndOf="parent" />
 
 

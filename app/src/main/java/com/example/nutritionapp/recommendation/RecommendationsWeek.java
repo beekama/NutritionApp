@@ -1,11 +1,14 @@
 package com.example.nutritionapp.recommendation;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +27,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.time.LocalDate;
@@ -59,6 +65,7 @@ public class RecommendationsWeek extends AppCompatActivity {
 
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        tb_title.setText("weekly targets");
 
         //back home button:
         tb_back.setOnClickListener((new View.OnClickListener() {
@@ -85,6 +92,9 @@ public class RecommendationsWeek extends AppCompatActivity {
         yAxis.setGranularity(1f);
         yAxis.setAxisMinimum(0f);
         chartWeek.animateY(1000);
+        YAxis rightAxis = chartWeek.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setDrawLabels(false);
 
         //no labels since we use legend
         xAxis.setDrawLabels(false);
@@ -93,9 +103,24 @@ public class RecommendationsWeek extends AppCompatActivity {
         //data
         setDataWeekChart(xAxis,chartWeek);
 
+        //listen on bars for clicks:
+        chartWeek.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Intent myIntent = new Intent(chartWeek.getContext(), RecommendationsElement.class);
+                myIntent.putExtra("nutritionelement", (NutritionElement) e.getData());
+                startActivity(myIntent);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDateW);
-        currentDate.setText(currentDateParsed.minusWeeks(1).toString() + " to " + currentDateParsed.toString());
+        currentDate.setText(printDate(currentDateParsed));
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -104,7 +129,7 @@ public class RecommendationsWeek extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                currentDate.setText(currentDateParsed.toString());
+                currentDate.setText(printDate(currentDateParsed));
                 //update weekchart:
                 setDataWeekChart(xAxis,chartWeek);
             }
@@ -116,12 +141,38 @@ public class RecommendationsWeek extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                currentDate.setText(currentDateParsed.toString());
+                currentDate.setText(printDate(currentDateParsed)); //this will be changed later
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
+            }
+        }));
+
+        /* SWITCH BETWEEN WEEKS */
+        //dateBack:
+        Button weekBack = findViewById(R.id.dateBackButtonWeek);
+        weekBack.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.minusWeeks(1);
+                currentDate.setText(printDate(currentDateParsed));
+                //update weekchart:
+                setDataWeekChart(xAxis,chartWeek);
+            }
+        }));
+
+        //dateForeward:
+        Button weekForeward = findViewById(R.id.dateForewardButtonWeek);
+        weekForeward.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDateParsed = currentDateParsed.plusWeeks(1);
+                currentDate.setText(printDate(currentDateParsed)); //this will be changed later
                 //update weekchart:
                 setDataWeekChart(xAxis,chartWeek);
             }
         }));
     }
+
 
 
 
@@ -141,19 +192,38 @@ public class RecommendationsWeek extends AppCompatActivity {
             int[] colors = super.getApplicationContext().getResources().getIntArray(R.array.chartColorCollection);
             for (NutritionElement ne : NutritionElement.values()){
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
-                BarEntry barEntry = new BarEntry(xValue++,weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne));
+                //create barEntry - add nutritionElement as data for accessing RecommendationElement later:
+                BarEntry barEntry = new BarEntry(xValue++,weekNutritionAnalysis.getNutritionPercentageMultipleDays(7).get(ne),ne);
                 barEntries.add(barEntry);
                 BarDataSet barDataSet = new BarDataSet(barEntries,ne.toString());
                 //add color:
                 barDataSet.setColor(colors[xValue]);
                 barDataSets.add((IBarDataSet) barDataSet);
                 Legend l = chartWeek.getLegend();
+                //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);
                 //collection labels for x-axis:
                 //xAxisLabels.add(ne.toString());
             }
         }
-
+        //case no food added within this period:
+        else {
+            int xValue = 0;
+            int[] colors = super.getApplicationContext().getResources().getIntArray(R.array.chartColorCollection);
+            for (NutritionElement ne : NutritionElement.values()) {
+                ArrayList<BarEntry> barEntries = new ArrayList<>();
+                //create barEntry - add nutritionElement as data for accessing RecommendationElement later:
+                BarEntry barEntry = new BarEntry(xValue++, 0, ne);
+                barEntries.add(barEntry);
+                BarDataSet barDataSet = new BarDataSet(barEntries, ne.toString());
+                //add color:
+                barDataSet.setColor(colors[xValue]);
+                barDataSets.add((IBarDataSet) barDataSet);
+                Legend l = chartWeek.getLegend();
+                //l.setOrientation(Legend.LegendOrientation.VERTICAL);
+                l.setWordWrapEnabled(true);
+            }
+        }
 /*        *//* set x-axis label *//*
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -170,10 +240,13 @@ public class RecommendationsWeek extends AppCompatActivity {
         data.setValueTextSize(10f);
         data.setBarWidth(0.9f);
         chartWeek.setData(data);
-        /*barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);*/
-        data.setHighlightEnabled(false);
-        chartWeek.setHighlightPerTapEnabled(false);
+        data.setHighlightEnabled(true);
+        chartWeek.setHighlightPerTapEnabled(true);
         chartWeek.invalidate();
+    }
+
+    String printDate(LocalDate localDate){
+        return localDate.compareTo(LocalDate.now())==0? "current week" : localDate.minusWeeks(1).toString() + "\nto\n" + localDate.toString();
     }
 
 }
