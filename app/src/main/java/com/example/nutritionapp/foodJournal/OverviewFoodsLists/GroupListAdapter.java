@@ -40,7 +40,10 @@ public class GroupListAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.journal_foods_foodgroup, parent, false);
+
+        if(convertView == null) {
+            convertView = inflater.inflate(R.layout.journal_foods_foodgroup, parent, false);
+        }
 
         TextView foodsInGroupListItem = convertView.findViewById(R.id.foodsInGroup);
         GroupFoodItem item = (GroupFoodItem) this.getItem(position);
@@ -60,7 +63,7 @@ public class GroupListAdapter extends BaseAdapter {
             }
             allFoods.append(f.name);
         }
-        
+
         foodsInGroupListItem.setText(allFoods.toString());
         return convertView;
     }
