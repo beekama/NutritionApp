@@ -395,17 +395,19 @@ public class Database {
         }
 
         /* search for any custom foods that are not localized */
-        String [] whereArgsCustom = { "app_custom", "%" + substring + "%", "disabled"};
-        Cursor customFoods = db.query(FOOD_TABLE, columns, "data_type == ? and description LIKE ? and data_type != ?", whereArgsCustom, null, null, orderBy, null);
-        if (customFoods.moveToFirst()) {
-            do {
-                String foodId = customFoods.getString(0);
-                String description = customFoods.getString(1);
-                Food f = new Food(description, foodId);
-                foods.add(f);
-            } while (customFoods.moveToNext());
+        if(getLanguagePref() != null && !getLanguagePref().equals("en")) {
+            String[] whereArgsCustom = {"app_custom", "%" + substring + "%", "disabled"};
+            Cursor customFoods = db.query(FOOD_TABLE, columns, "data_type == ? and description LIKE ? and data_type != ?", whereArgsCustom, null, null, orderBy, null);
+            if (customFoods.moveToFirst()) {
+                do {
+                    String foodId = customFoods.getString(0);
+                    String description = customFoods.getString(1);
+                    Food f = new Food(description, foodId);
+                    foods.add(f);
+                } while (customFoods.moveToNext());
+            }
+            customFoods.close();
         }
-        customFoods.close();
 
         c.close();
         return foods;
