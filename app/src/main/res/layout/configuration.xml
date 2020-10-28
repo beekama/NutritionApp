@@ -208,6 +208,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <TextView
+            android:id="@+id/languageSelectionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Language Selection"
+            app:layout_constraintTop_toBottomOf="@+id/meConfig_submit"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            />
+
+        <CheckBox
+            android:id="@+id/languageSelectionDE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Localization DE"
+            app:layout_constraintTop_toBottomOf="@+id/languageSelectionTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

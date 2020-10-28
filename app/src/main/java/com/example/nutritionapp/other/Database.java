@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -224,6 +225,8 @@ public class Database {
         String[] whereArgs = { foodId };
         Cursor c = db.query(FOOD_TABLE, columns, "fdc_id = ?", whereArgs, null, null, null);
 
+        String altDescription = getLocalizedDescriptionForId(foodId);
+
         if(foodCache.containsKey(foodId)){
             return foodCache.get(foodId);
         }else {
@@ -236,7 +239,12 @@ public class Database {
             }
 
             if (c.moveToFirst()) {
-                String foodName = c.getString(0);
+                String foodName;
+                if(altDescription == null) {
+                    foodName = c.getString(0);
+                }else{
+                    foodName = altDescription;
+                }
                 Food f = new Food(foodName, foodId, this, loggedAt);
                 foodCache.put(foodId, f);
                 c.close();
@@ -246,6 +254,21 @@ public class Database {
             return null;
         }
 
+    }
+
+    private String getLocalizedDescriptionForId(String foodId) {
+        String[] columns = {"description"};
+        String[] whereArgs = { foodId };
+        String locTable = "localization_" + getLanguagePref();
+        String altDescription = null;
+        try (Cursor loc = db.query(FOOD_TABLE, columns, "fdc_id = ?", whereArgs, null, null, null)) {
+            if (loc.moveToFirst()) {
+                altDescription = loc.getString(0);
+            }
+        } catch (SQLException ignored) {
+
+        }
+        return altDescription;
     }
 
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
@@ -318,7 +341,12 @@ public class Database {
 
         String[] columns = {"fdc_id", "description"};
         String[] whereArgs = { name };
-        Cursor c = db.query(FOOD_TABLE, columns, "description = ?", whereArgs, null, null, null);
+
+        String table = FOOD_TABLE;
+        if(getLanguagePref() != null && !getLanguagePref().equals("en")){
+            table = "localization_" + getLanguagePref();
+        }
+        Cursor c = db.query(table, columns, "description = ?", whereArgs, null, null, null);
 
         ArrayList<Food> foods = new ArrayList<>();
 
@@ -341,8 +369,8 @@ public class Database {
         String[] columns = {"fdc_id", "description"};
         String[] whereArgs = { "%" + substring + "%", "disabled"};
         String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC, LENGTH(description) ASC", substring, substring);
-        Cursor c = db.query(table, columns, "description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
 
+        Cursor c = db.query(table, columns, "description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
         ArrayList<Food> foods = new ArrayList<>();
         if(substring.isEmpty()){
             c.close();
@@ -357,6 +385,20 @@ public class Database {
                 foods.add(f);
             } while (c.moveToNext());
         }
+
+        /* search for any custom foods that are not localized */
+        String [] whereArgsCustom = { "app_custom", "%" + substring + "%", "disabled"};
+        Cursor customFoods = db.query(table, columns, "data_type != ? description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
+        if (customFoods.moveToFirst()) {
+            do {
+                String foodId = customFoods.getString(0);
+                String description = customFoods.getString(1);
+                Food f = new Food(description, foodId);
+                foods.add(f);
+            } while (customFoods.moveToNext());
+        }
+        customFoods.close();
+
         c.close();
         return foods;
     }
@@ -766,6 +808,18 @@ public class Database {
         int weight = this.getPersonWeight();
         double bmi = weight / ((height * height) / 10000.0);
         return Math.round(bmi * 100.0) / 100.0;
+    }
+
+    public void setLanguagePref(String languagePref){
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("languagePref", languagePref);
+        editor.apply();
+    }
+
+    public String getLanguagePref() {
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        return pref.getString("languagePref", null);
     }
 
     public void close() {

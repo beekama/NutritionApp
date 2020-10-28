@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class PersonalInformation extends AppCompatActivity {
         final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
         final EditText etCalories = (EditText) findViewById(R.id.et_meConfig_calories);
         final TextView bmiDisplay = (TextView) findViewById(R.id.tv_meConfig_BMI);
-
+        final CheckBox languageSelectionDE = (CheckBox) findViewById(R.id.languageSelectionDE);
 
         ConstraintLayout layout = findViewById(R.id.meConfigLayout);
         loadAndSetGender(db, etGender);
@@ -74,6 +75,17 @@ public class PersonalInformation extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+
+        if(db.getLanguagePref() != null && db.getLanguagePref().equals("de")){
+            languageSelectionDE.setChecked(true);
+        }
+        languageSelectionDE.setOnCheckedChangeListener((button, isChecked) -> {
+            if(isChecked){
+                db.setLanguagePref("de");
+            }else{
+                db.setLanguagePref("en");
+            }
         });
     }
 
