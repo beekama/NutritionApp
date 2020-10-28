@@ -388,7 +388,7 @@ public class Database {
 
         /* search for any custom foods that are not localized */
         String [] whereArgsCustom = { "app_custom", "%" + substring + "%", "disabled"};
-        Cursor customFoods = db.query(table, columns, "data_type != ? description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
+        Cursor customFoods = db.query(table, columns, "data_type != ? and description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
         if (customFoods.moveToFirst()) {
             do {
                 String foodId = customFoods.getString(0);
