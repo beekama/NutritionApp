@@ -85,26 +85,6 @@ def createDB(count):
     os.system("rm {}".format(DB_TARGET_PATH))
     os.system("sqlite3 -init {} {} <<EOF".format(DB_INIT_FILE_NEW, DB_TARGET_PATH))
 
-def translateDE():
-    '''Translate the Database to DE'''
-
-    print("Run translation.. (this may take a long time")
-    os.system("cp " + DB_TARGET_PATH + " " + DB_TARGET_PATH_DE)
-    conn = sqlite3.connect(DB_TARGET_PATH)
-    connW = sqlite3.connect(DB_TARGET_PATH_DE)
-    c = conn.cursor()
-    cw = connW.cursor()
-    rows = c.execute("SELECT fdc_id, description FROM food;")
-    for r in rows:
-        fdcId, description = r
-        cmd = ['./trans', '-brief', 'en:de', '{}'.format(description)]
-        print(cmd)
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-        output = proc.stdout.read()
-        translated = output.decode("UTF-8")
-        print(translated)
-        cw.execute("UPDATE food set description = ? where fdc_id = ?", (translated, fdcId))
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Database Generator for nutrition app')
 
@@ -112,8 +92,6 @@ if __name__ == "__main__":
                             help="Remove all chached/temp files")
     parser.add_argument("--recreate-db", action="store_const", default=False, const=True,
                             help="Recreate Database init files and database")
-    parser.add_argument("--translate", action="store_const", default=False, const=True,
-                            help="Recreate database with german translation")
 
     args = parser.parse_args()
     if args.clean:
@@ -122,6 +100,3 @@ if __name__ == "__main__":
         filterAndReplace()
         count = split()
         createDB(count)
-    if args.translate:
-        raise NotImplementedError()
-        translateDE()
