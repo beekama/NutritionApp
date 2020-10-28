@@ -772,6 +772,15 @@ public class Database {
         db.close();
     }
 
+    public ArrayList<PortionTypes> portionsForFood(Food food) {
+        ArrayList<PortionTypes> ret = new ArrayList<>();
+        ret.add(PortionTypes.GRAM);
+        ret.add(PortionTypes.CUP);
+        ret.add(PortionTypes.HAND);
+        ret.add(PortionTypes.LITER);
+        return ret;
+    }
+
     private static class SuggestionHelper implements Comparable<SuggestionHelper>{
         public int counter;
         public Food food;

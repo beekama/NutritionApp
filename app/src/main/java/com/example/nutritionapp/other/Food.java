@@ -31,21 +31,8 @@ public class Food {
     public Food(String foodName, String foodId, Database db, LocalDateTime loggedAt) {
         this.name = foodName;
         this.id = foodId;
-        HashMap<String, Integer> nutrients = null;
         if(db != null) {
-            nutrients = db.getNutrientsForFood(foodId);
-        }
-        if(nutrients != null) {
-            Integer fiber = nutrients.get(DB_ID_FIBER);
-            Integer energy = nutrients.get(DB_ID_ENERGY);
-            this.fiber = Utils.zeroIfNull(fiber);
-            this.energy = Utils.zeroIfNull(energy);
-            this.nutrition = new Nutrition(nutrients);
-        }else{
-            this.fiber = 0;
-            this.energy = 0;
-            this.nutrition = new Nutrition();
-            Log.w("FOOD_DB", "Nutrition Information was Null");
+            setNutritionFromDb(db);
         }
         this.loggedAt = loggedAt;
     }
@@ -88,6 +75,23 @@ public class Food {
 
     public JSONObject toJsonObject() {
         return null;
+    }
+
+    public void setNutritionFromDb(Database db) {
+        HashMap<String, Integer> nutrients ;
+        nutrients = db.getNutrientsForFood(this.id);
+        if(nutrients != null) {
+            Integer fiber = nutrients.get(DB_ID_FIBER);
+            Integer energy = nutrients.get(DB_ID_ENERGY);
+            this.fiber = Utils.zeroIfNull(fiber);
+            this.energy = Utils.zeroIfNull(energy);
+            this.nutrition = new Nutrition(nutrients);
+        }else{
+            this.fiber = 0;
+            this.energy = 0;
+            this.nutrition = new Nutrition();
+            Log.w("FOOD_DB", "Nutrition Information was Null");
+        }
     }
 }
 

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -9,12 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/portionTypeSelector"
         android:textSize="25sp"
         />
 
-    <HorizontalScrollView
 
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/portionTypeSelector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,11 +23,9 @@
         app:layout_constraintTop_toBottomOf="@id/foodName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/amountSelector"
         />
 
-    <HorizontalScrollView
-
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/amountSelector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,10 +34,9 @@
         app:layout_constraintTop_toBottomOf="@id/portionTypeSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/nutritionOverview"
-        />
+    />
 
-    <TextView
+    <ListView
 
         android:id="@+id/nutritionOverview"
         android:layout_width="match_parent"
@@ -49,7 +46,6 @@
         app:layout_constraintTop_toBottomOf="@id/amountSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cancelButton"
         />
 
     <Button
@@ -57,7 +53,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/amountSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/confirmButton"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,7 +63,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/amountSelector"
         app:layout_constraintStart_toEndOf="@id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

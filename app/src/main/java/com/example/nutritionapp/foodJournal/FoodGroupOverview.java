@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,14 +23,17 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogFoodSelector;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogAmountSelector;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.NutrionOverviewAdapter;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.PortionTypes;
 import com.example.nutritionapp.other.Utils;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FoodGroupOverview extends AppCompatActivity {
 
@@ -45,6 +49,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     ListView selectedListView;
     final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
     ListView suggestions;
+    ListView nutOverviewList;
     Database db;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +74,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         dateView = findViewById(R.id.date);
         timeView = findViewById(R.id.time);
 
-        TextView nutOverviewPlaceholder = findViewById(R.id.nutritionOverview);
-        nutOverviewPlaceholder.setText(R.string.placeholder);
+        nutOverviewList = findViewById(R.id.nutritionOverview);
         Button addNewButton = findViewById(R.id.addButton);
         addNewButton.setText(R.string.addSingleFood);
 
@@ -137,6 +141,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             db.close();
             finish();
         });
+
     }
 
     private void addSelectedFoodItem(SelectedFoodItem foodItem) {
@@ -160,8 +165,8 @@ public class FoodGroupOverview extends AppCompatActivity {
         updateSuggestionList(this.db.getSuggestionsForCombination(this.selected), this.suggestionsByPrevSelected, this.suggestions);
     }
 
-    private void runFoodSelectionPipeline(ListFoodItem selectedFood, int position) {
-        if(selectedFood == null){
+    private void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
+        if(selectedFoodItem == null){
             Dialog foodSelectionDialog = new DialogFoodSelector(this);
             foodSelectionDialog.setOnDismissListener(dialog -> {
                 DialogFoodSelector castedDialog = (DialogFoodSelector) dialog;
@@ -169,7 +174,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             });
             displaySelectorDialog(foodSelectionDialog);
         }else {
-            runAmountSelectorDialog(selectedFood.food, position);
+            runAmountSelectorDialog(selectedFoodItem.food, position);
         }
     }
 
@@ -191,7 +196,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         if(selectedFood == null){
             return;
         }
-        DialogAmountSelector amountSelector = new DialogAmountSelector(this);
+        DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
@@ -214,8 +219,6 @@ public class FoodGroupOverview extends AppCompatActivity {
             }else{
                 updateSelectedFoodItem(sf, position);
             }
-
-            //TODO update nutrition overview
         });
 
         displaySelectorDialog(amountSelector);
@@ -243,6 +246,8 @@ public class FoodGroupOverview extends AppCompatActivity {
         SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getApplicationContext(), sfi);
         selectedListView.setAdapter(newAdapter);
         selectedListView.invalidate();
+
+        updateNutritionOverview();
     }
 
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
@@ -257,6 +262,16 @@ public class FoodGroupOverview extends AppCompatActivity {
         suggestions.invalidate();
         SelectableFoodListAdapter adapter = new SelectableFoodListAdapter(getApplicationContext(), suggestionsPrevSelected);
         suggestions.setAdapter(adapter);
+    }
+
+    private void updateNutritionOverview() {
+        ArrayList<Food> analysis = new ArrayList<>();
+        for(SelectedFoodItem sfi : selected){
+            analysis.add(sfi.food);
+        }
+        NutritionAnalysis na = new NutritionAnalysis(analysis);
+        ListAdapter nutOverviewAdapter = new NutrionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
+        nutOverviewList.setAdapter(nutOverviewAdapter);
     }
 
 }
