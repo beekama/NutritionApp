@@ -261,7 +261,7 @@ public class Database {
         String[] whereArgs = { foodId };
         String locTable = "localization_" + getLanguagePref();
         String altDescription = null;
-        try (Cursor loc = db.query(FOOD_TABLE, columns, "fdc_id = ?", whereArgs, null, null, null)) {
+        try (Cursor loc = db.query(locTable, columns, "fdc_id = ?", whereArgs, null, null, null)) {
             if (loc.moveToFirst()) {
                 altDescription = loc.getString(0);
             }
@@ -369,8 +369,16 @@ public class Database {
         String[] columns = {"fdc_id", "description"};
         String[] whereArgs = { "%" + substring + "%", "disabled"};
         String orderBy = String.format("description = \"%s\" DESC, description LIKE \"%s%%\" DESC, LENGTH(description) ASC", substring, substring);
+        String selectionStm = "description LIKE ? and data_type != ?";
 
-        Cursor c = db.query(table, columns, "description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
+        if(getLanguagePref() != null && !getLanguagePref().equals("en")){
+            table = "localization_" + getLanguagePref();
+            selectionStm = "description LIKE ?";
+            whereArgs = new String[1];
+            whereArgs[0] = "%" + substring + "%";
+        }
+
+        Cursor c = db.query(table, columns, selectionStm, whereArgs, null, null, orderBy, null);
         ArrayList<Food> foods = new ArrayList<>();
         if(substring.isEmpty()){
             c.close();
@@ -388,7 +396,7 @@ public class Database {
 
         /* search for any custom foods that are not localized */
         String [] whereArgsCustom = { "app_custom", "%" + substring + "%", "disabled"};
-        Cursor customFoods = db.query(table, columns, "data_type != ? and description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
+        Cursor customFoods = db.query(FOOD_TABLE, columns, "data_type != ? and description LIKE ? and data_type != ?", whereArgs, null, null, orderBy, null);
         if (customFoods.moveToFirst()) {
             do {
                 String foodId = customFoods.getString(0);
