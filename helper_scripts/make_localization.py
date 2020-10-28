@@ -40,13 +40,24 @@ def runTranslate(limit, offset, language):
 
     insertCursor = conn.cursor()
     translateClient = translate.Client()
-    for r in rows:
-        fdcId, description = r
-        # TODO check exists insertCursor.execute("SELECT")
-        translation = gApiTranslate(description, language, translateClient)
-        insertCursor.execute("INSERT INTO {} VALUES(?,?);".format(table), (fdcId, translation))
-        print("Translating: {} ( {} -> {} )".format(fdcId, description, translation))
-        conn.commit()
+    with open("localization_log_{}.log".format(language), "a") as f:
+        for r in rows:
+            fdcId, description = r
+
+            # sanity check id exists #
+            fdcIdExists = False
+            testRows = insertCursor.execute("SELECT * from {} WHERE fdc_id = ?".format(table), (fdcId,))
+            for r in testRows:
+                fdcIdExists = True
+            if fdcIdExists:
+                print("Skipping existing ID {}".format(fdcId))
+                continue
+
+            translation = gApiTranslate(description, language, translateClient)
+            insertCursor.execute("INSERT INTO {} VALUES(?,?);".format(table), (fdcId, translation))
+            print("Translating: {} ( {} -> {} )".format(fdcId, description, translation))
+            f.write("{}|{}|{}\n".format(fdcId, description, language))
+            conn.commit()
 
     conn.commit()
 
