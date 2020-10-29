@@ -74,7 +74,7 @@ public class DialogFoodSelector extends Dialog {
                 searchFieldEditText.clearFocus();
             }
             this.selectedFood = ((ListFoodItem) parent.getItemAtPosition(position)).food;
-            db.close();
+            //db.close();
             dismiss();
         });
 
@@ -84,7 +84,7 @@ public class DialogFoodSelector extends Dialog {
                 searchFieldEditText.clearFocus();
             }
             this.selectedFood = null;
-            db.close();
+            //db.close();
             dismiss();
         });
     }

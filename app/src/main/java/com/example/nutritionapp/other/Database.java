@@ -48,18 +48,22 @@ public class Database {
     private static final String DEFAULT_NUTRIENT_DB = "food_nutrient_00";
 
     final String FILE_KEY = "DEFAULT";
-    private SQLiteDatabase db;
-    private final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
-    private final Activity srcActivity;
+    private static SQLiteDatabase db = null;
+    private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
+    private Activity srcActivity;
     private HashMap<String,Food> foodCache = new HashMap<>();
     String targetPath;
 
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
-        targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
-        createDatabase(false);
-        db = SQLiteDatabase.openDatabase(targetPath, null,  NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
-        generateNutritionTableSelectionMap();
+        if (db == null){
+            targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
+            createDatabase(false);
+            db = SQLiteDatabase.openDatabase(targetPath, null, NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
+        }
+        if(fdcIdToDbNumber.isEmpty()){
+            generateNutritionTableSelectionMap();
+        }
     }
 
     @SuppressLint("ApplySharedPref")
@@ -257,6 +261,9 @@ public class Database {
     }
 
     private String getLocalizedDescriptionForId(String foodId) {
+        if(getLanguagePref() == null || getLanguagePref().equals("en")){
+            return null;
+        }
         String[] columns = {"description"};
         String[] whereArgs = { foodId };
         String locTable = "localization_" + getLanguagePref();
