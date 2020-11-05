@@ -1,7 +1,7 @@
 781083|Milk|Milch
-781084|Milk, whole|Milch, ganz
-781085|Milk, low sodium, whole|Milch, natriumarm, ganz
-781086|Milk, calcium fortified, whole|Milch, Kalzium angereichert, ganz
+781084|Milk, whole|Vollmilch
+781085|Milk, low sodium, whole|Vollmilch, natriumarm
+781086|Milk, calcium fortified, whole|Vollmilch, Kalzium angereichert
 781087|Milk, calcium fortified, low fat (1%)|Milch, mit Kalzium angereichert, fettarm (1%)
 781088|Milk, calcium fortified, fat free (skim)|Milch, Kalzium angereichert, fettfrei (Magermilch)
 781089|Milk, reduced fat (2%)|Milch, fettarm (2%)
@@ -12,27 +12,27 @@
 781094|Milk, lactose free, low fat (1%)|Milch, laktosefrei, fettarm (1%)
 781095|Milk, lactose free, fat free (skim)|Milch, laktosefrei, fettfrei (Magermilch)
 781096|Milk, lactose free, reduced fat (2%)|Milch, laktosefrei, fettarm (2%)
-781097|Milk, lactose free, whole|Milch, laktosefrei, ganz
+781097|Milk, lactose free, whole|Vollmilch, laktosefrei
 781098|Buttermilk, fat free (skim)|Buttermilch, fettfrei (Magermilch)
 781099|Buttermilk, low fat (1%)|Buttermilch, fettarm (1%)
 781100|Buttermilk, reduced fat (2%)|Buttermilch, fettarm (2%)
-781101|Buttermilk, whole|Buttermilch, ganz
-781103|Goat's milk, whole|Ziegenmilch, ganz
-781105|Milk, dry, reconstituted, whole|Milch, trocken, rekonstituiert, ganz
-781106|Milk, dry, reconstituted, low fat (1%)|Milch, trocken, rekonstituiert, fettarm (1%)
-781107|Milk, dry, reconstituted, fat free (skim)|Milch, trocken, rekonstituiert, fettfrei (Magermilch)
-781109|Milk, evaporated, whole |Milch, verdampft, ganz
-781110|Milk, evaporated, reduced fat (2%)|Milch, eingedampft, fettarm (2%)
-781111|Milk, evaporated, fat free (skim)|Milch, eingedampft, fettfrei (Magermilch)
+781101|Buttermilk, whole|Buttermilch
+781103|Goat's milk, whole|Ziegenmilch
+781105|Milk, dry, reconstituted, whole|Trockenmilch
+781106|Milk, dry, reconstituted, low fat (1%)|Trockenmilch, fettarm (1%)
+781107|Milk, dry, reconstituted, fat free (skim)|Trockenmilch, fettfrei (Magermilch)
+781109|Milk, evaporated, whole |Kondensmilch, ungesüßt, ganz
+781110|Milk, evaporated, reduced fat (2%)|Kondensmilch, unges�ßt, fettarm (2%)
+781111|Milk, evaporated, fat free (skim)|Kondensmilch, ungesüßt, fettfrei (Magermilch)
 781112|Milk, condensed, sweetened|Milch, kondensiert, gesüßt
-781113|Non-dairy milk|Milchfreie Milch
-781114|Soy milk|Ich bin Milch
-781115|Soy milk, light|Sojamilch, leicht
+781113|Non-dairy milk|Pflanzenmilch
+781114|Soy milk|Sojamilch
+781115|Soy milk, light|Sojamilch, fettarm
 781116|Soy milk, nonfat|Sojamilch, fettfrei
 781117|Soy milk, chocolate|Sojamilch, Schokolade
-781118|Soy milk, light, chocolate|Sojamilch, leicht, Schokolade
+781118|Soy milk, light, chocolate|Sojamilch, fettarm, Schokolade
 781119|Soy milk, nonfat, chocolate|Sojamilch, fettfrei, Schokolade
-781120|Imitation milk, non-soy, sweetened|Nachahmungsmilch, nicht Soja, gesüßt
+781120|Imitation milk, non-soy, sweetened|Milchimitat, nicht Soja, gesüßt
 781121|Almond milk, sweetened|Mandelmilch, gesüßt
 781122|Almond milk, sweetened, chocolate|Mandelmilch, gesüßt, Schokolade
 781123|Almond milk, unsweetened|Mandelmilch, ungesüßt
@@ -40,25 +40,25 @@
 781125|Rice milk|Reismilch
 781126|Coconut milk|Kokosmilch
 781127|Yogurt|Joghurt
-781131|Yogurt, whole milk, plain|Joghurt, Vollmilch, einfach
-781132|Yogurt, low fat milk, plain|Joghurt, fettarme Milch, einfach
-781133|Yogurt, nonfat milk, plain|Joghurt, fettfreie Milch, normal
-781135|Yogurt, Greek, whole milk, plain|Joghurt, Griechisch, Vollmilch, normal
-781136|Yogurt, Greek, low fat milk, plain|Joghurt, Griechisch, fettarme Milch, einfach
-781137|Yogurt, Greek, nonfat milk, plain|Joghurt, Griechisch, fettfreie Milch, normal
-781139|Yogurt, whole milk, fruit|Joghurt, Vollmilch, Obst
-781140|Yogurt, low fat milk, fruit|Joghurt, fettarme Milch, Obst
-781141|Yogurt, nonfat milk, fruit|Joghurt, fettfreie Milch, Obst
-781143|Yogurt, Greek, whole milk, fruit|Joghurt, Griechisch, Vollmilch, Obst
-781144|Yogurt, Greek, low fat milk, fruit|Joghurt, Griechisch, fettarme Milch, Obst
-781145|Yogurt, Greek, nonfat milk, fruit|Joghurt, Griechisch, fettfreie Milch, Obst
-781147|Yogurt, whole milk, flavors other than fruit|Joghurt, Vollmilch, andere Aromen als Obst
-781148|Yogurt, low fat milk, flavors other than fruit|Joghurt, fettarme Milch, andere Aromen als Obst
-781149|Yogurt, nonfat milk, flavors other than fruit|Joghurt, fettfreie Milch, andere Aromen als Obst
-781151|Yogurt, Greek, whole milk, flavors other than fruit|Joghurt, Griechisch, Vollmilch, andere Aromen als Obst
-781152|Yogurt, Greek, low fat milk, flavors other than fruit|Joghurt, Griechisch, fettarme Milch, andere Aromen als Obst
-781153|Yogurt, Greek, nonfat milk, flavors other than fruit|Joghurt, griechische, fettfreie Milch, andere Aromen als Obst
-781155|Yogurt, liquid|Joghurt, flüssig
+781131|Yogurt, whole milk, plain|Joghurt, natur
+781132|Yogurt, low fat milk, plain|Joghurt, fettarm, natur
+781133|Yogurt, nonfat milk, plain|Joghurt, fettfrei, natur
+781135|Yogurt, Greek, whole milk, plain|Joghurt, Griechisch, natur
+781136|Yogurt, Greek, low fat milk, plain|Joghurt, Griechisch, fettarm, natur
+781137|Yogurt, Greek, nonfat milk, plain|Joghurt, Griechisch, fettfrei, natur
+781139|Yogurt, whole milk, fruit|Joghurt, Obst
+781140|Yogurt, low fat milk, fruit|Joghurt, fettarm, Obst
+781141|Yogurt, nonfat milk, fruit|Joghurt, fettfrei, Obst
+781143|Yogurt, Greek, whole milk, fruit|Joghurt, griechisch, Obst
+781144|Yogurt, Greek, low fat milk, fruit|Joghurt, griechisch, fettarm, Obst
+781145|Yogurt, Greek, nonfat milk, fruit|Joghurt, griechisch, fettfrei, Obst
+781147|Yogurt, whole milk, flavors other than fruit|Joghurt, mit Geschmack
+781148|Yogurt, low fat milk, flavors other than fruit|Joghurt, fettarm, mit Geschmack
+781149|Yogurt, nonfat milk, flavors other than fruit|Joghurt, fettfreie, mit Geschmack
+781151|Yogurt, Greek, whole milk, flavors other than fruit|Joghurt, griechisch, mit Geschmack
+781152|Yogurt, Greek, low fat milk, flavors other than fruit|Joghurt, griechisch, fettarm, mit Geschmack
+781153|Yogurt, Greek, nonfat milk, flavors other than fruit|Joghurt, griechisch, fettfrei, mit Geschmack
+781155|Yogurt, liquid|Joghurtdrink
 781189|Chocolate milk|Schokoladenmilch
 781190|Chocolate milk, ready to drink, whole|Schokoladenmilch, trinkfertig, ganz
 781191|Chocolate milk, ready to drink, reduced fat|Trinkmilch, trinkfertig, fettarm
@@ -69,27 +69,27 @@
 781197|Chocolate milk, ready to drink, low fat, no sugar added (Nesquik)|Schokoladenmilch, trinkfertig, fettarm, ohne Zuckerzusatz (Nesquik)
 781198|Hot chocolate / Cocoa, ready to drink|Heiße Schokolade / Kakao, trinkfertig
 781258|Strawberry milk|Erdbeermilch
-781259|Strawberry milk, whole|Erdbeermilch, ganz
+781259|Strawberry milk, whole|Erdbeermilch, vollmilch
 781260|Strawberry milk, reduced fat|Erdbeermilch, fettarm
 781261|Strawberry milk, low fat|Erdbeermilch, fettarm
 781262|Strawberry milk, fat free|Erdbeermilch, fettfrei
-781263|Strawberry milk, non-dairy|Erdbeermilch, keine Milch
-781264|Milk, malted|Milch, gemälzt
-781265|Eggnog, regular|Eierlikör, regelmäßig
-781266|Eggnog, lowfat / light|Eierlikör, fettarm / leicht
-781267|Milk shake, home recipe, chocolate|Milchshake, Hausrezept, Schokolade
-781268|Milk shake, home recipe, flavors other than chocolate|Milchshake, Hausrezept, andere Aromen als Schokolade
-781269|Milk shake, home recipe, chocolate, light|Milchshake, Hausrezept, Schokolade, leicht
-781270|Milk shake, home recipe, flavors other than chocolate, light|Milchshake, Hausrezept, andere Aromen als Schokolade, leicht
+781263|Strawberry milk, non-dairy|Erdbeermilch, milchersatz
+781264|Milk, malted|Malzmilch
+781265|Eggnog, regular|Eierlikör
+781266|Eggnog, lowfat / light|Eierlikör, fettarm
+781267|Milk shake, chocolate|Milchshake, Schokolade
+781268|Milk shake, flavors other than chocolate|Milchshake, Geschmack nicht Schokolade
+781269|Milk shake, chocolate, light|Milchshake, Hausrezept, Schokolade, fettarm
+781270|Milk shake, flavors other than chocolate, light|Milchshake, Hausrezept, Geschmack nicht Schokolade, fettarm
 781272|Milk shake, fast food, chocolate|Milchshake, Fast Food, Schokolade
-781273|Milk shake, fast food, flavors other than chocolate|Milchshake, Fast Food, andere Aromen als Schokolade
-781274|Milk shake, bottled, chocolate|Milchshake, abgefüllt, Schokolade
-781275|Milk shake, bottled, flavors other than chocolate|Milchshake, abgefüllt, andere Aromen als Schokolade
-781281|Chocolate milk drink|Schokoladenmilchgetränk
-781543|Ice cream soda, flavors other than chocolate|Eis Soda, andere Aromen als Schokolade
-781544|Ice cream soda, chocolate|Eis Soda, Schokolade
+781273|Milk shake, fast food, flavors other than chocolate|Milchshake, Fast Food, Geschmack nicht Schokolade
+781274|Milk shake, bottled, chocolate|Milchshake, abgefüllt, Schokolad
+781275|Milk shake, bottled, flavors other than chocolate|Milchshake, abgefüll, Geschmack nicht Schokolad
+81281|Chocolate milk drink|Schokoladenmilchgetränk
+781543|Ice cream soda, flavors other than chocolate|Eis Soda, Geschmack nicht Schokolade
+781544|Ice cream soda, chocolate|Cream Soda, Schokolade
 781654|Cheese|Käse
-781656|Cheese, Brick|Käse, Ziegel
+781656|Cheese, Brick|Käs, Bric
 781657|Cheese, Camembert|Käse, Camembert
 781658|Cheese, Brie|Käse, Brie
 781659|Cheese, Cheddar|Käse, Cheddar
@@ -105,7 +105,7 @@
 781671|Cheese, Monterey, reduced fat|Käse, Monterey, reduziertes Fett
 781672|Cheese, Mozzarella|Käse, Mozzarella
 781673|Cheese, Mozzarella, whole milk|Käse, Mozzarella, Vollmilch
-781674|Cheese, Mozzarella, part skim|Käse, Mozzarella, Teil überfliegen
+781674|Cheese, Mozzarella, part skim|Käse, Mozzarella, Teientrahmt
 781675|Cheese, Mozzarella, reduced sodium|Käse, Mozzarella, reduziertes Natrium
 781677|Cheese, Muenster|Käse, Münster
 781678|Cheese, Muenster, reduced fat|Käse, Münster, fettarm
@@ -117,9 +117,9 @@
 781684|Cheese, Provolone|Käse, Provolone
 781685|Cheese, provolone, reduced fat|Käse, Provolone, reduziertes Fett
 781686|Cheese, Swiss|Käse, Schweizer
-781687|Cheese, Swiss, reduced sodium|Käse, Schweizer, reduziertes Natrium
+781687|Cheese, Swiss, reduced sodium|Käse, Schweizer,salzrar
 781688|Cheese, Swiss, reduced fat|Käse, Schweizer, fettarm
-781690|Cheese, Cheddar, reduced sodium|Käse, Cheddar, reduziertes Natrium
+781690|Cheese, Cheddar, reduced sodium|Käse, Cheddar,salzar
 781691|Cheese, Mexican blend|Käse, mexikanische Mischung
 781692|Cheese, Mexican blend, reduced fat|Käse, mexikanische Mischung, fettarm
 781693|Queso Anejo, aged Mexican cheese|Anejo-Käse, gereifter mexikanischer Käse
@@ -127,73 +127,73 @@
 781695|Queso Chihuahua|Chihuahua-Käse
 781696|Queso Fresco|Frischkäse
 781697|Queso cotija|Cotija-Käse
-781698|Cheese, cottage|Käse, Hütte
-781700|Cottage cheese, farmer's|Hüttenkäse, Bauer
+781698|Cheese, cottage|Hüttenkäse
+781700|Cottage cheese, farmer's|HüttenkäseBauernart
 781701|Cheese, Ricotta|Käse, Ricotta
-781704|Cheese, cottage, dry curd|Käse, Hütte, trockener Quark
-781705|Cheese, cottage, salted, dry curd|Käse, Hütte, gesalzener, trockener Quark
+781704|Cheese, cottage, dry curd|Hüttenkäse, trockener Quark
+781705|Cheese, cottage, salted, dry curd|H�ttenkäs, gesalzener, trockener Quark
 781706|Puerto Rican white cheese|Puertoricanischer Weißkäse
-781707|Cheese, cottage, low fat|Käse, Hütte, fettarm
-781710|Cheese, cottage, lowfat, low sodium|Käse, Hütte, fettarm, natriumarm
-781711|Cheese, cottage, lowfat, lactose reduced|Käse, Hütte, fettarm, Laktose reduziert
-781715|Cheese, American|Käse, Amerikaner
+781707|Cheese, cottage, low fat|Hüttenkäse, fettarm
+781710|Cheese, cottage, lowfat, low sodium|Hütenäse, fettarm, natriumarm
+781711|Cheese, cottage, lowfat, lactose reduced|Hüttenkäse, fettarm, Laktose reduziert
+781715|Cheese, American|american cheese
 781716|Cheese, American, reduced fat|Käse, amerikanisch, fettarm
 781718|Cheese, American, reduced sodium|Käse, amerikanisch, reduziertes Natrium
 781721|Cheese, processed cheese food|Käse, Schmelzkäse
 781725|Cheese spread, Swiss cheese base|Käseaufstrich, Schweizer Käsebasis
-781728|Cheese spread, pressurized can|Käseaufstrich, Druckdose
+781728|Cheese spread, pressurized can|Käseaufstrich,Sprühdose
 781729|Imitation cheese|Käseimitat
 781810|Meat|Fleisch
 781813|Ground meat|Hackfleisch
 781820|Beef, pickled|Eingelegtes Rindfleisch
-781830|Beef steak, fried, lean only eaten|Rindersteak, gebraten, mager nur gegessen
-781836|Beef steak, battered, fried, lean only eaten|Rindersteak, geschlagen, gebraten, mager nur gegessen
-781839|Beef steak, braised, lean only eaten|Rindersteak, geschmort, mager nur gegessen
+781830|Beef steak, fried, lean only eaten|Rindersteak, gebraten, mager
+781836|Beef steak, battered, fried, lean only eaten|Rindersteak, paniert, gebraten, mager
+781839|Beef steak, braised, lean only eaten|Rindersteak, geschmort, mager
 781840|Beef, oxtails, cooked|Rindfleisch, Ochsenschwänze, gekocht
 781841|Beef, neck bones, cooked|Rindfleisch, Nackenknochen, gekocht
-781844|Beef, shortribs, cooked, lean only eaten|Rindfleisch, Shortribs, gekocht, mager nur gegessen
+781844|Beef, shortribs, cooked, lean only eaten|Rindfleisch, Shortribs, gekocht, mager
 781848|Beef, cow head, cooked|Rindfleisch, Kuhkopf, gekocht
-781851|Beef, roast, roasted, lean only eaten|Rindfleisch, Braten, geröstet, mager nur gegessen
-781852|Beef, roast, canned|Rindfleisch, Braten, Dosen
-781858|Beef, stew meat, cooked, lean only eaten|Rindfleisch, Eintopffleisch, gekocht, mager nur gegessen
-781865|Beef brisket, cooked, lean only eaten|Rinderbrust, gekocht, mager nur gegessen
-781866|Beef, sandwich steak, flaked, formed, thinly sliced|Rindfleisch, Sandwichsteak, abgeplatzt, geformt, in dünne Scheiben geschnitten
+781851|Beef, roast, roasted, lean only eaten|Rostbraten, mager
+781852|Beef, roast, canned|Rostbraten, aus Dose
+781858|Beef, stew meat, cooked, lean only eaten|Rindfleischeintopf, mager
+781865|Beef brisket, cooked, lean only eaten|Rinderbrust, gekocht, mager
+781866|Beef, sandwich steak, flaked, formed, thinly sliced|Sandwich mit Flanksteak, dünne Scheiben
 781867|Ground beef|Rinderhack
 781868|Ground beef, cooked|Hackfleisch, gekocht
 781869|Ground beef patty, cooked|Hackfleischpastetchen, gekocht
-781902|Pork chop, fried, lean only eaten|Schweinekotelett, gebraten, mager nur gegessen
-781908|Pork chop, battered, fried, lean only eaten|Schweinekotelett, geschlagen, gebraten, mager nur gegessen
-781911|Pork chop, stewed, lean only eaten|Schweinekotelett, gedünstet, mager nur gegessen
+781902|Pork chop, fried, lean only eaten|Schweinekotelett, gebraten, mager
+781908|Pork chop, battered, fried, lean only eaten|Schweinekotelett, paniert, gebraten, mager
+781911|Pork chop, stewed, lean only eaten|Schweinekotelett, gedünstet, mage
 781934|Pork, tenderloin, breaded, fried|Schweinefleisch, Filet, paniert, gebraten
 781935|Pork, tenderloin, braised|Schweinefleisch, Filet, geschmort
 781936|Pork, tenderloin, baked|Schweinefleisch, Filet, gebacken
-781937|Pork, tenderloin, battered, fried|Schweinefleisch, Filet, geschlagen, gebraten
-781946|Ham, fresh, cooked, lean only eaten|Schinken, frisch, gekocht, mager nur gegessen
-781960|Pork roast, loin, cooked, lean only eaten|Schweinebraten, Lende, gekocht, mager nur gegessen
+781937|Pork, tenderloin, battered, fried|Schweinefleisch, Filet, paniert, gebraten
+781946|Ham, fresh, cooked, lean only eaten|Schinken, frisch, gekocht, mager
+781960|Pork roast, loin, cooked, lean only eaten|Schweinebraten, Lende, gekocht, mager
 781961|Fried pork chunks, Puerto Rican style|Gebratene Schweinefleischstücke nach puertoricanischer Art
-781964|Pork roast, shoulder, cooked, lean only eaten|Schweinebraten, Schulter, gekocht, mager nur gegessen
-781981|Pork, spareribs, cooked, lean only eaten|Schweinefleisch, Spareribs, gekocht, mager nur gegessen
-781985|Pork, cracklings, cooked|Schweinefleisch, Knistern, gekocht
+781964|Pork roast, shoulder, cooked, lean only eaten|Schweinebraten, Schulter, gekocht, mager
+781981|Pork, spareribs, cooked, lean only eaten|Schweinefleisch, Spareribs, gekocht, mager
+781985|Pork, cracklings, cooked|Schweineschwarte, gekocht
 781986|Pork ears, tail, head, snout, miscellaneous parts, cooked|Schweineohren, Schwanz, Kopf, Schnauze, verschiedene Teile, gekocht
 781987|Pork, neck bones, cooked|Schweinefleisch, Nackenknochen, gekocht
 781988|Pork, pig's feet, cooked|Schweinefleisch, Schweinefüße, gekocht
 781989|Pork, pig's feet, pickled|Schweinefleisch, Schweinefüße, eingelegt
 781990|Pork, pig's hocks, cooked|Schweinefleisch, Schweinshaxen, gekocht
-781991|Pork skin rinds|Schweinehautschalen
+781991|Pork skin rinds|Schweineschwarte, geröstet
 781992|Pork skin, boiled|Schweinehaut, gekocht
-782001|Lamb, loin chop, cooked, lean only eaten|Lamm, Lendenkotelett, gekocht, mager nur gegessen
-782004|Lamb, shoulder chop, cooked, lean only eaten|Lamm, Schulterkotelett, gekocht, mager nur gegessen
-782005|Lamb, ribs, cooked, lean only eaten|Lamm, Rippen, gekocht, mager nur gegessen
+782001|Lamb, loin chop, cooked, lean only eaten|Lamm, Lendenkotelett, gekocht, mager
+782004|Lamb, shoulder chop, cooked, lean only eaten|Lamm, Schulterkotelett, gekocht, mager
+782005|Lamb, ribs, cooked, lean only eaten|Lamm, Rippen, gekocht, mager
 782008|Lamb hocks, cooked|Lamm Sprunggelenke, gekocht
-782011|Lamb, roast, cooked, lean only eaten|Lamm, gebraten, gekocht, mager nur gegessen
+782011|Lamb, roast, cooked, lean only eaten|Lamm, gebraten, gekocht, mager
 782013|Goat, boiled|Ziege, gekocht
 782014|Goat, fried|Ziege, gebraten
 782015|Goat, baked|Ziege, gebacken
 782016|Goat head, cooked|Ziegenkopf, gekocht
 782017|Goat ribs, cooked|Ziegenrippen, gekocht
-782026|Veal chop, fried, lean only eaten|Kalbskotelett, gebraten, mager nur gegessen
-782029|Veal chop, broiled, lean only eaten|Kalbskotelett, gegrillt, mager nur gegessen
-782041|Veal, roasted, lean only eaten|Kalbfleisch, geröstet, mager nur gegessen
+782026|Veal chop, fried, lean only eaten|Kalbskotelett, gebraten, mager
+782029|Veal chop, broiled, lean only eaten|Kalbskotelett, gegrillt, mager
+782041|Veal, roasted, lean only eaten|Kalbfleisch, geröstet, magr
 782043|Mock chicken legs, cooked|Mock Hähnchenschenkel, gekocht
 782044|Veal patty, breaded, cooked|Kalbspastetchen, paniert, gekocht
 782048|Rabbit, wild, cooked|Kaninchen, wild, gekocht
@@ -409,7 +409,7 @@
 782695|Tuna, fresh, smoked|Thunfisch, frisch, geräuchert
 782697|Tuna, canned, oil pack|Thunfisch, Dosen, Ölpackung
 782698|Tuna, canned, water pack|Thunfisch, Dosen, Wasserpackung
-784448|Yogurt, coconut milk|Joghurt, Kokosmilch
+784448|Yogurt, coconut milk|Joghurt, Kokosmilchq
 784449|Coconut cream, canned, sweetened|Kokoscreme, in Dosen, gesüßt
 781744|Cheese souffle|Käsesouffle
 781861|Corned beef, cooked, lean only eaten|Corned Beef, gekocht, mager nur gegessen
