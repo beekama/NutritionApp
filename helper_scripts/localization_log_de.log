@@ -1,6 +1,6 @@
 781083|Milk|Milch
 781084|Milk, whole|Vollmilch
-781085|Milk, low sodium, whole|Vollmilch, natriumarm
+781085|Milk, low sodium, whole|Vollmilch, salzarm
 781086|Milk, calcium fortified, whole|Vollmilch, Kalzium angereichert
 781087|Milk, calcium fortified, low fat (1%)|Milch, mit Kalzium angereichert, fettarm (1%)
 781088|Milk, calcium fortified, fat free (skim)|Milch, Kalzium angereichert, fettfrei (Magermilch)
@@ -83,8 +83,8 @@
 781270|Milk shake, flavors other than chocolate, light|Milchshake, Hausrezept, Geschmack nicht Schokolade, fettarm
 781272|Milk shake, fast food, chocolate|Milchshake, Fast Food, Schokolade
 781273|Milk shake, fast food, flavors other than chocolate|Milchshake, Fast Food, Geschmack nicht Schokolade
-781274|Milk shake, bottled, chocolate|Milchshake, abgefüllt, Schokolad
-781275|Milk shake, bottled, flavors other than chocolate|Milchshake, abgefüll, Geschmack nicht Schokolad
+781274|Milk shake, bottled, chocolate|Milchshake, abgefüllt, Schokolade
+781275|Milk shake, bottled, flavors other than chocolate|Milchshake, abgefüll, Geschmack nicht Schokolade
 81281|Chocolate milk drink|Schokoladenmilchgetränk
 781543|Ice cream soda, flavors other than chocolate|Eis Soda, Geschmack nicht Schokolade
 781544|Ice cream soda, chocolate|Cream Soda, Schokolade
@@ -106,7 +106,7 @@
 781672|Cheese, Mozzarella|Käse, Mozzarella
 781673|Cheese, Mozzarella, whole milk|Käse, Mozzarella, Vollmilch
 781674|Cheese, Mozzarella, part skim|Käse, Mozzarella, Teientrahmt
-781675|Cheese, Mozzarella, reduced sodium|Käse, Mozzarella, reduziertes Natrium
+781675|Cheese, Mozzarella, reduced sodium|Käse, Mozzarella, salzarm
 781677|Cheese, Muenster|Käse, Münster
 781678|Cheese, Muenster, reduced fat|Käse, Münster, fettarm
 781679|Cheese, Parmesan, dry grated|Käse, Parmesan, trocken gerieben
@@ -116,10 +116,10 @@
 781683|Cheese, Port du Salut|Käse, Port du Salut
 781684|Cheese, Provolone|Käse, Provolone
 781685|Cheese, provolone, reduced fat|Käse, Provolone, reduziertes Fett
-781686|Cheese, Swiss|Käse, Schweizer
-781687|Cheese, Swiss, reduced sodium|Käse, Schweizer,salzrar
-781688|Cheese, Swiss, reduced fat|Käse, Schweizer, fettarm
-781690|Cheese, Cheddar, reduced sodium|Käse, Cheddar,salzar
+781686|Cheese, Swiss|Schweizer Käse
+781687|Cheese, Swiss, reduced sodium|Schweizer Käse, salzarm
+781688|Cheese, Swiss, reduced fat|Schweizer Käse, fettarm
+781690|Cheese, Cheddar, reduced sodium|Käse, Cheddar, salzarm
 781691|Cheese, Mexican blend|Käse, mexikanische Mischung
 781692|Cheese, Mexican blend, reduced fat|Käse, mexikanische Mischung, fettarm
 781693|Queso Anejo, aged Mexican cheese|Anejo-Käse, gereifter mexikanischer Käse
@@ -128,24 +128,24 @@
 781696|Queso Fresco|Frischkäse
 781697|Queso cotija|Cotija-Käse
 781698|Cheese, cottage|Hüttenkäse
-781700|Cottage cheese, farmer's|HüttenkäseBauernart
+781700|Cottage cheese, farmer's|Hüttenkäse, Bauernart
 781701|Cheese, Ricotta|Käse, Ricotta
-781704|Cheese, cottage, dry curd|Hüttenkäse, trockener Quark
-781705|Cheese, cottage, salted, dry curd|H�ttenkäs, gesalzener, trockener Quark
+781704|Cheese, cottage, dry curd|Hüttenkäse, Topfen, trocken
+781705|Cheese, cottage, salted, dry curd|Hüttenkäse, Topfen, trocken, gesalzen
 781706|Puerto Rican white cheese|Puertoricanischer Weißkäse
 781707|Cheese, cottage, low fat|Hüttenkäse, fettarm
-781710|Cheese, cottage, lowfat, low sodium|Hütenäse, fettarm, natriumarm
+781710|Cheese, cottage, lowfat, low sodium|Hütenäse, fettarm, salzarm
 781711|Cheese, cottage, lowfat, lactose reduced|Hüttenkäse, fettarm, Laktose reduziert
 781715|Cheese, American|american cheese
 781716|Cheese, American, reduced fat|Käse, amerikanisch, fettarm
-781718|Cheese, American, reduced sodium|Käse, amerikanisch, reduziertes Natrium
+781718|Cheese, American, reduced sodium|Käse, amerikanisch, salzarm
 781721|Cheese, processed cheese food|Käse, Schmelzkäse
 781725|Cheese spread, Swiss cheese base|Käseaufstrich, Schweizer Käsebasis
-781728|Cheese spread, pressurized can|Käseaufstrich,Sprühdose
+781728|Cheese spread, pressurized can|Käseaufstrich, Sprühdose
 781729|Imitation cheese|Käseimitat
 781810|Meat|Fleisch
 781813|Ground meat|Hackfleisch
-781820|Beef, pickled|Eingelegtes Rindfleisch
+781820|Beef, pickled|eingewecktes Rindfleisch
 781830|Beef steak, fried, lean only eaten|Rindersteak, gebraten, mager
 781836|Beef steak, battered, fried, lean only eaten|Rindersteak, paniert, gebraten, mager
 781839|Beef steak, braised, lean only eaten|Rindersteak, geschmort, mager
@@ -206,7 +206,7 @@
 782060|Bear, cooked|Bär, gekocht
 782061|Caribou, cooked|Karibu, gekocht
 782062|Bison, cooked|Bison, gekocht
-782063|Ground hog, cooked|Gemahlenes Schwein, gekocht
+782063|Ground hog, cooked|Siebenschläfer, gekocht
 782064|Opossum, cooked|Opossum, gekocht
 782065|Squirrel, cooked|Eichhörnchen, gekocht
 782066|Beaver, cooked|Biber, gekocht
@@ -214,123 +214,123 @@
 782068|Armadillo, cooked|Gürteltier, gekocht
 782069|Wild pig, smoked|Wildschwein, geräuchert
 782070|Ostrich, cooked|Strauß, gekocht
-782107|Chicken breast, rotisserie, skin eaten|Hühnerbrust, Rotisserie, Haut gegessen
-782108|Chicken breast, rotisserie, skin not eaten|Hühnerbrust, Rotisserie, Haut nicht gegessen
-782109|Chicken breast, stewed, skin eaten|Hühnerbrust, gedünstet, Haut gegessen
-782110|Chicken breast, stewed, skin not eaten|Hühnerbrust, gedünstet, Haut nicht gegessen
-782111|Chicken breast, grilled without sauce, skin eaten|Hühnerbrust, ohne Sauce gegrillt, Haut gegessen
-782112|Chicken breast, grilled without sauce, skin not eaten|Hühnerbrust, ohne Sauce gegrillt, Haut nicht gegessen
-782115|Chicken breast, sauteed, skin eaten|Hühnerbrust, sautiert, Haut gegessen
-782116|Chicken breast, sauteed, skin not eaten|Hühnerbrust, sautiert, Haut nicht gegessen
-782117|Chicken breast, fried, coated, skin / coating eaten, from raw|Hühnerbrust, gebraten, überzogen, Haut / Überzug gegessen, roh
-782118|Chicken breast, fried, coated, skin / coating not eaten, from raw|Hühnerbrust, gebraten, überzogen, Haut / Überzug nicht gegessen, roh
-782119|Chicken breast, fried, coated, prepared skinless, coating eaten, from raw|Hühnerbrust, gebraten, überzogen, ohne Haut zubereitet, Überzug gegessen, roh
-782120|Chicken breast, fried, coated, skin / coating eaten, from pre-cooked|Hühnerbrust, gebraten, überzogen, Haut / Überzug gegessen, vorgekocht
-782121|Chicken breast, fried, coated, skin / coating not eaten, from pre-cooked|Hühnerbrust, gebraten, überzogen, Haut / Überzug nicht gegessen, vorgekocht
-782122|Chicken breast, fried, coated, skin / coating eaten, from fast food / restaurant|Hühnerbrust, gebraten, überzogen, Haut / Überzug gegessen, aus Fast Food / Restaurant
-782123|Chicken breast, fried, coated, skin / coating not eaten, from fast food / restaurant|Hühnerbrust, gebraten, überzogen, Haut / Überzug nicht gegessen, aus Fast Food / Restaurant
-782124|Chicken breast, baked, coated, skin / coating eaten|Hühnerbrust, gebacken, überzogen, Haut / Überzug gegessen
-782125|Chicken breast, baked, coated, skin / coating not eaten|Hühnerbrust, gebacken, überzogen, Haut / Überzug nicht gegessen
-782152|Chicken drumstick, rotisserie, skin eaten|Hühnertrommelstock, Rotisserie, Haut gegessen
-782153|Chicken drumstick, rotisserie, skin not eaten|Hühnertrommelstock, Rotisserie, Haut nicht gegessen
-782154|Chicken drumstick, grilled without sauce, skin eaten|Hühnertrommelstock, ohne Sauce gegrillt, Haut gegessen
-782155|Chicken drumstick, grilled without sauce, skin not eaten|Hühnertrommelstock, ohne Sauce gegrillt, Haut nicht gegessen
-782158|Chicken drumstick, stewed, skin eaten|Hühnertrommelstock, gedünstet, Haut gegessen
-782159|Chicken drumstick, stewed, skin not eaten|Hühnertrommelstock, gedünstet, Haut nicht gegessen
-782160|Chicken drumstick, sauteed, skin eaten|Hühnertrommelstock, sautiert, Haut gegessen
-782161|Chicken drumstick, sauteed, skin not eaten|Hühnertrommelstock, sautiert, Haut nicht gegessen
-782162|Chicken drumstick, fried, coated, skin / coating eaten, from raw|Hühnertrommelstock, gebraten, überzogen, Haut / Überzug gegessen, roh
-782163|Chicken drumstick, fried, coated, skin / coating not eaten, from raw|Hühnertrommelstock, gebraten, überzogen, Haut / Überzug nicht gegessen, roh
-782164|Chicken drumstick, fried, coated, prepared skinless, coating eaten, from raw|Hühnertrommelstock, gebraten, überzogen, ohne Haut zubereitet, Überzug gegessen, roh
-782165|Chicken drumstick, fried, coated, skin / coating eaten, from pre-cooked|Hühnertrommelstock, gebraten, überzogen, Haut / Überzug gegessen, vorgekocht
-782166|Chicken drumstick, fried, coated, skin / coating not eaten, from pre-cooked|Hühnertrommelstock, gebraten, überzogen, Haut / Überzug nicht gegessen, vorgekocht
-782167|Chicken drumstick, fried, coated, skin / coating eaten, from fast food / restaurant|Hühnertrommelstock, gebraten, überzogen, Haut / Überzug gegessen, aus Fast Food / Restaurant
-782168|Chicken drumstick, fried, coated, skin / coating not eaten, from fast food / restaurant|Hühnertrommelstock, gebraten, überzogen, Haut / Überzug nicht gegessen, aus Fast Food / Restaurant
-782169|Chicken drumstick, baked, coated, skin / coating eaten|Hühnertrommelstock, gebacken, überzogen, Haut / Überzug gegessen
-782170|Chicken drumstick, baked, coated, skin / coating not eaten|Hühnertrommelstock, gebacken, überzogen, Haut / Überzug nicht gegessen
-782179|Chicken thigh, rotisserie, skin eaten|Hühnerschenkel, Rotisserie, Haut gegessen
-782180|Chicken thigh, rotisserie, skin not eaten|Hühnerschenkel, Rotisserie, Haut nicht gegessen
-782181|Chicken thigh, stewed, skin eaten|Hühnerschenkel, gedünstet, Haut gegessen
-782182|Chicken thigh, stewed, skin not eaten|Hühnerschenkel, gedünstet, Haut nicht gegessen
-782183|Chicken thigh, grilled without sauce, skin eaten|Hühnerschenkel, ohne Sauce gegrillt, Haut gegessen
-782184|Chicken thigh, grilled without sauce, skin not eaten|Hühnerschenkel, ohne Sauce gegrillt, Haut nicht gegessen
-782187|Chicken thigh, sauteed, skin eaten|Hühnerschenkel, sautiert, Haut gegessen
-782188|Chicken thigh, sauteed, skin not eaten|Hühnerschenkel, sautiert, Haut nicht gegessen
-782189|Chicken thigh, fried, coated, skin / coating eaten, from raw|Hühnerschenkel, gebraten, überzogen, Haut / Überzug gegessen, roh
-782190|Chicken thigh, fried, coated, skin / coating not eaten, from raw|Hühnerschenkel, gebraten, überzogen, Haut / Überzug nicht gegessen, roh
-782191|Chicken thigh, fried, coated, prepared skinless, coating eaten, from raw|Hühnerschenkel, gebraten, überzogen, ohne Haut zubereitet, Überzug gegessen, roh
-782192|Chicken thigh, fried, coated, skin / coating eaten, from pre-cooked|Hühnerschenkel, gebraten, überzogen, Haut / Überzug gegessen, vorgekocht
-782193|Chicken thigh, fried, coated, skin / coating not eaten, from pre-cooked|Hühnerschenkel, gebraten, überzogen, Haut / Überzug nicht gegessen, vorgekocht
-782194|Chicken thigh, fried, coated, skin / coating eaten, from fast food|Hühnerschenkel, gebraten, überzogen, Haut / Überzug gegessen, aus Fast Food
-782195|Chicken thigh, fried, coated, skin / coating not eaten, from fast food|Hühnerschenkel, gebraten, überzogen, Haut / Überzug nicht gegessen, aus Fast Food
-782196|Chicken thigh, fried, coated, skin / coating eaten, from restaurant|Hühnerschenkel, gebraten, überzogen, Haut / Überzug gegessen, aus dem Restaurant
-782197|Chicken thigh, fried, coated, skin / coating not eaten, from restaurant|Hühnerschenkel, gebraten, überzogen, Haut / Überzug nicht gegessen, aus dem Restaurant
-782198|Chicken thigh, baked, coated, skin / coating eaten|Hühnerschenkel, gebacken, überzogen, Haut / Überzug gegessen
-782199|Chicken thigh, baked, coated, skin / coating not eaten|Hühnerschenkel, gebacken, überzogen, Haut / Überzug nicht gegessen
+782107|Chicken breast, rotisserie, skin eaten|Hühnerbrust, Rotisserie, mit Haut
+782108|Chicken breast, rotisserie, skin not eaten|Hühnerbrust, Rotisserie, ohne Haut
+782109|Chicken breast, stewed, skin eaten|Hühnerbrust, gedünstet, mit Haut
+782110|Chicken breast, stewed, skin not eaten|Hühnerbrust, gedünstet, ohne Haut
+782111|Chicken breast, grilled without sauce, skin eaten|Hühnerbrust, ohne Sauce gegrillt, mit Haut
+782112|Chicken breast, grilled without sauce, skin not eaten|Hühnerbrust, ohne Sauce gegrillt, ohne Haut
+782115|Chicken breast, sauteed, skin eaten|Hühnerbrust, sautiert, mit Haut
+782116|Chicken breast, sauteed, skin not eaten|Hühnerbrust, sautiert, ohne Haut
+782117|Chicken breast, fried, coated, skin / coating eaten, from raw|Hühnerbrust, gebraten, paniert, mit Haut
+782118|Chicken breast, fried, coated, skin / coating not eaten, from raw|Hühnerbrust, gebraten, paniert, mit Haut
+782119|Chicken breast, fried, coated, prepared skinless, coating eaten, from raw|Hühnerbrust, gebraten, paniert, ohne Haut
+782120|Chicken breast, fried, coated, skin / coating eaten, from pre-cooked|Hühnerbrust, gebraten, paniert, mit Haut
+782121|Chicken breast, fried, coated, skin / coating not eaten, from pre-cooked|Hühnerbrust, gebraten, paniert, ohne Haut
+782122|Chicken breast, fried, coated, skin / coating eaten, from fast food / restaurant|Hühnerbrust, gebraten, paniert, mit Haut, aus Fast Food / Restaurant
+782123|Chicken breast, fried, coated, skin / coating not eaten, from fast food / restaurant|Hühnerbrust, gebraten, paniert, ohne Haut, aus Fast Food / Restaurant
+782124|Chicken breast, baked, coated, skin / coating eaten|Hühnerbrust, gebacken, paniert, mit Haut
+782125|Chicken breast, baked, coated, skin / coating not eaten|Hühnerbrust, gebacken, paniert, ohne Haut
+782152|Chicken drumstick, rotisserie, skin eaten|Hähnchenschlegel, Rotisserie, mit Haut
+782153|Chicken drumstick, rotisserie, skin not eaten|Hähnchenschlegel, Rotisserie, ohne Haut
+782154|Chicken drumstick, grilled without sauce, skin eaten|Hähnchenschlegel, ohne Sauce gegrillt, mit Haut
+782155|Chicken drumstick, grilled without sauce, skin not eaten|Hähnchenschlegel, ohne Sauce gegrillt, ohne Haut
+782158|Chicken drumstick, stewed, skin eaten|Hähnchenschlegel, gedünstet, mit Haut
+782159|Chicken drumstick, stewed, skin not eaten|Hähnchenschlegel, gedünstet, ohne Haut
+782160|Chicken drumstick, sauteed, skin eaten|Hähnchenschlegel, sautiert, mit Haut
+782161|Chicken drumstick, sauteed, skin not eaten|Hähnchenschlegel, sautiert, ohne Haut
+782162|Chicken drumstick, fried, coated, skin / coating eaten, from raw|Hähnchenschlegel, gebraten, paniert, mit Haut
+782163|Chicken drumstick, fried, coated, skin / coating not eaten, from raw|Hähnchenschlegel, gebraten, paniert, ohne Haut
+782164|Chicken drumstick, fried, coated, prepared skinless, coating eaten, from raw|Hähnchenschlegel, gebraten, paniert, ohne Haut
+782165|Chicken drumstick, fried, coated, skin / coating eaten, from pre-cooked|Hähnchenschlegel, gebraten, paniert, mit Haut
+782166|Chicken drumstick, fried, coated, skin / coating not eaten, from pre-cooked|Hähnchenschlegel, gebraten, paniert, ohne Haut
+782167|Chicken drumstick, fried, coated, skin / coating eaten, from fast food / restaurant|Hähnchenschlegel, gebraten, paniert, mit Haut, aus Fast Food / Restaurant
+782168|Chicken drumstick, fried, coated, skin / coating not eaten, from fast food / restaurant|Hähnchenschlegel, gebraten, paniert, ohne Haut, aus Fast Food / Restaurant
+782169|Chicken drumstick, baked, coated, skin / coating eaten|Hähnchenschlegel, gebacken, paniert, mit Haut
+782170|Chicken drumstick, baked, coated, skin / coating not eaten|Hähnchenschlegel, gebacken, paniert, ohne Haut
+782179|Chicken thigh, rotisserie, skin eaten|Hühnerschenkel, Rotisserie, mit Haut
+782180|Chicken thigh, rotisserie, skin not eaten|Hühnerschenkel, Rotisserie, ohne Haut
+782181|Chicken thigh, stewed, skin eaten|Hühnerschenkel, gedünstet, mit Haut
+782182|Chicken thigh, stewed, skin not eaten|Hühnerschenkel, gedünstet, ohne Haut
+782183|Chicken thigh, grilled without sauce, skin eaten|Hühnerschenkel, ohne Sauce gegrillt, mit Haut
+782184|Chicken thigh, grilled without sauce, skin not eaten|Hühnerschenkel, ohne Sauce gegrillt, ohne Haut
+782187|Chicken thigh, sauteed, skin eaten|Hühnerschenkel, sautiert, mit Haut
+782188|Chicken thigh, sauteed, skin not eaten|Hühnerschenkel, sautiert, ohne Haut
+782189|Chicken thigh, fried, coated, skin / coating eaten, from raw|Hühnerschenkel, gebraten, paniert, mit Haut
+782190|Chicken thigh, fried, coated, skin / coating not eaten, from raw|Hühnerschenkel, gebraten, paniert, ohne Haut
+782191|Chicken thigh, fried, coated, prepared skinless, coating eaten, from raw|Hühnerschenkel, gebraten, paniert, ohne Haut
+782192|Chicken thigh, fried, coated, skin / coating eaten, from pre-cooked|Hühnerschenkel, gebraten, paniert, mit Haut
+782193|Chicken thigh, fried, coated, skin / coating not eaten, from pre-cooked|Hühnerschenkel, gebraten, paniert, ohne Haut
+782194|Chicken thigh, fried, coated, skin / coating eaten, from fast food|Hühnerschenkel, gebraten, paniert, mit Haut, aus Fast Food
+782195|Chicken thigh, fried, coated, skin / coating not eaten, from fast food|Hühnerschenkel, gebraten, paniert, ohne Haut, aus Fast Food
+782196|Chicken thigh, fried, coated, skin / coating eaten, from restaurant|Hühnerschenkel, gebraten, paniert, mit Haut, aus dem Restaurant
+782197|Chicken thigh, fried, coated, skin / coating not eaten, from restaurant|Hühnerschenkel, gebraten, paniert, ohne Haut, aus dem Restaurant
+782198|Chicken thigh, baked, coated, skin / coating eaten|Hühnerschenkel, gebacken, paniert, mit Haut
+782199|Chicken thigh, baked, coated, skin / coating not eaten|Hühnerschenkel, gebacken, paniert, ohne Haut
 782204|Chicken wing, rotisserie|Hühnerflügel, Rotisserie
 782205|Chicken wing, stewed|Hühnerflügel, gedünstet
 782206|Chicken wing, grilled without sauce|Hühnerflügel, ohne Sauce gegrillt
 782208|Chicken wing, sauteed|Hühnerflügel, sautiert
-782209|Chicken wing, fried, coated, from raw|Hühnerflügel, gebraten, überzogen, roh
-782210|Chicken wing, fried, coated, from pre-cooked|Hühnerflügel, gebraten, überzogen, vorgekocht
-782211|Chicken wing, fried, coated, from fast food|Hühnerflügel, gebraten, überzogen, aus Fast Food
-782212|Chicken wing, fried, coated, from restaurant|Hühnerflügel, gebraten, überzogen, aus dem Restaurant
-782213|Chicken wing, baked, coated|Hühnerflügel, gebacken, überzogen
-782216|Chicken "wings", plain, from fast food / restaurant|Chicken &quot;Wings&quot;, schlicht, aus Fast Food / Restaurant
-782219|Chicken "wings", plain, from precooked|Hühnchen &quot;Flügel&quot;, glatt, aus vorgekocht
-782222|Chicken "wings", plain, from other sources|Hühnerflügel, schlicht, aus anderen Quellen
-782225|Chicken, back|Huhn, zurück
+782209|Chicken wing, fried, coated, from raw|Hühnerflügel, gebraten, paniert
+782210|Chicken wing, fried, coated, from pre-cooked|Hühnerflügel, gebraten, paniert, vorgekocht
+782211|Chicken wing, fried, coated, from fast food|Hühnerflügel, gebraten, paniert, aus Fast Food
+782212|Chicken wing, fried, coated, from restaurant|Hühnerflügel, gebraten, paniert, aus dem Restaurant
+782213|Chicken wing, baked, coated|Hühnerflügel, gebacken, paniert
+782216|Chicken "wings", plain, from fast food / restaurant|Chicken Wings, aus Fast Food / Restaurant
+782219|Chicken "wings", plain, from precooked|Chicken Wings, natur
+782222|Chicken "wings", plain, from other sources|Hühnerflügel, natur
+782225|Chicken, back|Huhn, Rücken
 782227|Chicken, tail|Huhn, Schwanz
 782228|Chicken skin|Hühnerhaut
 782229|Chicken feet|Hühnerfüße
-782230|Chicken, canned, meat only|Hühnchen, Dosen, nur Fleisch
-782231|Chicken, chicken roll, roasted|Huhn, Hühnerbrötchen, geröstet
+782230|Chicken, canned, meat only|Hühnchen, Dose, nur Fleisch
+782231|Chicken, chicken roll, roasted|Wrap mit Hähnchen
 782232|Chicken patty, breaded|Hühnchenpastetchen, paniert
 782233|Chicken fillet, breaded|Hähnchenfilet, paniert
 782234|Chicken fillet, grilled|Hähnchenfilet, gegrillt
-782235|Chicken, ground|Huhn, gemahlen
-782236|Chicken nuggets|Hühnernuggets
-782237|Chicken nuggets, from fast food|Hühnernuggets aus Fast Food
-782238|Chicken nuggets, from restaurant|Hühnernuggets aus dem Restaurant
-782239|Chicken nuggets, from school lunch|Hühnernuggets vom Schulessen
-782240|Chicken nuggets, from frozen|Hühnernuggets aus gefrorenem
-782241|Chicken nuggets, from other sources|Hühnernuggets aus anderen Quellen
+782235|Chicken, ground|Hackfleisch, Hähnchen
+782236|Chicken nuggets|Chicken Nuggets
+782237|Chicken nuggets, from fast food|Chicken Nuggets aus Fast Food
+782238|Chicken nuggets, from restaurant|Chicken Nuggets aus dem Restaurant
+782239|Chicken nuggets, from school lunch|Chicken Nuggets, Mensa
+782240|Chicken nuggets, from frozen|Chicken Nuggets, tiefgefroren
+782241|Chicken nuggets, from other sources|Chicken Nuggets
 782248|Fried chicken chunks, Puerto Rican style|Gebratene Hühnchenstücke nach puertoricanischer Art
 782249|Turkey|Truthahn
-782250|Turkey, light meat, skin not eaten|Truthahn, leichtes Fleisch, Haut nicht gegessen
-782251|Turkey, light meat, skin eaten|Truthahn, leichtes Fleisch, Haut gegessen
-782254|Turkey, light meat, roasted, skin not eaten|Pute, leichtes Fleisch, geröstet, Haut nicht gegessen
-782255|Turkey, light meat, roasted, skin eaten|Pute, leichtes Fleisch, geröstet, Haut gegessen
-782256|Turkey, dark meat, roasted, skin not eaten|Pute, dunkles Fleisch, geröstet, Haut nicht gegessen
-782257|Turkey, dark meat, roasted, skin eaten|Pute, dunkles Fleisch, geröstet, Haut gegessen
-782266|Turkey, drumstick, cooked, skin not eaten|Truthahn, Trommelstock, gekocht, Haut nicht gegessen
-782267|Turkey, drumstick, cooked, skin eaten|Truthahn, Trommelstock, gekocht, Haut gegessen
-782268|Turkey, drumstick, roasted, skin not eaten|Truthahn, Trommelstock, geröstet, Haut nicht gegessen
-782269|Turkey, drumstick, roasted, skin eaten|Truthahn, Trommelstock, geröstet, Haut gegessen
-782270|Turkey, drumstick, smoked, skin eaten|Truthahn, Trommelstock, geräuchert, Haut gegessen
-782271|Turkey, thigh, cooked, skin eaten|Truthahn, Oberschenkel, gekocht, Haut gegessen
-782272|Turkey, thigh, cooked, skin not eaten|Truthahn, Oberschenkel, gekocht, Haut nicht gegessen
+782250|Turkey, light meat, skin not eaten|Truthahn, helles Fleisch, ohne Haut
+782251|Turkey, light meat, skin eaten|Truthahn, helles Fleisch, mit Haut
+782254|Turkey, light meat, roasted, skin not eaten|Pute, helles Fleisch, geröstet, ohne Haut
+782255|Turkey, light meat, roasted, skin eaten|Pute, helles Fleisch, geröstet, mit Haut
+782256|Turkey, dark meat, roasted, skin not eaten|Pute, dunkles Fleisch, geröstet, ohne Haut
+782257|Turkey, dark meat, roasted, skin eaten|Pute, dunkles Fleisch, geröstet, mit Haut
+782266|Turkey, drumstick, cooked, skin not eaten|Truthahn, Keule, gekocht, ohne Haut
+782267|Turkey, drumstick, cooked, skin eaten|Truthahn, Keule, gekocht, mit Haut
+782268|Turkey, drumstick, roasted, skin not eaten|Truthahn, Keule, geröstet, ohne Haut
+782269|Turkey, drumstick, roasted, skin eaten|Truthahn, Keule, geröstet, mit Haut
+782270|Turkey, drumstick, smoked, skin eaten|Truthahn, Keule, geräuchert, mit Haut
+782271|Turkey, thigh, cooked, skin eaten|Truthahn, Oberschenkel, gekocht, mit Haut
+782272|Turkey, thigh, cooked, skin not eaten|Truthahn, Oberschenkel, gekocht, ohne Haut
 782273|Turkey, neck|Truthahn, Hals
-782274|Turkey, wing, cooked, skin not eaten|Truthahn, Flügel, gekocht, Haut nicht gegessen
-782275|Turkey, wing, cooked, skin eaten|Truthahn, Flügel, gekocht, Haut gegessen
-782276|Turkey, wing, smoked, skin eaten|Truthahn, Flügel, geraucht, Haut gegessen
-782277|Turkey, tail|Türkei, Schwanz
-782278|Turkey, back|Türkei, zurück
-782279|Turkey, canned|Türkei, in Dosen
-782280|Turkey, ground|Türkei, Boden
-782281|Turkey, nuggets|Türkei, Nuggets
-782286|Duck, cooked, skin eaten|Ente, gekocht, Haut gegessen
-782287|Duck, cooked, skin not eaten|Ente, gekocht, Haut nicht gegessen
-782288|Duck, roasted, skin eaten|Ente, geröstet, Haut gegessen
-782289|Duck, roasted, skin not eaten|Ente, geröstet, Haut nicht gegessen
-782290|Duck, coated, fried|Ente, überzogen, gebraten
-782291|Duck, pressed, Chinese|Ente, gedrückt, Chinese
+782274|Turkey, wing, cooked, skin not eaten|Truthahn, Flügel, gekocht, ohne Haut
+782275|Turkey, wing, cooked, skin eaten|Truthahn, Flügel, gekocht, mit Haut
+782276|Turkey, wing, smoked, skin eaten|Truthahn, Flügel, geräuchert, mit Haut
+782277|Turkey, tail|Truthahn, Schwanz
+782278|Turkey, back|Truthahn, Rücken
+782279|Turkey, canned|Truthahn, aus der Dose
+782280|Turkey, ground|Hackfleisch, Truthahn
+782281|Turkey, nuggets|Truthahn Nuggets
+782286|Duck, cooked, skin eaten|Ente, gekocht, mit Haut
+782287|Duck, cooked, skin not eaten|Ente, gekocht, ohne Haut
+782288|Duck, roasted, skin eaten|Ente, geröstet, mit Haut
+782289|Duck, roasted, skin not eaten|Ente, geröstet, ohne Haut
+782290|Duck, coated, fried|Ente, paniert, gebraten
+782291|Duck, pressed, Chinese|Blutente, Chinese Art
 782292|Goose, wild, roasted|Gans, wild, geröstet
-782293|Cornish game hen, cooked, skin eaten|Cornish Wild Henne, gekocht, Haut gegessen
-782294|Cornish game hen, cooked, skin not eaten|Cornish Wild Henne, gekocht, Haut nicht gegessen
-782295|Cornish game hen, roasted, skin eaten|Cornish Wild Henne, geröstet, Haut gegessen
-782296|Cornish game hen, roasted, skin not eaten|Cornish Wild Henne, geröstet, Haut nicht gegessen
-782298|Dove, fried|Wo gebraten
+782293|Cornish game hen, cooked, skin eaten|Cornish Wild Henne, gekocht, mit Haut
+782294|Cornish game hen, cooked, skin not eaten|Cornish Wild Henne, gekocht, ohne Haut
+782295|Cornish game hen, roasted, skin eaten|Cornish Wild Henne, geröstet, mit Haut
+782296|Cornish game hen, roasted, skin not eaten|Cornish Wild Henne, geröstet, ohne Haut
+782298|Dove, fried|Taube, gebraten
 782299|Quail, cooked|Wachtel, gekocht
 782300|Pheasant, cooked|Fasan, gekocht
 782309|Beef liver, braised|Rinderleber, geschmort
@@ -347,165 +347,165 @@
 782322|Chitterlings, cooked|Chitterlings, gekocht
 782323|Hog maws, cooked|Schweineschlund, gekocht
 782324|Gizzard, cooked|Muskelmagen, gekocht
-782422|Anchovy, canned|Sardelle, in Dosen
-782428|Barracuda, coated, fried|Barrakuda, überzogen, gebraten
-782435|Carp, coated, fried|Karpfen, überzogen, gebraten
-782437|Carp, smoked|Karpfen, geraucht
-782452|Catfish, coated, fried, made without fat|Wels, überzogen, gebraten, fettfrei
-782469|Cod, coated, fried, made without fat|Kabeljau, überzogen, gebraten, ohne Fett hergestellt
-782472|Cod, dried, salted|Kabeljau, getrocknet, gesalzen
-782474|Cod, smoked|Kabeljau, geraucht
-782480|Croaker, coated, fried|Croaker, überzogen, gebraten
-782484|Eel, smoked|Aal, geraucht
+782422|Anchovy, canned|Sardelle, aus der Dose
+782428|Barracuda, coated, fried|Barrakuda, paniert, gebraten
+782435|Carp, coated, fried|Karpfen, paniert, gebraten
+782437|Carp, smoked|Karpfen, geräuchert
+782452|Catfish, coated, fried, made without fat|Wels, paniert, ohne Fett gebraten
+782469|Cod, coated, fried, made without fat|Kabeljau, paniert, ohne Fett gebraten
+782472|Cod, dried, salted|Kabeljau, getrocknet, gepöckelt
+782474|Cod, smoked|Kabeljau, geräuchert
+782480|Croaker, coated, fried|Atlantischer Umber, paniert, gebraten
+782484|Eel, smoked|Aal, geräuchert
 782485|Flounder|Flunder
-782500|Flounder, coated, fried, made without fat|Flunder, überzogen, gebraten, fettfrei gemacht
-782503|Flounder, smoked|Flunder, geraucht
-782509|Haddock, coated, fried|Schellfisch, überzogen, gebraten
-782511|Haddock, smoked|Schellfisch, geraucht
+782500|Flounder, coated, fried, made without fat|Flunder, paniert, ohne Fett gebraten
+782503|Flounder, smoked|Flunder, geräuchert
+782509|Haddock, coated, fried|Schellfisch, paniert, gebraten
+782511|Haddock, smoked|Schellfisch, geräuchert
 782512|Halibut|Heilbutt
-782527|Halibut, coated, fried, made without fat|Heilbutt, überzogen, gebraten, fettfrei
-782530|Halibut, smoked|Heilbutt, geraucht
+782527|Halibut, coated, fried, made without fat|Heilbutt, paniert, ohne Fett gebraten
+782530|Halibut, smoked|Heilbutt, geräuchert
 782531|Herring|Hering
-782537|Herring, coated, fried|Hering, überzogen, gebraten
-782539|Herring, dried, salted|Hering, getrocknet, gesalzen
+782537|Herring, coated, fried|Hering, paniert, gebraten
+782539|Herring, dried, salted|Hering, getrocknet, gepöckelt
 782540|Herring, pickled|Hering, eingelegt
-782541|Herring, smoked, kippered|Hering, geraucht, gekippt
+782541|Herring, smoked, kippered|Räucherhering
 782542|Mackerel|Makrele
-782548|Mackerel, coated, fried|Makrele, überzogen, gebraten
+782548|Mackerel, coated, fried|Makrele, paniert, gebraten
 782549|Mackerel, pickled|Makrele, eingelegt
-782550|Mackerel, canned|Makrele, in Dosen
-782551|Mackerel, smoked|Makrele, geraucht
+782550|Mackerel, canned|Makrele, aus der Dose
+782551|Mackerel, smoked|Makrele, geräuchert
 782552|Mullet|Meeräsche
-782558|Mullet, coated, fried|Meeräsche, überzogen, gebraten
+782558|Mullet, coated, fried|Meeräsche, paniert, gebraten
 782560|Ocean perch|Rotbarsch
-782566|Ocean perch, coated, fried|Barsch, überzogen, gebraten
-782582|Perch, coated, fried, made without fat|Barsch, überzogen, gebraten, ohne Fett gemacht
-782590|Pike, coated, fried|Hecht, überzogen, gebraten
-782592|Pompano|Pompano
-782598|Pompano, coated, fried|Pompano, überzogen, gebraten
-782600|Pompano, smoked|Pompano, geraucht
-782601|Porgy|Porgy
-782607|Porgy, coated, fried|Porgy, überzogen, gebraten
-782614|Ray, coated, fried|Ray, beschichtet, gebraten
+782566|Ocean perch, coated, fried|Barsch, paniert, gebraten
+782582|Perch, coated, fried, made without fat|Barsch, paniert, gebraten, ohne Fett gemacht
+782590|Pike, coated, fried|Hecht, paniert, gebraten
+782592|Pompano|Trachinotus
+782598|Pompano, coated, fried|Trachinotus, paniert, gebraten
+782600|Pompano, smoked|Trachinotus, geräuchert
+782601|Porgy|Brassen (porgy)
+782607|Porgy, coated, fried|Brassen (porgy), paniert, gebraten
+782614|Ray, coated, fried|Rochen, paniert, gebraten
 782616|Salmon|Lachs
-782631|Salmon, coated, fried, made without fat|Lachs, überzogen, gebraten, fettfrei
+782631|Salmon, coated, fried, made without fat|Lachs, paniert, ohne Fett gebraten
 782634|Salmon, dried|Lachs, getrocknet
-782635|Salmon, canned|Lachs, in Dosen
-782636|Salmon, smoked|Lachs, geraucht
+782635|Salmon, canned|Lachs, aus der Dose
+782636|Salmon, smoked|Lachs, geräuchert
 782637|Sardines, cooked|Sardinen, gekocht
 782638|Sardines, dried|Sardinen, getrocknet
-782646|Sea bass, coated, fried|Wolfsbarsch, überzogen, gebraten
+782646|Sea bass, coated, fried|Wolfsbarsch, paniert, gebraten
 782648|Sea bass, pickled|Seebarsch, eingelegt
-782654|Shark, coated, fried|Hai, überzogen, gebraten
+782654|Shark, coated, fried|Hai, paniert, gebraten
 782658|Sturgeon, steamed|Stör, gedämpft
-782659|Sturgeon, coated, fried|Stör, überzogen, gebraten
-782660|Sturgeon, smoked|Stör, geraucht
-782666|Swordfish, coated, fried|Schwertfisch, überzogen, gebraten
-782682|Trout, coated, fried, made without fat|Forelle, überzogen, gebraten, fettfrei gemacht
-782685|Trout, smoked|Forelle, geraucht
+782659|Sturgeon, coated, fried|Stör, paniert, gebraten
+782660|Sturgeon, smoked|Stör, geräuchert
+782666|Swordfish, coated, fried|Schwertfisch, paniert, gebraten
+782682|Trout, coated, fried, made without fat|Forelle, paniert, ohne Fett gebraten gemacht
+782685|Trout, smoked|Forelle, geräuchert
 782686|Tuna, fresh|Thunfisch, frisch
-782692|Tuna, fresh, coated, fried|Thunfisch, frisch, überzogen, gebraten
+782692|Tuna, fresh, coated, fried|Thunfisch, frisch, paniert, gebraten
 782694|Tuna, fresh, dried|Thunfisch, frisch, getrocknet
 782695|Tuna, fresh, smoked|Thunfisch, frisch, geräuchert
-782697|Tuna, canned, oil pack|Thunfisch, Dosen, Ölpackung
-782698|Tuna, canned, water pack|Thunfisch, Dosen, Wasserpackung
-784448|Yogurt, coconut milk|Joghurt, Kokosmilchq
-784449|Coconut cream, canned, sweetened|Kokoscreme, in Dosen, gesüßt
+782697|Tuna, canned, oil pack|Thunfisch, Dose, Ölpackung
+782698|Tuna, canned, water pack|Thunfisch, Dose, Wasserpackung
+784448|Yogurt, coconut milk|Joghurt, Kokosmilch
+784449|Coconut cream, canned, sweetened|Kokoscreme, aus der Dose, gesüßt
 781744|Cheese souffle|Käsesouffle
-781861|Corned beef, cooked, lean only eaten|Corned Beef, gekocht, mager nur gegessen
-781862|Corned beef, canned, ready-to-eat|Corned Beef, in Dosen, verzehrfertig
+781861|Corned beef, cooked, lean only eaten|Corned Beef, gekocht, mager
+781862|Corned beef, canned, ready-to-eat|Corned Beef, aus der Dose, verzehrfertig
 781870|Beef, bacon, cooked|Rindfleisch, Speck, gekocht
-781871|Beef, bacon, reduced sodium, cooked|Rindfleisch, Speck, reduziertes Natrium, gekocht
-781872|Beef, dried, chipped, uncooked|Rindfleisch, getrocknet, angeschlagen, ungekocht
-781874|Beef jerky|Rindfleisch ruckelt
-781890|Pork jerky|Schweinefleisch ruckelt
-781940|Ham, fried, lean only eaten|Schinken, gebraten, mager nur gegessen
-781950|Ham, prosciutto|Schinken Schinken
+781871|Beef, bacon, reduced sodium, cooked|Rindfleisch, Speck, salzarm, gekocht
+781872|Beef, dried, chipped, uncooked|Rindfleisch, getrocknet, gesalzen, ungekocht
+781874|Beef jerky|Rindfleisch Jerky
+781890|Pork jerky|Schweinefleisch Jerky
+781940|Ham, fried, lean only eaten|Schinken, gebraten, mager
+781950|Ham, prosciutto|Schinken Proscuitto
 781968|Pork roll, cured, fried|Schweinebrötchen, gepökelt, gebraten
 781969|Canadian bacon, cooked|Kanadischer Speck, gekocht
-781977|Salt pork, cooked|Salz Schweinefleisch, gekocht
-782050|Venison/deer, cured|Wild / Hirsch, geheilt
-782054|Venison/deer jerky|Wildbret / Hirsch ruckelt
+781977|Salt pork, cooked|Schweinefleisch, gepöckelt
+782050|Venison/deer, cured|Wild / Hirsch, geräuchert
+782054|Venison/deer jerky|Wildbret / Hirsch Jerky
 782055|Deer sausage|Hirschwurst
 782282|Turkey bacon, cooked|Truthahnspeck, gekocht
-782283|Turkey bacon, reduced sodium, cooked|Truthahnspeck, reduziertes Natrium, gekocht
+782283|Turkey bacon, reduced sodium, cooked|Truthahnspeck, salzarm, gekocht
 782337|Beef sausage|Rindfleischwurst
 782338|Beef sausage, reduced fat|Rindfleischwurst, fettarm
-782339|Beef sausage, reduced sodium|Rindfleischwurst, reduziertes Natrium
+782339|Beef sausage, reduced sodium|Rindfleischwurst, salzarm
 782341|Blood sausage|Blutwurst
 782342|Bratwurst|Bratwurst
-782344|Bologna|Bologna
-782345|Bologna, made from any kind of meat, reduced fat|Bologna, hergestellt aus jeder Art von Fleisch, reduziert Fett
-782346|Bologna, made from any kind of meat, reduced sodium|Bologna, hergestellt aus jeder Art von Fleisch, reduzierte Natrium
+782344|Bologna|Lyoner
+782345|Bologna, made from any kind of meat, reduced fat|Lyoner, hergestellt aus jeder Art von Fleisch, reduziert Fett
+782346|Bologna, made from any kind of meat, reduced sodium|Lyoner, hergestellt aus jeder Art von Fleisch, salzreduziert
 782349|Chorizo|Chorizo
-782350|Head cheese|Kopf Käse
-782351|Knockwurst|Knockwurst
+782350|Head cheese|Presswurst
+782351|Knockwurst|Knackwurst
 782352|Mortadella|Mortadella
 782353|Pastrami|Pastrami
 782354|Pastrami, made from any kind of meat, reduced fat|Pastrami, hergestellt aus jeder Art von Fleisch, reduziert Fett
-782355|Pepperoni|Peperoni
-782356|Pepperoni, reduced fat|Peperoni, fettarm
-782357|Pepperoni, reduced sodium|Pepperoni, reduziertes Natrium
+782355|Pepperoni|Peperoni-Salami
+782356|Pepperoni, reduced fat|Peperoni-Salami, fettarm
+782357|Pepperoni, reduced sodium|Pepperoni-Salami, salzarm
 782358|Polish sausage|polnische Wurst
 782359|Italian sausage|italienische Wurst
 782360|Sausage|Würstchen
 782361|Pork sausage|Schweinswurst
 782362|Pork sausage, reduced fat|Schweinewurst, fettarm
-782363|Pork sausage, reduced sodium|Schweinewurst, reduziertes Natrium
-782364|Pork sausage rice links|Schweinewurst Reis Links
+782363|Pork sausage, reduced sodium|Schweinewurst, salzarm
+782364|Pork sausage rice links|Schweinewurst, gestreckt mit Reis
 782366|Salami|Salami
 782367|Salami, made from any type of meat, reduced fat|Salami, hergestellt aus jeder Art von Fleisch, reduziert Fett
 782368|Salami, made from any type of meat, reduced sodium|Salami, hergestellt aus jeder Art von Fleisch, reduzierte Natrium
 782369|Scrapple, cooked|Scrapple, gekocht
-782370|Thuringer|Thüringer
-782376|Vienna sausage, canned|Wiener Wurst, in Dosen
-782377|Pickled sausage|Eingelegte Wurst
-782378|Luncheon meat|Mittagsfleisch
-782383|Ham luncheon meat, loaf type|Schinken-Mittagessen-Fleisch, Laibart
+782370|Thuringer|Thüringer Rostbratwurst
+782376|Vienna sausage, canned|Wiener Wurst, aus der Dose
+782377|Pickled sausage|eingeweckte Wurst
+782378|Luncheon meat|Frühstücksfleisch
+782383|Ham luncheon meat, loaf type|Frühstücksfleisch, Schinken
 782387|Liverwurst|Leberwurst
-782388|Luncheon meat, loaf type|Mittagessen Fleisch, Laib Typ
+782388|Luncheon meat, loaf type|Frühstücksfleisch
 782395|Chicken salad spread|Hühnersalataufstrich
 782396|Ham salad spread|Schinkensalataufstrich
-782713|Whiting, coated, fried, made without fat|Wittling, überzogen, gebraten, fettfrei gemacht
-782730|Tilapia, coated, fried, made without fat|Tilapia, überzogen, gebraten, fettfrei
+782713|Whiting, coated, fried, made without fat|Wittling, paniert, ohne Fett gebraten
+782730|Tilapia, coated, fried, made without fat|Tilapia, paniert, ohne Fett gebraten
 782734|Frog legs, steamed|Froschschenkel, gedämpft
 782736|Octopus, steamed|Krake, gedämpft
 782737|Octopus, dried|Krake, getrocknet
 782738|Octopus, dried, boiled|Krake, getrocknet, gekocht
-782739|Octopus, smoked|Krake, geraucht
+782739|Octopus, smoked|Krake, geräuchert
 782740|Roe, shad, cooked|Rogen, Schatten, gekocht
 782741|Roe, herring|Rogen, Hering
 782742|Roe, sturgeon|Rogen, Stör
 782743|Squid|Tintenfisch
-782748|Squid, coated, fried|Tintenfisch, überzogen, gebraten
+782748|Squid, coated, fried|Tintenfisch, paniert, gebraten
 782750|Squid, dried|Tintenfisch, getrocknet
 782751|Squid, pickled|Tintenfisch, eingelegt
-782752|Squid, canned|Tintenfisch, in Dosen
+782752|Squid, canned|Tintenfisch, aus der Dose
 782757|Clams|Venusmuscheln
-782763|Clams, coated, fried|Muscheln, überzogen, gebraten
-782765|Clams, canned|Muscheln, in Dosen
+782763|Clams, coated, fried|Muscheln, paniert, gebraten
+782765|Clams, canned|Muscheln, aus der Dose
 782772|Crab, hard shell, steamed|Krabbe, harte Schale, gedämpft
-782773|Crab, canned|Krabben, in Dosen
-782774|Crab, soft shell, coated, fried|Krabbe, Softshell, überzogen, gebraten
-782775|Crayfish, coated, fried|Krebse, überzogen, gebraten
-782780|Lobster, coated, fried|Hummer, überzogen, gebraten
-782784|Lobster, canned|Hummer, in Dosen
+782773|Crab, canned|Krabben, aus der Dose
+782774|Crab, soft shell, coated, fried|Krabbe, weiche Schale, paniert, gebraten
+782775|Crayfish, coated, fried|Krebse, paniert, gebraten
+782780|Lobster, coated, fried|Hummer, paniert, gebraten
+782784|Lobster, canned|Hummer, aus der Dose
 782785|Mussels|Muscheln
 782788|Oysters|Austern
 782792|Oysters, steamed|Austern, gedämpft
-782793|Oysters, coated, fried|Austern, überzogen, gebraten
-782796|Oysters, canned|Austern, in Dosen
-782797|Oysters, smoked|Austern, geraucht
-782802|Scallops, coated, fried|Jakobsmuscheln, überzogen, gebraten
-782815|Shrimp, coated, fried, made without fat|Garnelen, überzogen, gebraten, fettfrei
-782817|Shrimp, coated, fried, from fast food / restaurant|Garnelen, überzogen, gebraten, aus Fast Food / Restaurant
+782793|Oysters, coated, fried|Austern, paniert, gebraten
+782796|Oysters, canned|Austern, aus der Dose
+782797|Oysters, smoked|Austern, geräuchert
+782802|Scallops, coated, fried|Jakobsmuscheln, paniert, gebraten
+782815|Shrimp, coated, fried, made without fat|Garnelen, paniert, ohne Fett gebraten
+782817|Shrimp, coated, fried, from fast food / restaurant|Garnelen, paniert, gebraten, aus Fast Food / Restaurant
 782823|Shrimp, dried|Garnelen, getrocknet
-782824|Shrimp, canned|Garnelen, in Dosen
+782824|Shrimp, canned|Garnelen, aus der Dose
 782827|Beef goulash|Rindergulasch
-782828|Beef burgundy|Rindfleisch Burgund
-782829|Beef stew, no potatoes, tomato-based sauce, Mexican style|Rindfleischeintopf, keine Kartoffeln, Tomatensauce nach mexikanischer Art
+782828|Beef burgundy|Beef Bourguignon
+782829|Beef stew, no potatoes, tomato-based sauce, Mexican style|Rindfleischeintopf, ohne Kartoffeln, Tomatensauce nach mexikanischer Art
 782836|Chili con carne without beans|Chili con Carne ohne Bohnen
-782839|Beef sloppy joe, no bun|Rindfleisch schlampig Joe, kein Brötchen
+782839|Beef sloppy joe, no bun|Sloppy Joe, ohne Brötchen
 782843|Beef stroganoff|Rindfleisch Stroganoff
 782849|Beef curry|Fleisch-Curry
 782852|Stewed seasoned ground beef, Mexican style|Geschmortes gewürztes Rinderhackfleisch nach mexikanischer Art
@@ -522,7 +522,7 @@
 782880|Veal scallopini|Kalbs-Jakobsmuscheln
 782883|Veal Marsala|Kalbfleisch Marsala
 782884|Veal parmigiana|Kalbfleisch Parmigiana
-782885|Veal cordon bleu|Kalbsblaue Schnur
+782885|Veal cordon bleu|Cordon Bleu, kalb
 782919|Shrimp cocktail|Krabbencocktail
 782922|Clam sauce, white|Muschelsauce, weiß
 782930|Shrimp scampi|Shrimps, Scampi
@@ -535,77 +535,77 @@
 782994|Ham croquette|Schinkenkrokette
 783004|Stewed pig's feet, Puerto Rican style|Geschmorte Schweinefüße im puertoricanischen Stil
 783005|Stuffed pork roast, Puerto Rican style|Gefüllter Schweinebraten nach puertoricanischer Art
-783064|Seafood restructured|Meeresfrüchte umstrukturiert
+783064|Seafood restructured|Meeresfrüchte geformt
 783065|Seafood souffle|Meeresfrüchte-Souffle
 783082|Liver dumpling|Leberknödel
 783083|Breaded brains, Puerto Rican style|Panierte Gehirne im puertoricanischen Stil
-783129|Beef pot pie|Rindfleisch kann Kuchen
+783129|Beef pot pie|Fleischpastete, Rindfleisch
 783132|Stuffed green pepper, Puerto Rican style|Gefüllter grüner Pfeffer nach puertoricanischer Art
-783133|Ham pot pie|Schinken kann Kuchen
+783133|Ham pot pie|Pastete, Schinken
 783165|Veal fricassee, Puerto Rican style|Kalbsfrikassee im puertoricanischen Stil
 783169|Stewed rabbit, Puerto Rican style,|Geschmortes Kaninchen im puertoricanischen Stil,
 783238|Stew|Eintopf
 783239|Goulash|Gulasch
 783240|Meat pie|Fleischpastete
-783243|Brunswick stew|Braunschweig Stew
+783243|Brunswick stew|Braunschweig-Eintopf
 783245|Stewed variety meats, mostly liver, Puerto Rican style|Geschmortes Fleisch, hauptsächlich Leber, nach puertoricanischer Art
 783253|Swiss steak|Schweizer Steak
 783268|Pepper steak|Pfeffersteak
 783270|Beef salad|Rindfleischsalat
 783275|Seasoned shredded soup meat|Gewürztes zerkleinertes Suppenfleisch
-783290|Pork hash|Schweinehasch
-783304|Stuffed christophine, Puerto Rican style|Gefüllte Christophine im puertoricanischen Stil
+783290|Pork hash|Schweinehackfleisch
+783304|Stuffed christophine, Puerto Rican style|Gefüllte Chayote im puertoricanischen Stil
 783406|Julienne salad, meat, cheese, eggs, vegetables, no dressing|Julienne Salat, Fleisch, Käse, Eier, Gemüse, kein Dressing
 783410|Stewed chitterlings, Puerto Rican style|Geschmorte Chitterlings im puertoricanischen Stil
-783739|Frozen dinner|Gefrorenes Abendessen
-783740|Beef dinner, frozen meal|Rindfleisch Abendessen, Tiefkühlkost
+783739|Frozen dinner|Fertiggericht
+783740|Beef dinner, frozen meal|Tiefkühlgericht, Rindfleisch
 783745|Salisbury steak dinner, frozen meal|Salisbury Steak Abendessen, Tiefkühlkost
 783752|Salisbury steak, potatoes, vegetable, dessert, diet frozen meal|Salisbury Steak, Kartoffeln, Gemüse, Dessert, Diät Tiefkühlkost
-783759|Veal dinner, frozen meal|Kalbsessen, Tiefkühlkost
+783759|Veal dinner, frozen meal|Tiefkühlkost, Kalb
 783801|Meat loaf dinner, frozen meal|Hackbraten Abendessen, Tiefkühlkost
 783909|Egg, whole|Ei, ganz
 783913|Egg, whole, fried without fat|Ei, ganz, ohne Fett gebraten
 783920|Egg, whole, fried, from fast food / restaurant|Ei, ganz, gebraten, aus Fast Food / Restaurant
-783924|Egg, whole, pickled|Ei, ganz, eingelegt
-783925|Egg, white only|Ei, nur weiß
+783924|Egg, whole, pickled|Solei
+783925|Egg, white only|Ei, nur Eiweiß
 783929|Egg, yolk only|Ei, nur Eigelb
 783933|Duck egg, cooked|Entenei, gekocht
 783934|Goose egg, cooked|Gänseei, gekocht
-783935|Quail egg, canned|Wachtelei, in Dosen
-783936|Egg, creamed|Ei, Rahmspinat
+783935|Quail egg, canned|Wachtelei, aus der Dose
+783936|Egg, creamed|Rahmeier (Rührei, Bechamehlsoße)
 783937|Egg, Benedict|Ei, Benedikt
 783939|Egg, deviled|Ei, teuflisch
 783949|Huevos rancheros|Rancheros Eier
 783956|Ripe plantain omelet, Puerto Rican style|Reifes Bananenomelett nach puertoricanischer Art
 783958|Eggs a la Malaguena, Puerto Rican style|Eier a la Malaguena nach puertoricanischer Art
 783959|Shrimp-egg patty|Shrimps-Ei-Pastetchen
-784222|Baked beans|Gebackene Bohnen
-784223|Baked beans, vegetarian|Gebackene Bohnen, vegetarisch
+784222|Baked beans|weiße Bohnen mit Tomatensoße, Schweinefett
+784223|Baked beans, vegetarian|weiße Bohnen mit Tomatensoße
 784228|Black bean salad|Schwarzer Bohnensalat
 784229|Boston baked beans|Boston gebackene Bohnen
 784236|Refried beans, from restaurant|Gekühlte Bohnen aus dem Restaurant
-784239|Refried beans, canned, low sodium |Gekühlte Bohnen, Dosen, wenig Natrium
+784239|Refried beans, canned, low sodium |Gekühlte Bohnen, Dosen, salzarm
 784249|Falafel|Falafel
-784250|Bean cake|Bohnenkuchen
+784250|Bean cake|Roter Bohnenkuchen
 784252|Stewed red beans, Puerto Rican style|Geschmorte rote Bohnen nach puertoricanischer Art
 784257|Black beans, Cuban style|Schwarze Bohnen nach kubanischer Art
 784281|Wasabi peas|Wasabi-Erbsen
-784290|Loaf, lentil|Laib, Linse
+784290|Loaf, lentil|Linsenbrot
 784291|Stewed chickpeas, Puerto Rican style|Geschmorte Kichererbsen nach puertoricanischer Art
-784299|Soy nuts|Ich bin verrückt
+784299|Soy nuts|Sojanüsse
 784301|Soybean curd|Sojabohnenquark
 784302|Edamame, cooked|Edamame, gekocht
 784303|Soybean curd cheese|Sojabohnenquark
-784310|Yogurt, soy|Joghurt bin ich
+784310|Yogurt, soy|Yogurt, Soja
 784314|Soybean curd, deep fried|Sojabohnenquark, frittiert
 784315|Soybean curd, breaded, fried|Sojabohnenquark, paniert, gebraten
 784316|Soybean meal|Sojabohnenmehl
 784318|Textured vegetable protein, dry|Strukturiertes pflanzliches Protein, trocken
-784342|Bacon strip, meatless|Speckstreifen, fleischlos
+784342|Bacon strip, meatless|Speckstreifen, Fleischersatz
 784343|Bacon bits|Speckwürfel
-784345|Chicken, meatless|Huhn, fleischlos
-784346|Chicken, meatless, breaded, fried|Huhn, fleischlos, paniert, gebraten
-784349|Meatball, meatless|Fleischbällchen, fleischlos
+784345|Chicken, meatless|Huhn, Fleischersatz
+784346|Chicken, meatless, breaded, fried|Huhn, Fleischersatz, paniert, gebraten
+784349|Meatball, meatless|Fleischbällchen, Fleischersatz
 784352|Sandwich spread, meat substitute type|Sandwichaufstrich, Fleischersatztyp
 784353|Vegetarian pot pie|Vegetarische Dose Kuchen
 784357|Vegetarian, fillet|Vegetarisch, Filet
@@ -656,12 +656,12 @@
 784410|Walnuts|Walnüsse
 784411|Walnuts, honey roasted|Walnüsse, Honig geröstet
 784412|Almond butter|Mandelbutter
-784413|Almond butter, lower sodium|Mandelbutter, niedrigeres Natrium
+784413|Almond butter, lower sodium|Mandelbutter, salzarm
 784414|Almond paste|Mandelpaste
 784415|Cashew butter|Cashewbutter
 784416|Peanut butter|Erdnussbutter
-784417|Peanut butter, lower sodium|Erdnussbutter, niedrigeres Natrium
-784419|Peanut butter, lower sugar|Erdnussbutter, niedriger Zucker
+784417|Peanut butter, lower sodium|Erdnussbutter, salzarm
+784419|Peanut butter, lower sugar|Erdnussbutter, zuckerarm
 784420|Peanut butter, reduced fat|Erdnussbutter, fettarm
 784452|Trail mix|Studentenfutter
 784457|Pumpkin seeds|Kürbiskerne
@@ -677,18 +677,18 @@
 784467|Mixed seeds|Gemischte Samen
 784468|Chia seeds|Chia-Samen
 786010|Kibby, Puerto Rican style|Kibby im puertoricanischen Stil
-787402|Spinach souffle|Spinat bläst
-787639|Squash, winter, souffle|Squash, Winter, Souffle
-788792|Squash, summer, souffle|Squash, Sommer, Souffle
-781739|Topping from cheese pizza|Belag aus Käsepizza
-781740|Topping from vegetable pizza|Belag aus Gemüsepizza
-781741|Topping from meat pizza|Belag von Fleischpizza
+787402|Spinach souffle|Souffle, Spinat
+787639|Squash, winter, souffle|Souffle, Winterkürbis
+788792|Squash, summer, souffle|Souffle, Sommerkürbis
+781739|Topping from cheese pizza|Käsepizza (nur Belag)
+781740|Topping from vegetable pizza|Gemüsepizza (nur Belag)
+781741|Topping from meat pizza|Fleischpizza (nur Belag)
 782848|Steak teriyaki|Steak Teriyaki
 782903|Chicken curry|Hühnchen-Curry
 782908|Orange chicken|Orangenhähnchen
 782909|Sesame chicken|Sesame Chicken
 782910|Chicken kiev|Hühnchen Kiew
-782913|Crab, deviled|Krabbe, teuflisch
+782913|Crab, deviled|Krabbe, gekocht, scharf
 782914|Crab imperial|Krabbe imperial
 782916|Lobster newburg|Hummer Newburg
 782918|Shrimp curry|Shrimps-Curry
@@ -697,7 +697,7 @@
 782933|Fish curry|Fisch-Curry
 782937|Shrimp teriyaki|Shrimp Teriyaki
 782939|Ceviche|Ceviche
-782942|Stewed codfish, no potatoes, Puerto Rican style|Geschmorter Kabeljau, keine Kartoffeln nach puertoricanischer Art
+782942|Stewed codfish, no potatoes, Puerto Rican style|Geschmorter Kabeljau, ohne Kartoffeln nach puertoricanischer Art
 783037|Clams, stuffed|Muscheln, gefüllt
 783039|Crab cake|Krabbenkuchen
 783041|Gefilte fish|Gefilte Fisch
@@ -708,7 +708,7 @@
 783063|Shrimp toast, fried|Garnelentoast, gebraten
 783074|Stewed salmon, Puerto Rican style|Gedünsteter Lachs nach puertoricanischer Art
 783222|Chicken fricassee, Puerto Rican style|Hühnerfrikassee nach puertoricanischer Art
-783227|Tuna pot pie|Thunfisch kann Kuchen
+783227|Tuna pot pie|Pastete, Thunfisch
 783231|Bouillabaisse|Bouillabaisse
 783232|Oyster pie|Oyster Pie
 783236|Stewed codfish, Puerto Rican style|Geschmorter Kabeljau nach puertoricanischer Art
@@ -732,7 +732,7 @@
 783373|Shrimp garden salad, shrimp, lettuce, eggs, tomato and/or carrots, other vegetables, no dressing|Garnelengartensalat, Garnelen, Salat, Eier, Tomaten und / oder Karotten, anderes Gemüse, kein Dressing
 783381|Oysters Rockefeller|Rockefeller Austern
 783382|Lomi salmon|Lomi Lachs
-783388|Shrimp creole, no rice|Shrimp Creole, kein Reis
+783388|Shrimp creole, no rice|Shrimp Creole, ohne Reis
 783389|Kung Pao shrimp|Wenn Pao Garnelen
 783402|Octopus salad, Puerto Rican style|Krakensalat nach puertoricanischer Art
 783403|Codfish salad, Puerto Rican style, Serenata|Kabeljausalat nach puertoricanischer Art, Serenata
@@ -753,9 +753,9 @@
 784572|Bread stuffing|Brotfüllung
 784710|Cornbread stuffing|Maisbrotfüllung
 785396|Dumpling, fried, Puerto Rican style|Knödel, gebraten, puertoricanische Art
-785859|Tamale, plain, meatless, no sauce, Mexican style|Tamale, schlicht, fleischlos, ohne Sauce, nach mexikanischer Art
-785875|Chimichanga, meatless|Chimichanga, fleischlos
-785880|Quesadilla, just cheese, meatless|Quesadilla, nur Käse, fleischlos
+785859|Tamale, plain, meatless, no sauce, Mexican style|Tamale, schlicht, Fleischersatz, ohne Sauce, nach mexikanischer Art
+785875|Chimichanga, meatless|Chimichanga, Fleischersatz
+785880|Quesadilla, just cheese, meatless|Quesadilla, nur Käse, Fleischersatz
 785881|Quesadilla, just cheese, from fast food|Quesadilla, nur Käse, aus Fast Food
 785898|Pupusa, cheese-filled|Pupusa, mit Käse gefüllt
 785899|Pupusa, bean-filled|Pupusa, mit Bohnen gefüllt
@@ -768,8 +768,8 @@
 785910|Pizza, cheese, from school lunch, thick crust|Pizza, Käse, vom Schulessen, dicke Kruste
 785911|Pizza, extra cheese, thin crust|Pizza, extra Käse, dünne Kruste
 785912|Pizza, extra cheese, thick crust|Pizza, extra Käse, dicke Kruste
-785989|Egg roll, meatless|Frühlingsrolle, fleischlos
-785995|Wonton, fried, meatless|Wonton, gebraten, fleischlos
+785989|Egg roll, meatless|Frühlingsrolle, Fleischersatz
+785995|Wonton, fried, meatless|Wonton, gebraten, Fleischersatz
 785999|Tamale casserole, Puerto Rican style|Tamale-Auflauf im puertoricanischen Stil
 786002|Meat turnover, Puerto Rican style|Fleischumsatz nach puertoricanischer Art
 786006|Meat pie, Puerto Rican style|Fleischpastete nach puertoricanischer Art
@@ -786,14 +786,14 @@
 786025|Knish, meat|Knish, Fleisch
 786030|Pastry, meat / poultry-filled|Gebäck, Fleisch / Geflügel gefüllt
 786031|Spanakopitta|Spanakopitta
-786034|Spinach quiche, meatless|Spinatquiche, fleischlos
-786035|Cheese quiche, meatless|Käsequiche, fleischlos
+786034|Spinach quiche, meatless|Spinatquiche, Fleischersatz
+786035|Cheese quiche, meatless|Käsequiche, Fleischersatz
 786037|Turnover, meat-filled, no gravy|Umsatz, fleischgefüllt, keine Soße
 786042|Turnover, cheese-filled, tomato-based sauce|Mit Käse gefüllte Sauce auf Tomatenbasis
 786065|Chicken cornbread|Hühnchen-Maisbrot
-786078|Lasagna, meatless|Lasagne, fleischlos
-786081|Lasagna, meatless, whole wheat noodles|Lasagne, fleischlose Vollkornnudeln
-786083|Lasagna, meatless, spinach noodles|Lasagne, fleischlose Spinatnudeln
+786078|Lasagna, meatless|Lasagne, Fleischersatz
+786081|Lasagna, meatless, whole wheat noodles|Lasagne, Fleischersatze Vollkornnudeln
+786083|Lasagna, meatless, spinach noodles|Lasagne, Fleischersatze Spinatnudeln
 786087|Ravioli, meat-filled, no sauce|Ravioli, fleischgefüllt, keine Sauce
 786091|Ravioli, cheese-filled, no sauce|Ravioli, mit Käse gefüllt, keine Sauce
 786099|Manicotti, cheese-filled, no sauce|Manicotti, mit Käse gefüllt, keine Sauce
@@ -804,11 +804,11 @@
 786123|Lo mein|Lo mein
 786124|Lo mein, meatless|Lo mein, meatless
 786129|Pad Thai|Pad Thai
-786130|Pad Thai, meatless|Pad Thai, fleischlos
+786130|Pad Thai, meatless|Pad Thai, Fleischersatz
 786256|Flavored pasta|Aromatisierte Nudeln
 786275|Noodle pudding|Nudelpudding
 786278|Bibimbap, Korean|Bibimbap, Koreanisch
-786279|Rice, fried, meatless|Reis, gebraten, fleischlos
+786279|Rice, fried, meatless|Reis, gebraten, Fleischersatz
 786280|Rice, fried|Reis, gebraten
 786287|Sushi|Sushi
 786288|Sushi roll, avocado|Sushi-Rolle, Avocado
@@ -880,10 +880,10 @@
 783417|Beef sandwich|Rindfleischsandwich
 783419|Beef barbecue submarine sandwich, on bun|Rindfleisch-Grill-U-Boot-Sandwich, auf Brötchen
 783420|Cheeseburger, 1 miniature patty, plain, on miniature bun, from fast food / restaurant|Cheeseburger, 1 Miniaturpastetchen, schlicht, auf Miniaturbrötchen, aus Fast Food / Restaurant
-783422|Cheeseburger, 1 miniature patty, on miniature bun, from school|Cheeseburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, aus der Schule
+783422|Cheeseburger, 1 miniature patty, on miniature bun, from school|Cheeseburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, mensa
 783423|Cheeseburger|Cheeseburger
 783424|Cheeseburger, 1 small patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 kleines Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783432|Cheeseburger on bun, from school|Cheeseburger auf Brötchen, aus der Schule
+783432|Cheeseburger on bun, from school|Cheeseburger auf Brötchen, mensa
 783433|Cheeseburger, 1 small patty, plain, on white bun|Cheeseburger, 1 kleines Pastetchen, schlicht, auf weißem Brötchen
 783434|Cheeseburger, 1 small patty, plain, on wheat bun|Cheeseburger, 1 kleines Pastetchen, glatt, auf Weizenbrötchen
 783438|Cheeseburger, 1 medium patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 mittelgroße Pastete, einfach, auf Brötchen, aus Fast Food / Restaurant
@@ -897,10 +897,10 @@
 783468|Double cheeseburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelter Cheeseburger, 2 mittelgroße Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
 783473|Double bacon cheeseburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelspeck-Cheeseburger, 2 mittelgroße Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
 783478|Hamburger, 1 miniature patty, plain, on miniature bun, from fast food / restaurant|Hamburger, 1 Miniaturpastetchen, schlicht, auf Miniaturbrötchen, aus Fast Food / Restaurant
-783480|Hamburger, 1 miniature patty, on miniature bun, from school|Hamburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, aus der Schule
+783480|Hamburger, 1 miniature patty, on miniature bun, from school|Hamburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, mensa
 783481|Hamburger|Hamburger
 783482|Hamburger, 1 small patty, plain, on bun, from fast food / restaurant|Hamburger, 1 kleines Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783488|Hamburger, on bun, from school|Hamburger, auf Brötchen, aus der Schule
+783488|Hamburger, on bun, from school|Hamburger, auf Brötchen, mensa
 783489|Hamburger, 1 small patty, plain, on white bun|Hamburger, 1 kleines Pastetchen, schlicht, auf weißem Brötchen
 783490|Hamburger, 1 small patty, plain, on wheat bun|Hamburger, 1 kleines Pastetchen, glatt, auf Weizenbrötchen
 783491|Hamburger, 1 small patty, plain, on whole wheat bun|Hamburger, 1 kleines Pastetchen, glatt, auf Vollkornbrötchen
@@ -1154,7 +1154,7 @@
 787162|Potato chowder|Kartoffelsuppe
 787163|Plantain soup, Puerto Rican style|Wegerichsuppe nach puertoricanischer Art
 787519|Spinach soup|Spinatsuppe
-787521|Dark-green leafy vegetable soup, meatless, Asian style|Dunkelgrüne Blattgemüsesuppe nach fleischloser asiatischer Art
+787521|Dark-green leafy vegetable soup, meatless, Asian style|Dunkelgrüne Blattgemüsesuppe nach Fleischersatzer asiatischer Art
 787755|Tomato soup|Tomatensuppe
 787769|Tomato sandwich|Tomatensandwich
 788859|Soup, cream of|Suppe, Sahne von
@@ -1165,7 +1165,7 @@
 788884|Onion soup, made from dry mix|Zwiebelsuppe aus trockener Mischung
 788888|Shav soup|Shav Suppe
 788889|Seaweed soup|Seetang-Suppe
-788891|Vegetable soup, reduced sodium, canned, ready to serve|Gemüsesuppe, reduziertes Natrium, in Dosen, servierfertig
+788891|Vegetable soup, reduced sodium, canned, ready to serve|Gemüsesuppe, salzarm, aus der Dose, servierfertig
 788892|Vegetable soup, made from dry mix|Gemüsesuppe aus Trockenmischung
 788893|Vegetable soup, home recipe|Gemüsesuppe, Hausrezept
 788894|Vegetable noodle soup, home recipe|Gemüsenudelsuppe, Hausrezept
@@ -1177,13 +1177,13 @@
 788915|Vegetable broth, bouillon|Gemüsebrühe, Bouillon
 781648|Tiramisu|Tiramisu
 784296|Bean chips|Bohnenchips
-784300|Soy chips|Ich bin Chips
-784552|Roll, sweet, no frosting|Brötchen, süß, kein Zuckerguss
-784553|Roll, sweet, cinnamon bun, no frosting|Brötchen, süß, Zimtschnecke, kein Zuckerguss
-784554|Roll, sweet, cinnamon bun, frosted|Brötchen, süß, Zimtschnecke, gefrostet
-784558|Roll, sweet, frosted|Brötchen, süß, gefrostet
-784559|Pan Dulce, no topping|Pan Dulce, kein Belag
-784562|Coffee cake, yeast type|Kaffeekuchen, Hefetyp
+784300|Soy chips|Sojachips
+784552|Roll, sweet, no frosting|Brötchen, süß, ohne Zuckerguss
+784553|Roll, sweet, cinnamon bun, no frosting|Brötchen, süß, Zimtschnecke, ohne Zuckerguss
+784554|Roll, sweet, cinnamon bun, frosted|Brötchen, süß, Zimtschnecke, glasiert
+784558|Roll, sweet, frosted|Brötchen, süß, glasiert
+784559|Pan Dulce, no topping|Backware, süß, ohne Guss
+784562|Coffee cake, yeast type|Kaffeekuchen, Hefe
 784563|Croissant|Croissant
 784564|Croissant, cheese|Croissant, Käse
 784565|Croissant, chocolate|Croissant, Schokolade
@@ -1191,7 +1191,7 @@
 784567|Brioche|Brioche
 784568|Bread, Spanish coffee|Brot, spanischer Kaffee
 784575|Breadsticks, hard|Brotstangen, hart
-784576|Breadsticks, hard, reduced sodium|Brotstangen, hart, reduziertes Natrium
+784576|Breadsticks, hard, reduced sodium|Brotstangen, hart, salzarm
 784584|Croutons|Croutons
 784589|Melba toast|Melba Toast
 784590|Anisette toast|Toast Anisette
@@ -1255,9 +1255,9 @@
 784835|Cookie, chocolate chip|Keks, Schokoladenstückchen
 784837|Cookie, chocolate chip, reduced fat|Keks, Schokoladenstückchen, fettarm
 784838|Cookie, chocolate chip sandwich|Keks, Schokoladensandwich
-784844|Cookie, marshmallow, chocolate-covered|Keks, Marshmallow, mit Schokolade überzogen
+784844|Cookie, marshmallow, chocolate-covered|Keks, Marshmallow, mit Schokolade paniert
 784845|Cookie, marshmallow pie, chocolate covered|Keks, Marshmallow-Torte, Schokolade bedeckt
-784847|Cookie, sugar wafer, chocolate-covered|Keks, Zuckerwaffel, mit Schokolade überzogen
+784847|Cookie, sugar wafer, chocolate-covered|Keks, Zuckerwaffel, mit Schokolade paniert
 784848|Cookie, chocolate sandwich|Keks, Schokoladensandwich
 784849|Cookie, chocolate sandwich, reduced fat|Keks, Schokoladensandwich, fettarm
 784852|Cookie, chocolate wafer|Keks, Schokoladenwaffel
@@ -1408,16 +1408,16 @@
 785156|Crackers|Cracker
 785157|Graham crackers|Graham Cracker
 785158|Graham crackers (Teddy Grahams)|Graham Cracker (Teddy Grahams)
-785159|Graham crackers, chocolate covered|Graham Cracker, mit Schokolade überzogen
+785159|Graham crackers, chocolate covered|Graham Cracker, mit Schokolade paniert
 785160|Crackers, oatmeal|Cracker, Haferflocken
 785161|Crackers, Cuban|Cracker, kubanisch
 785162|Graham crackers, reduced fat|Graham Cracker, reduziertes Fett
 785164|Crackers, breakfast biscuit|Cracker, Frühstückskeks
-785165|Crackers, butter, reduced sodium|Cracker, Butter, reduziertes Natrium
-785166|Crackers, matzo, reduced sodium|Cracker, Matze, reduziertes Natrium
-785167|Crackers, saltine, reduced sodium|Cracker, Salz, reduziertes Natrium
-785168|Crackers, wheat, reduced sodium|Cracker, Weizen, reduziertes Natrium
-785169|Crackers, woven wheat, reduced sodium|Cracker, gewebter Weizen, reduziertes Natrium
+785165|Crackers, butter, reduced sodium|Cracker, Butter, salzarm
+785166|Crackers, matzo, reduced sodium|Cracker, Matze, salzarm
+785167|Crackers, saltine, reduced sodium|Cracker, Salz, salzarm
+785168|Crackers, wheat, reduced sodium|Cracker, Weizen, salzarm
+785169|Crackers, woven wheat, reduced sodium|Cracker, gewebter Weizen, salzarm
 785170|Crackers, butter, plain|Cracker, Butter, schlicht
 785171|Crackers, butter, flavored|Cracker, Butter, aromatisiert
 785172|Crackers, butter (Ritz)|Cracker, Butter (Ritz)
@@ -1465,7 +1465,7 @@
 785221|Corn chips, plain (Fritos)|Corn Chips, glatt (gebraten)
 785225|Tortilla chips, plain|Tortillachips, schlicht
 785227|Tortilla chips, flavored|Tortillachips, aromatisiert
-785228|Corn chips, reduced sodium|Corn Chips, reduziertes Natrium
+785228|Corn chips, reduced sodium|Corn Chips, salzarm
 785229|Tortilla chips, popped|Tortillachips, geknallt
 785230|Tortilla chips, nacho cheese flavor (Doritos)|Tortillachips, Nachokäsegeschmack (Doritos)
 785231|Tortilla chips, cool ranch flavor (Doritos)|Tortilla-Chips, kühles Ranch-Aroma (Doritos)
@@ -1473,91 +1473,91 @@
 785233|Tortilla chips, reduced fat, plain|Tortillachips, fettarm, schlicht
 785234|Tortilla chips, reduced fat, flavored|Tortillachips, fettarm, aromatisiert
 785235|Tortilla chips, low fat, unsalted|Tortillachips, fettarm, ungesalzen
-785236|Tortilla chips, reduced sodium|Tortillachips, reduziertes Natrium
+785236|Tortilla chips, reduced sodium|Tortillachips, salzarm
 785237|Snack mix|Snackmischung
 785238|Potato chips, restructured, multigrain|Kartoffelchips, umstrukturiert, Mehrkorn
 785239|Pita chips|Pita-Chips
 785240|Popcorn|Popcorn
-785242|Popcorn, movie theater, unbuttered|Popcorn, Kino, ungestört
-785243|Popcorn, air-popped, unbuttered|Popcorn, luftgetrocknet, ungestört
+785242|Popcorn, movie theater, unbuttered|Popcorn, Kino, ohne Butter
+785243|Popcorn, air-popped, unbuttered|Popcorn, ohne Fett, ohne Butter
 785247|Popcorn, microwave|Popcorn, Mikrowelle
-785248|Popcorn, microwave, plain|Popcorn, Mikrowelle, einfach
-785249|Popcorn, microwave, plain, light|Popcorn, Mikrowelle, schlicht, leicht
-785250|Popcorn, microwave, low sodium|Popcorn, Mikrowelle, wenig Natrium
+785248|Popcorn, microwave, plain|Popcorn, Mikrowelle, natur
+785249|Popcorn, microwave, plain, light|Popcorn, Mikrowelle, natur
+785250|Popcorn, microwave, low sodium|Popcorn, Mikrowelle, salzarm
 785251|Popcorn, microwave, unsalted|Popcorn, Mikrowelle, ungesalzen
 785252|Popcorn, microwave, butter flavored|Popcorn, Mikrowelle, Buttergeschmack
-785253|Popcorn, microwave, butter flavored, light|Popcorn, Mikrowelle, Buttergeschmack, leicht
+785253|Popcorn, microwave, butter flavored, light|Popcorn, Mikrowelle, Buttergeschmack
 785254|Popcorn, microwave, cheese flavored|Popcorn, Mikrowelle, Käse gewürzt
 785255|Popcorn, microwave, kettle corn|Popcorn, Mikrowelle, Kesselmais
-785256|Popcorn, microwave, kettle corn, light|Popcorn, Mikrowelle, Kesselmais, Licht
+785256|Popcorn, microwave, kettle corn, light|Popcorn, Mikrowelle, Kesselmais
 785257|Popcorn, microwave, other flavored|Popcorn, Mikrowelle, andere Aromen
 785258|Popcorn, ready-to-eat packaged|Popcorn, essfertig verpackt
 785259|Popcorn, ready-to-eat packaged, plain|Popcorn, verzehrfertig verpackt, schlicht
-785260|Popcorn, ready-to-eat packaged, plain, light|Popcorn, verzehrfertig verpackt, schlicht, leicht
-785261|Popcorn, ready-to-eat packaged, low sodium|Popcorn, verzehrfertig verpackt, natriumarm
+785260|Popcorn, ready-to-eat packaged, plain, light|Popcorn, verzehrfertig verpackt, natur
+785261|Popcorn, ready-to-eat packaged, low sodium|Popcorn, verzehrfertig verpackt, salzarm
 785262|Popcorn, ready-to-eat packaged, unsalted|Popcorn, verzehrfertig verpackt, ungesalzen
 785263|Popcorn, ready-to-eat packaged, butter flavored|Popcorn, verzehrfertig verpackt, mit Buttergeschmack
-785264|Popcorn, ready-to-eat packaged, butter flavored, light|Popcorn, verzehrfertig verpackt, mit Buttergeschmack, leicht
+785264|Popcorn, ready-to-eat packaged, butter flavored, light|Popcorn, verzehrfertig verpackt, mit Buttergeschmack
 785265|Popcorn, ready-to-eat packaged, cheese flavored|Popcorn, verzehrfertig verpackt, mit Käsegeschmack
-785266|Popcorn, ready-to-eat packaged, cheese flavored, light|Popcorn, verzehrfertig verpackt, mit Käsegeschmack, leicht
+785266|Popcorn, ready-to-eat packaged, cheese flavored, light|Popcorn, verzehrfertig verpackt, mit Käsegeschmack
 785267|Popcorn, ready-to-eat-packaged, kettle corn|Popcorn, essfertig verpackt, Kesselmais
-785268|Popcorn, ready-to-eat packaged, kettle corn, light|Popcorn, essfertig verpackt, Kesselmais, leicht
+785268|Popcorn, ready-to-eat packaged, kettle corn, light|Popcorn, essfertig verpackt, Kesselmais
 785269|Popcorn, ready-to-eat packaged, other flavored|Popcorn, verzehrfertig verpackt, andere Aromen
 785270|Popcorn, caramel coated|Popcorn, karamellbeschichtet
-785272|Popcorn, chocolate coated|Popcorn, mit Schokolade überzogen
+785272|Popcorn, chocolate coated|Popcorn, mit Schokolade paniert
 785273|Popcorn chips, plain|Popcorn-Chips, schlicht
 785274|Popcorn chips, other flavors|Popcorn-Chips, andere Geschmacksrichtungen
 785275|Popcorn chips, sweet flavors|Popcorn-Chips, süße Aromen
 785277|Shrimp chips|Shrimps-Chips
-785278|Pretzels|Brezeln
-785279|Pretzels, hard|Brezeln, hart
-785280|Pretzels, hard, plain, salted|Brezeln, hart, glatt, gesalzen
-785282|Pretzels, hard, plain, unsalted|Brezeln, hart, schlicht, ungesalzen
-785283|Pretzels, hard, flavored|Brezeln, hart, aromatisiert
-785284|Pretzels, hard, multigrain|Brezeln, hart, Mehrkorn
-785285|Pretzels, hard, plain, gluten free|Brezeln, hart, einfach, glutenfrei
-785286|Pretzels, hard, flavored, gluten free|Brezeln, hart, aromatisiert, glutenfrei
-785288|Pretzel chips, hard, plain|Brezelchips, hart, glatt
+785278|Pretzels|Breze
+785279|Pretzels, hard|Breze, hart
+785280|Pretzels, hard, plain, salted|Breze, hart, gesalzen
+785282|Pretzels, hard, plain, unsalted|Breze, hart, ungesalzen
+785283|Pretzels, hard, flavored|Breze, hart, aromatisiert
+785284|Pretzels, hard, multigrain|Breze, hart, Mehrkorn
+785285|Pretzels, hard, plain, gluten free|Breze, hart, glutenfrei
+785286|Pretzels, hard, flavored, gluten free|Breze, hart, aromatisiert, glutenfrei
+785288|Pretzel chips, hard, plain|Brezelchips, hart
 785289|Pretzel chips, hard, flavored|Brezelchips, hart, aromatisiert
 785290|Pretzel chips, hard, gluten free|Brezelchips, hart, glutenfrei
-785291|Pretzels, hard, coated|Brezeln, hart, beschichtet
-785292|Pretzels, hard, chocolate coated|Brezeln, hart, schokoladenüberzogen
-785293|Pretzels, hard, white chocolate coated|Brezeln, harte, weiße Schokolade überzogen
-785294|Pretzels, hard, yogurt coated|Brezeln, hart, mit Joghurt überzogen
-785295|Pretzels, hard, coated, gluten free|Brezeln, hart, überzogen, glutenfrei
-785296|Pretzels, hard, filled|Brezeln, hart, gefüllt
-785297|Pretzels, hard, cheese filled|Brezeln, hart, Käse gefüllt
-785298|Pretzels, hard, peanut butter filled|Brezeln, hart, Erdnussbutter gefüllt
-785299|Pretzels, soft|Brezeln, weich
-785300|Pretzels, soft, ready-to-eat|Brezeln, weich, essfertig
-785301|Pretzels, soft, ready-to-eat, salted, buttered|Brezeln, weich, essfertig, gesalzen, gebuttert
-785302|Pretzels, soft, ready-to-eat, unsalted, buttered|Brezeln, weich, essfertig, ungesalzen, gebuttert
-785303|Pretzels, soft, ready-to-eat, salted, no butter|Brezeln, weich, essfertig, gesalzen, keine Butter
-785304|Pretzels, soft, ready-to-eat, unsalted, no butter|Brezeln, weich, essfertig, ungesalzen, keine Butter
-785305|Pretzels, soft, ready-to-eat, cinnamon sugar coated|Brezeln, weich, verzehrfertig, mit Zimtzucker überzogen
-785309|Pretzels, soft, from frozen|Brezeln, weich, aus gefrorenem
-785310|Pretzels, soft, from frozen, salted|Brezeln, weich, aus gefrorenem, gesalzenem
-785311|Pretzels, soft, from frozen, unsalted|Brezeln, weich, gefroren, ungesalzen
-785312|Pretzels, soft, from frozen, cinnamon sugar coated|Brezeln, weich, aus gefrorenem, mit Zimtzucker überzogenem
-785317|Pretzels, soft, from school lunch|Weiche Brezeln vom Schulessen
-785318|Pretzels, soft, multigrain|Brezeln, weich, Mehrkorn
-785319|Pretzels, soft, gluten free|Brezeln, weich, glutenfrei
-785320|Pretzels, soft, gluten free, cinnamon sugar coated|Brezeln, weich, glutenfrei, mit Zimtzucker überzogen
+785291|Pretzels, hard, coated|Breze, hart, paniert
+785292|Pretzels, hard, chocolate coated|Breze, hart, schokoladenpaniert
+785293|Pretzels, hard, white chocolate coated|Breze, harte, weiße Schokolade paniert
+785294|Pretzels, hard, yogurt coated|Breze, hart, mit Joghurt paniert
+785295|Pretzels, hard, coated, gluten free|Breze, hart, paniert, glutenfrei
+785296|Pretzels, hard, filled|Breze, hart, gefüllt
+785297|Pretzels, hard, cheese filled|Breze, hart, Käse gefüllt
+785298|Pretzels, hard, peanut butter filled|Breze, hart, Erdnussbutter gefüllt
+785299|Pretzels, soft|Breze, weich
+785300|Pretzels, soft, ready-to-eat|Breze, weich, essfertig
+785301|Pretzels, soft, ready-to-eat, salted, buttered|Breze, weich, essfertig, gesalzen, gebuttert
+785302|Pretzels, soft, ready-to-eat, unsalted, buttered|Breze, weich, essfertig, ungesalzen, gebuttert
+785303|Pretzels, soft, ready-to-eat, salted, no butter|Breze, weich, essfertig, gesalzen, keine Butter
+785304|Pretzels, soft, ready-to-eat, unsalted, no butter|Breze, weich, essfertig, ungesalzen, keine Butter
+785305|Pretzels, soft, ready-to-eat, cinnamon sugar coated|Breze, weich, verzehrfertig, mit Zimtzucker paniert
+785309|Pretzels, soft, from frozen|Breze, weich, aus gefrorenem
+785310|Pretzels, soft, from frozen, salted|Breze, weich, aus gefrorenem, gesalzenem
+785311|Pretzels, soft, from frozen, unsalted|Breze, weich, gefroren, ungesalzen
+785312|Pretzels, soft, from frozen, cinnamon sugar coated|Breze, weich, aus gefrorenem, mit Zimtzucker paniertem
+785317|Pretzels, soft, from school lunch|Weiche Breze vom Schulessen
+785318|Pretzels, soft, multigrain|Breze, weich, Mehrkorn
+785319|Pretzels, soft, gluten free|Breze, weich, glutenfrei
+785320|Pretzels, soft, gluten free, cinnamon sugar coated|Breze, weich, glutenfrei, mit Zimtzucker paniert
 785322|Multigrain chips (Sun Chips)|Mehrkornchips (Sun Chips)
 785323|Snack mix, plain (Chex Mix)|Snackmischung, einfach (Chex Mix)
 785324|Bagel chips|Bagelchips
 785325|Cracker chips|Cracker-Chips
 785326|Pancakes|Pfannkuchen
-785327|Pancakes, plain, from frozen|Pfannkuchen, einfach, aus gefrorenem
-785328|Pancakes, plain, reduced fat, from fozen|Pfannkuchen, einfach, fettarm, aus Fozen
-785331|Pancakes, whole grain, from frozen|Pfannkuchen, Vollkorn, aus gefrorenem
-785332|Pancakes, whole grain, reduced fat, from frozen|Pfannkuchen, Vollkorn, fettarm, gefroren
-785333|Pancakes, gluten free, from frozen|Pfannkuchen, glutenfrei, aus gefrorenem
-785334|Pancakes, plain, from fast food / restaurant|Pfannkuchen, einfach, aus Fast Food / Restaurant
+785327|Pancakes, plain, from frozen|Pfannkuchen, Tiefgekühlt
+785328|Pancakes, plain, reduced fat, from frozen|Pfannkuchen, fettarm, Tiefgekühlt
+785331|Pancakes, whole grain, from frozen|Pfannkuchen, Vollkorn, Tiefgekühlt
+785332|Pancakes, whole grain, reduced fat, from frozen|Pfannkuchen, Vollkorn, fettarm, Tiefgekühlt
+785333|Pancakes, gluten free, from frozen|Pfannkuchen, glutenfrei, Tiefgekühlt
+785334|Pancakes, plain, from fast food / restaurant|Pfannkuchen, blank, aus Fast Food / Restaurant
 785337|Pancakes, whole grain, from fast food / restaurant|Pfannkuchen, Vollkorn, aus Fast Food / Restaurant
-785339|Pancakes, from school|Pfannkuchen aus der Schule
-785340|Pancakes, plain|Pfannkuchen, einfach
-785341|Pancakes, plain, reduced fat|Pfannkuchen, einfach, fettarm
+785339|Pancakes, from school|Pfannkuchen, Mensa
+785340|Pancakes, plain|Pfannkuchen, blank
+785341|Pancakes, plain, reduced fat|Pfannkuchen, blank, fettarm
 785343|Pancakes, pumpkin|Pfannkuchen, Kürbis
 785345|Pancakes, buckwheat|Pfannkuchen, Buchweizen
 785346|Pancakes, cornmeal|Pfannkuchen, Maismehl
@@ -1577,8 +1577,8 @@
 785360|Waffle, chocolate, from fast food / restaurant|Waffel, Schokolade, aus Fast Food / Restaurant
 785361|Waffle, fruit, from fast food / restaurant|Waffel, Obst, aus Fast Food / Restaurant
 785362|Waffle, whole grain, from fast food / restaurant|Waffel, Vollkorn, aus Fast Food / Restaurant
-785363|Waffle, from school|Waffel aus der Schule
-785364|Waffle, plain|Waffel, schlicht
+785363|Waffle, from school|Waffel mensa
+785364|Waffle, plain|Waffel, blank
 785365|Waffle, fruit|Waffel, Obst
 785366|Waffle, chocolate|Waffel, Schokolade
 785367|Waffle, cinnamon|Waffel, Zimt
@@ -1593,7 +1593,7 @@
 785376|French toast, gluten free, from frozen|French Toast, glutenfrei, gefroren
 785377|French toast, plain, from fast food / restaurant|French Toast, einfach, aus Fast Food / Restaurant
 785378|French toast, whole grain, from fast food / restaurant|French Toast, Vollkorn, aus Fast Food / Restaurant
-785379|French toast, from school|French Toast aus der Schule
+785379|French toast, from school|French Toast mensa
 785380|French toast, plain|French Toast, schlicht
 785381|French toast, plain, reduced fat|French Toast, einfach, fettarm
 785382|French toast, whole grain|French Toast, Vollkorn
@@ -1602,7 +1602,7 @@
 785385|French toast sticks|French Toast Sticks
 785386|French toast sticks, plain, from frozen|Französische Toaststangen, glatt, aus gefrorenem
 785387|French toast sticks, plain, from fast food / restaurant|Französische Toaststangen, einfach, aus Fast Food / Restaurant
-785388|French toast sticks, from school|Französische Toaststangen aus der Schule
+785388|French toast sticks, from school|Französische Toaststangen mensa
 785389|French toast sticks, plain|Französische Toaststangen, schlicht
 785390|French toast sticks, whole grain|French Toast Sticks, Vollkorn
 785391|Fried bread, Puerto Rican style|Gebratenes Brot nach puertoricanischer Art
@@ -1659,7 +1659,7 @@
 785608|Cereal (Quaker Corn Bran Crunch)|Müsli (Quaker Corn Bran Crunch)
 785609|Cereal (General Mills Chex Corn)|Getreide (General Mills Chex Corn)
 785610|Cereal, corn flakes|Müsli, Cornflakes
-785611|Cereal (Kellogg's Corn Flakes)|Getreide (Kellogg&#39;s Corn Flakes)
+785611|Cereal (Kellogg's Corn Flakes)|Müsli (Kelloggs Corn Flakes)
 785612|Cereal, corn puffs|Müsli, Maiskolben
 785613|Cereal (General Mills Count Chocula)|Getreide (General Mills Count Chocula)
 785614|Cereal (Kellogg's Cracklin' Oat Bran)|Getreide (Kellogg&#39;s Cracklin &#39;Haferkleie)
@@ -1668,7 +1668,7 @@
 785617|Cereal, crispy brown rice|Müsli, knuspriger brauner Reis
 785618|Cereal, crispy rice|Müsli, knuspriger Reis
 785619|Cereal (General Mills Dora The Explorer)|Getreide (General Mills Dora The Explorer)
-785620|Cereal (Famila)|Getreide (Familie)
+785620|Cereal (Famila)|Müsli (Familie)
 785621|Cereal (General Mills Fiber One)|Getreide (General Mills Fibre One)
 785622|Cereal (General Mills Fiber One Caramel Delight)|Getreide (General Mills Fibre One Caramel Delight)
 785623|Cereal (General Mills Fiber One Honey Clusters)|Getreide (General Mills Fibre One Honigcluster)
@@ -1831,7 +1831,7 @@
 781173|Yogurt, frozen, flavors other than chocolate, nonfat milk|Joghurt, gefroren, andere Aromen als Schokolade, fettfreie Milch
 781177|Yogurt, frozen, chocolate, whole milk|Joghurt, gefroren, Schokolade, Vollmilch
 781178|Yogurt, frozen, flavors other than chocolate, whole milk|Joghurt, gefroren, andere Aromen als Schokolade, Vollmilch
-781179|Yogurt, frozen, chocolate-coated|Joghurt, gefroren, mit Schokolade überzogen
+781179|Yogurt, frozen, chocolate-coated|Joghurt, gefroren, mit Schokolade paniert
 781180|Yogurt, frozen, sandwich|Joghurt, gefroren, Sandwich
 781181|Yogurt, frozen, cone, chocolate|Joghurt, gefroren, Zapfen, Schokolade
 781182|Yogurt, frozen, cone, flavors other than chocolate|Joghurt, gefroren, Zapfen, andere Aromen als Schokolade
@@ -1923,7 +1923,7 @@
 785080|Breakfast pastry|Frühstücksgebäck
 785085|Doughnut, cake type|Donut, Kuchentyp
 785086|Doughnut, chocolate, cake type|Donut, Schokolade, Kuchentyp
-785087|Doughnut, cake type, chocolate covered|Donut, Kuchentyp, mit Schokolade überzogen
+785087|Doughnut, cake type, chocolate covered|Donut, Kuchentyp, mit Schokolade paniert
 785090|Churros|Churros
 785091|Doughnut, Asian|Donut, asiatisch
 785092|Cruller|Cruller
@@ -1935,7 +1935,7 @@
 785103|Breakfast tart, lowfat|Frühstückstorte, fettarm
 785526|Rice, frozen dessert, nondairy, flavors other than chocolate|Reis, gefrorenes Dessert, Nichtmilch, andere Aromen als Schokolade
 785530|Rice dessert bar, frozen, flavors other than chocolate, nondairy, carob covered|Reisdessertbar, gefroren, andere Aromen als Schokolade, Nichtmilch, Johannisbrot
-785531|Rice dessert bar, frozen, chocolate, nondairy, chocolate covered|Reisdessertbar, gefroren, Schokolade, Nichtmilch, Schokolade überzogen
+785531|Rice dessert bar, frozen, chocolate, nondairy, chocolate covered|Reisdessertbar, gefroren, Schokolade, Nichtmilch, Schokolade paniert
 786013|Cornstarch coconut dessert, Puerto Rican style|Maisstärke-Kokosnussdessert nach puertoricanischer Art
 786014|Cornmeal coconut dessert, Puerto Rican style|Maismehl-Kokosnuss-Dessert nach puertoricanischer Art
 786028|Pastry, cheese-filled|Mit Käse gefülltes Gebäck
@@ -2064,7 +2064,7 @@
 786801|Cranberry-raspberry Sauce|Cranberry-Himbeer-Sauce
 786812|Fruit salad, Puerto Rican style|Obstsalat nach puertoricanischer Art
 786814|Apple, candied|Apfel, kandiert
-786815|Fruit, chocolate covered|Obst, Schokolade überzogen
+786815|Fruit, chocolate covered|Obst, Schokolade paniert
 786817|Banana whip|Bananenpeitsche
 786818|Prune whip|Pflaumenpudding
 786819|Fried dwarf banana, Puerto Rican style|Gebratene Zwergbanane nach puertoricanischer Art
@@ -2109,7 +2109,7 @@
 787691|Tomatoes, red, from fresh, fried|Tomaten, rot, frisch, gebraten
 787695|Tomatoes, from fresh, stewed|Tomaten, frisch, gedünstet
 787696|Tomatoes, from canned, stewed|Tomaten aus der Dose, gedünstet
-787697|Tomatoes, canned, low sodium|Tomaten, Dosen, wenig Natrium
+787697|Tomatoes, canned, low sodium|Tomaten, Dosen, salzarm
 787701|Tomatoes, red, dried|Tomaten, rot, getrocknet
 787812|Pepper, sweet, red|Pfeffer, süß, rot
 789167|Gelatin dessert|Gelatine Dessert
@@ -2124,20 +2124,20 @@
 789200|Snow cone|Schneekegel
 789201|Candy|Süßigkeiten
 789202|M&M's Almond Chocolate Candies|Mandel-Pralinen von M &amp; M.
-789203|Almonds, chocolate covered|Mandeln, Schokolade überzogen
-789204|Almonds, sugar-coated|Mandeln, mit Zucker überzogen
-789205|Almonds, yogurt-covered|Mit Joghurt überzogene Mandeln
+789203|Almonds, chocolate covered|Mandeln, Schokolade paniert
+789204|Almonds, sugar-coated|Mandeln, mit Zucker paniert
+789205|Almonds, yogurt-covered|Mit Joghurt panierte Mandeln
 789206|Butterscotch morsels|Butterscotch Bissen
 789207|Caramel, chocolate-flavored roll|Karamell, Brötchen mit Schokoladengeschmack
 789208|Caramel, flavor other than chocolate|Karamell, anderer Geschmack als Schokolade
-789210|Caramel candy, chocolate covered|Karamellbonbons, mit Schokolade überzogen
+789210|Caramel candy, chocolate covered|Karamellbonbons, mit Schokolade paniert
 789213|Rolo|Rollen
 789214|Caramel, all flavors, sugar free|Karamell, alle Geschmacksrichtungen, zuckerfrei
 789216|TWIX Caramel Cookie Bars|TWIX Karamell-Keksriegel
 789217|TWIX Chocolate Fudge Cookie Bars|TWIX Schokoladenfondant-Keksriegel
 789218|TWIX Peanut Butter Cookie Bars|TWIX Erdnussbutter-Keksriegel
 789219|Whatchamacallit|Dingenskirchen
-789220|Nuts, carob-coated|Muttern, mit Johannisbrot überzogen
+789220|Nuts, carob-coated|Muttern, mit Johannisbrot paniert
 789221|Espresso coffee beans, chocolate-covered|Espresso-Kaffeebohnen mit Schokoladenüberzug
 789222|Milk chocolate candy, plain|Milchschokolade, schlicht
 789224|Kit Kat|Kit Kat
@@ -2145,18 +2145,18 @@
 789233|Chocolate, white|Schokolade, weiß
 789236|Kit Kat White|Kit Kat White
 789237|Mexican chocolate, tablet|Mexikanische Schokolade, Tablette
-789238|Coconut candy, chocolate covered|Kokosnussbonbons, mit Schokolade überzogen
+789238|Coconut candy, chocolate covered|Kokosnussbonbons, mit Schokolade paniert
 789239|Coconut candy, no chocolate covering|Kokosnussbonbons, kein Schokoladenüberzug
 789240|Coconut candy, Puerto Rican style|Kokosnussbonbons nach puertoricanischer Art
 789241|Fondant|Fondant
-789242|Fondant, chocolate covered|Fondant, mit Schokolade überzogen
+789242|Fondant, chocolate covered|Fondant, mit Schokolade paniert
 789243|Fruit peel, candied|Fruchtschale, kandiert
 789244|Date candy|Dattelbonbons
 789245|Soft fruit confections|Weichobstkonfekt
 789247|Fun Fruits Creme Supremes|Fun Fruits Creme Supremes
 789248|Tamarind candy|Tamarindensüßigkeiten
-789252|Gumdrops, chocolate covered|Gummibärchen, mit Schokolade überzogen
-789253|Fudge, chocolate, chocolate-coated|Fudge, Schokolade, schokoladenüberzogen
+789252|Gumdrops, chocolate covered|Gummibärchen, mit Schokolade paniert
+789253|Fudge, chocolate, chocolate-coated|Fudge, Schokolade, schokoladenpaniert
 789255|Fudge, chocolate|Fudge, Schokolade
 789257|Fudge, peanut butter|Fudge, Erdnussbutter
 789259|Fudge, vanilla|Fudge, Vanille
@@ -2166,33 +2166,33 @@
 789265|Baby Ruth|Baby Ruth
 789266|100 GRAND Bar|100 BIG Bar
 789267|Halvah, plain|Halwa, schlicht
-789268|Halvah, chocolate covered|Halwa, mit Schokolade überzogen
+789268|Halvah, chocolate covered|Halwa, mit Schokolade paniert
 789271|Butterfinger|Butterfinger
 789272|Butterfinger Crisp|Butterfinger Crisp
 789273|Chocolate-flavored sprinkles|Streusel mit Schokoladengeschmack
 789274|Ladoo, round ball, Asian-Indian dessert|Ladoo, runder Ball, asiatisch-indisches Dessert
 789275|Licorice|Lakritze
 789276|Marshmallow|Mäusespeck
-789277|Marshmallow, chocolate covered|Marshmallow, mit Schokolade überzogen
-789278|Marshmallow, candy-coated|Marshmallow, mit Süßigkeiten überzogen
-789279|Marshmallow, coconut-coated|Marshmallow, mit Kokosnuss überzogen
+789277|Marshmallow, chocolate covered|Marshmallow, mit Schokolade paniert
+789278|Marshmallow, candy-coated|Marshmallow, mit Süßigkeiten paniert
+789279|Marshmallow, coconut-coated|Marshmallow, mit Kokosnuss paniert
 789280|Nougat, plain|Nougat, schlicht
 789282|MILKY WAY Bar|MILKY WAY Bar
 789283|MILKY WAY MIDNIGHT Bar|MILKY WAY MIDNIGHT Bar
 789284|MARS Almond Bar|MARS Mandelbar
-789285|Nougat, chocolate covered|Nougat, mit Schokolade überzogen
+789285|Nougat, chocolate covered|Nougat, mit Schokolade paniert
 789286|3 MUSKETEERS Bar|3 MUSKETEERS Bar
 789287|3 Musketeers Truffle Crisp Bar|3 Musketiere Trüffel Crisp Bar
-789291|Peanuts, chocolate covered|Erdnüsse, Schokolade überzogen
+789291|Peanuts, chocolate covered|Erdnüsse, Schokolade paniert
 789292|M&M's Peanut Chocolate Candies|Erdnuss-Pralinen von M &amp; M.
 789293|M&M's Peanut Butter Chocolate Candies|Erdnussbutter-Pralinen von M &amp; M.
-789294|Peanuts, sugar-coated|Erdnüsse, mit Zucker überzogen
+789294|Peanuts, sugar-coated|Erdnüsse, mit Zucker paniert
 789295|Peanuts, yogurt covered|Erdnüsse, Joghurt bedeckt
 789296|Peanut bar|Erdnussriegel
 789297|Planters Peanut Bar|Pflanzer Erdnuss Bar
 789298|Peanut brittle|Erdnusskrokant
-789299|Peanut Bar, chocolate covered candy|Erdnussriegel, mit Schokolade überzogene Süßigkeiten
-789300|Peanut butter, chocolate covered|Erdnussbutter, Schokolade überzogen
+789299|Peanut Bar, chocolate covered candy|Erdnussriegel, mit Schokolade panierte Süßigkeiten
+789300|Peanut butter, chocolate covered|Erdnussbutter, Schokolade paniert
 789301|Reese's Peanut Butter Cup|Reese&#39;s Peanut Butter Cup
 789302|Reese's Pieces|Reeses Stücke
 789303|Reese's Sticks|Reese&#39;s Sticks
@@ -2201,25 +2201,25 @@
 789306|Peanut butter morsels|Erdnussbutterstückchen
 789307|Pralines|Pralinen
 789308|Pineapple candy, Puerto Rican style|Ananasbonbons nach puertoricanischer Art
-789309|Raisins, chocolate covered|Rosinen, mit Schokolade überzogen
+789309|Raisins, chocolate covered|Rosinen, mit Schokolade paniert
 789310|Raisins, yogurt covered|Rosinen, Joghurt bedeckt
 789311|Sesame Crunch, Sahadi|Sesam Crunch, Sahadi
 789312|Gumdrops|Gummibären
 789313|Hard candy|Hartbonbons
 789314|Butterscotch hard candy|Butterscotch Bonbons
 789315|Skittles|Kegelspiel
-789316|Sugar-coated chocolate discs|Mit Zucker überzogene Schokoladenscheiben
+789316|Sugar-coated chocolate discs|Mit Zucker panierte Schokoladenscheiben
 789317|M&M's Milk Chocolate Candies|Milchschokoladen von M &amp; M.
 789318|Sixlets|Sixlets
-789319|Easter egg, candy coated chocolate|Osterei, mit Süßigkeiten überzogene Schokolade
+789319|Easter egg, candy coated chocolate|Osterei, mit Süßigkeiten panierte Schokolade
 789320|M&M's Pretzel Chocolate Candies|Brezel-Pralinen von M &amp; M.
 789321|Taffy|Toffee
 789322|Toffee, plain|Toffee, schlicht
-789323|Toffee, chocolate covered|Toffee, Schokolade überzogen
+789323|Toffee, chocolate covered|Toffee, Schokolade paniert
 789325|Truffles|Trüffel
 789326|Wax candy, liquid filled|Wachssüßigkeiten, mit Flüssigkeit gefüllt
 789332|Chewing gum|Kaugummi
-789333|Chewing gum, regular|Kaugummi, regelmäßig
+789333|Chewing gum, regular|Kaugummi
 789334|Chewing gum, sugar free|Kaugummi, zuckerfrei
 786651|Avocado|Avocado
 787166|Green plantains, boiled|Grüne Kochbananen, gekocht
@@ -2257,8 +2257,8 @@
 787778|Broccoflower|Broccoflower
 787779|Brussels sprouts|Rosenkohl
 787780|Cabbage, green|Kohl, grün
-787781|Cabbage, Chinese|Kohl, Chinesisch
-787782|Cabbage, red|Kohl, rot
+787781|Cabbage, Chinese|Chinakohl
+787782|Cabbage, red|Rotkohl
 787783|Cactus|Kaktus
 787784|Cauliflower|Blumenkohl
 787785|Celery|Sellerie
@@ -2336,9 +2336,9 @@
 784306|Natto|Natto
 784307|Hoisin sauce|Hoisin Soße
 784308|Soy sauce|Ich bin Weide
-784309|Soy sauce, reduced sodium|Sojasauce, reduziertes Natrium
+784309|Soy sauce, reduced sodium|Sojasauce, salzarm
 784311|Teriyaki sauce|Teriyaki Soße
-784312|Teriyaki sauce, reduced sodium|Teriyaki-Sauce, reduziertes Natrium
+784312|Teriyaki sauce, reduced sodium|Teriyaki-Sauce, salzarm
 784313|Worcestershire sauce|Worcestersauce
 784450|Coconut water, unsweetened|Kokoswasser, ungesüßt
 784451|Coconut water, sweetened|Kokoswasser, gesüßt
@@ -2450,10 +2450,10 @@
 787622|Pumpkin fritters, Puerto Rican style|Kürbiskrapfen im puertoricanischen Stil
 787693|Tomatoes, from fresh, scalloped|Tomaten, frisch, überbacken
 787702|Tomato juice, 100%|Tomatensaft, 100%
-787703|Tomato juice, 100%, low sodium|Tomatensaft, 100%, natriumarm
+787703|Tomato juice, 100%, low sodium|Tomatensaft, 100%, salzarm
 787704|Tomato juice cocktail|Tomatensaftcocktail
 787707|Tomato catsup|Tomatencatsup
-787708|Tomato catsup, reduced sodium|Tomatencatsup, reduziertes Natrium
+787708|Tomato catsup, reduced sodium|Tomatencatsup, salzarm
 787709|Tomato chili sauce|Tomaten-Chili-Sauce
 787710|Salsa|Salsa
 787711|Salsa, pico de gallo|Pico De Gallo Salsa
@@ -2659,8 +2659,8 @@
 789437|Coffee, Cappuccino, nonfat|Kaffee, Cappuccino, fettfrei
 789439|Coffee, Cappuccino, decaffeinated|Kaffee, Cappuccino, entkoffeiniert
 789440|Coffee, Cappuccino, decaffeinated, nonfat|Kaffee, Cappuccino, entkoffeiniert, fettfrei
-789442|Coffee, bottled/canned|Kaffee, abgefüllt / in Dosen
-789443|Coffee, bottled/canned, light|Kaffee, abgefüllt / in Dosen, leicht
+789442|Coffee, bottled/canned|Kaffee, abgefüllt / aus der Dose
+789443|Coffee, bottled/canned, light|Kaffee, abgefüllt / aus der Dose, leicht
 789455|Coffee substitute|Kaffeeersatz
 789456|Chicory beverage|Chicorée-Getränk
 789457|Cereal beverage|Getreidegetränk
@@ -2927,7 +2927,7 @@
 782928|Oyster sauce|Austernsauce
 782929|Fish sauce|Fischsoße
 783889|Gravy, poultry|Soße, Geflügel
-783892|Gravy, poultry, low sodium|Soße, Geflügel, wenig Natrium
+783892|Gravy, poultry, low sodium|Soße, Geflügel, salzarm
 783894|Gravy, giblet|Soße, Innereien
 783897|Gravy, poultry, home recipe|Soße, Geflügel, Hausrezept
 783898|Gravy, mushroom|Soße, Pilz
@@ -2941,7 +2941,7 @@
 784243|Hummus, flavored|Hummus, aromatisiert
 784244|Black bean sauce|Sauce aus schwarzen Bohnen
 784424|Peanut sauce|Erdnusssoße
-784425|Brown nut gravy, meatless|Braune Nusssauce, fleischlos
+784425|Brown nut gravy, meatless|Braune Nusssauce, Fleischersatz
 785154|Cookie, teething, baby|Keks, Zahnen, Baby
 785155|Cookie, rice, baby|Keks, Reis, Baby
 785573|Cereal, nestum|Getreide, Nestum
@@ -2957,7 +2957,7 @@
 787700|Tomato, green, pickled|Tomate, grün, eingelegt
 787715|Enchilada sauce, green|Enchilada-Sauce, grün
 787717|Spaghetti sauce|Spaghettisoße
-787719|Spaghetti sauce, reduced sodium|Spaghettisauce, reduziertes Natrium
+787719|Spaghetti sauce, reduced sodium|Spaghettisauce, salzarm
 787720|Spaghetti sauce, fat free|Spaghettisauce, fettfrei
 787787|Basil|Basilikum
 787788|Chives|Schnittlauch
@@ -3076,8 +3076,8 @@
 789166|Chinese preserved sweet vegetable|Chinesisches konserviertes süßes Gemüse
 789445|Coffee, instant, 50% less caffeine, not reconstituted|Kaffee, Instant, 50% weniger Koffein, nicht rekonstituiert
 789459|Coffee substitute, dry powder|Kaffeeersatz, trockenes Pulver
-789479|Tea, iced, instant, black, unsweetened, dry|Tee, gefroren, Instant, schwarz, ungesüßt, trocken
-789480|Tea, iced, instant, black, pre-sweetened, dry|Tee, gefroren, Instant, schwarz, vorgesüßt, trocken
+789479|Tea, iced, instant, black, unsweetened, dry|Eistee, Instantpulver, schwarz, ungesüßt
+789480|Tea, iced, instant, black, pre-sweetened, dry|Eistee Instantpulver, schwarz, vorgesüßt
 789592|Sports drink, dry concentrate, not reconstituted|Sportgetränk, trockenes Konzentrat, nicht rekonstituiert
 789701|Water, baby, bottled, unsweetened|Wasser, Baby, abgefüllt, ungesüßt
 789718|Nutritional powder mix (Carnation Instant Breakfast)|Nährpulvermischung (Carnation Instant Breakfast)
