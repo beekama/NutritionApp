@@ -527,20 +527,20 @@
 782922|Clam sauce, white|Muschelsauce, weiß
 782930|Shrimp scampi|Shrimps, Scampi
 782945|Meat loaf, Puerto Rican style|Fleischbrot nach puertoricanischer Art
-782957|Beef, roast, hash|Rindfleisch, Braten, Haschisch
-782958|Corned beef hash|Gepökeltes Rinderhackfleisch
-782984|Beef wellington|Beef Wellington
-782985|Corned beef patty|Corned Beef Patty
-782989|Stewed corned beef, Puerto Rican style|Geschmortes Corned Beef nach puertoricanischer Art
+782957|Beef, roast, hash|Rindfleischeintopf
+782958|Corned beef hash|Rindfleischeintopf, gepöckelt
+782984|Beef wellington|Filet Wellington
+782985|Corned beef patty|Rindfleischbratlinge, gepöckelt
+782989|Stewed corned beef, Puerto Rican style|Rindfleisch, gepöckelt, nach puertoricanischer Art
 782994|Ham croquette|Schinkenkrokette
 783004|Stewed pig's feet, Puerto Rican style|Geschmorte Schweinefüße im puertoricanischen Stil
 783005|Stuffed pork roast, Puerto Rican style|Gefüllter Schweinebraten nach puertoricanischer Art
-783064|Seafood restructured|Meeresfrüchte geformt
-783065|Seafood souffle|Meeresfrüchte-Souffle
+783064|Seafood restructured|Meeresfrüchte, geformt
+783065|Seafood souffle|Souffle, Meeresfrüchte
 783082|Liver dumpling|Leberknödel
 783083|Breaded brains, Puerto Rican style|Panierte Gehirne im puertoricanischen Stil
 783129|Beef pot pie|Fleischpastete, Rindfleisch
-783132|Stuffed green pepper, Puerto Rican style|Gefüllter grüner Pfeffer nach puertoricanischer Art
+783132|Stuffed green pepper, Puerto Rican style|Gefüllte grüne Paprika nach puertoricanischer Art
 783133|Ham pot pie|Pastete, Schinken
 783165|Veal fricassee, Puerto Rican style|Kalbsfrikassee im puertoricanischen Stil
 783169|Stewed rabbit, Puerto Rican style,|Geschmortes Kaninchen im puertoricanischen Stil,
@@ -574,8 +574,8 @@
 783935|Quail egg, canned|Wachtelei, aus der Dose
 783936|Egg, creamed|Rahmeier (Rührei, Bechamehlsoße)
 783937|Egg, Benedict|Ei, Benedikt
-783939|Egg, deviled|Ei, teuflisch
-783949|Huevos rancheros|Rancheros Eier
+783939|Egg, deviled|Ei, scharf gewürzt
+783949|Huevos rancheros|Gemüsepfanne mit Spiegelei
 783956|Ripe plantain omelet, Puerto Rican style|Reifes Bananenomelett nach puertoricanischer Art
 783958|Eggs a la Malaguena, Puerto Rican style|Eier a la Malaguena nach puertoricanischer Art
 783959|Shrimp-egg patty|Shrimps-Ei-Pastetchen
@@ -593,12 +593,12 @@
 784290|Loaf, lentil|Linsenbrot
 784291|Stewed chickpeas, Puerto Rican style|Geschmorte Kichererbsen nach puertoricanischer Art
 784299|Soy nuts|Sojanüsse
-784301|Soybean curd|Sojabohnenquark
+784301|Soybean curd|Tofu
 784302|Edamame, cooked|Edamame, gekocht
-784303|Soybean curd cheese|Sojabohnenquark
+784303|Soybean curd cheese|Weichkäse, Tofu
 784310|Yogurt, soy|Yogurt, Soja
-784314|Soybean curd, deep fried|Sojabohnenquark, frittiert
-784315|Soybean curd, breaded, fried|Sojabohnenquark, paniert, gebraten
+784314|Soybean curd, deep fried|Tofu, frittiert
+784315|Soybean curd, breaded, fried|Tofu, paniert, gebraten
 784316|Soybean meal|Sojabohnenmehl
 784318|Textured vegetable protein, dry|Strukturiertes pflanzliches Protein, trocken
 784342|Bacon strip, meatless|Speckstreifen, Fleischersatz
@@ -606,15 +606,15 @@
 784345|Chicken, meatless|Huhn, Fleischersatz
 784346|Chicken, meatless, breaded, fried|Huhn, Fleischersatz, paniert, gebraten
 784349|Meatball, meatless|Fleischbällchen, Fleischersatz
-784352|Sandwich spread, meat substitute type|Sandwichaufstrich, Fleischersatztyp
-784353|Vegetarian pot pie|Vegetarische Dose Kuchen
-784357|Vegetarian, fillet|Vegetarisch, Filet
+784352|Sandwich spread, meat substitute type|Sandwichaufstrich, Fleischersatz
+784353|Vegetarian pot pie|Fleischpastete, vegetarisch
+784357|Vegetarian, fillet|Filet, vegetarisch
 784358|Vegetarian stew|Vegetarischer Eintopf
 784359|Vegetarian stroganoff|Vegetarischer Stroganoff
 784360|Vegetarian meat loaf|Vegetarisches Hackbraten
 784362|Nuts|Nüsse
 784363|Almonds|Mandeln
-784364|Almonds, unroasted|Mandeln, ungeröstet
+784364|Almonds, unroasted|Mandeln, ungeröstet ##
 784365|Almonds, salted|Mandeln, gesalzen
 784367|Almonds, unsalted|Mandeln, ungesalzen
 784368|Almonds, flavored|Mandeln, aromatisiert
@@ -630,7 +630,7 @@
 784379|Coconut, packaged|Kokosnuss, verpackt
 784380|Hazelnuts|Haselnüsse
 784381|Macadamia nuts|Macadamianüsse
-784382|Mixed nuts|Gemischte Nüsse
+784382|Mixed nuts|Nüsse, gemischt
 784383|Mixed nuts, unroasted|Gemischte Nüsse, ungeröstet
 784387|Mixed nuts, without peanuts, salted|Gemischte Nüsse ohne Erdnüsse, gesalzen
 784388|Mixed nuts, without peanuts, unsalted|Gemischte Nüsse, ohne Erdnüsse, ungesalzen
@@ -671,7 +671,7 @@
 784461|Sunflower seeds, plain, salted|Sonnenblumenkerne, einfach, gesalzen
 784462|Sunflower seeds, flavored|Sonnenblumenkerne, aromatisiert
 784463|Sunflower seeds|Sonnenblumenkerne
-784464|Sesame seeds|Sesamsamen
+784464|Sesame seeds|Sesam
 784465|Tahini|Tahini
 784466|Flax seeds|Leinsamen
 784467|Mixed seeds|Gemischte Samen
@@ -700,7 +700,7 @@
 782942|Stewed codfish, no potatoes, Puerto Rican style|Geschmorter Kabeljau, ohne Kartoffeln nach puertoricanischer Art
 783037|Clams, stuffed|Muscheln, gefüllt
 783039|Crab cake|Krabbenkuchen
-783041|Gefilte fish|Gefilte Fisch
+783041|Gefilte fish|Gefilte Fisch (kaltes Fischgericht)
 783043|Salmon loaf|Lachsbrot
 783052|Tuna loaf|Thunfischbrot
 783055|Oyster fritter|Austernkrapfen
@@ -718,12 +718,12 @@
 783262|Hunan beef|Hunan Rindfleisch
 783264|Kung Pao beef|Kung Pao Rindfleisch
 783271|Beef taco filling: beef, cheese, tomato, taco sauce|Rindfleisch-Taco-Füllung: Rindfleisch, Käse, Tomate, Taco-Sauce
-783287|Kung Pao pork|Wenn Pao Schweinefleisch
+783287|Kung Pao pork|Kung Pao Schweinefleisch
 783288|Moo Shu pork, without Chinese pancake|Moo Shu Schweinefleisch, ohne chinesischen Pfannkuchen
 783326|General Tso chicken|General Tso Huhn
 783327|Moo Goo Gai Pan|Moo Goo Gai Pan
-783328|Kung pao chicken|Wenn Pao Huhn
-783329|Almond chicken|Mandelhuhn
+783328|Kung pao chicken|Kung Pao Huhn
+783329|Almond chicken|Mandelhühnchen
 783356|Crab salad|Krabbensalat
 783357|Lobster salad|Hummersalat
 783358|Salmon salad|Lachssalat
@@ -738,7 +738,7 @@
 783403|Codfish salad, Puerto Rican style, Serenata|Kabeljausalat nach puertoricanischer Art, Serenata
 783405|Lau lau|Lau lau
 783411|Stewed gizzards, Puerto Rican style|Geschmorte Mägen im puertoricanischen Stil
-783412|Gumbo, no rice|Gumbo, kein Reis
+783412|Gumbo, no rice|Gumbo, ohne Reis
 783762|Chicken dinner, frozen meal|Hühnchen Abendessen, Tiefkühlkost
 783763|Chicken divan, frozen meal|Hühnchen Diwan, Tiefkühlkost
 783790|Turkey dinner, frozen meal|Truthahnessen, Tiefkühlkost
@@ -747,12 +747,12 @@
 783882|Shrimp gumbo|Shrimp Gumbo
 783951|Egg foo yung|Ei foo yung
 783952|Chicken egg foo yung|Hühnerei foo yung
-783953|Pork egg foo yung|Schweineei foo yung
-783954|Shrimp egg foo yung|Garnelenei foo yung
-783955|Beef egg foo yung|Rindfleisch Ei foo yung
-784572|Bread stuffing|Brotfüllung
-784710|Cornbread stuffing|Maisbrotfüllung
-785396|Dumpling, fried, Puerto Rican style|Knödel, gebraten, puertoricanische Art
+783953|Pork egg foo yung|Schwein-Ei foo yung
+783954|Shrimp egg foo yung|Garnelen-Ei foo yung
+783955|Beef egg foo yung|Rindfleisch-Ei foo yung
+784572|Bread stuffing|Bread-Stuffing (Brotauflauf)
+784710|Cornbread stuffing|Brad-Stuffing, Mais (Brotauflauf)
+785396|Dumpling, fried, Puerto Rican style|Kloß, gebraten, puertoricanische Art
 785859|Tamale, plain, meatless, no sauce, Mexican style|Tamale, schlicht, Fleischersatz, ohne Sauce, nach mexikanischer Art
 785875|Chimichanga, meatless|Chimichanga, Fleischersatz
 785880|Quesadilla, just cheese, meatless|Quesadilla, nur Käse, Fleischersatz
@@ -760,18 +760,18 @@
 785898|Pupusa, cheese-filled|Pupusa, mit Käse gefüllt
 785899|Pupusa, bean-filled|Pupusa, mit Bohnen gefüllt
 785900|Pupusa, meat-filled|Pupusa, fleischgefüllt
-785901|Pizza, cheese, from frozen, thin crust|Pizza, Käse, aus gefrorener, dünner Kruste
-785902|Pizza, cheese, from frozen, thick crust|Pizza, Käse, aus gefrorener, dicker Kruste
+785901|Pizza, cheese, from frozen, thin crust|Pizza, Käse, dünner Kruste
+785902|Pizza, cheese, from frozen, thick crust|Pizza, Käse, dicker Kruste
 785907|Pizza, cheese, stuffed crust|Pizza, Käse, gefüllte Kruste
-785908|Pizza, cheese, from school lunch, medium crust|Pizza, Käse, vom Schulessen, mittlere Kruste
-785909|Pizza, cheese, from school lunch, thin crust|Pizza, Käse, vom Schulessen, dünne Kruste
-785910|Pizza, cheese, from school lunch, thick crust|Pizza, Käse, vom Schulessen, dicke Kruste
+785908|Pizza, cheese, from school lunch, medium crust|Pizza, Käse, normale Kruste
+785909|Pizza, cheese, from school lunch, thin crust|Pizza, Käse, dünne Kruste
+785910|Pizza, cheese, from school lunch, thick crust|Pizza, Käse, dicke Kruste
 785911|Pizza, extra cheese, thin crust|Pizza, extra Käse, dünne Kruste
 785912|Pizza, extra cheese, thick crust|Pizza, extra Käse, dicke Kruste
-785989|Egg roll, meatless|Frühlingsrolle, Fleischersatz
-785995|Wonton, fried, meatless|Wonton, gebraten, Fleischersatz
+785989|Egg roll, meatless|Frühlingsrolle, vegetarisch
+785995|Wonton, fried, meatless|Wonton, gebraten, vegetarisch
 785999|Tamale casserole, Puerto Rican style|Tamale-Auflauf im puertoricanischen Stil
-786002|Meat turnover, Puerto Rican style|Fleischumsatz nach puertoricanischer Art
+786002|Meat turnover, Puerto Rican style|Empanadas, vegetarisch, nach puertoricanischer Art
 786006|Meat pie, Puerto Rican style|Fleischpastete nach puertoricanischer Art
 786007|Cheese turnover, Puerto Rican style|Käseumsatz nach puertoricanischer Art
 786011|Codfish fritter, Puerto Rican style|Kabeljaukrapfen im puertoricanischen Stil
@@ -779,8 +779,8 @@
 786017|Dumpling, meat-filled|Knödel, fleischgefüllt
 786019|Dumpling, vegetable |Knödel, Gemüse
 786020|Gnocchi, cheese|Gnocchi, Käse
-786021|Gnocchi, potato|Knödel, Kartoffel
-786022|Kishke, stuffed derma|Kishke, ausgestopfte Derma
+786021|Gnocchi, potato|Gnocchi, Kartoffel
+786022|Kishke, stuffed derma|Kishke, gefüllter Darm
 786023|Knish, potato|Knish, Kartoffel
 786024|Knish, cheese|Knish, Käse
 786025|Knish, meat|Knish, Fleisch
@@ -788,31 +788,31 @@
 786031|Spanakopitta|Spanakopitta
 786034|Spinach quiche, meatless|Spinatquiche, Fleischersatz
 786035|Cheese quiche, meatless|Käsequiche, Fleischersatz
-786037|Turnover, meat-filled, no gravy|Umsatz, fleischgefüllt, keine Soße
-786042|Turnover, cheese-filled, tomato-based sauce|Mit Käse gefüllte Sauce auf Tomatenbasis
-786065|Chicken cornbread|Hühnchen-Maisbrot
-786078|Lasagna, meatless|Lasagne, Fleischersatz
-786081|Lasagna, meatless, whole wheat noodles|Lasagne, Fleischersatze Vollkornnudeln
-786083|Lasagna, meatless, spinach noodles|Lasagne, Fleischersatze Spinatnudeln
-786087|Ravioli, meat-filled, no sauce|Ravioli, fleischgefüllt, keine Sauce
-786091|Ravioli, cheese-filled, no sauce|Ravioli, mit Käse gefüllt, keine Sauce
-786099|Manicotti, cheese-filled, no sauce|Manicotti, mit Käse gefüllt, keine Sauce
-786103|Stuffed shells, cheese-filled, no sauce|Gefüllte Muscheln, mit Käse gefüllt, keine Sauce
-786115|Tortellini, meat-filled, no sauce|Tortellini, fleischgefüllt, keine Sauce
-786117|Tortellini, cheese-filled, no sauce|Tortellini, mit Käse gefüllt, keine Sauce
-786119|Tortellini, spinach-filled, no sauce|Tortellini, mit Spinat gefüllt, keine Sauce
-786123|Lo mein|Lo mein
-786124|Lo mein, meatless|Lo mein, meatless
+786037|Turnover, meat-filled, no gravy|Teigtasche mit Fleisch, ohne Sauce
+786042|Turnover, cheese-filled, tomato-based sauce|Teigtasche mit Käse gefüllt, Sauce auf Tomatenbasis
+786065|Chicken cornbread|Maisbrot mit Hähnchen
+786078|Lasagna, meatless|Lasagne, vegetarisch
+786081|Lasagna, meatless, whole wheat noodles|Lasagne, vegetarisch, Vollkornnudeln
+786083|Lasagna, meatless, spinach noodles|Lasagne, vegetarisch, Spinatnudeln
+786087|Ravioli, meat-filled, no sauce|Ravioli, fleischgefüllt, ohne Sauce
+786091|Ravioli, cheese-filled, no sauce|Ravioli, mit Käse gefüllt, ohne Sauce
+786099|Manicotti, cheese-filled, no sauce|Manicotti, mit Käse gefüllt, ohne Sauce
+786103|Stuffed shells, cheese-filled, no sauce|Gefüllte Muscheln, Käse, ohne Sauce
+786115|Tortellini, meat-filled, no sauce|Tortellini, fleischgefüllt, ohne Sauce
+786117|Tortellini, cheese-filled, no sauce|Tortellini, mit Käse gefüllt, ohne Sauce
+786119|Tortellini, spinach-filled, no sauce|Tortellini, mit Spinat gefüllt, ohne Sauce
+786123|Lo mein|Eiernudeln, chinesisch
+786124|Lo mein, meatless|Eiernudeln, chinesisch, vegetarisch
 786129|Pad Thai|Pad Thai
-786130|Pad Thai, meatless|Pad Thai, Fleischersatz
-786256|Flavored pasta|Aromatisierte Nudeln
+786130|Pad Thai, meatless|Pad Thai, vegetarisch
+786256|Flavored pasta|aromatisierte Nudeln
 786275|Noodle pudding|Nudelpudding
 786278|Bibimbap, Korean|Bibimbap, Koreanisch
-786279|Rice, fried, meatless|Reis, gebraten, Fleischersatz
+786279|Rice, fried, meatless|Reis, gebraten, vegetarisch
 786280|Rice, fried|Reis, gebraten
 786287|Sushi|Sushi
 786288|Sushi roll, avocado|Sushi-Rolle, Avocado
-786289|Sushi roll, California|Sushi-Rolle, Kalifornien
+786289|Sushi roll, California|Sushi-Rolle, kalifornische Art
 786290|Sushi roll, eel|Sushi-Rolle, Aal
 786291|Sushi roll, salmon|Sushi-Rolle, Lachs
 786292|Sushi roll, shrimp|Sushi-Rolle, Garnelen
@@ -825,11 +825,11 @@
 786327|Hopping John|Hopping John
 786401|Rice croquette|Reiskrokette
 786407|Rice pilaf|Reispilaf
-786408|Dirty rice|Schmutziger Reis
+786408|Dirty rice|Dirty Reis (Reis mit Geflügel und Zwiebelgemüse)
 786409|Flavored rice mixture|Aromatisierte Reismischung
 786414|Spanish rice, from restaurant|Spanischer Reis aus dem Restaurant
 786419|Rice dressing|Reisdressing
-786460|Vada, fried dumpling|Vada, gebratener Knödel
+786460|Vada, fried dumpling|fritierte Teigspeise
 786461|Tabbouleh|Tabouleh
 786474|Veal lasagna, diet frozen meal|Kalbslasagne, Diät-Tiefkühlmehl
 786476|Vegetable lasagna, frozen meal|Gemüselasagne, Tiefkühlkost
@@ -840,100 +840,100 @@
 786496|Chicken enchilada, diet frozen meal|Hühnchen-Enchilada, Diät-Tiefkühlmehl
 786497|Chicken fajitas, diet frozen meal|Hühnchen-Fajitas, Diät-Tiefkühlkost
 786498|Chicken burritos, diet frozen meal|Hühnchen-Burritos, Diät-Tiefkühlkost
-788726|Beans, string, green, cooked, Szechuan-style|Bohnen, Schnur, grün, gekocht, nach Szechuan-Art
+788726|Beans, string, green, cooked, Szechuan-style|Stangenbohnen, gekocht, nach Szechuan-Art
 788742|Chiles rellenos, cheese-filled|Chiles Rellenos, mit Käse gefüllt
-788965|Potato chicken pie, Puerto Rican style|Kartoffel-Hühnchen-Torte nach puertoricanischer Art
+788965|Potato chicken pie, Puerto Rican style|Kartoffel-Hühnchen-Pastete nach puertoricanischer Art
 788968|Ripe plantain meat pie, Puerto Rican style|Reife Wegerichfleischpastete nach puertoricanischer Art
 788969|Cassava Pasteles, Puerto Rican style|Cassava Pasteles im puertoricanischen Stil
 788971|Stuffed tannier fritters, Puerto Rican style|Gefüllte Gerbereien im puertoricanischen Stil
-788973|Puerto Rican pasteles|Puertoricanische Kuchen
+788973|Puerto Rican pasteles|Puertoricanische Pastete
 788977|Spanish stew|Spanischer Eintopf
 788978|Puerto Rican stew|Puertoricanischer Eintopf
 781746|Cheese sandwich|Käsesandwich
-781747|Cheese sandwich, American cheese, on white bread, no spread|Käsesandwich, amerikanischer Käse, auf Weißbrot, kein Aufstrich
-781748|Cheese sandwich, American cheese, on wheat bread, no spread|Käsesandwich, amerikanischer Käse, auf Weizenbrot, kein Aufstrich
-781749|Cheese sandwich, American cheese, on whole wheat bread, no spread|Käsesandwich, amerikanischer Käse, auf Vollkornbrot, kein Aufstrich
-781750|Cheese sandwich, Cheddar cheese, on white bread, no spread|Käsesandwich, Cheddar-Käse, auf Weißbrot, kein Aufstrich
-781751|Cheese sandwich, Cheddar cheese, on wheat bread, no spread|Käsesandwich, Cheddar-Käse, auf Weizenbrot, kein Aufstrich
-781752|Cheese sandwich, Cheddar cheese, on whole wheat bread, no spread|Käsesandwich, Cheddar-Käse, auf Vollkornbrot, kein Aufstrich
-781753|Cheese sandwich, reduced fat American cheese, on white bread, no spread|Käsesandwich, fettarmer amerikanischer Käse, auf Weißbrot, kein Aufstrich
-781754|Cheese sandwich, reduced fat American cheese, on wheat bread, no spread|Käsesandwich, fettarmer amerikanischer Käse, auf Weizenbrot, kein Aufstrich
-781755|Cheese sandwich, reduced fat American cheese, on whole wheat bread, no spread|Käsesandwich, fettarmer amerikanischer Käse, auf Vollkornbrot, kein Aufstrich
-781756|Cheese sandwich, reduced fat Cheddar cheese, on white bread, no spread|Käsesandwich, fettarmer Cheddar-Käse, auf Weißbrot, kein Aufstrich
-781757|Cheese sandwich, reduced fat Cheddar cheese, on wheat bread, no spread|Käsesandwich, fettarmer Cheddar-Käse, auf Weizenbrot, kein Aufstrich
-781758|Cheese sandwich, reduced fat Cheddar cheese, on whole wheat bread, no spread|Käsesandwich, fettarmer Cheddar-Käse, auf Vollkornbrot, kein Aufstrich
+781747|Cheese sandwich, American cheese, on white bread, no spread|Käsesandwich, amerikanischer Käse, Weißbrot
+781748|Cheese sandwich, American cheese, on wheat bread, no spread|Käsesandwich, amerikanischer Käse, Weizenbrot
+781749|Cheese sandwich, American cheese, on whole wheat bread, no spread|Käsesandwich, amerikanischer Käse, Vollkornbrot
+781750|Cheese sandwich, Cheddar cheese, on white bread, no spread|Käsesandwich, Cheddar-Käse, Weißbrot
+781751|Cheese sandwich, Cheddar cheese, on wheat bread, no spread|Käsesandwich, Cheddar-Käse, Weizenbrot
+781752|Cheese sandwich, Cheddar cheese, on whole wheat bread, no spread|Käsesandwich, Cheddar-Käse, Vollkornbrot
+781753|Cheese sandwich, reduced fat American cheese, on white bread, no spread|Käsesandwich, fettarmer amerikanischer Käse, Weißbrot
+781754|Cheese sandwich, reduced fat American cheese, on wheat bread, no spread|Käsesandwich, fettarmer amerikanischer Käse, Weizenbrot
+781755|Cheese sandwich, reduced fat American cheese, on whole wheat bread, no spread|Käsesandwich, fettarmer amerikanischer Käse, Vollkornbrot
+781756|Cheese sandwich, reduced fat Cheddar cheese, on white bread, no spread|Käsesandwich, fettarmer Cheddar-Käse, Weißbrot
+781757|Cheese sandwich, reduced fat Cheddar cheese, on wheat bread, no spread|Käsesandwich, fettarmer Cheddar-Käse, Weizenbrot
+781758|Cheese sandwich, reduced fat Cheddar cheese, on whole wheat bread, no spread|Käsesandwich, fettarmer Cheddar-Käse, Vollkornbrot
 781783|Grilled cheese sandwich|Gegrilltes Käse-Sandwich
-781784|Grilled cheese sandwich, American cheese, on white bread|Gegrilltes Käsesandwich, amerikanischer Käse, auf Weißbrot
-781785|Grilled cheese sandwich, American cheese, on wheat bread|Gegrilltes Käsesandwich, amerikanischer Käse, auf Weizenbrot
-781786|Grilled cheese sandwich, American cheese, on whole wheat bread|Gegrilltes Käsesandwich, amerikanischer Käse, auf Vollkornbrot
-781787|Grilled cheese sandwich, Cheddar cheese, on white bread|Gegrilltes Käsesandwich, Cheddar-Käse, auf Weißbrot
-781788|Grilled cheese sandwich, Cheddar cheese, on wheat bread|Gegrilltes Käsesandwich, Cheddar-Käse, auf Weizenbrot
-781789|Grilled cheese sandwich, Cheddar cheese, on whole wheat bread|Gegrilltes Käsesandwich, Cheddar-Käse, auf Vollkornbrot
-781790|Grilled cheese sandwich, reduced fat American cheese, on white bread|Gegrilltes Käsesandwich, fettarmer amerikanischer Käse, auf Weißbrot
-781791|Grilled cheese sandwich, reduced fat American cheese, on wheat bread|Gegrilltes Käsesandwich, fettarmer amerikanischer Käse, auf Weizenbrot
-781792|Grilled cheese sandwich, reduced fat American cheese, on whole wheat bread|Gegrilltes Käsesandwich, fettarmer amerikanischer Käse, auf Vollkornbrot
-781793|Grilled cheese sandwich, reduced fat Cheddar cheese, on white bread|Gegrilltes Käsesandwich, fettarmer Cheddar-Käse, auf Weißbrot
-781794|Grilled cheese sandwich, reduced fat Cheddar cheese, on wheat bread|Gegrilltes Käsesandwich, fettarmer Cheddar-Käse, auf Weizenbrot
-781795|Grilled cheese sandwich, reduced fat Cheddar cheese, on whole wheat bread|Gegrilltes Käsesandwich, fettarmer Cheddar-Käse, auf Vollkornbrot
+781784|Grilled cheese sandwich, American cheese, on white bread|Gegrilltes Käsesandwich, amerikanischer Käse, Weißbrot
+781785|Grilled cheese sandwich, American cheese, on wheat bread|Gegrilltes Käsesandwich, amerikanischer Käse, Weizenbrot
+781786|Grilled cheese sandwich, American cheese, on whole wheat bread|Gegrilltes Käsesandwich, amerikanischer Käse, Vollkornbrot
+781787|Grilled cheese sandwich, Cheddar cheese, on white bread|Gegrilltes Käsesandwich, Cheddar-Käse, Weißbrot
+781788|Grilled cheese sandwich, Cheddar cheese, on wheat bread|Gegrilltes Käsesandwich, Cheddar-Käse, Weizenbrot
+781789|Grilled cheese sandwich, Cheddar cheese, on whole wheat bread|Gegrilltes Käsesandwich, Cheddar-Käse, Vollkornbrot
+781790|Grilled cheese sandwich, reduced fat American cheese, on white bread|Gegrilltes Käsesandwich, fettarmer amerikanischer Käse, Weißbrot
+781791|Grilled cheese sandwich, reduced fat American cheese, on wheat bread|Gegrilltes Käsesandwich, fettarmer amerikanischer Käse, Weizenbrot
+781792|Grilled cheese sandwich, reduced fat American cheese, on whole wheat bread|Gegrilltes Käsesandwich, fettarmer amerikanischer Käse, Vollkornbrot
+781793|Grilled cheese sandwich, reduced fat Cheddar cheese, on white bread|Gegrilltes Käsesandwich, fettarmer Cheddar-Käse, Weißbrot
+781794|Grilled cheese sandwich, reduced fat Cheddar cheese, on wheat bread|Gegrilltes Käsesandwich, fettarmer Cheddar-Käse, Weizenbrot
+781795|Grilled cheese sandwich, reduced fat Cheddar cheese, on whole wheat bread|Gegrilltes Käsesandwich, fettarmer Cheddar-Käse, Vollkornbrot
 783413|Sandwich|Sandwich
-783414|Meat sandwich|Fleischsandwich
-783417|Beef sandwich|Rindfleischsandwich
-783419|Beef barbecue submarine sandwich, on bun|Rindfleisch-Grill-U-Boot-Sandwich, auf Brötchen
-783420|Cheeseburger, 1 miniature patty, plain, on miniature bun, from fast food / restaurant|Cheeseburger, 1 Miniaturpastetchen, schlicht, auf Miniaturbrötchen, aus Fast Food / Restaurant
+783414|Meat sandwich|Sandwich, Fleisch
+783417|Beef sandwich|Sandwich, Rindfleisch
+783419|Beef barbecue submarine sandwich, on bun|Rindfleisch-Grill-Submarine-Sandwich
+783420|Cheeseburger, 1 miniature patty, plain, on miniature bun, from fast food / restaurant|Cheeseburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, aus Fast Food / Restaurant
 783422|Cheeseburger, 1 miniature patty, on miniature bun, from school|Cheeseburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, mensa
 783423|Cheeseburger|Cheeseburger
-783424|Cheeseburger, 1 small patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 kleines Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
+783424|Cheeseburger, 1 small patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 kleine Frikadelle, auf Brötchen, aus Fast Food / Restaurant
 783432|Cheeseburger on bun, from school|Cheeseburger auf Brötchen, mensa
-783433|Cheeseburger, 1 small patty, plain, on white bun|Cheeseburger, 1 kleines Pastetchen, schlicht, auf weißem Brötchen
-783434|Cheeseburger, 1 small patty, plain, on wheat bun|Cheeseburger, 1 kleines Pastetchen, glatt, auf Weizenbrötchen
-783438|Cheeseburger, 1 medium patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 mittelgroße Pastete, einfach, auf Brötchen, aus Fast Food / Restaurant
-783444|Cheeseburger, 1 medium patty, plain, on white bun|Cheeseburger, 1 mittelgroße Pastete, schlicht, auf weißem Brötchen
-783445|Cheeseburger, 1 medium patty, plain, on wheat bun|Cheeseburger, 1 mittelgroßes Pastetchen, glatt, auf Weizenbrötchen
-783446|Cheeseburger, 1 medium patty, plain, on whole wheat bun|Cheeseburger, 1 mittelgroßes Pastetchen, glatt, auf Vollkornbrötchen
-783450|Cheeseburger, 1 large patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 großes Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783454|Bacon cheeseburger, 1 medium patty, plain, on bun, from fast food / restaurant|Speck-Cheeseburger, 1 mittelgroßes Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783456|Bacon cheeseburger, 1 medium patty, plain, on white bun|Speck-Cheeseburger, 1 mittelgroßes Pastetchen, glatt, auf weißem Brötchen
-783461|Double cheeseburger, 2 small patties, plain, on bun, from fast food / restaurant|Doppelter Cheeseburger, 2 kleine Pastetchen, einfach, auf Brötchen, vom Fast Food / Restaurant
-783468|Double cheeseburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelter Cheeseburger, 2 mittelgroße Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783473|Double bacon cheeseburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelspeck-Cheeseburger, 2 mittelgroße Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783478|Hamburger, 1 miniature patty, plain, on miniature bun, from fast food / restaurant|Hamburger, 1 Miniaturpastetchen, schlicht, auf Miniaturbrötchen, aus Fast Food / Restaurant
+783433|Cheeseburger, 1 small patty, plain, on white bun|Cheeseburger, 1 kleine Frikadelle, helles Brötchen
+783434|Cheeseburger, 1 small patty, plain, on wheat bun|Cheeseburger, 1 kleine Frikadelle, Weizenbrötchen
+783438|Cheeseburger, 1 medium patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 mittelgroße Frikadelle, Fast Food / Restaurant
+783444|Cheeseburger, 1 medium patty, plain, on white bun|Cheeseburger, 1 mittelgroße Frikadelle, weißes Brötchen
+783445|Cheeseburger, 1 medium patty, plain, on wheat bun|Cheeseburger, 1 mittelgroße Frikadelle, Weizenbrötchen
+783446|Cheeseburger, 1 medium patty, plain, on whole wheat bun|Cheeseburger, 1 mittelgroße Frikadelle, Vollkornbrötchen
+783450|Cheeseburger, 1 large patty, plain, on bun, from fast food / restaurant|Cheeseburger, 1 große Frikadelle, Fast Food / Restaurant
+783454|Bacon cheeseburger, 1 medium patty, plain, on bun, from fast food / restaurant|Speck-Cheeseburger, 1 mittelgroße Frikadelle, Fast Food / Restaurant
+783456|Bacon cheeseburger, 1 medium patty, plain, on white bun|Speck-Cheeseburger, 1 mittelgroße Frikadelle, weißes Brötchen
+783461|Double cheeseburger, 2 small patties, plain, on bun, from fast food / restaurant|Doppelter Cheeseburger, 2 kleine Pastetchen, Fast Food / Restaurant
+783468|Double cheeseburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelter Cheeseburger, 2 mittelgroße Pastetchen, Fast Food / Restaurant
+783473|Double bacon cheeseburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelspeck-Cheeseburger, 2 mittelgroße Pastetchen, Fast Food / Restaurant
+783478|Hamburger, 1 miniature patty, plain, on miniature bun, from fast food / restaurant|Hamburger, 1 Miniaturpastetchen, schlicht, auf Miniaturbrötchen, Fast Food / Restaurant
 783480|Hamburger, 1 miniature patty, on miniature bun, from school|Hamburger, 1 Miniaturpastetchen, auf Miniaturbrötchen, mensa
 783481|Hamburger|Hamburger
-783482|Hamburger, 1 small patty, plain, on bun, from fast food / restaurant|Hamburger, 1 kleines Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783488|Hamburger, on bun, from school|Hamburger, auf Brötchen, mensa
-783489|Hamburger, 1 small patty, plain, on white bun|Hamburger, 1 kleines Pastetchen, schlicht, auf weißem Brötchen
-783490|Hamburger, 1 small patty, plain, on wheat bun|Hamburger, 1 kleines Pastetchen, glatt, auf Weizenbrötchen
-783491|Hamburger, 1 small patty, plain, on whole wheat bun|Hamburger, 1 kleines Pastetchen, glatt, auf Vollkornbrötchen
-783494|Hamburger, 1 medium patty, plain, on bun, from fast food / restaurant|Hamburger, 1 mittelgroßes Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783498|Hamburger, 1 medium patty, plain, on white bun|Hamburger, 1 mittelgroßes Pastetchen, glatt, auf weißem Brötchen
-783499|Hamburger, 1 medium patty, plain, on wheat bun|Hamburger, 1 mittelgroßes Pastetchen, glatt, auf Weizenbrötchen
-783500|Hamburger, 1 medium patty, plain, on whole wheat bun|Hamburger, 1 mittelgroßes Pastetchen, glatt, auf Vollkornbrötchen
-783504|Double hamburger, 2 small patties, plain, on bun, from fast food / restaurant|Doppelter Hamburger, 2 kleine Pastetchen, einfach, auf Brötchen, vom Fast Food / Restaurant
-783506|Double hamburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelter Hamburger, 2 mittelgroße Pastetchen, einfach, auf Brötchen, aus Fast Food / Restaurant
-783512|Corned beef sandwich|Corned Beef Sandwich
+783482|Hamburger, 1 small patty, plain, on bun, from fast food / restaurant|Hamburger, 1 kleine Frikadelle, Fast Food / Restaurant
+783488|Hamburger, on bun, from school|Hamburger, mensa
+783489|Hamburger, 1 small patty, plain, on white bun|Hamburger, 1 kleine Frikadelle, weißes Brötchen
+783490|Hamburger, 1 small patty, plain, on wheat bun|Hamburger, 1 kleine Frikadelle, Weizenbrötchen
+783491|Hamburger, 1 small patty, plain, on whole wheat bun|Hamburger, 1 kleine Frikadelle, Vollkornbrötchen
+783494|Hamburger, 1 medium patty, plain, on bun, from fast food / restaurant|Hamburger, 1 mittelgroße Frikadelle, Fast Food / Restaurant
+783498|Hamburger, 1 medium patty, plain, on white bun|Hamburger, 1 mittelgroße Frikadelle, weißem Brötchen
+783499|Hamburger, 1 medium patty, plain, on wheat bun|Hamburger, 1 mittelgroße Frikadelle, Weizenbrötchen
+783500|Hamburger, 1 medium patty, plain, on whole wheat bun|Hamburger, 1 mittelgroße Frikadelle, Vollkornbrötchen
+783504|Double hamburger, 2 small patties, plain, on bun, from fast food / restaurant|Doppelter Hamburger, 2 kleine Pastetchen, Fast Food / Restaurant
+783506|Double hamburger, 2 medium patties, plain, on bun, from fast food / restaurant|Doppelter Hamburger, 2 mittelgroße Pastetchen, Fast Food / Restaurant
+783512|Corned beef sandwich|Sandwich, gepöckeltes Rindfleisch
 783514|Pastrami sandwich|Pastrami-Sandwich
 783515|Roast beef sandwich|Rinderbraten-Sandwich
-783521|Roast beef submarine sandwich, on roll, au jus|Roastbeef-U-Boot-Sandwich, auf Rolle, au jus
-783523|Steak sandwich, plain, on roll|Steak Sandwich, einfach, auf Rolle
-783529|Steak sandwich, plain, on biscuit|Steak Sandwich, einfach, auf Keks
-783542|Bacon on biscuit|Speck auf Keks
-783543|Ham on biscuit|Schinken auf Keks
-783548|Ham salad sandwich|Schinkensalat-Sandwich
-783558|Pork sandwich|Schweinefleischsandwich
+783521|Roast beef submarine sandwich, on roll, au jus|Roastbeef-submarine-Sandwich, gerollt, au jus
+783523|Steak sandwich, plain, on roll|Steak Sandwich, gerollt
+783529|Steak sandwich, plain, on biscuit|Steak Sandwich, Biscuitteig
+783542|Bacon on biscuit|Speck auf Brötchen
+783543|Ham on biscuit|Schinken auf Brötchen
+783548|Ham salad sandwich|Schinken-Salat-Sandwich
+783558|Pork sandwich|Sandwich, Schweinefleisch
 783564|Chicken barbecue sandwich|Hühnchen-Barbecue-Sandwich
 783565|Chicken fillet, breaded, fried, sandwich|Hähnchenfilet, paniert, gebraten, Sandwich
-783566|Chicken fillet, breaded, fried, sandwich on biscuit|Hähnchenfilet, paniert, gebraten, Sandwich auf Keks
+783566|Chicken fillet, breaded, fried, sandwich on biscuit|Sandwich, Hähnchenfilet, paniert, gebraten
 783584|Buffalo chicken submarine sandwich|Buffalo Chicken U-Boot-Sandwich
-783604|Crab cake sandwich, on bun|Krabbenkuchensandwich, auf Brötchen
+783604|Crab cake sandwich, on bun|Krabbensandwich
 783607|Tuna salad sandwich|Thunfischsalat-Sandwich
-783608|Tuna melt sandwich|Thunfischschmelzsandwich
+783608|Tuna melt sandwich|Sandwich, Tunfisch, Schmelzkäse
 783616|Puerto Rican sandwich|Puertoricanisches Sandwich
-783619|Sausage on biscuit|Wurst auf Keks
+783619|Sausage on biscuit|Brötchen mit Wurst
 783620|Sausage griddle cake sandwich|Wurst-Bratpfannen-Kuchen-Sandwich
 783623|Sausage sandwich|Wurstsandwich
 783806|Oxtail soup|Ochsenschwanzsuppe
 783808|Beef broth, without tomato, home recipe|Rinderbrühe, ohne Tomate, Hausrezept
-783809|Meatball soup, home recipe, Mexican style|Fleischbällchensuppe, Hausrezept, mexikanische Art
+783809|Meatball soup, home recipe, Mexican style|Fleischbällchensuppe, mexikanische Art
 783810|Beef noodle soup, Puerto Rican style|Rindfleischnudelsuppe nach puertoricanischer Art
 783811|Pho|Pho
 783813|Pepperpot soup|Pfeffertopfsuppe
@@ -941,7 +941,7 @@
 783817|Beef vegetable soup, home recipe, Mexican style|Rindfleischgemüsesuppe, Hausrezept, mexikanische Art
 783819|Italian Wedding Soup|Italienische Hochzeitssuppe
 783833|Chicken rice soup, Puerto Rican style|Hühnerreissuppe nach puertoricanischer Art
-783848|Bird's nest soup|Vogelnestsuppe
+783848|Bird's nest soup|Schwalbennestersuppe
 783858|Duck soup|Entensuppe
 783859|Fish stock, home recipe|Fischbrühe, Hausrezept
 783860|Fish chowder|Fischsuppe
@@ -949,68 +949,68 @@
 783864|Clam chowder, Manhattan|Muschelsuppe, Manhattan
 783875|Lobster bisque|Hummerbiskuit
 783877|Oyster stew|Austereintopf
-783878|Salmon soup, cream style|Lachssuppe nach Sahnestil
+783878|Salmon soup, cream style|Lachssuppe, cremig
 783887|Meat broth, Puerto Rican style|Fleischbrühe nach puertoricanischer Art
 783888|Spanish vegetable soup, Puerto Rican style|Spanische Gemüsesuppe nach puertoricanischer Art
 784044|Fried egg sandwich|Spiegelei-Sandwich
 784066|Egg salad sandwich|Eiersalat-Sandwich
 784067|Scrambled egg sandwich|Rührei-Sandwich
-784068|Egg drop soup|Eiertropfensuppe
+784068|Egg drop soup|Eierflockensuppe
 784069|Garlic egg soup, Puerto Rican style|Knoblauch-Eiersuppe nach puertoricanischer Art
 784317|Vermicelli, made from soybeans|Fadennudeln aus Sojabohnen
 784321|Bean soup|Bohnensuppe
 784325|Soybean soup, miso broth|Sojasuppe, Miso-Brühe
 784331|Bean soup, home recipe|Bohnensuppe, Hausrezept
 784334|Liquid from stewed kidney beans, Puerto Rican style|Flüssigkeit aus gedünsteten Kidneybohnen nach puertoricanischer Art
-784338|Split pea soup|Erbspüree
+784338|Split pea soup|Erbsensuppe
 784426|Peanut butter sandwich|Erdnussbuttersandwich
 784477|Bread, white|Brot, weiß
-784478|Bread, white, toasted|Brot, weiß, geröstet
+784478|Bread, white, toasted|Brot, weiß, getoastet
 784483|Bread, Cuban|Brot, kubanisch
-784484|Bread, Cuban, toasted|Brot, kubanisch, geröstet
-784485|Bread, native, water, Puerto Rican style|Brot, einheimisch, Wasser, puertoricanischer Stil
-784486|Bread, native, water, toasted, Puerto Rican style|Brot, einheimisch, Wasser, geröstet, puertoricanische Art
+784484|Bread, Cuban, toasted|Brot, kubanisch, getoastet
+784485|Bread, native, water, Puerto Rican style|Brot, puertorikanischer Art
+784486|Bread, native, water, toasted, Puerto Rican style|Brot, puertoricanische Art
 784487|Bread, lard, Puerto Rican style|Brot, Schmalz nach puertoricanischer Art
 784488|Bread, lard, toasted, Puerto Rican style|Brot, Schmalz, geröstet nach puertoricanischer Art
-784489|Bread, caressed, Puerto Rican style|Brot, gestreichelt, puertoricanischer Stil
-784490|Bread, caressed, toasted, Puerto Rican style|Brot, gestreichelt, geröstet, puertoricanisch
-784493|Focaccia, Italian flatbread, plain|Focaccia, italienisches Fladenbrot, glatt
+784489|Bread, caressed, Puerto Rican style|Brot, puertoricanische Art
+784490|Bread, caressed, toasted, Puerto Rican style|Brot, geröstet, puertoricanisch
+784493|Focaccia, Italian flatbread, plain|Focaccia, italienisches Fladenbrot
 784494|Naan, Indian flatbread|Naan, indisches Fladenbrot
 784495|Bread, Italian, Grecian, Armenian|Brot, Italienisch, Griechisch, Armenisch
-784496|Bread, Italian, Grecian, Armenian, toasted|Brot, Italienisch, Griechisch, Armenisch, geröstet
+784496|Bread, Italian, Grecian, Armenian, toasted|Brot, Italienisch, Griechisch, Armenisch, getoastet
 784497|Bread, pita|Brot, Pita
-784498|Bread, pita, toasted|Brot, Pita, geröstet
+784498|Bread, pita, toasted|Brot, Pita, getoastet
 784501|Bread, cheese|Brot Käse
-784502|Bread, cheese, toasted|Brot, Käse, geröstet
+784502|Bread, cheese, toasted|Brot, Käse, getoastet
 784503|Bread, cinnamon|Brot, Zimt
-784504|Bread, cinnamon, toasted|Brot, Zimt, geröstet
+784504|Bread, cinnamon, toasted|Brot, Zimt, getoastet
 784507|Bread, egg, Challah|Brot, Ei, Challah
 784508|Bread, egg, Challah, toasted|Brot, Ei, Challah, geröstet
 784509|Garlic bread|Knoblauchbrot
 784510|Garlic bread, from fast food / restaurant|Knoblauchbrot aus Fast Food / Restaurant
-784511|Garlic bread, from frozen|Knoblauchbrot aus gefrorenem
+784511|Garlic bread, from frozen|Knoblauchbrot, tiefgefroren
 784516|Bread, onion|Brot, Zwiebel
-784517|Bread, onion, toasted|Brot, Zwiebel, geröstet
-784522|Bread, white, special formula, added fiber|Brot, weiß, spezielle Formel, hinzugefügte Faser
-784523|Bread, white, special formula, added fiber, toasted|Brot, weiß, spezielle Formel, hinzugefügte Faser, geröstet
+784517|Bread, onion, toasted|Brot, Zwiebel, getoastet
+784522|Bread, white, special formula, added fiber|Brot, weiß, ballaststoffreich
+784523|Bread, white, special formula, added fiber, toasted|Brot, weiß, ballaststoffreich, getoastet
 784524|Bread, high protein|Brot, proteinreich
-784525|Bread, high protein, toasted|Brot, proteinreich, geröstet
-784526|Bread, potato|Brot, Kartoffel
-784527|Bread, potato, toasted|Brot, Kartoffel, geröstet
-784528|Bread, raisin|Brot, Rosine
-784529|Bread, raisin, toasted|Brot, Rosinen, geröstet
+784525|Bread, high protein, toasted|Brot, proteinreich, getoastet
+784526|Bread, potato|Kartoffelbrot
+784527|Bread, potato, toasted|Kartoffelbrot, getoastet
+784528|Bread, raisin|Rosinenbrot
+784529|Bread, raisin, toasted|Rosinenbrot, getoastet
 784532|Bread, sour dough|Brot, Sauerteig
-784533|Bread, sour dough, toasted|Brot, Sauerteig, geröstet
-784534|Bread, sweet potato|Brot, Süßkartoffel
-784535|Bread, sweet potato, toasted|Brot, Süßkartoffel, geröstet
+784533|Bread, sour dough, toasted|Brot, Sauerteig, getoastet
+784534|Bread, sweet potato|Süßkartoffelbrot
+784535|Bread, sweet potato, toasted|Süßkartoffelbrot, getoastet
 784536|Bread, vegetable|Brot, Gemüse
-784537|Bread, vegetable, toasted|Brot, Gemüse, geröstet
+784537|Bread, vegetable, toasted|Brot, Gemüse, getoastet
 784538|Bruschetta|Bruschetta
-784539|Bread, dough, fried|Brot, Teig, gebraten
-784540|Roll, white, soft|Rolle, weiß, weich
-784541|Roll, white, hard|Roll, weiß, hart
-784542|Roll, white, hot dog bun|Roll, weiß, Hot Dog Brötchen
-784543|Roll, white, hamburger bun|Roll, white, hamburger bun
+784539|Bread, dough, fried|Brotteig, frittiert
+784540|Roll, white, soft|Brötchen, weiß, weich
+784541|Roll, white, hard|Brötchen, weiß, hart
+784542|Roll, white, hot dog bun|Hot-Dog-Brötchen
+784543|Roll, white, hamburger bun|Hamburger-Brötchen
 784544|Roll, diet|Brötchen, Diät
 784545|Roll, egg bread|Brötchen, Eierbrot
 784546|Roll, cheese|Brötchen, Käse
@@ -1022,12 +1022,12 @@
 784574|Breadsticks|Brotstangen
 784577|Breadsticks, soft|Brotstangen, weich
 784578|Breadsticks, soft, from fast food / restaurant|Breadsticks, weich, aus Fast Food / Restaurant
-784579|Breadsticks, soft, from frozen|Brotstangen, weich, aus gefrorenem
-784585|Muffin, English|Muffin, Englisch
-784587|Muffin, English, cheese|Muffin, Englisch, Käse
-784593|Bread, whole grain white|Brot, Vollkornweiß
-784594|Bread, whole grain white, toasted|Brot, Vollkornweiß, geröstet
-784595|Bagel, whole grain white|Bagel, Vollkornweiß
+784579|Breadsticks, soft, from frozen|Brotstangen, weich, tiefgefroren
+784585|Muffin, English|Muffin, Englische Art (Hefebrötchen)
+784587|Muffin, English, cheese|Muffin, Englisch, Käse (Hefebrötchen)
+784593|Bread, whole grain white|Brot, Vollkornweizen
+784594|Bread, whole grain white, toasted|Brot, Vollkornweizen, getoastet
+784595|Bagel, whole grain white|Bagel, Vollkornweizen
 784596|Bread, whole wheat|Brot, Vollkornweizen
 784597|Bread, whole wheat, toasted|Brot, Vollkornweizen, geröstet
 784601|Bread, puri, wheat|Brot, Puri, Weizen
@@ -1039,77 +1039,77 @@
 784621|Bagel, wheat|Bagel, Weizen
 784622|Bagel, whole wheat|Bagel, Vollkornweizen
 784626|Bagel, wheat bran|Bagel, Weizenkleie
-784627|Muffin, English, wheat bran|Muffin, Englisch, Weizenkleie
-784630|Muffin, English, whole wheat|Muffin, Englisch, Vollkornweizen
-784633|Muffin, English, whole grain white|Muffin, Englisch, Vollkornweiß
+784627|Muffin, English, wheat bran|Muffin, Englische Art (Hefebrötchen), Weizenkleie
+784630|Muffin, English, whole wheat|Muffin, Englische Art (Hefebrötchen), Vollkornweizen
+784633|Muffin, English, whole grain white|Muffin, Englische Art (Hefebrötchen), Vollkornweizen
 784638|Roll, whole wheat|Brötchen, Vollkornweizen
-784639|Roll, whole wheat, hot dog bun|Brötchen, Vollkorn, Hot Dog Brötchen
-784640|Roll, whole wheat, hamburger bun|Brötchen, Vollkornbrot, Hamburgerbrötchen
-784641|Roll, whole grain white|Rolle, Vollkornweiß
-784642|Roll, whole grain white, hot dog bun|Brötchen, Vollkornweiß, Hot Dog Brötchen
-784643|Roll, whole grain white, hamburger bun|Brötchen, Vollkornweiß, Hamburgerbrötchen
+784639|Roll, whole wheat, hot dog bun|Hot-Dog-Brötchen, Vollkorn
+784640|Roll, whole wheat, hamburger bun|Hamburgerbrötchen, Vollkorn
+784641|Roll, whole grain white|Brötchen, Vollkornweizen
+784642|Roll, whole grain white, hot dog bun|Hot Dog Brötchen, Vollkornweizen
+784643|Roll, whole grain white, hamburger bun|Hamburgerbrötchen, Vollkornweizen
 784644|Bread, rye|Brot, Roggen
-784645|Bread, rye, toasted|Brot, Roggen, geröstet
-784648|Bread, rye, reduced calorie and/or high fiber|Brot, Roggen, kalorienreduziert und / oder ballaststoffreich
-784649|Bread, rye, reduced calorie and/or high fiber, toasted|Brot, Roggen, kalorienreduziert und / oder ballaststoffreich, geröstet
-784650|Muffin, English, rye|Muffin, Englisch, Roggen
+784645|Bread, rye, toasted|Brot, Roggen, getoasted
+784648|Bread, rye, reduced calorie and/or high fiber|Brot, Roggen, kalorienreduziert / ballaststoffreich
+784649|Bread, rye, reduced calorie and/or high fiber, toasted|Brot, Roggen, kalorienreduziert / ballaststoffreich, getoasted
+784650|Muffin, English, rye|Muffin, Englische Art (Hefebrötchen), Roggen
 784651|Bread, pumpernickel|Brot, Pumpernickel
-784652|Bread, pumpernickel, toasted|Brot, Pumpernickel, geröstet
+784652|Bread, pumpernickel, toasted|Brot, Pumpernickel, getoastet
 784653|Bagel, pumpernickel|Bagel, pumpernickel
-784654|Muffin, English, pumpernickel|Muffin, Englisch, Pumpernickel
+784654|Muffin, English, pumpernickel|Muffin, Englische Art (Hefebrötchen), Pumpernickel
 784655|Bread, black|Brot, schwarz
 784656|Bread, black, toasted|Brot, schwarz, geröstet
 784657|Roll, rye|Roll, Roggen
 784658|Roll, pumpernickel|Roll, Pumpernickel
 784659|Bread, oatmeal|Brot, Haferflocken
-784660|Bread, oatmeal, toasted|Brot, Haferflocken, geröstet
+784660|Bread, oatmeal, toasted|Brot, Haferflocken, getoastet
 784661|Bread, oat bran|Brot, Haferkleie
-784662|Bread, oat bran, toasted|Brot, Haferkleie, geröstet
-784663|Bread, oat bran, reduced calorie and/or high fiber|Brot, Haferkleie, kalorienreduziert und / oder ballaststoffreich
-784664|Bread, oat bran, reduced calorie and/or high fiber, toasted|Brot, Haferkleie, kalorienreduziert und / oder ballaststoffreich, geröstet
+784662|Bread, oat bran, toasted|Brot, Haferkleie, getoastet
+784663|Bread, oat bran, reduced calorie and/or high fiber|Brot, Haferkleie, kalorienreduziert / ballaststoffreich
+784664|Bread, oat bran, reduced calorie and/or high fiber, toasted|Brot, Haferkleie, kalorienreduziert / ballaststoffreich, getoastet
 784665|Bagel, oat bran|Bagel, Haferkleie
 784666|Roll, oatmeal|Brötchen, Haferflocken
 784667|Muffin, English, oat bran|Muffin, Englisch, Haferkleie
-784669|Bread, multigrain, toasted|Brot, Mehrkorn, geröstet
+784669|Bread, multigrain, toasted|Brot, Mehrkorn, getoastet
 784670|Bread, multigrain|Brot, Mehrkorn
-784673|Bread, multigrain, reduced calorie and/or high fiber|Brot, Mehrkorn, kalorienreduziert und / oder ballaststoffreich
-784674|Bread, multigrain, reduced calorie and/or high fiber, toasted|Brot, Mehrkorn, kalorienreduziert und / oder ballaststoffreich, geröstet
-784675|Roll, multigrain|Roll, Mehrkorn
-784676|Roll, multigrain, hot dog bun|Brötchen, Mehrkorn, Hot Dog Brötchen
-784677|Roll, multigrain, hamburger bun|Brötchen, Mehrkorn, Hamburgerbrötchen
+784673|Bread, multigrain, reduced calorie and/or high fiber|Brot, Mehrkorn, kalorienreduziert / ballaststoffreich
+784674|Bread, multigrain, reduced calorie and/or high fiber, toasted|Brot, Mehrkorn, kalorienreduziert / ballaststoffreich, getoastet
+784675|Roll, multigrain|Brötchen, Mehrkorn
+784676|Roll, multigrain, hot dog bun|Hot Dog Brötchen, Mehrkorn
+784677|Roll, multigrain, hamburger bun|Hamburgerbrötchen, Mehrkorn
 784678|Bagel, multigrain|Bagel, Mehrkorn
-784680|Muffin, English, multigrain|Muffin, Englisch, Mehrkorn
+784680|Muffin, English, multigrain|Muffin, Englische Art (Hefebrötchen), Mehrkorn
 784681|Bread, barley|Brot, Gerste
-784682|Bread, barley, toasted|Brot, Gerste, geröstet
-784683|Bread, soy|Brot bin ich
-784684|Bread, soy, toasted|Brot, Soja, geröstet
+784682|Bread, barley, toasted|Brot, Gerste, getoastet
+784683|Bread, soy|Brot, Sojabasis
+784684|Bread, soy, toasted|Brot, Sojabasis, getoastet
 784685|Bread, sunflower meal|Brot, Sonnenblumenmehl
-784686|Bread, sunflower meal, toasted|Brot, Sonnenblumenmehl, geröstet
+784686|Bread, sunflower meal, toasted|Brot, Sonnenblumenmehl, getoastet
 784687|Bread, rice|Brot, Reis
-784688|Bread, rice, toasted|Brot, Reis, geröstet
+784688|Bread, rice, toasted|Brot, Reis, getoastet
 784689|Injera, Ethiopian bread|Injera, äthiopisches Brot
 784690|Bread, gluten free|Brot, glutenfrei
-784691|Bread, gluten free, toasted|Brot, glutenfrei, geröstet
+784691|Bread, gluten free, toasted|Brot, glutenfrei, getoastet
 784693|Roll, gluten free|Brötchen, glutenfrei
-784695|Biscuit dough, fried|Keksteig, gebraten
+784695|Biscuit dough, fried|Brötchenteig, frittiert
 784696|Crumpet|Fladenbrot
 784697|Crumpet, toasted|Fladenbrot, geröstet
-784703|Biscuit, whole wheat|Keks, Vollkornweizen
-784704|Biscuit, cheese|Keks, Käse
-784705|Biscuit, cinnamon-raisin|Keks, Zimt-Rosine
+784703|Biscuit, whole wheat|Biscuit (englisch), Vollkornweizen
+784704|Biscuit, cheese|Biscuit (englisch), Käse
+784705|Biscuit, cinnamon-raisin|Biscuit (englisch), Zimt-Rosine
 784706|Scone|Scone
 784708|Cornbread, prepared from mix|Maisbrot, aus Mischung zubereitet
 784709|Cornbread, made from home recipe|Maisbrot nach hausgemachtem Rezept
-784711|Cornbread muffin, stick, round|Maisbrot-Muffin, Stock, rund
+784711|Cornbread muffin, stick, round|Maisbrot-Muffin
 784712|Cornbread muffin, stick, round, made from home recipe|Maisbrot-Muffin, Stick, rund, nach Hausrezept hergestellt
-784716|Gordita/sope shell, plain, no filling|Gordita / Sope Shell, glatt, keine Füllung
+784716|Gordita/sope shell, plain, no filling|Gordita / Sope Shell, ohne Füllung
 784720|Tortilla|Tortilla
 784721|Tortilla, corn|Tortilla, Mais
 784722|Tortilla, flour|Tortilla, Mehl
 784723|Tortilla, whole wheat|Tortilla, Vollkornweizen
 784724|Taco shell, corn|Taco-Schale, Mais
 784725|Taco shell, flour|Taco-Schale, Mehl
-785404|Pasta, vegetable, cooked|Pasta, Gemüse, gekocht
+785404|Pasta, vegetable, cooked|Nudeln mit Gemüse, gekocht
 785405|Noodles, cooked|Nudeln, gekocht
 785406|Noodles, whole grain, cooked|Nudeln, Vollkorn, gekocht
 785407|Noodles, vegetable, cooked|Nudeln, Gemüse, gekocht
@@ -1117,28 +1117,28 @@
 785410|Rice noodles, cooked|Reisnudeln, gekocht
 785411|Pasta, cooked|Nudeln, gekocht
 785412|Pasta, whole grain, cooked|Nudeln, Vollkorn, gekocht
-785413|Pasta, gluten free|Pasta, glutenfrei
+785413|Pasta, gluten free|Nudeln, glutenfrei
 785501|Rice, cooked|Reis, gekocht
 785521|Congee|Congee
 785525|Rice, white, cooked, glutinous|Reis, weiß, gekocht, klebrig
-785564|Couscous, plain, cooked|Couscous, einfach, gekocht
-785963|Pizza, no cheese, thin crust|Pizza, kein Käse, dünne Kruste
-785964|Pizza, no cheese, thick crust|Pizza, kein Käse, dicke Kruste
+785564|Couscous, plain, cooked|Couscous, gekocht
+785963|Pizza, no cheese, thin crust|Pizza, ohne Käse, dünne Kruste
+785964|Pizza, no cheese, thick crust|Pizza, ohne Käse, dicke Kruste
 785965|White pizza, cheese, thin crust|Weiße Pizza, Käse, dünne Kruste
 785966|White pizza, cheese, thick crust|Weiße Pizza, Käse, dicke Kruste
-785975|Pizza rolls|Pizza Rollen
+785975|Pizza rolls|Pizzarollen
 785976|Pizza, cheese, whole wheat thin crust|Pizza, Käse, Vollkorn dünne Kruste
 785977|Pizza, cheese, whole wheat thick crust|Pizza, Käse, Vollkorn dicke Kruste
 785982|Pizza, cheese, gluten-free thin crust|Pizza, Käse, glutenfreie dünne Kruste
 785983|Pizza, cheese, gluten-free thick crust|Pizza, Käse, glutenfreie dicke Kruste
 786313|Pigeon pea asopao, Asopao de gandules|Taubenerbse Asopao, Asopao de Gandules
-786466|Jelly sandwich, regular jelly|Geleesandwich, normales Gelee
-786467|Jelly sandwich, regular jelly, on white bread|Geleesandwich, normales Gelee, auf Weißbrot
-786468|Jelly sandwich, regular jelly, on wheat bread|Geleesandwich, normales Gelee, auf Weizenbrot
-786469|Jelly sandwich, regular jelly, on whole wheat bread|Geleesandwich, normales Gelee, auf Vollkornbrot
-786470|Jelly sandwich, reduced sugar jelly, on white bread|Geleesandwich, reduziertes Zuckergelee, auf Weißbrot
-786471|Jelly sandwich, reduced sugar jelly, on wheat bread|Geleesandwich, reduziertes Zuckergelee, auf Weizenbrot
-786472|Jelly sandwich, reduced sugar jelly, on whole wheat bread|Geleesandwich, reduziertes Zuckergelee, auf Vollkornbrot
+786466|Jelly sandwich, regular jelly|Toast mit Marmelade
+786467|Jelly sandwich, regular jelly, on white bread|Toast mit Marmelade, Weißbrot
+786468|Jelly sandwich, regular jelly, on wheat bread|Toast mit Marmelade, Weizenbrot
+786469|Jelly sandwich, regular jelly, on whole wheat bread|Toast mit Marmelade, Vollkornbrot
+786470|Jelly sandwich, reduced sugar jelly, on white bread|Toast mit Marmelade, zuckerreduziert, Weißbrot
+786471|Jelly sandwich, reduced sugar jelly, on wheat bread|Toast mit Marmelade, zuckerreduziert, Weizenbrot
+786472|Jelly sandwich, reduced sugar jelly, on whole wheat bread|Toast mit Marmelade, zuckerreduziert, Vollkornbrot
 786501|Soup|Suppe
 786502|Noodle soup|Nudelsuppe
 786503|Rice soup|Reissuppe
@@ -1150,19 +1150,19 @@
 786527|Wonton soup|Wonton Suppe
 786530|Sopa seca, Mexican style|Trockensuppe nach mexikanischer Art
 786533|Sopa seca de arroz, home recipe, Mexican style|Trockene Reissuppe, Hausrezept, mexikanische Art
-786838|Soup, fruit|Suppe, Obst
+786838|Soup, fruit|Fruchtsuppe
 787162|Potato chowder|Kartoffelsuppe
 787163|Plantain soup, Puerto Rican style|Wegerichsuppe nach puertoricanischer Art
 787519|Spinach soup|Spinatsuppe
-787521|Dark-green leafy vegetable soup, meatless, Asian style|Dunkelgrüne Blattgemüsesuppe nach Fleischersatzer asiatischer Art
+787521|Dark-green leafy vegetable soup, meatless, Asian style|Dunkelgrüne Blattgemüsesuppe, asiatisch, vegetarisch
 787755|Tomato soup|Tomatensuppe
 787769|Tomato sandwich|Tomatensandwich
-788859|Soup, cream of|Suppe, Sahne von
+788859|Soup, cream of|Suppe, cremig
 788863|Borscht|Borscht
 788870|Gazpacho|Gazpacho
-788872|Mushroom soup|Pilz Suppe
+788872|Mushroom soup|Pilzsuppe
 788883|Onion soup, French|Zwiebelsuppe, Französisch
-788884|Onion soup, made from dry mix|Zwiebelsuppe aus trockener Mischung
+788884|Onion soup, made from dry mix|Zwiebelsuppe, Tütensuppe
 788888|Shav soup|Shav Suppe
 788889|Seaweed soup|Seetang-Suppe
 788891|Vegetable soup, reduced sodium, canned, ready to serve|Gemüsesuppe, salzarm, aus der Dose, servierfertig
@@ -1172,17 +1172,17 @@
 788896|Minestrone soup, home recipe|Minestrone-Suppe, Hausrezept
 788906|Vegetable beef soup, home recipe|Gemüserindfleischsuppe, Hausrezept
 788911|Vegetable soup, Spanish style, stew type|Gemüsesuppe nach spanischer Art, Eintopf
-788912|Vegetable soup, chunky style|Gemüsesuppe nach klobiger Art
-788914|Vegetable beef soup, chunky style|Gemüse-Rindfleischsuppe nach klobiger Art
+788912|Vegetable soup, chunky style|Gemüsesuppe
+788914|Vegetable beef soup, chunky style|Gemüse-Rindfleischsuppe
 788915|Vegetable broth, bouillon|Gemüsebrühe, Bouillon
 781648|Tiramisu|Tiramisu
 784296|Bean chips|Bohnenchips
 784300|Soy chips|Sojachips
 784552|Roll, sweet, no frosting|Brötchen, süß, ohne Zuckerguss
-784553|Roll, sweet, cinnamon bun, no frosting|Brötchen, süß, Zimtschnecke, ohne Zuckerguss
-784554|Roll, sweet, cinnamon bun, frosted|Brötchen, süß, Zimtschnecke, glasiert
+784553|Roll, sweet, cinnamon bun, no frosting|Zimtschnecke, ohne Zuckerguss
+784554|Roll, sweet, cinnamon bun, frosted|Zimtschnecke, glasiert
 784558|Roll, sweet, frosted|Brötchen, süß, glasiert
-784559|Pan Dulce, no topping|Backware, süß, ohne Guss
+784559|Pan Dulce, no topping|Pan Dulce (hispanische Backware), süß, ohne Guss
 784562|Coffee cake, yeast type|Kaffeekuchen, Hefe
 784563|Croissant|Croissant
 784564|Croissant, cheese|Croissant, Käse
@@ -1191,20 +1191,20 @@
 784567|Brioche|Brioche
 784568|Bread, Spanish coffee|Brot, spanischer Kaffee
 784575|Breadsticks, hard|Brotstangen, hart
-784576|Breadsticks, hard, reduced sodium|Brotstangen, hart, salzarm
+784576|Breadsticks, hard, reduced sodium|Brotstangen, hart, wenig Salz
 784584|Croutons|Croutons
 784589|Melba toast|Melba Toast
 784590|Anisette toast|Toast Anisette
-784591|Pannetone|Pannetone
-784592|Zwieback toast|Zwieback toast
-784634|Breadsticks, hard, whole wheat|Brotstangen, harter Vollkornweizen
-784692|Breadsticks, hard, gluten free|Brotstangen, hart, glutenfrei
+784591|Pannetone|Panettone
+784592|Zwieback toast|Zwieback
+784634|Breadsticks, hard, whole wheat|Brotstangen, hart (Grissini) Vollkornweizen
+784692|Breadsticks, hard, gluten free|Brotstangen, hart (Grissini) glutenfrei
 784714|Corn pone, baked|Corn Pone, gebacken
-784715|Corn pone, fried|Maiskolben, gebraten
-784717|Hush puppy|Stiller Welpe
+784715|Corn pone, fried|Maiskolben, fritiert
+784717|Hush puppy|Hush puppy (frittierte Teigbällchen, Mais)
 784718|Johnnycake|Johnnycake
 784719|Spoonbread|Löffelbrot
-784726|Arepa Dominicana|Dominikanische Arepa
+784726|Arepa Dominicana|Dominikanische Arepa (Maistörtchen)
 784727|Muffin|Muffin
 784728|Muffin, fruit |Muffin, Obst
 784729|Muffin, fruit, low fat|Muffin, Obst, fettarm
@@ -1216,36 +1216,36 @@
 784735|Muffin, wheat bran|Muffin, Weizenkleie
 784737|Muffin, oatmeal|Muffin, Haferflocken
 784738|Muffin, oat bran|Muffin, Haferkleie
-784739|Muffin, plain|Muffin, schlicht
+784739|Muffin, plain|Muffin
 784740|Muffin, cheese|Muffin, Käse
 784741|Muffin, pumpkin|Muffin, Kürbis
 784742|Muffin, zucchini|Muffin, Zucchini
 784743|Muffin, carrot|Muffin, Karotte
 784744|Popover|Popover
 784745|Bread, Boston Brown|Brot, Boston Brown
-784746|Bread, nut|Brot, Nuss
-784747|Bread, pumpkin|Brot, Kürbis
-784748|Bread, fruit|Brot, Obst
-784749|Bread, zucchini|Brot, Zucchini
-784750|Bread, Irish soda|Brot, irisches Soda
+784746|Bread, nut|Nussbrot
+784747|Bread, pumpkin|Kürbisbrot
+784748|Bread, fruit|Obstbrot
+784749|Bread, zucchini|Zucchinibrot
+784750|Bread, Irish soda|Sodabrot
 784751|Cake batter, chocolate|Kuchenteig, Schokolade
-784752|Cake batter, not chocolate|Kuchenteig, keine Schokolade
+784752|Cake batter, not chocolate|Kuchenteig, ohne Schokolade
 784762|Cake, Boston cream pie|Kuchen, Boston Cream Pie
-784765|Cake, carrot, diet|Kuchen, Karotte, Diät
+784765|Cake, carrot, diet|Karottenkuchen, Diät
 784767|Cheesecake|Käsekuchen
 784769|Cheesecake, chocolate|Käsekuchen, Schokolade
 784779|Cake, Dobos Torte|Kuchen, Dobos Torte
-784784|Cake, jelly roll|Kuchen, Geleerolle
-784795|Cake, pound, chocolate|Kuchen, Pfund, Schokolade
-784796|Cake, pound, Puerto Rican style|Kuchen, Pfund, puertoricanische Art
-784797|Cake, pound, reduced fat, cholesterol free|Kuchen, Pfund, fettarm, cholesterinfrei
+784784|Cake, jelly roll|Biscuitrolle mit Marmelade
+784795|Cake, pound, chocolate|Rührkuchen, Schokolade
+784796|Cake, pound, Puerto Rican style|Rührkuchen, puertoricanische Art
+784797|Cake, pound, reduced fat, cholesterol free|Rührkuchen, fettarm, cholesterinfrei
 784801|Cake, Ravani|Kuchen, Ravani
 784803|Cake, Quezadilla, El Salvadorian style|Kuchen, Quezadilla, El Salvadorianischer Stil
-784808|Cake, sponge, chocolate|Kuchen, Schwamm, Schokolade
+784808|Cake, sponge, chocolate|Bisuitkuchen, Schokolade
 784809|Rum cake, without icing|Rumkuchen ohne Zuckerguss
 784810|Cake, torte|Kuchen, Kuchen
-784811|Cake, tres leche|Kuchen, drei Milch
-784812|Cake, pineapple, upside down|Kuchen, Ananas, verkehrt herum
+784811|Cake, tres leche|Mittelamerikanischer Milchkuchen (Tres leche)
+784812|Cake, pineapple, upside down|gestürzter Annanaskuchen
 784824|Cookie|Plätzchen
 784825|Cookie, almond|Keks, Mandel
 784826|Cookie, applesauce|Keks, Apfelmus
@@ -1255,18 +1255,18 @@
 784835|Cookie, chocolate chip|Keks, Schokoladenstückchen
 784837|Cookie, chocolate chip, reduced fat|Keks, Schokoladenstückchen, fettarm
 784838|Cookie, chocolate chip sandwich|Keks, Schokoladensandwich
-784844|Cookie, marshmallow, chocolate-covered|Keks, Marshmallow, mit Schokolade paniert
-784845|Cookie, marshmallow pie, chocolate covered|Keks, Marshmallow-Torte, Schokolade bedeckt
+784844|Cookie, marshmallow, chocolate-covered|Keks, Marshmallow, Schokoladenguss
+784845|Cookie, marshmallow pie, chocolate covered|Keks-Marshmallow-Torte, Schokoladenguss
 784847|Cookie, sugar wafer, chocolate-covered|Keks, Zuckerwaffel, mit Schokolade paniert
-784848|Cookie, chocolate sandwich|Keks, Schokoladensandwich
-784849|Cookie, chocolate sandwich, reduced fat|Keks, Schokoladensandwich, fettarm
+784848|Cookie, chocolate sandwich|Schokoladen-Keks-Sandwich
+784849|Cookie, chocolate sandwich, reduced fat|Schokoladen-Keks-Sandwich, fettarm
 784852|Cookie, chocolate wafer|Keks, Schokoladenwaffel
 784855|Cookie, coconut|Keks, Kokosnuss
 784856|Cookie, fruit-filled bar|Keks, mit Obst gefüllte Bar
 784857|Cookie, fruit-filled bar, fat free|Keks, Obstriegel, fettfrei
-784858|Cookie, fig bar|Keks, Feigenbar
-784859|Cookie, fig bar, fat free|Keks, Feigenriegel, fettfrei
-784860|Cookie, fortune|Keks, Glück
+784858|Cookie, fig bar|Fig Bar (Shortbread gefüllt)
+784859|Cookie, fig bar, fat free|Fig Bar (Shortbread gefüllt), fettfrei
+784860|Cookie, fortune|Gückskeks
 784862|Cookie, gingersnaps|Keks, Gingersnaps
 784863|Cookie, granola|Keks, Müsli
 784864|Cookie, ladyfinger|Keks, Ladyfinger
@@ -1275,7 +1275,7 @@
 784871|Cookie, meringue|Keks, Baiser
 784872|Cookie, molasses|Keks, Melasse
 784873|Cookie, Lebkuchen|Cookie, Lebkuchen
-784874|Cookie, multigrain, high fiber|Keks, Mehrkorn, hohe Faser
+784874|Cookie, multigrain, high fiber|Keks, Mehrkorn, ballaststoffreich
 784875|Cookie, oatmeal|Keks, Haferflocken
 784882|Cookie, peanut butter|Keks, Erdnussbutter
 784885|Cookie, peanut butter sandwich|Keks, Erdnussbuttersandwich
@@ -1287,9 +1287,9 @@
 784892|Cookie, rum ball, no bake|Keks, Rumball, kein Backen
 784894|Cookie, shortbread|Keks, Shortbread
 784895|Cookie, shortbread, reduced fat|Keks, Shortbread, fettarm
-784897|Pocky|Pocky
+784897|Pocky|Mikado
 784898|Cookie, animal|Keks, Tier
-784901|Marie biscuit|Marie Keks
+784901|Marie biscuit|Marie-Keks
 784903|Cookie, sugar wafer|Keks, Zuckerwaffel
 784904|Cookie, toffee bar|Keks, Toffee-Bar
 784905|Cookie, vanilla sandwich|Keks, Vanille-Sandwich
@@ -1307,65 +1307,65 @@
 784921|Cookie, gluten free|Keks, glutenfrei
 784922|Cookies, Puerto Rican style|Kekse nach puertoricanischer Art
 784923|Pie|Kuchen
-784925|Pie, fried|Kuchen, gebraten
-784928|Pie, apple, fried pie|Kuchen, Apfel, gebratener Kuchen
-784929|Pie, apple, one crust|Kuchen, Apfel, eine Kruste
-784930|Pie, apple, diet|Kuchen, Apfel, Diät
-784933|Pie, apricot, fried pie|Torte, Aprikose, gebratene Torte
-784940|Pie, blueberry, one crust|Torte, Blaubeere, eine Kruste
-784943|Pie, cherry, one crust|Torte, Kirsche, eine Kruste
-784945|Pie, cherry, fried pie|Torte, Kirsche, gebratene Torte
-784948|Pie, lemon, fried pie|Torte, Zitrone, gebratene Torte
-784952|Pie, peach, one crust|Kuchen, Pfirsich, eine Kruste
-784954|Pie, peach, fried pie|Kuchen, Pfirsich, gebratener Kuchen
-784960|Pie, prune, one crust|Kuchen, Pflaume, eine Kruste
-784963|Pie, raspberry, one crust|Torte, Himbeere, eine Kruste
-784966|Pie, rhubarb, one crust|Torte, Rhabarber, eine Kruste
-784968|Pie, strawberry, one crust|Kuchen, Erdbeere, eine Kruste
-784971|Pie, apple-sour cream|Kuchen, apfelsauer Sahne
+784925|Pie, fried|Teigtaschen, süß, frittiert
+784928|Pie, apple, fried pie|Apfeltaschen, frittiert, süß
+784929|Pie, apple, one crust|Apfeltarte
+784930|Pie, apple, diet|Apfelkuchen, Diät
+784933|Pie, apricot, fried pie|Aprikosentasche, frittiert, süß
+784940|Pie, blueberry, one crust|Blaubeerentarte
+784943|Pie, cherry, one crust|Kirschtarte
+784945|Pie, cherry, fried pie|Kirschtasche, frittiert, süß
+784948|Pie, lemon, fried pie|Zitronentasche, frittiert, süß
+784952|Pie, peach, one crust|Pfirsichtarte
+784954|Pie, peach, fried pie|Pfirsichtasche, frittiert, süß
+784960|Pie, prune, one crust|Pflaumentarte
+784963|Pie, raspberry, one crust|Himbeertarte
+784966|Pie, rhubarb, one crust|Rhabarbertarte
+784968|Pie, strawberry, one crust|Erdbeertarte
+784971|Pie, apple-sour cream|Kuchen, Apfel-Schmand
 784973|Pie, banana cream|Torte, Bananencreme
 784975|Pie, buttermilk|Kuchen, Buttermilch
-784976|Pie, chess|Torte, Schach
-784977|Pie, chocolate cream|Kuchen, Schokoladencreme
-784979|Pie, coconut cream|Kuchen, Kokoscreme
-784981|Pie, custard|Kuchen, Pudding
+784976|Pie, chess|Chess Pie (Vanillekuchen aus Buttermilch)
+784977|Pie, chocolate cream|Schooladentorte
+784979|Pie, coconut cream|Kokostorte
+784981|Pie, custard|Eiercremetorte (englische Art)
 784984|Dessert pizza|Dessertpizza
-784985|Pie, lemon cream|Torte, Zitronencreme
-784987|Pie, peanut butter cream|Torte, Erdnussbuttercreme
-784988|Pie, pineapple cream|Torte, Ananascreme
-784989|Pie, pumpkin|Kuchen, Kürbis
-784991|Pie, raspberry cream|Torte, Himbeercreme
+784985|Pie, lemon cream|Zitronencremetorte
+784987|Pie, peanut butter cream|Erdnussbuttercremetorte
+784988|Pie, pineapple cream|Ananascremetorte
+784989|Pie, pumpkin|Kürbiskuchen
+784991|Pie, raspberry cream|Himbeercremetorte
 784992|Pie, sour cream, raisin|Kuchen, Sauerrahm, Rosinen
-784993|Pie, squash|Kuchen, Kürbis
-784994|Pie, strawberry cream|Torte, Erdbeercreme
-784996|Pie, sweet potato|Torte, Süßkartoffel
-784997|Pie, vanilla cream|Torte, Vanillecreme
-784998|Pie, yogurt, frozen|Kuchen, Joghurt, gefroren
-784999|Pie, chiffon, not chocolate|Kuchen, Chiffon, keine Schokolade
-785000|Pie, chiffon, chocolate|Kuchen, Chiffon, Schokolade
+784993|Pie, squash|Kürbiskuchen
+784994|Pie, strawberry cream|Erdbeercremetorte
+784996|Pie, sweet potato|Süßkartoffeltorte
+784997|Pie, vanilla cream|Vanillecremetorte
+784998|Pie, yogurt, frozen|Joghurttorte, tiefgefroren
+784999|Pie, chiffon, not chocolate|Chiffon, ohne Schokolade
+785000|Pie, chiffon, chocolate|Chiffon, Schokolade
 785001|Pie, black bottom|Torte, schwarzer Boden
 785002|Pie, lemon meringue|Torte, Zitronenbaiser
 785004|Pie, chocolate-marshmallow|Torte, Schokoladen-Marshmallow
-785005|Pie, pecan|Kuchen, Pekannuss
+785005|Pie, pecan|Pekannusskuchen
 785007|Pie, oatmeal|Kuchen, Haferflocken
 785008|Pie, pudding, flavors other than chocolate|Kuchen, Pudding, andere Aromen als Schokolade
-785012|Pie, Toll house chocolate chip|Torte, Toll House Schokoladenstückchen
-785013|Pie, shoo-fly|Pie, shoo-fly
-785015|Pie shell|Tortenschale
-785016|Pie shell, graham cracker|Tortenschale, Graham Cracker
-785017|Pie shell, chocolate wafer|Tortenschale, Schokoladenwaffel
+785012|Pie, Toll house chocolate chip|Schokoladencookie-Torte, (Toll House)
+785013|Pie, shoo-fly|gefüllter Streuselkuchen
+785015|Pie shell|Mürbteig
+785016|Pie shell, graham cracker|Teig aus Butterkeksen
+785017|Pie shell, chocolate wafer|Teig aus Schokoladenwaffel
 785018|Vanilla wafer dessert base|Vanille Waffel Dessert Basis
-785019|Blintz, cheese-filled|Blintz, mit Käse gefüllt
-785020|Blintz, fruit-filled|Blintz, voller Früchte
-785021|Cobbler, apple|Schuster, Apfel
-785022|Cobbler, apricot|Schuster, Aprikose
-785023|Cobbler, berry|Schuster, Beere
-785024|Cobbler, cherry|Schuster, Kirsche
-785025|Cobbler, peach|Schuster, Pfirsich
-785026|Cobbler, pear|Schuster, Birne
-785027|Cobbler, pineapple|Schuster, Ananas
-785028|Cobbler, plum|Schuster, Pflaume
-785029|Cobbler, rhubarb|Schuster, Rhabarber
+785019|Blintz, cheese-filled|Pfannkuchen, mit Käse gefüllt
+785020|Blintz, fruit-filled|Pfannkuchen, voller Früchte###
+785021|Cobbler, apple|süßer Auflauf, Apfel
+785022|Cobbler, apricot|süßer Auflauf, Aprikose
+785023|Cobbler, berry|süßer Auflauf, Beere
+785024|Cobbler, cherry|süßer Auflauf, Kirsche
+785025|Cobbler, peach|süßer Auflauf, Pfirsich
+785026|Cobbler, pear|süßer Auflauf, Birne
+785027|Cobbler, pineapple|süßer Auflauf, Ananas
+785028|Cobbler, plum|süßer Auflauf, Pflaume
+785029|Cobbler, rhubarb|süßer Auflauf, Rhabarber
 785030|Crisp, apple, apple dessert|Knusprig, Apfel, Apfeldessert
 785031|Fritter, apple|Krapfen, Apfel
 785032|Fritter, banana|Krapfen, Banane
@@ -1375,9 +1375,9 @@
 785036|Crisp, peach|Knackig, Pfirsich
 785037|Crisp, rhubarb|Knusprig, Rhabarber
 785044|Wheat flour fritter, without syrup|Weizenmehlstückchen ohne Sirup
-785048|Crepe, chocolate filled|Krepp, Schokolade gefüllt
-785049|Crepe, fruit filled|Krepp, Obst gefüllt
-785050|Tamale, sweet|Tamale, süß
+785048|Crepe, chocolate filled|Crepe, Schokoladenfüllung
+785049|Crepe, fruit filled|Crepe, Obst gefüllt
+785050|Tamale, sweet|Tamale (Maisteig), süß
 785052|Strudel, apple|Strudel, Apfel
 785053|Strudel, berry|Strudel, Beere
 785054|Strudel, cherry|Strudel, Kirsche
@@ -1386,17 +1386,17 @@
 785057|Strudel, pineapple|Strudel, Ananas
 785059|Baklava|Baklava
 785060|Basbousa|Basbousa
-785066|Turnover, guava|Umsatz, Guave
-785067|Turnover, pumpkin|Umsatz, Kürbis
-785068|Pastry, fruit-filled|Mit Früchten gefülltes Gebäck
-785072|Pastry, cookie type, fried|Gebäck, Kekstyp, gebraten
-785078|Empanada, Mexican turnover, fruit-filled|Empanada, mexikanischer Umsatz, voller Früchte
-785079|Empanada,  Mexican turnover, pumpkin|Empanada, mexikanischer Umsatz, Kürbis
-785111|Milk 'n Cereal bar|Milk &#39;n Cereal Riegel
-785124|Snack bar, oatmeal|Snackbar, Haferflocken
-785137|Breakfast bar|Frühstücksbar
+785066|Turnover, guava|Teigtasche, Guave
+785067|Turnover, pumpkin|Teigtasche, Kürbis
+785068|Pastry, fruit-filled|Gebäck, Fruchtfüllung
+785072|Pastry, cookie type, fried|Gebäck, frittiert
+785078|Empanada, Mexican turnover, fruit-filled|Empanada, voller Früchte
+785079|Empanada,  Mexican turnover, pumpkin|Empanada, Kürbis
+785111|Milk 'n Cereal bar|Milk-Cereal Riegel
+785124|Snack bar, oatmeal|Müsliriegel, Haferflocken
+785137|Breakfast bar|Frühstücksriegel
 785140|Nutrition bar (Balance Original Bar)|Ernährungsriegel (Balance Original Riegel)
-785141|Nutrition bar (Clif Bar)|Ernährungsriegel (Clif Bar)
+785141|Nutrition bar (Clif Bar)|Energieriegel (Clif Bar)
 785142|Nutrition bar (Clif Kids Organic Zbar)|Ernährungsriegel (Clif Kids Organic Zbar)
 785143|Nutrition bar (PowerBar)|Ernährungsriegel (PowerBar)
 785144|Nutrition bar (Slim Fast Original Meal Bar)|Ernährungsriegel (Slim Fast Original Meal Bar)
@@ -1406,19 +1406,19 @@
 785148|Nutrition bar (Tiger's Milk)|Ernährungsriegel (Tigermilch)
 785149|Nutrition bar (Zone Perfect Classic Crunch)|Ernährungsriegel (Zone Perfect Classic Crunch)
 785156|Crackers|Cracker
-785157|Graham crackers|Graham Cracker
-785158|Graham crackers (Teddy Grahams)|Graham Cracker (Teddy Grahams)
-785159|Graham crackers, chocolate covered|Graham Cracker, mit Schokolade paniert
+785157|Graham crackers|Vollkorncracker (Graham Cracker)
+785158|Graham crackers (Teddy Grahams)|Vollkorncracker (Graham Cracker)
+785159|Graham crackers, chocolate covered|Vollkorncracker (Graham Cracker), Schokolade
 785160|Crackers, oatmeal|Cracker, Haferflocken
-785161|Crackers, Cuban|Cracker, kubanisch
-785162|Graham crackers, reduced fat|Graham Cracker, reduziertes Fett
+785161|Crackers, Cuban|Cracker, kubanische Art
+785162|Graham crackers, reduced fat|Vollkorncracker (Graham Cracker), fettreduziert
 785164|Crackers, breakfast biscuit|Cracker, Frühstückskeks
 785165|Crackers, butter, reduced sodium|Cracker, Butter, salzarm
 785166|Crackers, matzo, reduced sodium|Cracker, Matze, salzarm
 785167|Crackers, saltine, reduced sodium|Cracker, Salz, salzarm
 785168|Crackers, wheat, reduced sodium|Cracker, Weizen, salzarm
 785169|Crackers, woven wheat, reduced sodium|Cracker, gewebter Weizen, salzarm
-785170|Crackers, butter, plain|Cracker, Butter, schlicht
+785170|Crackers, butter, plain|Cracker, Butter###
 785171|Crackers, butter, flavored|Cracker, Butter, aromatisiert
 785172|Crackers, butter (Ritz)|Cracker, Butter (Ritz)
 785173|Crackers, butter, reduced fat|Cracker, Butter, fettarm
@@ -1427,45 +1427,45 @@
 785176|Crackers, cheese (Goldfish)|Cracker, Käse (Goldfisch)
 785177|Crackers, cheese, reduced fat|Cracker, Käse, fettarm
 785178|Crackers, cheese, whole grain|Cracker, Käse, Vollkorn
-785179|Crackers, crispbread|Cracker, Knäckebrot
-785180|Crackers, flatbread|Cracker, Fladenbrot
+785179|Crackers, crispbread|Knäckebrot
+785180|Crackers, flatbread|Fladenbrot-Cracker
 785181|Crackers, matzo|Cracker, Matze
 785182|Crackers, milk|Cracker, Milch
 785183|Crackers, oyster|Cracker, Austern
-785184|Chips, rice|Pommes, Reis
+785184|Chips, rice|Reischips
 785185|Rice cake|Reiskuchen
 785186|Crackers, rice|Cracker, Reis
 785188|Popcorn cake|Popcornkuchen
-785189|Rice paper|Reis Papier
-785190|Crackers, saltine|Cracker, Salz
-785191|Crackers, saltine, reduced fat|Cracker, Salz, Fett reduziert
-785192|Crackers, saltine, multigrain|Cracker, Salz, Mehrkorn
+785189|Rice paper|Reispapier
+785190|Crackers, saltine|Cracker, gesalzen
+785191|Crackers, saltine, reduced fat|Cracker, gesalzen, fettreduziert
+785192|Crackers, saltine, multigrain|Cracker, gesalzen, Mehrkorn
 785193|Crackers, multigrain|Cracker, Mehrkorn
 785194|Crackers, sandwich|Cracker, Sandwich
-785195|Crackers, sandwich, peanut butter filled|Cracker, Sandwich, Erdnussbutter gefüllt
-785196|Crackers, sandwich, peanut butter filled (Ritz)|Cracker, Sandwich, Erdnussbutter gefüllt (Ritz)
-785197|Crackers, sandwich, reduced fat, peanut butter filled|Cracker, Sandwich, fettarm, Erdnussbutter gefüllt
-785198|Crackers, whole grain, sandwich, peanut butter filled|Cracker, Vollkorn, Sandwich, Erdnussbutter gefüllt
-785199|Crackers, sandwich, cheese filled|Cracker, Sandwich, Käse gefüllt
-785200|Crackers, sandwich, cheese filled (Ritz)|Cracker, Sandwich, Käse gefüllt (Ritz)
-785201|Crackers, water|Cracker, Wasser
+785195|Crackers, sandwich, peanut butter filled|Cracker, gefüllt, Erdnussbutter
+785196|Crackers, sandwich, peanut butter filled (Ritz)||Cracker, Vollkorn, gefüllt, Erdnussbutter
+785197|Crackers, sandwich, reduced fat, peanut butter filled|Cracker, fettarm, gefüllt, Erdnussbutter
+785198|Crackers, whole grain, sandwich, peanut butter filled|Cracker, Vollkorn, gefüllt, Erdnussbutter
+785199|Crackers, sandwich, cheese filled|Cracker, gefüllt, Käse
+785200|Crackers, sandwich, cheese filled (Ritz)|Cracker, gefüllt, Käse
+785201|Crackers, water|Cracker
 785202|Crackers, wonton|Cracker, Wonton
-785203|Crackers, woven wheat|Cracker, gewebter Weizen
-785204|Crackers, woven wheat, plain (Triscuit)|Cracker, gewebter Weizen, glatt (Keks)
-785206|Crackers, woven wheat, reduced fat|Cracker, gewebter Weizen, fettarm
+785203|Crackers, woven wheat|Cracker, Weizen
+785204|Crackers, woven wheat, plain (Triscuit)|Cracker, Weizen
+785206|Crackers, woven wheat, reduced fat|Cracker, Weizen, fettarm
 785207|Crackers, wheat|Cracker, Weizen
-785208|Crackers, wheat, plain (Wheat Thins)|Cracker, Weizen, Plain (Wheat Thins)
+785208|Crackers, wheat, plain (Wheat Thins)|Cracker, Weizen
 785210|Crackers, wheat, reduced fat|Cracker, Weizen, fettarm
 785211|Crackers, corn|Cracker, Mais
-785212|Crackers, gluten free, plain|Cracker, glutenfrei, schlicht
+785212|Crackers, gluten free, plain|Cracker, glutenfrei
 785213|Crackers, gluten free, flavored|Cracker, glutenfrei, aromatisiert
-785218|Corn nuts|Mais Nüsse
-785219|Corn chips, plain|Corn Chips, schlicht
-785220|Corn chips, flavored|Corn Chips, aromatisiert
-785221|Corn chips, plain (Fritos)|Corn Chips, glatt (gebraten)
-785225|Tortilla chips, plain|Tortillachips, schlicht
+785218|Corn nuts|gerösteter Mais
+785219|Corn chips, plain|
+785220|Corn chips, flavored|Maischips, aromatisiert
+785221|Corn chips, plain (Fritos)|Maischips (frittiert)
+785225|Tortilla chips, plain|Tortillachips
 785227|Tortilla chips, flavored|Tortillachips, aromatisiert
-785228|Corn chips, reduced sodium|Corn Chips, salzarm
+785228|Corn chips, reduced sodium|Maischips, salzarm
 785229|Tortilla chips, popped|Tortillachips, geknallt
 785230|Tortilla chips, nacho cheese flavor (Doritos)|Tortillachips, Nachokäsegeschmack (Doritos)
 785231|Tortilla chips, cool ranch flavor (Doritos)|Tortilla-Chips, kühles Ranch-Aroma (Doritos)
@@ -1475,41 +1475,41 @@
 785235|Tortilla chips, low fat, unsalted|Tortillachips, fettarm, ungesalzen
 785236|Tortilla chips, reduced sodium|Tortillachips, salzarm
 785237|Snack mix|Snackmischung
-785238|Potato chips, restructured, multigrain|Kartoffelchips, umstrukturiert, Mehrkorn
+785238|Potato chips, restructured, multigrain|Kartoffelchips, Mehrkorn
 785239|Pita chips|Pita-Chips
 785240|Popcorn|Popcorn
-785242|Popcorn, movie theater, unbuttered|Popcorn, Kino, ohne Butter
+785242|Popcorn, movie theater, unbuttered|Popcorn, ohne Butter
 785243|Popcorn, air-popped, unbuttered|Popcorn, ohne Fett, ohne Butter
 785247|Popcorn, microwave|Popcorn, Mikrowelle
-785248|Popcorn, microwave, plain|Popcorn, Mikrowelle, natur
-785249|Popcorn, microwave, plain, light|Popcorn, Mikrowelle, natur
+785248|Popcorn, microwave, plain|Popcorn, Mikrowelle
+785249|Popcorn, microwave, plain, light|Popcorn, Mikrowelle
 785250|Popcorn, microwave, low sodium|Popcorn, Mikrowelle, salzarm
 785251|Popcorn, microwave, unsalted|Popcorn, Mikrowelle, ungesalzen
 785252|Popcorn, microwave, butter flavored|Popcorn, Mikrowelle, Buttergeschmack
 785253|Popcorn, microwave, butter flavored, light|Popcorn, Mikrowelle, Buttergeschmack
-785254|Popcorn, microwave, cheese flavored|Popcorn, Mikrowelle, Käse gewürzt
+785254|Popcorn, microwave, cheese flavored|Popcorn, Mikrowelle, Käsegeschmack
 785255|Popcorn, microwave, kettle corn|Popcorn, Mikrowelle, Kesselmais
 785256|Popcorn, microwave, kettle corn, light|Popcorn, Mikrowelle, Kesselmais
 785257|Popcorn, microwave, other flavored|Popcorn, Mikrowelle, andere Aromen
-785258|Popcorn, ready-to-eat packaged|Popcorn, essfertig verpackt
-785259|Popcorn, ready-to-eat packaged, plain|Popcorn, verzehrfertig verpackt, schlicht
-785260|Popcorn, ready-to-eat packaged, plain, light|Popcorn, verzehrfertig verpackt, natur
-785261|Popcorn, ready-to-eat packaged, low sodium|Popcorn, verzehrfertig verpackt, salzarm
-785262|Popcorn, ready-to-eat packaged, unsalted|Popcorn, verzehrfertig verpackt, ungesalzen
-785263|Popcorn, ready-to-eat packaged, butter flavored|Popcorn, verzehrfertig verpackt, mit Buttergeschmack
-785264|Popcorn, ready-to-eat packaged, butter flavored, light|Popcorn, verzehrfertig verpackt, mit Buttergeschmack
-785265|Popcorn, ready-to-eat packaged, cheese flavored|Popcorn, verzehrfertig verpackt, mit Käsegeschmack
-785266|Popcorn, ready-to-eat packaged, cheese flavored, light|Popcorn, verzehrfertig verpackt, mit Käsegeschmack
-785267|Popcorn, ready-to-eat-packaged, kettle corn|Popcorn, essfertig verpackt, Kesselmais
-785268|Popcorn, ready-to-eat packaged, kettle corn, light|Popcorn, essfertig verpackt, Kesselmais
-785269|Popcorn, ready-to-eat packaged, other flavored|Popcorn, verzehrfertig verpackt, andere Aromen
+785258|Popcorn, ready-to-eat packaged|Popcorn
+785259|Popcorn, ready-to-eat packaged, plain|Popcorn, blank
+785260|Popcorn, ready-to-eat packaged, plain, light|Popcorn, kalorienarm
+785261|Popcorn, ready-to-eat packaged, low sodium|Popcorn, salzarm
+785262|Popcorn, ready-to-eat packaged, unsalted|Popcorn, ungesalzen
+785263|Popcorn, ready-to-eat packaged, butter flavored|Popcorn, Buttergeschmack
+785264|Popcorn, ready-to-eat packaged, butter flavored, light|Popcorn, Buttergeschmack
+785265|Popcorn, ready-to-eat packaged, cheese flavored|Popcorn, Käsegeschmack
+785266|Popcorn, ready-to-eat packaged, cheese flavored, light|Popcorn, Käsegeschmack
+785267|Popcorn, ready-to-eat-packaged, kettle corn|Popcorn,Ke sselmais
+785268|Popcorn, ready-to-eat packaged, kettle corn, light|Popcorn, Kesselmais
+785269|Popcorn, ready-to-eat packaged, other flavored|Popcorn, aromatisiert
 785270|Popcorn, caramel coated|Popcorn, karamellbeschichtet
-785272|Popcorn, chocolate coated|Popcorn, mit Schokolade paniert
-785273|Popcorn chips, plain|Popcorn-Chips, schlicht
-785274|Popcorn chips, other flavors|Popcorn-Chips, andere Geschmacksrichtungen
-785275|Popcorn chips, sweet flavors|Popcorn-Chips, süße Aromen
+785272|Popcorn, chocolate coated|Popcorn, Schokoliert
+785273|Popcorn chips, plain|Popcorn-Chips
+785274|Popcorn chips, other flavors|Popcorn-Chips, aromatisiert
+785275|Popcorn chips, sweet flavors|Popcorn-Chips, aromatisiert, süß
 785277|Shrimp chips|Shrimps-Chips
-785278|Pretzels|Breze
+785278|Pretzels|Breze###
 785279|Pretzels, hard|Breze, hart
 785280|Pretzels, hard, plain, salted|Breze, hart, gesalzen
 785282|Pretzels, hard, plain, unsalted|Breze, hart, ungesalzen
