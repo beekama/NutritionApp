@@ -47,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
         foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
         TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.button_title);
-        TextView foodJournalButtonLeftTag = foodJournalButtonView.findViewById(R.id.button_left);
-        TextView foodJournalButtonRightTag = foodJournalButtonView.findViewById(R.id.button_right);
+        TextView foodJournalButtonLeftTag = foodJournalButtonView.findViewById(R.id.buttonDescription);
 
         foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
         foodJournalButtonLeftTag.setText(R.string.foodJournalButtonLeftTag);
-        foodJournalButtonRightTag.setText(R.string.foodJournalButtonRightTag);
 
         foodJournalButtonView.setOnClickListener(v -> {
             Intent journal = new Intent(v.getContext(), FoodJournalOverview.class);
@@ -64,12 +62,10 @@ public class MainActivity extends AppCompatActivity {
         configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
         TextView configButtonTitle = configButtonView.findViewById(R.id.button_title);
-        TextView configButtonLeftTag = configButtonView.findViewById(R.id.button_left);
-        TextView configButtonRightTag = configButtonView.findViewById(R.id.button_right);
+        TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
 
         configButtonTitle.setText(R.string.configButtonTitle);
         configButtonLeftTag.setText(R.string.configButtonLeftTag);
-        configButtonRightTag.setText(R.string.configButtonRightTag);
 
         configButtonView.setOnClickListener(v -> {
             Intent configuration = new Intent(v.getContext(), PersonalInformation.class);
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
         TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.button_title);
-        TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.button_left);
+        TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
 
         createCustomFoodButtonTitle.setText(R.string.createFoodsButton);
         createCustomFoodTagLef.setText(R.string.createFoodsButtonLeftText);
@@ -95,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
         View showAnalysisButtonView = findViewById(R.id.recommendations);
         showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
 
-        TextView recommendation_title = showAnalysisButtonView.findViewById(R.id.button_title);
+        TextView analysisButtonTitle = showAnalysisButtonView.findViewById(R.id.button_title);
+        TextView analysisButtonDescription = showAnalysisButtonView.findViewById(R.id.buttonDescription);
 
-        recommendation_title.setText(R.string.analysisButtonTitle);
-        configButtonLeftTag.setText(R.string.analysisButtonLeftTag);
+        analysisButtonTitle.setText(R.string.analysisButtonTitle);
+        analysisButtonDescription.setText(R.string.analysisButtonLeftTag);
 
         showAnalysisButtonView.setOnClickListener(v -> {
             Intent analysis =  new Intent(v.getContext(), Recommendations.class);

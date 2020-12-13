@@ -13,15 +13,18 @@
     <string name="journalToolbarText">JOURNAL</string>
     <string name="journalAddMeal">Add Meal</string>
     <string name="configurationTitle">Configuration</string>
-    <string name="createFoodsButton">CREATE FOODS</string>
-    <string name="createFoodsButtonLeftText">num of created items</string>
-    <string name="analysisButtonTitle">RECOMMENDATION</string>
-    <string name="analysisButtonLeftTag">deficiencies</string>
-    <string name="configButtonTitle">CONFIG</string>
-    <string name="configButtonLeftTag">weight</string>
-    <string name="configButtonRightTag">height</string>
-    <string name="foodJournalButtonTitle">FOOD JOURNAL</string>
-    <string name="foodJournalButtonLeftTag">calories</string>
-    <string name="foodJournalButtonRightTag">everything satisfied?</string>
+
+    <string name="createFoodsButton">Custom Foods</string>
+    <string name="createFoodsButtonLeftText">Create your own customized Foods.</string>
+
+    <string name="analysisButtonTitle">Analysis</string>
+    <string name="analysisButtonLeftTag">Analyse your intake and get recommendations.</string>
+
+    <string name="configButtonTitle">Configuration</string>
+    <string name="configButtonLeftTag">Weight, height and other settings.</string>
+
+    <string name="foodJournalButtonTitle">Food Journal</string>
+    <string name="foodJournalButtonLeftTag">Log foods to your journal or check your history.</string>
+
     <string name="mainActivityToolbarTitle">HOME</string>
 </resources>
