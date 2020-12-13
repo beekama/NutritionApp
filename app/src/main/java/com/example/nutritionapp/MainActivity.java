@@ -3,8 +3,6 @@ package com.example.nutritionapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Journal */
         View foodJournalButtonView = findViewById(R.id.food_journal);
-        foodJournalButtonView.setBackgroundResource(R.color.p1);
+        foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
         TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.button_title);
         TextView foodJournalButtonLeftTag = foodJournalButtonView.findViewById(R.id.button_left);
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Configuration */
         View configButtonView = findViewById(R.id.config);
-        configButtonView.setBackgroundResource(R.color.p3);
+        configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
         TextView configButtonTitle = configButtonView.findViewById(R.id.button_title);
         TextView configButtonLeftTag = configButtonView.findViewById(R.id.button_left);
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Custom Food Creation */
         View createCustomFoodsView = findViewById(R.id.create_foods);
-        createCustomFoodsView.setBackgroundResource(R.color.p2);
+        createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
         TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.button_title);
         TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.button_left);
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Analysis */
         View showAnalysisButtonView = findViewById(R.id.recommendations);
-        showAnalysisButtonView.setBackgroundResource(R.color.p4);
+        showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
 
         TextView recommendation_title = showAnalysisButtonView.findViewById(R.id.button_title);
 
