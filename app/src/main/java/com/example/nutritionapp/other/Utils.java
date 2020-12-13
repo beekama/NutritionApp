@@ -1,7 +1,9 @@
 package com.example.nutritionapp.other;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.os.Bundle;
 
 
 import java.time.LocalDate;
@@ -55,5 +57,9 @@ public class Utils {
             }
         }
         return foodByDate;
+    }
+
+    public static Bundle getDefaultTransition(Activity activity){
+        return ActivityOptions.makeSceneTransitionAnimation(activity).toBundle();
     }
 }
