@@ -39,7 +39,7 @@ public class PersonalInformation extends AppCompatActivity {
 
         backHome.setOnClickListener((v -> finish()));
         toolbar.setTitle("");
-        toolbarTitle.setText("PROFILE");
+        toolbarTitle.setText(R.string.configurationTitle);
         backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(toolbar);
         final Button submit = (Button) findViewById(R.id.meConfig_submit);
