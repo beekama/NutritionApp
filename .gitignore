@@ -1,3 +1,4 @@
+sqlite3.exe
 *.swp
 sqlite3-full.init
 *.sqlite
