@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Nutrition App</string>
     <string name="backArrow"><![CDATA[<]]></string>
-    <string name="ForewArrow"><![CDATA[>]]></string>
+    <string name="forwardArrow"><![CDATA[>]]></string>
     <string name="backDoubleArrow"><![CDATA[<<]]></string>
-    <string name="ForeDoublewArrow"><![CDATA[>>]]></string>
+    <string name="doubleForwardArrow"><![CDATA[>>]]></string>
     <string name="textConfirm">Confirm</string>
     <string name="textCancel">Cancel</string>
     <string name="searchHint">searchHint</string>

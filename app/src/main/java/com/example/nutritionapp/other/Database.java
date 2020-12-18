@@ -329,7 +329,7 @@ public class Database {
     }
 
     public ArrayList<Food> getFoodsFromHashMap(HashMap<Integer, ArrayList<Food>> groupedFood) {
-        /* This function returns ArrayList of all foods from a given Hashmap */
+        /* This function returns ArrayList of all foods from a given HashMap */
 
         ArrayList<Food> foodList = new ArrayList<>();
         for (ArrayList<Food> arrayList : groupedFood.values()) {

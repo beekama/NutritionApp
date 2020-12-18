@@ -27,7 +27,7 @@ def runTranslate(limit, offset, language):
                         "description" TEXT
                         );'''.format(table))
 
-    # retrive
+    # retrieve
     limitStr = ""
     offsetStr = ""
     if limit:
