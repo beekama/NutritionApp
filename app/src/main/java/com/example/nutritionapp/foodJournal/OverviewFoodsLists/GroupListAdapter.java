@@ -2,24 +2,21 @@ package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 
 public class GroupListAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<GroupFoodItem> item;
+    private final Context context;
+    private final ArrayList<GroupFoodItem> item;
 
     public GroupListAdapter(Context context, ArrayList<GroupFoodItem> item){
         this.context=context;

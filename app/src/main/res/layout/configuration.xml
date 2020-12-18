@@ -39,12 +39,12 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
         android:layout_marginTop="10dp"
-        android:text="Age:"
-        android:textSize="18dp"
+        android:text="@string/age"
+        android:textSize="18sp"
 
         app:layout_constraintEnd_toStartOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         app:layout_constraintVertical_bias="0.1" />
@@ -55,8 +55,8 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
 
-        android:text="Gender:"
-        android:textSize="18dp"
+        android:text="@string/gender"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tv_meConfig_age"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/centerGuideline"/>
@@ -67,11 +67,11 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
 
-        android:text="Weight:"
-        android:textSize="18dp"
+        android:text="@string/weight"
+        android:textSize="18sp"
 
         app:layout_constraintEnd_toStartOf="@+id/barrier"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_gender" />
 
     <TextView
@@ -80,17 +80,17 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
 
-        android:text="Height:"
-        android:textSize="18dp"
+        android:text="@string/height"
+        android:textSize="18sp"
 
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_weight" />
 
     <EditText
         android:id="@+id/et_meConfig_age"
         android:layout_width="0dp"
         android:layout_height="39dp"
-        android:hint="age in years"
+        android:hint="@string/age_in_years"
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_age"
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
@@ -103,7 +103,7 @@
         android:id="@+id/et_meConfig_gender"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="'male' or 'female'"
+        android:hint="@string/male_or_female"
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_gender"
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
@@ -113,7 +113,7 @@
         android:id="@+id/et_meConfig_weight"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="weight in kg"
+        android:hint="@string/searchHintWeight"
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_weight"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +125,7 @@
         android:id="@+id/et_meConfig_height"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="height in cm"
+        android:hint="@string/searchHintHeight"
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_height"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Derived Metrics"
+            android:text="@string/derived_metrics"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/centerGuideline"
             app:layout_constraintTop_toBottomOf="@+id/et_meConfig_height"/>
@@ -150,7 +150,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
-            android:text="BMI"
+            android:text="@string/bmi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/centerGuideline"
             app:layout_constraintTop_toBottomOf="@+id/meConfig_headerDM"/>
@@ -179,7 +179,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
-            android:text="Calories:"
+            android:text="@string/calories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/centerGuideline"
             app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_BMI"/>
@@ -195,6 +195,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories"
             app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
             android:inputType="number"
+            android:importantForAutofill="no"
             />
 
         <Button
@@ -203,7 +204,7 @@
             android:layout_height="25dp"
             android:layout_marginBottom="10dp"
             android:background="@color/green_light"
-            android:text="submit changes"
+            android:text="@string/submitChangesButtonConfig"
             app:layout_constraintTop_toBottomOf="@+id/et_meConfig_calories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -212,7 +213,7 @@
             android:id="@+id/languageSelectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Language Selection"
+            android:text="@string/languageSectionHeader"
             app:layout_constraintTop_toBottomOf="@+id/meConfig_submit"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
@@ -222,7 +223,7 @@
             android:id="@+id/languageSelectionDE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Localization DE"
+            android:text="@string/localization_de"
             app:layout_constraintTop_toBottomOf="@+id/languageSelectionTitle"
             app:layout_constraintStart_toStartOf="parent"
             />

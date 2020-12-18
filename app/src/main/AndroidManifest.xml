@@ -18,7 +18,6 @@
         <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
         <activity android:name="com.example.nutritionapp.customFoods.CustomFoodOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
-        <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodGroupOverview" />
         <activity android:name="com.example.nutritionapp.MainActivity">
             <intent-filter>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +15,8 @@ import java.util.ArrayList;
 
 public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
 
-    private Context context;
-    private ArrayList<Integer> items;
+    private final Context context;
+    private final ArrayList<Integer> items;
 
     public SelectorDialogAdapterAmount(Context context, ArrayList<Integer> items){
         this.context = context;
@@ -50,7 +49,7 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     }
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView itemContent;
+        final TextView itemContent;
         boolean isSelected = false;
 
         LocalViewHolder(View itemView) {

@@ -2,7 +2,6 @@ package com.example.nutritionapp.other;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -50,8 +49,8 @@ public class Database {
     final String FILE_KEY = "DEFAULT";
     private static SQLiteDatabase db = null;
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
-    private Activity srcActivity;
-    private HashMap<String,Food> foodCache = new HashMap<>();
+    private final Activity srcActivity;
+    private final HashMap<String,Food> foodCache = new HashMap<>();
     String targetPath;
 
     public Database(Activity srcActivity) {
@@ -67,7 +66,6 @@ public class Database {
     }
 
     @SuppressLint("ApplySharedPref")
-    @SuppressWarnings("unused")
     public void purgeDatabase(){
         db.close();
         createDatabase(true);
@@ -330,7 +328,7 @@ public class Database {
         return ret;
     }
 
-    public ArrayList<Food> getFoodsFromHashmap(HashMap<Integer, ArrayList<Food>> groupedFood) {
+    public ArrayList<Food> getFoodsFromHashMap(HashMap<Integer, ArrayList<Food>> groupedFood) {
         /* This function returns ArrayList of all foods from a given Hashmap */
 
         ArrayList<Food> foodList = new ArrayList<>();
@@ -342,7 +340,6 @@ public class Database {
     }
 
 
-    @SuppressWarnings("unused")
     public ArrayList<Food> getFoodsByExactName(String name) {
         /* function currently only used for unit testing */
 
@@ -456,7 +453,7 @@ public class Database {
                 }
             } while (nutrients.moveToNext());
         }else{
-            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in subdb: "+ table);
+            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in sub-db: "+ table);
             nutrients.close();
             return null;
         }
@@ -735,7 +732,6 @@ public class Database {
         }
     }
 
-    @SuppressWarnings("unused")
     public String debugDumpFoodlog(){
         StringBuilder ret = new StringBuilder();
         Cursor all = db.query(JOURNAL_TABLE, null, null , null, null, null, null);
@@ -745,7 +741,7 @@ public class Database {
             }
             ret.append("\n");
         }
-
+        all.close();
         return ret.toString();
     }
 
@@ -854,7 +850,7 @@ public class Database {
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper>{
         public int counter;
-        public Food food;
+        public final Food food;
         public SuggestionHelper(Food food){
             this.counter = 1;
             this.food = food;

@@ -80,10 +80,10 @@ public class Recommendations extends AppCompatActivity {
 
         /* LISTVIEW */
         // NutritionAnalysis-data:
-        allFood = db.getFoodsFromHashmap(foodList);
+        allFood = db.getFoodsFromHashMap(foodList);
 
         // add nutrition items:
-        ListView mainLv = findViewById(R.id.listview);
+        ListView mainLv = findViewById(R.id.listView);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
 
         //adapter:
@@ -162,7 +162,7 @@ public class Recommendations extends AppCompatActivity {
     ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
 
         /* generate Adapter-content for RecommendationAdapter */
-        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
+        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();
         if (!(foods.isEmpty())) {
             NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);

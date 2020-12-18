@@ -1,6 +1,5 @@
 package com.example.nutritionapp;
 
-import android.app.Application;
 import android.util.Log;
 
 import androidx.test.core.app.ActivityScenario;
@@ -19,7 +18,6 @@ import org.junit.runners.MethodSorters;
 import java.time.LocalDateTime;
 
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import static org.junit.Assert.*;

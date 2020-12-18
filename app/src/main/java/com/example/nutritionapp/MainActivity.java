@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.app_activity_main);
 
         /* load database on Application start */
-        @SuppressWarnings("unused") final Database db = new Database(this);
+        final Database db = new Database(this);
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);

@@ -2,31 +2,28 @@ package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Nutrition;
-import com.example.nutritionapp.other.NutritionElement;
-import com.example.nutritionapp.other.NutritionPercentageTupel;
+import com.example.nutritionapp.other.NutritionPercentageTuple;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class NutrionOverviewAdapter extends BaseAdapter {
+public class NutritionOverviewAdapter extends BaseAdapter {
 
     private final Nutrition nutritionActual;
-    private final ArrayList<NutritionPercentageTupel> nutritionPercentageSortedFilterZero;
+    private final ArrayList<NutritionPercentageTuple> nutritionPercentageSortedFilterZero;
     private final Activity context;
 
-    public NutrionOverviewAdapter(Activity context, Nutrition nutritionActual, ArrayList<NutritionPercentageTupel> nutritionPercentageSortedFilterZero) {
+    public NutritionOverviewAdapter(Activity context, Nutrition nutritionActual, ArrayList<NutritionPercentageTuple> nutritionPercentageSortedFilterZero) {
         this.context = context;
         this.nutritionActual = nutritionActual;
         this.nutritionPercentageSortedFilterZero = nutritionPercentageSortedFilterZero;
@@ -62,7 +59,7 @@ public class NutrionOverviewAdapter extends BaseAdapter {
         TextView progressBarLabel = convertView.findViewById(R.id.progressBarText);
         ProgressBar progressBar = convertView.findViewById(R.id.progressBar);
 
-        NutritionPercentageTupel el = this.nutritionPercentageSortedFilterZero.get(position);
+        NutritionPercentageTuple el = this.nutritionPercentageSortedFilterZero.get(position);
         nutritionName.setText(el.nutritionElement.toString());
         progressBarLabel.setText(Objects.requireNonNull(nutritionActual.getElements().get(el.nutritionElement)).toString());
 

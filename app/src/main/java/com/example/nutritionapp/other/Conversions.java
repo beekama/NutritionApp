@@ -10,7 +10,7 @@ public class Conversions {
     public static final String KCAL = "KCAL";
 
     public static int normalize(String unitName, int inputAmount){
-        /* normalize unitValues to their base values (microgramm or joule) */
+        /* normalize unitValues to their base values (microgram or joule) */
         switch (unitName){
             case "UG":
             case "JOULE":

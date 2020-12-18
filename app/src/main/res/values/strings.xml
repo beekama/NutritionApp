@@ -27,4 +27,18 @@
     <string name="foodJournalButtonLeftTag">Log foods to your journal or check your history.</string>
 
     <string name="mainActivityToolbarTitle">HOME</string>
+    <string name="age_in_years">Age in years</string>
+    <string name="height">Height:</string>
+    <string name="weight">Weight:</string>
+    <string name="gender">Gender:</string>
+    <string name="age">Age:</string>
+    <string name="male_or_female">\'male\' or \'female\'</string>
+    <string name="searchHintWeight">weight in kg</string>
+    <string name="searchHintHeight">height in cm</string>
+    <string name="derived_metrics">Derived Metrics</string>
+    <string name="bmi">BMI</string>
+    <string name="calories">Calories:</string>
+    <string name="submitChangesButtonConfig">submit changes</string>
+    <string name="languageSectionHeader">Language Selection</string>
+    <string name="localization_de">Localization DE</string>
 </resources>

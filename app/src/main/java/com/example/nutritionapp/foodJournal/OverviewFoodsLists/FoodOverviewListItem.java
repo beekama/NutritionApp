@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public class FoodOverviewListItem{
     public final String date;
-    public ArrayList<Food> foods;
-    public HashMap<Integer, ArrayList<Food>> foodGroups;
+    public final ArrayList<Food> foods;
+    public final HashMap<Integer, ArrayList<Food>> foodGroups;
 
     public FoodOverviewListItem(String date, ArrayList<Food> foods, HashMap<Integer, ArrayList<Food>> foodGroups) {
         this.date = date;

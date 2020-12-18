@@ -2,7 +2,6 @@ package com.example.nutritionapp.other;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 

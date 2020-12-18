@@ -23,7 +23,7 @@ import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogFoodSelector;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogAmountSelector;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.NutrionOverviewAdapter;
+import com.example.nutritionapp.foodJournal.OverviewFoodsLists.NutritionOverviewAdapter;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -33,7 +33,6 @@ import com.example.nutritionapp.other.Utils;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodGroupOverview extends AppCompatActivity {
 
@@ -97,7 +96,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             if (!foods.isEmpty()) {
                 loggedAt = foods.get(0).loggedAt;
             } else {
-                loggedAt = LocalDateTime.now();;
+                loggedAt = LocalDateTime.now();
             }
             updateSelectedView(selectedListView, selected);
             updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
@@ -242,7 +241,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
-        ArrayList<SelectedFoodItem> sfi = new ArrayList<SelectedFoodItem>(alreadySelected);
+        ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
         SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getApplicationContext(), sfi);
         selectedListView.setAdapter(newAdapter);
         selectedListView.invalidate();
@@ -270,7 +269,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             analysis.add(sfi.food);
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
-        ListAdapter nutOverviewAdapter = new NutrionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
+        ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
 

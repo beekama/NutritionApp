@@ -12,8 +12,8 @@ import com.example.nutritionapp.R;
 import java.util.ArrayList;
 
 public class SelectableFoodListAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<GroupListItem> item;
+    private final Context context;
+    private final ArrayList<GroupListItem> item;
     private ArrayList<GroupListItem> originalItem;
 
     public SelectableFoodListAdapter(Context context, ArrayList<GroupListItem> item){

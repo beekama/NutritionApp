@@ -25,12 +25,12 @@
     </style>
 
     <style name="target_overview_dateText" >
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="Buttontext_toRec">
-        <item name="android:textSize">10dp</item>
+    <style name="button_text_toRec">
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/greyDark</item>
     </style>
 

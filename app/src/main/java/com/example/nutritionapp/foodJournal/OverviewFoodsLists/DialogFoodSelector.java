@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class DialogFoodSelector extends Dialog {
 
-    Activity context;
+    final Activity context;
     public Food selectedFood = null;
     ListView searchResultListView;
     ArrayList<GroupListItem> inputList;

@@ -1,11 +1,8 @@
 package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +12,16 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Conversions;
-import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.NutritionAnalysis;
-import com.example.nutritionapp.other.NutritionPercentageTupel;
+import com.example.nutritionapp.other.NutritionPercentageTuple;
 
 import java.util.ArrayList;
 
 public class FoodOverviewAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<FoodOverviewListItem> items;
+    private final Context context;
+    private final ArrayList<FoodOverviewListItem> items;
 
     public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items){
         this.context = context;
@@ -97,7 +92,7 @@ public class FoodOverviewAdapter extends BaseAdapter {
 
 
         /* calculate and set nutrition */
-        ArrayList<NutritionPercentageTupel> percentages = analysis.getNutritionPercentageSortedFilterZero();
+        ArrayList<NutritionPercentageTuple> percentages = analysis.getNutritionPercentageSortedFilterZero();
 
         /* display the foods in the nested sub-list */
         ArrayList<GroupFoodItem> listItemsInThisSection = new ArrayList<>();

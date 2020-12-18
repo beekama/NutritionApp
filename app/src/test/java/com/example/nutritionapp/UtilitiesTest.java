@@ -28,6 +28,6 @@ public class UtilitiesTest {
     @Test
     public void checkUtil(){
         assert(Utils.zeroIfNull(null) == 0);
-        assert(Utils.zeroIfNull(new Integer(1)) == 1);
+        assert(Utils.zeroIfNull(1) == 1);
     }
 }

@@ -1,8 +1,5 @@
 package com.example.nutritionapp.recommendation;
 
-import android.app.Notification;
-
-import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -10,10 +7,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 
 class RecommendationListItem {
-    NutritionElement nutritionElement;
-    float percentage;
-    public PieDataSet pieDataSet;
-    ArrayList<PieEntry> pieEntryList = new ArrayList<>();
+    final NutritionElement nutritionElement;
+    final float percentage;
+    public final PieDataSet pieDataSet;
+    final ArrayList<PieEntry> pieEntryList = new ArrayList<>();
 
     public RecommendationListItem(NutritionElement nutritionElement, float percentage) {
         this.nutritionElement = nutritionElement;

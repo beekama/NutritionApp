@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GroupFoodItem{
         public final ArrayList<Food> foods;
-        public int groupId;
+        public final int groupId;
 
         public GroupFoodItem(ArrayList<Food> foods, int groupId) {
             this.foods = foods;

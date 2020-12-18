@@ -2,9 +2,6 @@ package com.example.nutritionapp.customFoods;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.style.TtsSpan;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,17 +12,14 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Nutrition;
-import com.example.nutritionapp.other.NutritionElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class CustomFoodOverview extends AppCompatActivity {
 
     private Database db;
     private ListView mainLv;
-    ArrayList<FoodOverviewItem> foodItems = new ArrayList<>();
+    final ArrayList<FoodOverviewItem> foodItems = new ArrayList<>();
     FoodOverviewAdapter foodOverviewAdapter;
 
     public void onCreate(Bundle savedInstanceState) {

@@ -39,7 +39,7 @@ public class NutritionOverview extends AppCompatActivity {
             }
             db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
 
-            // TODO display based on nutrion
+            // TODO display based on nutrition
         } else if (foodIds != null && foodAmount != null){
             // TODO display based on ids
             //for(String id : foodIds){

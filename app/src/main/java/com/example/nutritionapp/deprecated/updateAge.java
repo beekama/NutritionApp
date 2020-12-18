@@ -22,9 +22,9 @@ public class updateAge extends AppCompatActivity {
 
         /* set current values */
         final TextView tv = (TextView) findViewById(R.id.updateAge_et);
-        Integer age = db.getPersonAge();
+        int age = db.getPersonAge();
         if(age != -1){
-            tv.setText(age.toString());
+            tv.setText(Integer.toString(age));
         }
 
         //cancel update age:

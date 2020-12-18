@@ -36,7 +36,7 @@
     <color name="chartGreenly">#41aea9</color>
     <color name="chartBrownTwo">#87431d</color>
 
-    <color name="DayChartLigthGreen">#C8FFC8</color>
+    <color name="DayChartLightGreen">#C8FFC8</color>
     <color name="DayChartDarkGreen">#006400</color>
     <color name="DayChartLightOrange">#ffd27f</color>
     <color name="DayChartDarkOrange">#e68523</color>
@@ -45,7 +45,7 @@
 
     <array name="DayChartGreen">
         <item>@color/DayChartDarkGreen</item>
-        <item>@color/DayChartLigthGreen</item>
+        <item>@color/DayChartLightGreen</item>
     </array>
     <array name="DayChartOrange">
         <item>@color/DayChartDarkOrange</item>

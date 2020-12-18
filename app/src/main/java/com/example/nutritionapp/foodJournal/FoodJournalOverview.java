@@ -3,7 +3,6 @@ package com.example.nutritionapp.foodJournal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.Database;
@@ -22,7 +20,6 @@ import com.example.nutritionapp.other.Utils;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +28,8 @@ import java.util.SortedMap;
 
 public class FoodJournalOverview extends AppCompatActivity {
 
-    private LocalDate now = LocalDate.now();
-    private LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
+    private final LocalDate now = LocalDate.now();
+    private final LocalDate oldestDateShown = LocalDate.now().minusWeeks(1);
 
     final private Duration ONE_DAY = Duration.ofDays(1);
     final private Duration ONE_WEEK = Duration.ofDays(7);
