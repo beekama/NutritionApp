@@ -1,4 +1,4 @@
-package com.example.nutritionapp.ButtonUtils;
+package com.example.nutritionapp.buttonUtils;
 
 import android.view.KeyEvent;
 import android.view.View;

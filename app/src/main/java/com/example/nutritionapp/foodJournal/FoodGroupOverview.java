@@ -16,14 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.GroupListItem;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectableFoodListAdapter;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogFoodSelector;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogAmountSelector;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.NutritionOverviewAdapter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.GroupListItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectableFoodListAdapter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodAdapter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelector;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogAmountSelector;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverviewAdapter;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -252,7 +252,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
         suggestionsPrevSelected.clear();
         for (Food f : foods) {
-            if (suggestionsPrevSelected.contains(f)) {
+            if (suggestionsPrevSelected.contains(new ListFoodItem(f))) {
                 continue;
             }
             suggestionsPrevSelected.add(new ListFoodItem(f));

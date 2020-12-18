@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.addFoodsLists;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
-import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
+import com.example.nutritionapp.buttonUtils.UnfocusOnEnter;
 
 public class SelectedFoodAdapter extends BaseAdapter {
 

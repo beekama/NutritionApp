@@ -2,7 +2,7 @@ package com.example.nutritionapp.other;
 
 import android.util.Log;
 
-import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
 
 import org.json.JSONObject;
 
@@ -42,6 +42,7 @@ public class Food {
             Food f = (Food) o;
             return this.id.equals(f.id) && !this.id.equals("");
         }catch (ClassCastException e){
+            Log.wtf("WTF", "Do we even end up here?"); //TODO rethink this
             ListFoodItem f = (ListFoodItem) o;
             return this.equals(f.food);
         }

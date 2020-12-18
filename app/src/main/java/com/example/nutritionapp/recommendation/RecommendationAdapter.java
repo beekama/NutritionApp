@@ -39,7 +39,7 @@ class RecommendationAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return getItem(position);
+        return items.get(position);
     }
 
     @Override

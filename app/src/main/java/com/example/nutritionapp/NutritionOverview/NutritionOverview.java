@@ -1,4 +1,4 @@
-package com.example.nutritionapp.NutritionOverview;
+package com.example.nutritionapp.nutritionOverview;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,12 +30,16 @@ public class NutritionOverview extends AppCompatActivity {
         String foodAmount = intent.getStringExtra("amounts");
 
         Database db = new Database(this);
-        LocalDate endDateParsed = null;
-        LocalDate startDateParsed = null;
+
+        LocalDate endDateParsed;
+        LocalDate startDateParsed;
+
         if (startDate != null) {
             startDateParsed = LocalDate.parse(startDate, Utils.sqliteDateFormat);
             if(endDate != null) {
                 endDateParsed = LocalDate.parse(endDate, Utils.sqliteDateFormat) ;
+            }else{
+                endDateParsed = null;
             }
             db.getLoggedFoodsByDate(startDateParsed, endDateParsed);
 

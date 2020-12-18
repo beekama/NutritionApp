@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 
 import org.apache.commons.io.IOUtil;
 import org.json.JSONArray;

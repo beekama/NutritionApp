@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewAdapter;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.FoodOverviewListItem;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;
@@ -91,7 +91,11 @@ public class FoodJournalOverview extends AppCompatActivity {
             String dateString = day.format(DateTimeFormatter.ISO_DATE);
             ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();
             for(Integer groupId : localFoodGroups.keySet()){
-                foodListForGroupOnDay.addAll(localFoodGroups.get(groupId));
+                ArrayList<Food> foodsInGroup = localFoodGroups.get(groupId);
+                if(foodsInGroup == null){
+                    throw new AssertionError("Got null when querying for group id.");
+                }
+                foodListForGroupOnDay.addAll(foodsInGroup);
             }
             FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
             foodDataList.add(nextItem);

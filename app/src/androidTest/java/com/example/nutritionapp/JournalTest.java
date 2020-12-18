@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 
@@ -132,6 +132,7 @@ public class JournalTest {
 
             for(Integer key: foodGroups.keySet()){
                 ArrayList<Food> af = foodGroups.get(key);
+                assertNotNull(af);
                 db.deleteLoggedFood(af, af.get(0).loggedAt);
                 assertEquals("food group doesn't match input", 0, db.getLoggedFoodByGroupId(key).size());
             }

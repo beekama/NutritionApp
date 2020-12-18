@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.addFoodsLists;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -37,12 +37,12 @@ public class SelectableFoodListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (item.get(position).isSection()){
             convertView = inflater.inflate(R.layout.journal_add_food_selection_list, parent, false);
-            TextView HeaderTextView = (TextView) convertView.findViewById(R.id.dateText);
+            TextView HeaderTextView = convertView.findViewById(R.id.dateText);
             HeaderTextView.setText(( item.get(position).getTitle()));
         }
         else{
             convertView = inflater.inflate(R.layout.journal_add_food_selection_item,parent,false);
-            TextView ItemListView = (TextView) convertView.findViewById(R.id.ListTextView);
+            TextView ItemListView = convertView.findViewById(R.id.ListTextView);
             ItemListView.setText(( item.get(position).getTitle()));
         }
         return convertView;

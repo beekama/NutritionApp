@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
+package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
 import android.app.Activity;
 import android.content.Context;

@@ -190,7 +190,7 @@ public class RecommendationsWeek extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barEntries,ne.toString());
                 //add color:
                 barDataSet.setColor(colors[xValue]);
-                barDataSets.add((IBarDataSet) barDataSet);
+                barDataSets.add(barDataSet);
                 Legend l = chartWeek.getLegend();
                 //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);
@@ -210,7 +210,7 @@ public class RecommendationsWeek extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barEntries, ne.toString());
                 //add color:
                 barDataSet.setColor(colors[xValue]);
-                barDataSets.add((IBarDataSet) barDataSet);
+                barDataSets.add(barDataSet);
                 Legend l = chartWeek.getLegend();
                 //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);

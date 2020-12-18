@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.addFoodsLists;
 
 public class ListHeaderItem implements GroupListItem {
         private final String title;

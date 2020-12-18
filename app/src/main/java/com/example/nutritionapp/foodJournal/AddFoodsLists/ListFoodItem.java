@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.addFoodsLists;
 
 import com.example.nutritionapp.other.Food;
 
@@ -18,13 +18,11 @@ public class ListFoodItem implements GroupListItem {
         }
 
 
-    public boolean equals(Object o){
-        try{
-            Food f = (Food) o;
-            return this.food.equals(f);
-        }catch (ClassCastException e){
-            ListFoodItem item = (ListFoodItem) o;
-            return this.food.equals(item.food);
-        }
+    public boolean equals(Food f) {
+        return this.food.equals(f);
+    }
+
+    public boolean equals(ListFoodItem item) {
+        return this.food.equals(item.food);
     }
 }

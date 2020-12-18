@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.OverviewFoodsLists;
+package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,8 +13,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 
-import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.*;
+import com.example.nutritionapp.buttonUtils.UnfocusOnEnter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.*;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Food;

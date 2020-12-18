@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.addFoodsLists;
 
 import com.example.nutritionapp.other.Food;
 

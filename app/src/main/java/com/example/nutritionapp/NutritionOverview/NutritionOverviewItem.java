@@ -1,4 +1,4 @@
-package com.example.nutritionapp.NutritionOverview;
+package com.example.nutritionapp.nutritionOverview;
 
 import com.example.nutritionapp.other.NutritionPercentageTuple;
 

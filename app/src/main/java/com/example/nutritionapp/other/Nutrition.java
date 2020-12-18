@@ -81,9 +81,9 @@ public class Nutrition {
     public Nutrition getNutritionForAmount(int amountInGram){
         Nutrition newNut = new Nutrition(this);
         for(NutritionElement el : newNut.elements.keySet()){
-            float content = (float)newNut.elements.get(el);
-            content = content*amountInGram/100f;
-            newNut.elements.put(el, (int)content);
+            Integer content = newNut.elements.getOrDefault(el, 0);
+            float calculatedContent = content*amountInGram/100f;
+            newNut.elements.put(el, Math.round(calculatedContent));
         }
         return newNut;
     }

@@ -1,4 +1,4 @@
-package com.example.nutritionapp.ButtonUtils;
+package com.example.nutritionapp.buttonUtils;
 
 import android.content.Context;
 import android.view.View;

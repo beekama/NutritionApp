@@ -1,8 +1,8 @@
-package com.example.nutritionapp.foodJournal.AddFoodsLists;
+package com.example.nutritionapp.foodJournal.addFoodsLists;
 
 public interface GroupListItem {
 
-    public boolean isSection();
-    public String getTitle();
+    boolean isSection();
+    String getTitle();
 
 }

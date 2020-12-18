@@ -1,4 +1,4 @@
-package com.example.nutritionapp.NutritionOverview;
+package com.example.nutritionapp.nutritionOverview;
 
 import android.content.Context;
 import android.view.LayoutInflater;

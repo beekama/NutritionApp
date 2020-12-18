@@ -143,10 +143,10 @@ public class CreateNewFoodItem extends AppCompatActivity {
                         this.servingSize = item.amount;  /* next level hack */
                         break;
                     case "Energy":
-                        f.energy = (int) Conversions.normalize(item.unit, item.amount);
+                        f.energy = Conversions.normalize(item.unit, item.amount);
                         break;
                     case "Fiber":
-                        f.fiber = (int) Conversions.normalize(item.unit, item.amount);
+                        f.fiber = Conversions.normalize(item.unit, item.amount);
                         break;
                     case "Name":
                         if (item.data == null || item.data.equals("")) {

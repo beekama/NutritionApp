@@ -28,6 +28,7 @@ public class UtilitiesTest {
     @Test
     public void checkUtil(){
         assert(Utils.zeroIfNull(null) == 0);
+        //noinspection ConstantConditions
         assert(Utils.zeroIfNull(1) == 1);
     }
 }

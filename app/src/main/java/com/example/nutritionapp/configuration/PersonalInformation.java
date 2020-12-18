@@ -35,22 +35,22 @@ public class PersonalInformation extends AppCompatActivity {
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
+        final ImageButton backHome = findViewById(R.id.toolbar_back);
 
         backHome.setOnClickListener((v -> finish()));
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.configurationTitle);
         backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(toolbar);
-        final Button submit = (Button) findViewById(R.id.meConfig_submit);
+        final Button submit = findViewById(R.id.meConfig_submit);
 
-        final EditText etGender = (EditText) findViewById(R.id.et_meConfig_gender);
-        final EditText etAge    = (EditText) findViewById(R.id.et_meConfig_age);
-        final EditText etWeight = (EditText) findViewById(R.id.et_meConfig_weight);
-        final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
-        final EditText etCalories = (EditText) findViewById(R.id.et_meConfig_calories);
-        final TextView bmiDisplay = (TextView) findViewById(R.id.tv_meConfig_BMI);
-        final CheckBox languageSelectionDE = (CheckBox) findViewById(R.id.languageSelectionDE);
+        final EditText etGender = findViewById(R.id.et_meConfig_gender);
+        final EditText etAge    = findViewById(R.id.et_meConfig_age);
+        final EditText etWeight = findViewById(R.id.et_meConfig_weight);
+        final EditText etHeight = findViewById(R.id.et_meConfig_height);
+        final EditText etCalories = findViewById(R.id.et_meConfig_calories);
+        final TextView bmiDisplay = findViewById(R.id.tv_meConfig_BMI);
+        final CheckBox languageSelectionDE = findViewById(R.id.languageSelectionDE);
 
         ConstraintLayout layout = findViewById(R.id.meConfigLayout);
         loadAndSetGender(db, etGender);
@@ -60,7 +60,7 @@ public class PersonalInformation extends AppCompatActivity {
         loadAndSetEnergyReq(db, etCalories);
         setBmi(db, bmiDisplay);
 
-        submit.setOnClickListener((View.OnClickListener) v -> {
+        submit.setOnClickListener(v -> {
             collectData(db, etGender, etAge, etWeight, etHeight);
             setBmi(db, bmiDisplay);
             hideKeyboard();
