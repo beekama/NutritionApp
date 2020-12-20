@@ -26,8 +26,11 @@ import com.example.nutritionapp.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.time.Duration;
@@ -108,6 +111,13 @@ public class PersonalInformation extends AppCompatActivity {
             fileDialog.setType("text/plain");
             startActivityForResult(fileDialog, 0);
         });
+
+        exportButton.setOnClickListener(v -> {
+            Intent fileDialog = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
+            fileDialog.setType("text/plain");
+            startActivityForResult(fileDialog, 1);
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -136,6 +146,26 @@ public class PersonalInformation extends AppCompatActivity {
                 case Activity.RESULT_CANCELED:
                     break;
             }
+        }else if (requestCode == 1) {
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        if (data != null  && data.getData() != null) {
+                            final InputStream inputStream;
+                            final StringBuilder inJson = new StringBuilder();
+                            try {
+                                inputStream = getContentResolver().openInputStream(data.getData());
+                                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                                bufferedReader.lines().forEach(inJson::append); // <- how fucking cool is this
+                                bufferedReader.close();
+                            } catch (IOException e) {
+                                Toast error = Toast.makeText(this,"IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
+                                error.show();
+                            }
+                        }
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        break;
+                }
         }
     }
 
