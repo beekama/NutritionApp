@@ -21,6 +21,10 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.time.Duration;
 import java.util.Locale;
 
 public class PersonalInformation extends AppCompatActivity {
@@ -43,6 +47,8 @@ public class PersonalInformation extends AppCompatActivity {
         backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(toolbar);
         final Button submit = findViewById(R.id.meConfig_submit);
+        final Button exportButton = findViewById(R.id.exportDatabase);
+        final Button importButton = findViewById(R.id.importDatabase);
 
         final EditText etGender = findViewById(R.id.et_meConfig_gender);
         final EditText etAge    = findViewById(R.id.et_meConfig_age);
@@ -85,6 +91,15 @@ public class PersonalInformation extends AppCompatActivity {
                 db.setLanguagePref("de");
             }else{
                 db.setLanguagePref("en");
+            }
+        });
+
+        exportButton.setOnClickListener(v -> {
+            try {
+                JSONObject json = db.exportDatabase(true, true);
+            } catch (JSONException e) {
+                Toast error = Toast.makeText(this,"Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
+                error.show();
             }
         });
     }

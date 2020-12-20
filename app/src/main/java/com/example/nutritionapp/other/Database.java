@@ -714,13 +714,25 @@ public class Database {
 
             if(allCustomFoods != null) {
                 for (Food f : allCustomFoods){
-                    customFoods.put(f.toJsonObject());
+                    JSONObject customFood = f.toJsonObject();
+
+                    /* filter out zero values for nutrients/energy/fiber */
+                    HashMap<String, Integer> nutrientsForFood = getNutrientsForFood(f.id);
+                    ArrayList<String> keyList = new ArrayList<String>(nutrientsForFood.keySet());
+                    for(String key : keyList){
+                        if(nutrientsForFood.get(key) == 0){
+                            nutrientsForFood.remove(key);
+                        }
+                    }
+
+                    customFood.put("nutrition", nutrientsForFood);
+                    customFoods.put(customFood);
                 }
             }
 
             ret.put("custom", customFoods);
         }
-
+        Log.wtf("TEST", ret.toString());
         return ret;
     }
 

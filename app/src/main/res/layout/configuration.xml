@@ -227,6 +227,28 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
+        <Button
+            android:id="@+id/exportDatabase"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/export_data_button"
+            android:background="@color/green_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/importDatabase"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/importDatabase"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/green_light"
+            android:text="@string/import_backup_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/exportDatabase"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

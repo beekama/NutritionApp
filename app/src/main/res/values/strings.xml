@@ -41,4 +41,6 @@
     <string name="submitChangesButtonConfig">submit changes</string>
     <string name="languageSectionHeader">Language Selection</string>
     <string name="localization_de">Localization DE</string>
+    <string name="export_data_button">Export Data</string>
+    <string name="import_backup_button">Import Backup</string>
 </resources>
