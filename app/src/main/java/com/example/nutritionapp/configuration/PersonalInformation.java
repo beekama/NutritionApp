@@ -1,7 +1,9 @@
 package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -24,10 +26,16 @@ import com.example.nutritionapp.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.time.Duration;
 import java.util.Locale;
 
 public class PersonalInformation extends AppCompatActivity {
+
+    private Database db;
 
     @SuppressLint("ResourceAsColor")
     public void onCreate(final Bundle savedInstanceState) {
@@ -35,7 +43,7 @@ public class PersonalInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuration);
 
-        final Database db = new Database(this);
+        db = new Database(this);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = findViewById(R.id.toolbar_title);
@@ -95,13 +103,40 @@ public class PersonalInformation extends AppCompatActivity {
         });
 
         exportButton.setOnClickListener(v -> {
-            try {
-                JSONObject json = db.exportDatabase(true, true);
-            } catch (JSONException e) {
-                Toast error = Toast.makeText(this,"Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
-                error.show();
-            }
+            Intent fileDialog = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+            fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
+            fileDialog.setType("text/plain");
+            startActivityForResult(fileDialog, 0);
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    if (data != null  && data.getData() != null) {
+                        OutputStream outputStream;
+                        try {
+                            outputStream = getContentResolver().openOutputStream(data.getData());
+                            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
+                            JSONObject json = db.exportDatabase(true, true);
+                            bw.write(json.toString(2));
+                            bw.flush();
+                            bw.close();
+                        } catch (IOException e) {
+                            Toast error = Toast.makeText(this,"IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
+                            error.show();
+                        }catch (JSONException e) {
+                            Toast error = Toast.makeText(this,"Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
+                            error.show();
+                        }
+                    }
+                    break;
+                case Activity.RESULT_CANCELED:
+                    break;
+            }
+        }
     }
 
     private void manuallySetEnergyReq(Database db, EditText etCalories) {
