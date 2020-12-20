@@ -33,4 +33,35 @@ public class Conversions {
     public static int jouleToKCal(int joule){
         return joule/KCAL_TO_JOULE;
     }
+
+    public static int convert(String from, String to, int presetAmount) {
+        int normalized = normalize(from, presetAmount);
+        boolean isEnergyUnit = from.equals("KCAL") || from.equals("JOULE");
+        boolean isWeightUnit = from.equals("MG") || from.equals("MG_ATE") || from.equals("UG") || from.equals("G");
+        switch (to){
+            case "UG":
+                if(isWeightUnit) {
+                    return normalized;
+                }
+            case "JOULE":
+                if(isEnergyUnit) {
+                    return normalized;
+                }
+            case "G":
+                if(isWeightUnit) {
+                    return normalized / G_TO_UG;
+                }
+            case "MG":
+            case "MG_ATE":
+                if(isWeightUnit) {
+                    return normalized / MG_TO_UG;
+                }
+            case "KCAL":
+                if(isEnergyUnit) {
+                    return normalized / KCAL_TO_JOULE;
+                }
+            default:
+                throw new RuntimeException("Bad Conversion." + from + " " + to);
+        }
+    }
 }
