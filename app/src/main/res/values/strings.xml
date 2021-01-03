@@ -27,4 +27,7 @@
     <string name="foodJournalButtonLeftTag">Log foods to your journal or check your history.</string>
 
     <string name="mainActivityToolbarTitle">HOME</string>
+    
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
 </resources>

@@ -20,7 +20,8 @@
         <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodGroupOverview" />
-        <activity android:name="com.example.nutritionapp.MainActivity">
+        <activity android:name="com.example.nutritionapp.MainActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT"/>

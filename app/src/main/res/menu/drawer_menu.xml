@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+        <group android:checkableBehavior="single">
+            <item android:id="@+id/nav_foodJournal"
+                android:title="Food Journal" />
+            <item android:id="@+id/nav_customFoods"
+                android:title="Custom Foods" />
+            <item android:id="@+id/nav_analysis"
+                android:title="Analysis" />
+            <item android:id="@+id/nav_configuration"
+                android:title="Configuration" />
+        </group>
+
+        <item android:title="randomStuff">
+            <menu>
+                <item android:id="@+id/nav_impressum"
+                    android:title="Impressum" />
+            </menu>
+
+        </item>
+</menu>
