@@ -6,6 +6,7 @@
     android:background="@color/greyLight">
 
     <TextView
+        android:layout_marginTop="4dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/nutritionName"
@@ -19,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nutritionName"
         style="@android:style/Widget.ProgressBar.Horizontal"
-
         android:textSize="30sp">
     </ProgressBar>
 
@@ -30,7 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:textSize="20sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="5dp"
+        android:textSize="15sp"
         app:layout_constraintTop_toTopOf="@id/progressBar"
         android:layout_alignStart="@id/progressBar"
         android:layout_alignTop="@id/progressBar"

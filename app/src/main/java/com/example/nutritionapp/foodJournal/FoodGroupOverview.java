@@ -16,14 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.GroupListItem;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectableFoodListAdapter;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodAdapter;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogFoodSelector;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.DialogAmountSelector;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.NutrionOverviewAdapter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.GroupListItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectableFoodListAdapter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodAdapter;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelector;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogAmountSelector;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverviewAdapter;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -33,7 +33,6 @@ import com.example.nutritionapp.other.Utils;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodGroupOverview extends AppCompatActivity {
 
@@ -97,7 +96,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             if (!foods.isEmpty()) {
                 loggedAt = foods.get(0).loggedAt;
             } else {
-                loggedAt = LocalDateTime.now();;
+                loggedAt = LocalDateTime.now();
             }
             updateSelectedView(selectedListView, selected);
             updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
@@ -242,7 +241,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
-        ArrayList<SelectedFoodItem> sfi = new ArrayList<SelectedFoodItem>(alreadySelected);
+        ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
         SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getApplicationContext(), sfi);
         selectedListView.setAdapter(newAdapter);
         selectedListView.invalidate();
@@ -253,7 +252,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
         suggestionsPrevSelected.clear();
         for (Food f : foods) {
-            if (suggestionsPrevSelected.contains(f)) {
+            if (suggestionsPrevSelected.contains(new ListFoodItem(f))) {
                 continue;
             }
             suggestionsPrevSelected.add(new ListFoodItem(f));
@@ -270,7 +269,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             analysis.add(sfi.food);
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
-        ListAdapter nutOverviewAdapter = new NutrionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
+        ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
 

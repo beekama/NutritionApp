@@ -1,7 +1,9 @@
 package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,9 +23,22 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.time.Duration;
 import java.util.Locale;
 
 public class PersonalInformation extends AppCompatActivity {
+
+    private Database db;
 
     @SuppressLint("ResourceAsColor")
     public void onCreate(final Bundle savedInstanceState) {
@@ -31,26 +46,28 @@ public class PersonalInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuration);
 
-        final Database db = new Database(this);
+        db = new Database(this);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        final ImageButton backHome = (ImageButton) findViewById(R.id.toolbar_back);
+        final ImageButton backHome = findViewById(R.id.toolbar_back);
 
         backHome.setOnClickListener((v -> finish()));
         toolbar.setTitle("");
-        toolbarTitle.setText("PROFILE");
+        toolbarTitle.setText(R.string.configurationTitle);
         backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(toolbar);
-        final Button submit = (Button) findViewById(R.id.meConfig_submit);
+        final Button submit = findViewById(R.id.meConfig_submit);
+        final Button exportButton = findViewById(R.id.exportDatabase);
+        final Button importButton = findViewById(R.id.importDatabase);
 
-        final EditText etGender = (EditText) findViewById(R.id.et_meConfig_gender);
-        final EditText etAge    = (EditText) findViewById(R.id.et_meConfig_age);
-        final EditText etWeight = (EditText) findViewById(R.id.et_meConfig_weight);
-        final EditText etHeight = (EditText) findViewById(R.id.et_meConfig_height);
-        final EditText etCalories = (EditText) findViewById(R.id.et_meConfig_calories);
-        final TextView bmiDisplay = (TextView) findViewById(R.id.tv_meConfig_BMI);
-        final CheckBox languageSelectionDE = (CheckBox) findViewById(R.id.languageSelectionDE);
+        final EditText etGender = findViewById(R.id.et_meConfig_gender);
+        final EditText etAge    = findViewById(R.id.et_meConfig_age);
+        final EditText etWeight = findViewById(R.id.et_meConfig_weight);
+        final EditText etHeight = findViewById(R.id.et_meConfig_height);
+        final EditText etCalories = findViewById(R.id.et_meConfig_calories);
+        final TextView bmiDisplay = findViewById(R.id.tv_meConfig_BMI);
+        final CheckBox languageSelectionDE = findViewById(R.id.languageSelectionDE);
 
         ConstraintLayout layout = findViewById(R.id.meConfigLayout);
         loadAndSetGender(db, etGender);
@@ -60,7 +77,7 @@ public class PersonalInformation extends AppCompatActivity {
         loadAndSetEnergyReq(db, etCalories);
         setBmi(db, bmiDisplay);
 
-        submit.setOnClickListener((View.OnClickListener) v -> {
+        submit.setOnClickListener(v -> {
             collectData(db, etGender, etAge, etWeight, etHeight);
             setBmi(db, bmiDisplay);
             hideKeyboard();
@@ -87,6 +104,69 @@ public class PersonalInformation extends AppCompatActivity {
                 db.setLanguagePref("en");
             }
         });
+
+        exportButton.setOnClickListener(v -> {
+            Intent fileDialog = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+            fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
+            fileDialog.setType("text/plain");
+            startActivityForResult(fileDialog, 0);
+        });
+
+        exportButton.setOnClickListener(v -> {
+            Intent fileDialog = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
+            fileDialog.setType("text/plain");
+            startActivityForResult(fileDialog, 1);
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    if (data != null  && data.getData() != null) {
+                        OutputStream outputStream;
+                        try {
+                            outputStream = getContentResolver().openOutputStream(data.getData());
+                            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
+                            JSONObject json = db.exportDatabase(true, true);
+                            bw.write(json.toString(2));
+                            bw.flush();
+                            bw.close();
+                        } catch (IOException e) {
+                            Toast error = Toast.makeText(this,"IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
+                            error.show();
+                        }catch (JSONException e) {
+                            Toast error = Toast.makeText(this,"Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
+                            error.show();
+                        }
+                    }
+                    break;
+                case Activity.RESULT_CANCELED:
+                    break;
+            }
+        }else if (requestCode == 1) {
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        if (data != null  && data.getData() != null) {
+                            final InputStream inputStream;
+                            final StringBuilder inJson = new StringBuilder();
+                            try {
+                                inputStream = getContentResolver().openInputStream(data.getData());
+                                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                                bufferedReader.lines().forEach(inJson::append); // <- how fucking cool is this
+                                bufferedReader.close();
+                            } catch (IOException e) {
+                                Toast error = Toast.makeText(this,"IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
+                                error.show();
+                            }
+                        }
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        break;
+                }
+        }
     }
 
     private void manuallySetEnergyReq(Database db, EditText etCalories) {

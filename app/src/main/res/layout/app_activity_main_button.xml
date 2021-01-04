@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="140dp"
-    android:layout_height="140dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
     android:id="@+id/app_activity_main_button"
-    android:layout_marginTop="500dp"
-    android:layout_marginStart="20dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
     android:orientation="vertical"
     android:clickable="true">
 
@@ -21,43 +20,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Button_Title"/>
-    <TextView
-        android:id="@+id/button_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Button_Bottom"
-        android:layout_marginStart="10dp"
+
+    <View
+        android:id="@+id/spacerLine"
+        android:layout_height="2dp"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
+        app:layout_constraintTop_toBottomOf="@id/button_title"
+    />
 
     <TextView
-        android:id="@+id/button_right"
+        android:id="@+id/buttonDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
         style="@style/Button_Bottom"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spacerLine"/>
 
-    <TextView
-        android:id="@+id/button_leftOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/button_left"
-        app:layout_constraintBottom_toTopOf="@id/button_left"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:id="@+id/button_rightOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/button_right"
-        app:layout_constraintBottom_toTopOf="@id/button_right"
-        android:layout_marginBottom="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

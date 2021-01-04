@@ -1,33 +1,22 @@
 package com.example.nutritionapp.customFoods;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nutritionapp.NutritionOverview.NutritionOverview;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.GroupFoodItem;
-import com.example.nutritionapp.foodJournal.OverviewFoodsLists.GroupListAdapter;
-import com.example.nutritionapp.other.Conversions;
-import com.example.nutritionapp.other.NutritionAnalysis;
-import com.example.nutritionapp.other.NutritionPercentageTupel;
 
 import java.util.ArrayList;
 
 public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<CreateFoodNutritionSelectorItem> items;
+    private final Context context;
+    private final ArrayList<CreateFoodNutritionSelectorItem> items;
 
     public CreateFoodNutritionSelectorAdapter(Context context, ArrayList<CreateFoodNutritionSelectorItem> items){
         this.context = context;
@@ -70,7 +59,9 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
 
         name.setText(item.tag);
         if(!item.inputTypeString) {
-            value.setText(Integer.toString(item.amount));
+            if(item.amount > 0 ) {
+                value.setText(Integer.toString(item.amount));
+            }
         }else if(item.data != null){
             value.setText(item.data);
         }else{
@@ -94,7 +85,6 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
                 Toast toast = Toast.makeText(context, "Amount is not a Number when it should be.", Toast.LENGTH_LONG);
                 toast.show();
             }
-            return;
         });
 
         return convertView;

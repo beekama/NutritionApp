@@ -2,7 +2,6 @@ package com.example.nutritionapp.other;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.AddFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 
 import org.apache.commons.io.IOUtil;
 import org.json.JSONArray;
@@ -33,6 +32,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
@@ -50,8 +50,8 @@ public class Database {
     final String FILE_KEY = "DEFAULT";
     private static SQLiteDatabase db = null;
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
-    private Activity srcActivity;
-    private HashMap<String,Food> foodCache = new HashMap<>();
+    private final Activity srcActivity;
+    private final HashMap<String,Food> foodCache = new HashMap<>();
     String targetPath;
 
     public Database(Activity srcActivity) {
@@ -67,7 +67,6 @@ public class Database {
     }
 
     @SuppressLint("ApplySharedPref")
-    @SuppressWarnings("unused")
     public void purgeDatabase(){
         db.close();
         createDatabase(true);
@@ -330,8 +329,8 @@ public class Database {
         return ret;
     }
 
-    public ArrayList<Food> getFoodsFromHashmap(HashMap<Integer, ArrayList<Food>> groupedFood) {
-        /* This function returns ArrayList of all foods from a given Hashmap */
+    public ArrayList<Food> getFoodsFromHashMap(HashMap<Integer, ArrayList<Food>> groupedFood) {
+        /* This function returns ArrayList of all foods from a given HashMap */
 
         ArrayList<Food> foodList = new ArrayList<>();
         for (ArrayList<Food> arrayList : groupedFood.values()) {
@@ -342,7 +341,6 @@ public class Database {
     }
 
 
-    @SuppressWarnings("unused")
     public ArrayList<Food> getFoodsByExactName(String name) {
         /* function currently only used for unit testing */
 
@@ -427,7 +425,6 @@ public class Database {
         String[] columns = {"nutrient_id", "amount"};
         String whereStm = String.format("fdc_id = \"%s\"", foodId);
         Cursor nutrients = db.query(table, columns, whereStm, null, null, null, null);
-        Cursor nutrientConversion;
 
         if (nutrients.moveToFirst()) {
             do {
@@ -436,33 +433,33 @@ public class Database {
                 String nutrientID = nutrients.getString(0);
                 int rawAmount = nutrients.getInt(1);
 
-                String tableNut = "nutrient";
-                String[] columnsNut = {"unit_name"};
-                String whereStmNut = String.format("id = \"%s\"", nutrientID);
-                nutrientConversion = db.query(tableNut, columnsNut, whereStmNut, null, null, null, null);
+                String unitName = getNutrientNativeUnit(nutrientID);
 
-                if(nutrientConversion.moveToFirst()){
-                    String unitName = nutrientConversion.getString(0);
-                    int normalizedAmount = Conversions.normalize(unitName, rawAmount);
-                    ret.put(nutrientID, normalizedAmount);
-                }else{
-                    nutrientConversion.close();
-                    if(nutrientID.equals("-1")){
-                        Log.w("JOURNAL", "Nutrient ID -1 ignored for food id: " + foodId);
-                    }else {
-                        nutrients.close();
-                        throw new RuntimeException("Nutrient not found: " + nutrientID);
-                    }
-                }
+                int normalizedAmount = Conversions.normalize(unitName, rawAmount);
+                ret.put(nutrientID, normalizedAmount);
+
             } while (nutrients.moveToNext());
         }else{
-            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in subdb: "+ table);
+            Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in sub-db: "+ table);
             nutrients.close();
             return null;
         }
         nutrients.close();
-        nutrientConversion.close();
         return ret;
+    }
+
+    public String getNutrientNativeUnit(String nutrientID) {
+        String tableNut = "nutrient";
+        String[] columnsNut = {"unit_name"};
+        String whereStmNut = String.format("id = \"%s\"", nutrientID);
+        Cursor nutrientConversion = db.query(tableNut, columnsNut, whereStmNut, null, null, null, null);
+        if(!nutrientConversion.moveToFirst()) {
+            nutrientConversion.close();
+            throw new RuntimeException("Nutrient not found: " + nutrientID);
+        }
+        String unitName = nutrientConversion.getString(0);
+        nutrientConversion.close();
+        return unitName;
     }
 
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
@@ -550,48 +547,65 @@ public class Database {
         return false;
     }
 
-    public boolean changeCustomFood(Food origFood, Food changedFood){
+    public synchronized boolean changeCustomFood(Food origFood, Food changedFood){
         if(!origFood.isIdValid() || !checkFoodExists(origFood)){
             return false;
         }
-        ContentValues valuesFood = new ContentValues();
-        valuesFood.put("data_type", "app_custom");
-        valuesFood.put("description", changedFood.name);
-        valuesFood.put("food_category_id", "");
         String[] whereArgs = { origFood.id };
-        db.update(FOOD_TABLE, valuesFood, "fdc_id = ?", whereArgs);
+        db.delete(FOOD_TABLE, "fdc_id = ?", whereArgs);
+        createNewFood(changedFood, Integer.parseInt(changedFood.id));
         return true;
     }
 
-    public synchronized Food createNewFood(Food food) {
+    public synchronized Food createNewFood(Food food, int reuseFdcId) {
 
-        String[] columns = {"fdc_id, data_type"};
-        Cursor c = db.query(FOOD_TABLE, columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
-        int maxUsedID = DEFAULT_MIN_CUSTOM_ID;
-        if(c.moveToNext()) {
-            maxUsedID = c.getInt(0);
+        int currentId = reuseFdcId;
+        if(currentId < 0) {
+            String[] columns = {"fdc_id, data_type"};
+            Cursor c = db.query(FOOD_TABLE, columns, "data_type = \"app_custom\"", null, null, null, "fdc_id DESC", "1");
+            int maxUsedID = DEFAULT_MIN_CUSTOM_ID;
+            if (c.moveToNext()) {
+                maxUsedID = c.getInt(0);
+            }
+            c.close();
+            currentId = maxUsedID + 1;
         }
-        c.close();
 
         /* insert the foods */
-        int currentId = maxUsedID + 1;
         ContentValues valuesFood = new ContentValues();
         valuesFood.put("fdc_id", currentId);
         valuesFood.put("data_type", "app_custom");
         valuesFood.put("description", food.name);
         valuesFood.put("food_category_id", "");
-        Log.wtf("FOOD_CREATE", "" + currentId);
         db.insert(FOOD_TABLE, null, valuesFood);
 
         /* insert the nutrition for the food */
         for(NutritionElement ne : food.nutrition.getElements().keySet()){
             ContentValues valuesNutrient = new ContentValues();
-            valuesNutrient.put("id", 0);
+            Log.wtf("TEST", ne.toString());
+            valuesNutrient.put("id", currentId*10);
             valuesNutrient.put("fdc_id", currentId);
             valuesNutrient.put("nutrient_id", Nutrition.databaseIdFromEnum(ne));
             valuesNutrient.put("amount", food.nutrition.getElements().get(ne));
             db.insert("food_nutrient_custom", null, valuesNutrient);
         }
+
+        Log.wtf("LOL2", "" + food.energy);
+        Log.wtf("LOL2", "" + food.fiber);
+
+        ContentValues valuesEnergy = new ContentValues();
+        valuesEnergy.put("id", currentId*10);
+        valuesEnergy.put("fdc_id", currentId);
+        valuesEnergy.put("nutrient_id", Food.DB_ID_ENERGY);
+        valuesEnergy.put("amount", food.energy);
+        db.insert("food_nutrient_custom", null, valuesEnergy);
+
+        ContentValues valuesFiber = new ContentValues();
+        valuesFiber.put("id", currentId*10);
+        valuesFiber.put("fdc_id", currentId);
+        valuesFiber.put("nutrient_id", Food.DB_ID_FIBER);
+        valuesFiber.put("amount", food.fiber);
+        db.insert("food_nutrient_custom", null, valuesFiber);
 
         food.id = Integer.toString(currentId);
         return food;
@@ -700,13 +714,25 @@ public class Database {
 
             if(allCustomFoods != null) {
                 for (Food f : allCustomFoods){
-                    customFoods.put(f.toJsonObject());
+                    JSONObject customFood = f.toJsonObject();
+
+                    /* filter out zero values for nutrients/energy/fiber */
+                    HashMap<String, Integer> nutrientsForFood = getNutrientsForFood(f.id);
+                    ArrayList<String> keyList = new ArrayList<String>(nutrientsForFood.keySet());
+                    for(String key : keyList){
+                        if(nutrientsForFood.get(key) == 0){
+                            nutrientsForFood.remove(key);
+                        }
+                    }
+
+                    customFood.put("nutrition", nutrientsForFood);
+                    customFoods.put(customFood);
                 }
             }
 
             ret.put("custom", customFoods);
         }
-
+        Log.wtf("TEST", ret.toString());
         return ret;
     }
 
@@ -735,7 +761,6 @@ public class Database {
         }
     }
 
-    @SuppressWarnings("unused")
     public String debugDumpFoodlog(){
         StringBuilder ret = new StringBuilder();
         Cursor all = db.query(JOURNAL_TABLE, null, null , null, null, null, null);
@@ -745,7 +770,7 @@ public class Database {
             }
             ret.append("\n");
         }
-
+        all.close();
         return ret.toString();
     }
 
@@ -854,7 +879,7 @@ public class Database {
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper>{
         public int counter;
-        public Food food;
+        public final Food food;
         public SuggestionHelper(Food food){
             this.counter = 1;
             this.food = food;

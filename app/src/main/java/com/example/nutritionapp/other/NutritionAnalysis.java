@@ -1,22 +1,17 @@
 package com.example.nutritionapp.other;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
 public class NutritionAnalysis {
-    private ArrayList<Food> calculatedFrom;
+    private final ArrayList<Food> calculatedFrom;
     final private Nutrition nutritionTarget = Nutrition.getRecommendation();
 
-    private Nutrition nutritionActual;
-    private Nutrition nutritionMissing;
-    private int totalEnergy;
-    private HashMap<NutritionElement, Float> nutritionPercentage;
+    private final Nutrition nutritionActual;
+    private final Nutrition nutritionMissing;
+    private final int totalEnergy;
+    private final HashMap<NutritionElement, Float> nutritionPercentage;
 
     public NutritionAnalysis(ArrayList<Food> calculatedFrom){
         this.calculatedFrom = calculatedFrom;
@@ -46,10 +41,10 @@ public class NutritionAnalysis {
         return nutritionPercentage;
     }
 
-    public ArrayList<NutritionPercentageTupel> getNutritionPercentageSorted() {
-        ArrayList<NutritionPercentageTupel> ret = new ArrayList<>();
+    public ArrayList<NutritionPercentageTuple> getNutritionPercentageSorted() {
+        ArrayList<NutritionPercentageTuple> ret = new ArrayList<>();
         for(NutritionElement key: nutritionPercentage.keySet()){
-            NutritionPercentageTupel n = new NutritionPercentageTupel(key, nutritionPercentage.get(key));
+            NutritionPercentageTuple n = new NutritionPercentageTuple(key, nutritionPercentage.get(key));
             ret.add(n);
         }
         Collections.sort(ret);
@@ -61,10 +56,10 @@ public class NutritionAnalysis {
         return Nutrition.percentages(nutritionActual, Nutrition.getRecommendationMultipleDays(days));
     }
 
-    public ArrayList<NutritionPercentageTupel> getNutritionPercentageSortedFilterZero() {
-        ArrayList<NutritionPercentageTupel> ret = new ArrayList<>();
+    public ArrayList<NutritionPercentageTuple> getNutritionPercentageSortedFilterZero() {
+        ArrayList<NutritionPercentageTuple> ret = new ArrayList<>();
         for(NutritionElement key: nutritionPercentage.keySet()){
-            NutritionPercentageTupel n = new NutritionPercentageTupel(key, nutritionPercentage.get(key));
+            NutritionPercentageTuple n = new NutritionPercentageTuple(key, nutritionPercentage.get(key));
             if(n.percentage == 0){
                 continue;
             }

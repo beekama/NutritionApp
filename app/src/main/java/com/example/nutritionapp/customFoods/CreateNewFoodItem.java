@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CreateNewFoodItem extends AppCompatActivity {
+    private static final int CREATE_NEW_ID = -1;
     private final ArrayList<CreateFoodNutritionSelectorItem> allItems = new ArrayList<>();
     private int servingSize;
     private Database db;
@@ -67,16 +68,23 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
         if(this.editMode){
-            assert editFood != null;
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", 1, false));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", editFood.energy, false));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("fiber", editFood.fiber,false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(db, "Serving Size", 1, false));
+            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, "Energy", editFood.energy, false);
+            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, "Fiber", editFood.fiber, false);
+            energyItemEdit.unit = "KCAL";
+            fiberItemEdit.unit = "MG";
+            staticSelectors.add(energyItemEdit);
+            staticSelectors.add(fiberItemEdit);
         }else {
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true));
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Energy", false));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("fiber", false));
+            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem("Energy", false);
+            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem("Energy", false);
+            energyItem.unit = "KCAL";
+            fiberItem.unit = "MG";
+            staticSelectors.add(energyItem);
+            staticSelectors.add(fiberItem);
         }
 
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
@@ -84,9 +92,9 @@ public class CreateNewFoodItem extends AppCompatActivity {
         for (NutritionElement ne : n.getElements().keySet()) {
             if(this.editMode){
                 Integer presetAmount = n.getElements().get(ne);
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(ne, Utils.zeroIfNull(presetAmount), false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, Utils.zeroIfNull(presetAmount), false));
             }else{
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(ne, 0, false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, 0, false));
             }
         }
         Collections.sort(nutritionSelectors);
@@ -107,9 +115,10 @@ public class CreateNewFoodItem extends AppCompatActivity {
                 return;
             }
             if(this.editMode){
+                f.id = editModeOrigFood.id;
                 db.changeCustomFood(this.editModeOrigFood, f);
             }else {
-                db.createNewFood(f);
+                db.createNewFood(f, CREATE_NEW_ID);
             }
             finish();
         });
@@ -143,10 +152,10 @@ public class CreateNewFoodItem extends AppCompatActivity {
                         this.servingSize = item.amount;  /* next level hack */
                         break;
                     case "Energy":
-                        f.energy = (int) Conversions.normalize(item.unit, item.amount);
+                        f.energy = Conversions.convert(item.unit, "KCAL", item.amount);
                         break;
                     case "Fiber":
-                        f.fiber = (int) Conversions.normalize(item.unit, item.amount);
+                        f.fiber = item.amount;
                         break;
                     case "Name":
                         if (item.data == null || item.data.equals("")) {
@@ -165,6 +174,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
             }
         }
         f.nutrition = n;
+        Log.wtf("TEST", n.toString());
         return f;
     }
 }

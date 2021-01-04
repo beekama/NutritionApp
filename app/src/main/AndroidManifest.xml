@@ -9,16 +9,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/SplashTheme">
+        android:theme="@style/SplashTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name="com.example.nutritionapp.recommendation.RecommendationsElement"/>
         <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
         <activity android:name="com.example.nutritionapp.recommendation.RecommendationsWeek"/>
-        <activity android:name="com.example.nutritionapp.deprecated.updateAge" />
         <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />
         <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
         <activity android:name="com.example.nutritionapp.customFoods.CustomFoodOverview" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
-        <activity android:name="com.example.nutritionapp.foodJournal.AddFoodToJournal" />
         <activity android:name="com.example.nutritionapp.foodJournal.FoodGroupOverview" />
         <activity android:name="com.example.nutritionapp.MainActivity">
             <intent-filter>

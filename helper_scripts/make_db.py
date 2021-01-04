@@ -89,7 +89,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Database Generator for nutrition app')
 
     parser.add_argument("--clean", action="store_const", default=False, const=True,
-                            help="Remove all chached/temp files")
+                            help="Remove all cached/temp files")
     parser.add_argument("--recreate-db", action="store_const", default=False, const=True,
                             help="Recreate Database init files and database")
 

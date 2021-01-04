@@ -1,9 +1,6 @@
 package com.example.nutritionapp.other;
 
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,9 +81,9 @@ public class Nutrition {
     public Nutrition getNutritionForAmount(int amountInGram){
         Nutrition newNut = new Nutrition(this);
         for(NutritionElement el : newNut.elements.keySet()){
-            float content = (float)newNut.elements.get(el);
-            content = content*amountInGram/100f;
-            newNut.elements.put(el, (int)content);
+            Integer content = newNut.elements.getOrDefault(el, 0);
+            float calculatedContent = content*amountInGram/100f;
+            newNut.elements.put(el, Math.round(calculatedContent));
         }
         return newNut;
     }
@@ -95,28 +92,13 @@ public class Nutrition {
     public static Nutrition sum(ArrayList<Nutrition> list) {
         Nutrition ret = new Nutrition();
         /* mental  boom */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            list.forEach(n ->  n.elements.keySet().forEach(nutritionElement -> ret.elements.compute(nutritionElement, (key, curVal) -> curVal + n.elements.get(key))));
-        }else{
-            for(Nutrition n : list){
-                for(NutritionElement nutEl: n.elements.keySet()){
-                    int curVal = ret.elements.get(nutEl);
-                    ret.elements.put(nutEl, n.elements.get(nutEl) + curVal);
-                }
-            }
-        }
+        list.forEach(n ->  n.elements.keySet().forEach(nutritionElement -> ret.elements.compute(nutritionElement, (key, curVal) -> curVal + n.elements.get(key))));
         return ret;
     }
 
     public static Nutrition subtract(Nutrition a, Nutrition b){
         Nutrition ret = new Nutrition();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            a.elements.forEach((nutritionElement, integer) -> ret.elements.put(nutritionElement, a.elements.get(nutritionElement) - b.elements.get(nutritionElement)));
-        }else{
-             for (NutritionElement nutEl : a.elements.keySet()) {
-                ret.elements.put(nutEl, a.elements.get(nutEl) - b.elements.get(nutEl));
-             }
-        }
+        a.elements.forEach((nutritionElement, integer) -> ret.elements.put(nutritionElement, a.elements.get(nutritionElement) - b.elements.get(nutritionElement)));
         return ret;
     }
 

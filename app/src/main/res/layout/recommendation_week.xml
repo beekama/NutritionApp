@@ -81,7 +81,7 @@
 
     <Button
         android:id="@+id/dateForewardButton"
-        android:text="@string/ForewArrow"
+        android:text="@string/forwardArrow"
         android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
 
     <Button
         android:id="@+id/dateForewardButtonWeek"
-        android:text="@string/ForeDoublewArrow"
+        android:text="@string/doubleForwardArrow"
         android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

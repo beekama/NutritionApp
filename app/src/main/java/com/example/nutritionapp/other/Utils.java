@@ -1,7 +1,9 @@
 package com.example.nutritionapp.other;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ActivityOptions;
+import android.os.Bundle;
+import android.util.Log;
 
 
 import java.time.LocalDate;
@@ -39,21 +41,40 @@ public class Utils {
         if(foodGroups.size() == 0){
             return foodByDate;
         }
-        for(Integer groupID : foodGroups.keySet()){
-            for(Food f : foodGroups.get(groupID)){
-                LocalDate day = LocalDate.from(f.loggedAt);
-                if(!foodByDate.containsKey(day)) {
-                    foodByDate.put(day, new HashMap<>());
+
+            for (Integer groupID : foodGroups.keySet()) {
+                ArrayList<Food> foods = foodGroups.get(groupID);
+                if(foods == null){
+                    throw new AssertionError("Food group for a groupId was null, this should not be possible.");
                 }
-                if(foodByDate.get(day).containsKey(groupID)){
-                    foodByDate.get(day).get(groupID).add(f);
-                }else{
-                    ArrayList<Food> tmpList = new ArrayList<>();
-                    tmpList.add(f);
-                    foodByDate.get(day).put(groupID, tmpList);
+                for (Food f : foods) {
+
+                    LocalDate day = LocalDate.from(f.loggedAt);
+                    HashMap<Integer, ArrayList<Food>> foodGroupsAtDay = foodByDate.get(day);
+
+                    if (foodGroupsAtDay == null) {
+                        foodGroupsAtDay = new HashMap<>();
+                        foodByDate.put(day, foodGroupsAtDay);
+                    }
+
+                    if (foodGroupsAtDay.containsKey(groupID)) {
+                        ArrayList<Food> foodListForGroupOnDay = foodGroupsAtDay.get(groupID);
+                        if(foodListForGroupOnDay != null){
+                            foodListForGroupOnDay.add(f);
+                            Log.wtf("Missing ID", "We seem to be missing a group id here..?");
+                        }
+                    } else {
+                        ArrayList<Food> tmpList = new ArrayList<>();
+                        tmpList.add(f);
+                        foodGroupsAtDay.put(groupID, tmpList);
+                    }
                 }
             }
-        }
+
         return foodByDate;
+    }
+
+    public static Bundle getDefaultTransition(Activity activity){
+        return ActivityOptions.makeSceneTransitionAnimation(activity).toBundle();
     }
 }

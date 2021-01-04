@@ -1,9 +1,11 @@
 package com.example.nutritionapp.other;
 
+import android.util.JsonReader;
 import android.util.Log;
 
-import com.example.nutritionapp.foodJournal.AddFoodsLists.ListFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
@@ -11,8 +13,8 @@ import java.util.HashMap;
 
 public class Food {
 
-    private static final String DB_ID_ENERGY = "1008";
-    private static final String DB_ID_FIBER = "1079";
+    public static final String DB_ID_ENERGY = "1008";
+    public static final String DB_ID_FIBER = "1079";
 
     public String name;
     public String id;
@@ -42,6 +44,7 @@ public class Food {
             Food f = (Food) o;
             return this.id.equals(f.id) && !this.id.equals("");
         }catch (ClassCastException e){
+            Log.wtf("WTF", "Do we even end up here?"); //TODO rethink this
             ListFoodItem f = (ListFoodItem) o;
             return this.equals(f.food);
         }
@@ -73,8 +76,12 @@ public class Food {
         return this.id != null && !this.id.equals("") && !this.id.equals("-1");
     }
 
-    public JSONObject toJsonObject() {
-        return null;
+    public JSONObject toJsonObject () throws JSONException {
+        JSONObject ret = new JSONObject();
+        ret.put("id", id);
+        ret.put("name", name);
+        ret.put("amount", associatedAmount);
+        return ret;
     }
 
     public void setNutritionFromDb(Database db) {

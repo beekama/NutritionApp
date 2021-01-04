@@ -1,12 +1,18 @@
 package com.example.nutritionapp.customFoods;
 
 
+import android.util.Log;
+
+import com.example.nutritionapp.other.Conversions;
+import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
 
 
 public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNutritionSelectorItem> {
     public final String tag;
-    public final String unit;
+    public String unit;
     public NutritionElement ne = null;
     public int amount = 0;
     public final boolean inputTypeString;
@@ -18,11 +24,18 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
         this.inputTypeString = inputTypeString;
     }
 
-    public CreateFoodNutritionSelectorItem(String name, int presetAmount, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(Database db, String name, int presetAmount, boolean inputTypeString) {
         this.tag = name;
-        this.unit = "N/A";
+        if(name.equals("Energy")){
+            this.unit = "KCAL";
+            this.amount = Conversions.convert("KCAL", this.unit, presetAmount);
+            Log.wtf("LOL", name + " " + presetAmount + " " + this.unit + " " + Conversions.convert("JOULE", this.unit, presetAmount));
+        }else{
+            this.unit = "MG";
+            this.amount = Conversions.convert("MG", this.unit, presetAmount);
+            Log.wtf("LOL", name + " " + presetAmount + " " + this.unit + " " + Conversions.convert("UG", this.unit, presetAmount));
+        }
         this.inputTypeString = inputTypeString;
-        this.amount = presetAmount;
     }
 
     public CreateFoodNutritionSelectorItem(String name, String presetData, boolean inputTypeString) {
@@ -32,12 +45,13 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
         this.data = presetData;
     }
 
-    public CreateFoodNutritionSelectorItem(NutritionElement ne, int presetAmount, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(Database db, NutritionElement ne, int presetAmount, boolean inputTypeString) {
         this.ne = ne;
+        this.unit = db.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
+        //Log.wtf("LOL", ne.toString() + " " + presetAmount + " " + this.unit + " " + Conversions.convert("UG", this.unit, presetAmount));
         this.tag = ne.toString();
-        this.unit = "N/A";
         this.inputTypeString = inputTypeString;
-        this.amount = presetAmount;
+        this.amount = Conversions.convert("UG", this.unit, presetAmount);
     }
 
     public CreateFoodNutritionSelectorItem(NutritionElement ne, String presetData, boolean inputTypeString) {

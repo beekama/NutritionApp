@@ -5,11 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.nutritionapp.ButtonUtils.UnfocusOnEnter;
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;

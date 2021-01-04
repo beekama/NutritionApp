@@ -1,16 +1,12 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -20,7 +16,6 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -28,16 +23,13 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class RecommendationsWeek extends AppCompatActivity {
 
@@ -183,7 +175,7 @@ public class RecommendationsWeek extends AppCompatActivity {
         ArrayList<IBarDataSet> barDataSets = new ArrayList<>();
 
         /* get foods of week from database */
-        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
+        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed.minusWeeks(1)));
 
         /* add food to chart */
         if (!(foods.isEmpty())){
@@ -198,7 +190,7 @@ public class RecommendationsWeek extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barEntries,ne.toString());
                 //add color:
                 barDataSet.setColor(colors[xValue]);
-                barDataSets.add((IBarDataSet) barDataSet);
+                barDataSets.add(barDataSet);
                 Legend l = chartWeek.getLegend();
                 //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);
@@ -218,7 +210,7 @@ public class RecommendationsWeek extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barEntries, ne.toString());
                 //add color:
                 barDataSet.setColor(colors[xValue]);
-                barDataSets.add((IBarDataSet) barDataSet);
+                barDataSets.add(barDataSet);
                 Legend l = chartWeek.getLegend();
                 //l.setOrientation(Legend.LegendOrientation.VERTICAL);
                 l.setWordWrapEnabled(true);
