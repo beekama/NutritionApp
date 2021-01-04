@@ -1356,7 +1356,7 @@
 785017|Pie shell, chocolate wafer|Teig aus Schokoladenwaffel
 785018|Vanilla wafer dessert base|Vanille Waffel Dessert Basis
 785019|Blintz, cheese-filled|Pfannkuchen, mit Käse gefüllt
-785020|Blintz, fruit-filled|Pfannkuchen, voller Früchte###
+785020|Blintz, fruit-filled|Pfannkuchen, Früchte
 785021|Cobbler, apple|süßer Auflauf, Apfel
 785022|Cobbler, apricot|süßer Auflauf, Aprikose
 785023|Cobbler, berry|süßer Auflauf, Beere
@@ -1366,7 +1366,7 @@
 785027|Cobbler, pineapple|süßer Auflauf, Ananas
 785028|Cobbler, plum|süßer Auflauf, Pflaume
 785029|Cobbler, rhubarb|süßer Auflauf, Rhabarber
-785030|Crisp, apple, apple dessert|Knusprig, Apfel, Apfeldessert
+785030|Crisp, apple, apple dessert| Apfeldessert, knusprig
 785031|Fritter, apple|Krapfen, Apfel
 785032|Fritter, banana|Krapfen, Banane
 785033|Fritter, berry|Krapfen, Beere
@@ -1374,9 +1374,9 @@
 785035|Crisp, cherry|Knackig, Kirsche
 785036|Crisp, peach|Knackig, Pfirsich
 785037|Crisp, rhubarb|Knusprig, Rhabarber
-785044|Wheat flour fritter, without syrup|Weizenmehlstückchen ohne Sirup
+785044|Wheat flour fritter, without syrup| Krapfen, Weizenmehl, ohne Sirup
 785048|Crepe, chocolate filled|Crepe, Schokoladenfüllung
-785049|Crepe, fruit filled|Crepe, Obst gefüllt
+785049|Crepe, fruit filled|Crepe, Obst
 785050|Tamale, sweet|Tamale (Maisteig), süß
 785052|Strudel, apple|Strudel, Apfel
 785053|Strudel, berry|Strudel, Beere
@@ -1403,8 +1403,8 @@
 785145|Nutrition bar (Snickers Marathon Protein Bar)|Ernährungsriegel (Snickers Marathon Proteinriegel)
 785146|Nutrition bar (South Beach Living Meal Bar)|Ernährungsbar (South Beach Living Meal Bar)
 785147|Nutrition bar (South Beach Living High Protein Bar)|Ernährungsriegel (South Beach Living High Protein Riegel)
-785148|Nutrition bar (Tiger's Milk)|Ernährungsriegel (Tigermilch)
-785149|Nutrition bar (Zone Perfect Classic Crunch)|Ernährungsriegel (Zone Perfect Classic Crunch)
+785148|Nutrition bar (Tiger's Milk)|Ernährungsriegel (Tiger's milk)
+785149|Nutrition bar (Zone Perfect Classic Crunch)|Ernährungsriegel (Classic Crunch)
 785156|Crackers|Cracker
 785157|Graham crackers|Vollkorncracker (Graham Cracker)
 785158|Graham crackers (Teddy Grahams)|Vollkorncracker (Graham Cracker)
@@ -1417,8 +1417,8 @@
 785166|Crackers, matzo, reduced sodium|Cracker, Matze, salzarm
 785167|Crackers, saltine, reduced sodium|Cracker, Salz, salzarm
 785168|Crackers, wheat, reduced sodium|Cracker, Weizen, salzarm
-785169|Crackers, woven wheat, reduced sodium|Cracker, gewebter Weizen, salzarm
-785170|Crackers, butter, plain|Cracker, Butter###
+785169|Crackers, woven wheat, reduced sodium|Cracker, Weizen, salzarm
+785170|Crackers, butter, plain|Cracker, Butter
 785171|Crackers, butter, flavored|Cracker, Butter, aromatisiert
 785172|Crackers, butter (Ritz)|Cracker, Butter (Ritz)
 785173|Crackers, butter, reduced fat|Cracker, Butter, fettarm
@@ -1429,7 +1429,7 @@
 785178|Crackers, cheese, whole grain|Cracker, Käse, Vollkorn
 785179|Crackers, crispbread|Knäckebrot
 785180|Crackers, flatbread|Fladenbrot-Cracker
-785181|Crackers, matzo|Cracker, Matze
+785181|Crackers, matzo|Cracker, Matzen
 785182|Crackers, milk|Cracker, Milch
 785183|Crackers, oyster|Cracker, Austern
 785184|Chips, rice|Reischips
@@ -1509,7 +1509,7 @@
 785274|Popcorn chips, other flavors|Popcorn-Chips, aromatisiert
 785275|Popcorn chips, sweet flavors|Popcorn-Chips, aromatisiert, süß
 785277|Shrimp chips|Shrimps-Chips
-785278|Pretzels|Breze###
+785278|Pretzels|Breze
 785279|Pretzels, hard|Breze, hart
 785280|Pretzels, hard, plain, salted|Breze, hart, gesalzen
 785282|Pretzels, hard, plain, unsalted|Breze, hart, ungesalzen
@@ -1520,41 +1520,40 @@
 785288|Pretzel chips, hard, plain|Brezelchips, hart
 785289|Pretzel chips, hard, flavored|Brezelchips, hart, aromatisiert
 785290|Pretzel chips, hard, gluten free|Brezelchips, hart, glutenfrei
-785291|Pretzels, hard, coated|Breze, hart, paniert
-785292|Pretzels, hard, chocolate coated|Breze, hart, schokoladenpaniert
-785293|Pretzels, hard, white chocolate coated|Breze, harte, weiße Schokolade paniert
-785294|Pretzels, hard, yogurt coated|Breze, hart, mit Joghurt paniert
-785295|Pretzels, hard, coated, gluten free|Breze, hart, paniert, glutenfrei
+785291|Pretzels, hard, coated|Breze, hart, glassiert
+785292|Pretzels, hard, chocolate coated|Breze, hart, Schokoladenglassur
+785293|Pretzels, hard, white chocolate coated|Breze, harte, weiße Schokoladenglassur
+785294|Pretzels, hard, yogurt coated|Breze, hart, Joghurtglassur
+785295|Pretzels, hard, coated, gluten free|Breze, hart, glassiert, glutenfrei
 785296|Pretzels, hard, filled|Breze, hart, gefüllt
 785297|Pretzels, hard, cheese filled|Breze, hart, Käse gefüllt
 785298|Pretzels, hard, peanut butter filled|Breze, hart, Erdnussbutter gefüllt
 785299|Pretzels, soft|Breze, weich
-785300|Pretzels, soft, ready-to-eat|Breze, weich, essfertig
-785301|Pretzels, soft, ready-to-eat, salted, buttered|Breze, weich, essfertig, gesalzen, gebuttert
-785302|Pretzels, soft, ready-to-eat, unsalted, buttered|Breze, weich, essfertig, ungesalzen, gebuttert
-785303|Pretzels, soft, ready-to-eat, salted, no butter|Breze, weich, essfertig, gesalzen, keine Butter
-785304|Pretzels, soft, ready-to-eat, unsalted, no butter|Breze, weich, essfertig, ungesalzen, keine Butter
-785305|Pretzels, soft, ready-to-eat, cinnamon sugar coated|Breze, weich, verzehrfertig, mit Zimtzucker paniert
-785309|Pretzels, soft, from frozen|Breze, weich, aus gefrorenem
-785310|Pretzels, soft, from frozen, salted|Breze, weich, aus gefrorenem, gesalzenem
-785311|Pretzels, soft, from frozen, unsalted|Breze, weich, gefroren, ungesalzen
-785312|Pretzels, soft, from frozen, cinnamon sugar coated|Breze, weich, aus gefrorenem, mit Zimtzucker paniertem
-785317|Pretzels, soft, from school lunch|Weiche Breze vom Schulessen
+785300|Pretzels, soft, ready-to-eat|Breze, weich
+785301|Pretzels, soft, ready-to-eat, salted, buttered|Butterbreze, weich, gesalzen
+785302|Pretzels, soft, ready-to-eat, unsalted, buttered|Butterbreze, weich, ungesalzen
+785303|Pretzels, soft, ready-to-eat, salted, no butter|Breze, weich, gesalzen
+785304|Pretzels, soft, ready-to-eat, unsalted, no butter|Breze, weich, ungesalzen
+785305|Pretzels, soft, ready-to-eat, cinnamon sugar coated|Breze, weich, mit Zimtzucker
+785310|Pretzels, soft, from frozen, salted|Breze, weich, gesalzen, tiefgefroren
+785311|Pretzels, soft, from frozen, unsalted|Breze, weich, ungesalzen, tiefgefroren
+785312|Pretzels, soft, from frozen, cinnamon sugar coated|Breze, weich, mit Zimtzucker, tiefgefroren
+785317|Pretzels, soft, from school lunch|weiche Breze
 785318|Pretzels, soft, multigrain|Breze, weich, Mehrkorn
 785319|Pretzels, soft, gluten free|Breze, weich, glutenfrei
-785320|Pretzels, soft, gluten free, cinnamon sugar coated|Breze, weich, glutenfrei, mit Zimtzucker paniert
+785320|Pretzels, soft, gluten free, cinnamon sugar coated|Breze, weich, süß, glutenfrei, mit Zimtzucker
 785322|Multigrain chips (Sun Chips)|Mehrkornchips (Sun Chips)
-785323|Snack mix, plain (Chex Mix)|Snackmischung, einfach (Chex Mix)
+785323|Snack mix, plain (Chex Mix)|Snackmischung (Chex Mix)
 785324|Bagel chips|Bagelchips
-785325|Cracker chips|Cracker-Chips
+785325|Cracker chips|Chips-Cracker
 785326|Pancakes|Pfannkuchen
 785327|Pancakes, plain, from frozen|Pfannkuchen, Tiefgekühlt
 785328|Pancakes, plain, reduced fat, from frozen|Pfannkuchen, fettarm, Tiefgekühlt
 785331|Pancakes, whole grain, from frozen|Pfannkuchen, Vollkorn, Tiefgekühlt
 785332|Pancakes, whole grain, reduced fat, from frozen|Pfannkuchen, Vollkorn, fettarm, Tiefgekühlt
 785333|Pancakes, gluten free, from frozen|Pfannkuchen, glutenfrei, Tiefgekühlt
-785334|Pancakes, plain, from fast food / restaurant|Pfannkuchen, blank, aus Fast Food / Restaurant
-785337|Pancakes, whole grain, from fast food / restaurant|Pfannkuchen, Vollkorn, aus Fast Food / Restaurant
+785334|Pancakes, plain, from fast food / restaurant|Pfannkuchen, blank, (Fast Food / Restaurant)
+785337|Pancakes, whole grain, from fast food / restaurant|Pfannkuchen, Vollkorn, (Fast Food / Restaurant)
 785339|Pancakes, from school|Pfannkuchen, Mensa
 785340|Pancakes, plain|Pfannkuchen, blank
 785341|Pancakes, plain, reduced fat|Pfannkuchen, blank, fettarm
@@ -1565,18 +1564,18 @@
 785348|Pancakes, whole grain, reduced fat|Pfannkuchen, Vollkorn, fettarm
 785349|Pancakes, gluten free|Pfannkuchen, glutenfrei
 785350|Waffle|Waffel
-785351|Waffle, plain, from frozen|Waffel, einfach, aus gefrorenem
-785352|Waffle, plain, reduced fat, from frozen|Waffel, glatt, fettarm, gefroren
-785353|Waffle, fruit, from frozen|Waffel, Obst, aus gefrorenem
-785354|Waffle, chocolate, from frozen|Waffel, Schokolade, aus gefrorenem
-785355|Waffle, whole grain, from frozen|Waffel, Vollkorn, aus gefrorenem
-785356|Waffle, whole grain, reduced fat, from frozen|Waffel, Vollkorn, fettarm, gefroren
-785357|Waffle, whole grain, fruit, from frozen|Waffel, Vollkorn, Obst, aus gefrorenem
-785358|Waffle, gluten free, from frozen|Waffel, glutenfrei, gefroren
-785359|Waffle, plain, from fast food / restaurant|Waffel, einfach, aus Fast Food / Restaurant
-785360|Waffle, chocolate, from fast food / restaurant|Waffel, Schokolade, aus Fast Food / Restaurant
-785361|Waffle, fruit, from fast food / restaurant|Waffel, Obst, aus Fast Food / Restaurant
-785362|Waffle, whole grain, from fast food / restaurant|Waffel, Vollkorn, aus Fast Food / Restaurant
+785351|Waffle, plain, from frozen|Waffel, tiefgefroren
+785352|Waffle, plain, reduced fat, from frozen|Waffel, fettarm, tiefgefroren
+785353|Waffle, fruit, from frozen|Waffel, Obst, tiefgefroren
+785354|Waffle, chocolate, from frozen|Waffel, Schokolade, tiefgefroren
+785355|Waffle, whole grain, from frozen|Waffel, Vollkorn, tiefgefroren
+785356|Waffle, whole grain, reduced fat, from frozen|Waffel, Vollkorn, fettarm, tiefgefroren
+785357|Waffle, whole grain, fruit, from frozen|Waffel, Vollkorn, Obst, tiefgefroren
+785358|Waffle, gluten free, from frozen|Waffel, glutenfrei, tiefgefroren
+785359|Waffle, plain, from fast food / restaurant|Waffel, einfach, (Fast Food / Restaurant)
+785360|Waffle, chocolate, from fast food / restaurant|Waffel, Schokolade, (Fast Food / Restaurant)
+785361|Waffle, fruit, from fast food / restaurant|Waffel, Obst, (Fast Food / Restaurant)
+785362|Waffle, whole grain, from fast food / restaurant|Waffel, Vollkorn, (Fast Food / Restaurant)
 785363|Waffle, from school|Waffel mensa
 785364|Waffle, plain|Waffel, blank
 785365|Waffle, fruit|Waffel, Obst
@@ -1585,212 +1584,212 @@
 785368|Waffle, cornmeal|Waffel, Maismehl
 785369|Waffle, whole grain|Waffel, Vollkorn
 785370|Waffle, gluten free|Waffel, glutenfrei
-785371|Waffle, plain, reduced fat|Waffel, einfach, fettarm
+785371|Waffle, plain, reduced fat|Waffel, fettarm
 785372|Waffle, whole grain, reduced fat|Waffel, Vollkorn, fettarm
-785373|French toast|Französischer Toast
-785374|French toast, plain, from frozen|French Toast, einfach, aus gefrorenem
-785375|French toast, whole grain, from frozen|French Toast, Vollkorn, aus gefrorenem
-785376|French toast, gluten free, from frozen|French Toast, glutenfrei, gefroren
-785377|French toast, plain, from fast food / restaurant|French Toast, einfach, aus Fast Food / Restaurant
-785378|French toast, whole grain, from fast food / restaurant|French Toast, Vollkorn, aus Fast Food / Restaurant
-785379|French toast, from school|French Toast mensa
-785380|French toast, plain|French Toast, schlicht
-785381|French toast, plain, reduced fat|French Toast, einfach, fettarm
-785382|French toast, whole grain|French Toast, Vollkorn
-785383|French toast, whole grain, reduced fat|French Toast, Vollkorn, fettarm
-785384|French toast, gluten free|French Toast, glutenfrei
-785385|French toast sticks|French Toast Sticks
-785386|French toast sticks, plain, from frozen|Französische Toaststangen, glatt, aus gefrorenem
-785387|French toast sticks, plain, from fast food / restaurant|Französische Toaststangen, einfach, aus Fast Food / Restaurant
-785388|French toast sticks, from school|Französische Toaststangen mensa
-785389|French toast sticks, plain|Französische Toaststangen, schlicht
-785390|French toast sticks, whole grain|French Toast Sticks, Vollkorn
-785391|Fried bread, Puerto Rican style|Gebratenes Brot nach puertoricanischer Art
-785392|Crepe|Krepp
-785393|Crepe, plain|Krepp, schlicht
+785373|French toast|Armer Ritter (French Toast)
+785374|French toast, plain, from frozen|Armer Ritter (French Toast), tiefgefroren
+785375|French toast, whole grain, from frozen|Armer Ritter (French Toast), Vollkorn, tiefgefroren
+785376|French toast, gluten free, from frozen|Armer Ritter (French Toast), glutenfrei, tiefgefroren
+785377|French toast, plain, from fast food / restaurant|Armer Ritter (French Toast), (Fast Food / Restaurant)
+785378|French toast, whole grain, from fast food / restaurant|Armer Ritter (French Toast), Vollkorn, (Fast Food / Restaurant)
+785379|French toast, from school|Armer Ritter (French Toast), mensa
+785380|French toast, plain|Armer Ritter (French Toast
+785381|French toast, plain, reduced fat|Armer Ritter (French Toast), fettarm
+785382|French toast, whole grain|Armer Ritter (French Toast), Vollkorn
+785383|French toast, whole grain, reduced fat|Armer Ritter (French Toast), Vollkorn, fettarm
+785384|French toast, gluten free|Armer Ritter (French Toast), glutenfrei
+785385|French toast sticks|Armer Ritter (French Toast) Sticks
+785386|French toast sticks, plain, from frozen|Armer-Ritter-Sticks (French Toast), tiefgefroren
+785387|French toast sticks, plain, from fast food / restaurant|Armer Ritter-Sticks (French Toast), (Fast Food / Restaurant)
+785388|French toast sticks, from school|Armer-Ritter-Sticks (French Toast), mensa
+785389|French toast sticks, plain|Armer-Ritter-Sticks (French Toast)
+785390|French toast sticks, whole grain|Armer-Ritter-Sticks (French Toast), Vollkorn
+785391|Fried bread, Puerto Rican style|frittiertes Brot nach puertoricanischer Art
+785392|Crepe|Crepe
+785393|Crepe, plain|Crepe
 785394|Chinese pancake|Chinesischer Pfannkuchen
-785397|Dumpling, plain|Knödel, schlicht
-785400|Dosa (Indian), plain|Sünde (indisch), schlicht
-785408|Noodles, chow mein|Nudeln, chow mein
-785414|Cereal, cooked|Müsli, gekocht
+785397|Dumpling, plain|Knödel
+785400|Dosa (Indian), plain|Dosa (indischer Pfannkuchen)
+785408|Noodles, chow mein|Nudeln, chow-mein
+785414|Cereal, cooked|Müsli, mit Wasser überbrüht
 785448|Cornmeal, Puerto Rican Style|Maismehl nach puertoricanischer Art
 785449|Cornmeal dumpling|Maismehlknödel
 785450|Masa harina, cooked|Mehlteig, gekocht
-785454|Oatmeal, from fast food, plain|Haferflocken, aus Fast Food, einfach
-785455|Oatmeal, from fast food, maple flavored|Haferflocken aus Fast Food mit Ahorngeschmack
-785456|Oatmeal, from fast food, fruit flavored|Haferflocken aus Fast Food mit Fruchtgeschmack
-785457|Oatmeal, from fast food, other flavors|Haferflocken, aus Fast Food, andere Geschmacksrichtungen
-785568|Wheat cereal, chocolate flavored, cooked|Weizen Müsli, Schokoladengeschmack, gekocht
-785572|Cream of rye|Roggencreme
+785454|Oatmeal, from fast food, plain|Haferflocken
+785455|Oatmeal, from fast food, maple flavored|Haferflocken, Ahorngeschmack
+785456|Oatmeal, from fast food, fruit flavored|Haferflocken, Fruchtgeschmack
+785457|Oatmeal, from fast food, other flavors|Haferflocken, aromatisiert
+785568|Wheat cereal, chocolate flavored, cooked|Weizenmüsli, Schokoladengeschmack, Wasser überbrüht
+785572|Cream of rye|Roggencreme (Roggenwhiskey mit Kondesmilch)
 785574|Cereal, oat|Müsli, Hafer
-785575|Cereal, ready-to-eat|Müsli, verzehrfertig
-785576|Cereal (Kellogg's All-Bran)|Getreide (Kellogg&#39;s All-Bran)
-785577|Cereal (Alpen)|Getreide (Alpen)
-785578|Cereal (Post Alpha-Bits)|Getreide (Post Alpha-Bits)
-785579|Cereal (General Mills Cheerios Apple Cinnamon)|Getreide (General Mills Cheerios Apfelzimt)
-785580|Cereal (Kellogg's Apple Jacks)|Müsli (Kellogg&#39;s Apple Jacks)
-785581|Cereal (Post Great Grains Banana Nut Crunch)|Müsli (Post Great Grains Bananen-Nuss-Crunch)
-785582|Cereal (General Mills Cheerios Banana Nut)|Getreide (General Mills Cheerios Bananennuss)
-785583|Cereal (General Mills Basic 4)|Getreide (General Mills Basic 4)
-785584|Cereal (General Mills Kix Berry Berry)|Getreide (General Mills Kix Berry Berry)
-785585|Cereal (General Mills Cheerios Berry Burst)|Getreide (General Mills Cheerios Berry Burst)
-785586|Cereal (Post Selects Blueberry Morning)|Getreide (Post wählt Blaubeermorgen)
-785587|Cereal (General Mills Boo Berry)|Getreide (General Mills Boo Berry)
-785588|Cereal (Kellogg's All-Bran Bran Buds)|Getreide (Kelloggs All-Bran Bran Buds)
-785589|Cereal (Quaker Cap'n Crunch)|Müsli (Quäker Cap&#39;n Crunch)
-785590|Cereal (Quaker Christmas Crunch)|Müsli (Quäker-Weihnachtscrunch)
-785591|Cereal (Quaker Cap'n Crunch's Crunchberries)|Müsli (Quaker Cap&#39;n Crunch&#39;s Crunchberries)
-785592|Cereal (Quaker Cap'n Crunch's Peanut Butter Crunch)|Müsli (Erdnussbutter-Crunch von Quaker Cap&#39;n Crunch)
-785593|Cereal (General Mills Cheerios)|Getreide (General Mills Cheerios)
-785594|Cereal (General Mills Chex Chocolate)|Getreide (General Mills Chex Chocolate)
-785595|Cereal (General Mills Chex Cinnamon)|Getreide (General Mills Chex Cinnamon)
-785596|Cereal (General Mills Cheerios Chocolate)|Getreide (General Mills Cheerios Schokolade)
+785575|Cereal, ready-to-eat|Müsli
+785576|Cereal (Kellogg's All-Bran)|Müsli (Kelloggs All-Bran)
+785577|Cereal (Alpen)|Müsli (Alpen)
+785578|Cereal (Post Alpha-Bits)|Müsli (Post Alpha-Bits)
+785579|Cereal (General Mills Cheerios Apple Cinnamon)|Müsli (Apfelzimt)
+785580|Cereal (Kellogg's Apple Jacks)|Müsli (Kelloggs Apple Jacks)
+785581|Cereal (Post Great Grains Banana Nut Crunch)|Müsli (Bananen-Nuss-Crunch)
+785582|Cereal (General Mills Cheerios Banana Nut)|Müsli (Bananennuss)
+785583|Cereal (General Mills Basic 4)|Müsli (Basic 4)
+785584|Cereal (General Mills Kix Berry Berry)|Müsli (Berry Berry)
+785585|Cereal (General Mills Cheerios Berry Burst)|Müsli (Berry Burst)
+785586|Cereal (Post Selects Blueberry Morning)|Müsli (Blaubeere)
+785587|Cereal (General Mills Boo Berry)|Müsli (Boo Berry)
+785588|Cereal (Kellogg's All-Bran Bran Buds)|Müsli (All-Bran Buds)
+785589|Cereal (Quaker Cap'n Crunch)|Müsli (Capn Crunch)
+785590|Cereal (Quaker Christmas Crunch)|Müsli (Weihnachtscrunch)
+785591|Cereal (Quaker Cap'n Crunch's Crunchberries)|Müsli (Crunchberries)
+785592|Cereal (Quaker Cap'n Crunch's Pea|Müslinut Butter Crunch)|Müsli (Erdnussbutter-Crunch)
+785593|Cereal (General Mills Cheerios)|Müsli (Cheerios)
+785594|Cereal (General Mills Chex Chocolate)|Müsli (Chex Chocolate)
+785595|Cereal (General Mills Chex Cinnamon)|Müsli (Chex Cinnamon)
+785596|Cereal (General Mills Cheerios Chocolate)|Müsli (Cheerios Schokolade)
 785597|Cereal, chocolate flavored, frosted, puffed corn|Müsli, Schokoladengeschmack, gefrosteter, gepuffter Mais
-785598|Cereal (General Mills Lucky Charms Chocolate)|Müsli (General Mills Lucky Charms Chocolate)
-785599|Cereal (Kellogg's Cinnabon)|Getreide (Kellogg&#39;s Cinnabon)
-785600|Cereal (General Mills Cinnamon Toast Crunch)|Getreide (General Mills Cinnamon Toast Crunch)
-785601|Cereal (General Mills 25% Less Sugar Cinnamon Toast Crunch)|Getreide (General Mills 25% weniger Zucker Zimt Toast Crunch)
-785602|Cereal (General Mills Honey Nut Clusters)|Getreide (General Mills Honey Nut Cluster)
-785603|Cereal (Kellogg's Cocoa Krispies)|Getreide (Kellogg&#39;s Cocoa Krispies)
-785604|Cereal (Post Cocoa Pebbles)|Getreide (Post Cocoa Pebbles)
-785605|Cereal (General Mills Cocoa Puffs)|Getreide (General Mills Cocoa Puffs)
-785606|Cereal (General Mills 25% Less Sugar Cocoa Puffs)|Getreide (General Mills 25% weniger Sugar Cocoa Puffs)
-785607|Cereal (General Mills Cookie Crisp)|Getreide (General Mills Cookie Crisp)
-785608|Cereal (Quaker Corn Bran Crunch)|Müsli (Quaker Corn Bran Crunch)
-785609|Cereal (General Mills Chex Corn)|Getreide (General Mills Chex Corn)
+785598|Cereal (General Mills Lucky Charms Chocolate)|Müsli (Chocolate)
+785599|Cereal (Kellogg's Cinnabon)|Müsli (Kelloggs Cinnabon)
+785600|Cereal (General Mills Cinnamon Toast Crunch)|Müsli (Cinnamon Toast Crunch)
+785601|Cereal (General Mills 25% Less Sugar Cinnamon Toast Crunch)|Müsli (25% weniger Zucker Zimt Toast Crunch)
+785602|Cereal (General Mills Honey Nut Clusters)|Müsli (Honey Nut Cluster)
+785603|Cereal (Kellogg's Cocoa Krispies)|Müsli (Kakao-Crispy)
+785604|Cereal (Post Cocoa Pebbles)|Müsli (Kakao-Bällchen)
+785605|Cereal (General Mills Cocoa Puffs)|Müsli (Kakao-Puffer)
+785606|Cereal (General Mills 25% Less Sugar Cocoa Puffs)|Müsli (25% weniger Zucker Kakao-Puffer)
+785607|Cereal (General Mills Cookie Crisp)|Müsli (Crisp)
+785608|Cereal (Quaker Corn Bran Crunch)|Müsli (Bran Crunch)
+785609|Cereal (General Mills Chex Corn)|Müsli (Chex Corn)
 785610|Cereal, corn flakes|Müsli, Cornflakes
 785611|Cereal (Kellogg's Corn Flakes)|Müsli (Kelloggs Corn Flakes)
 785612|Cereal, corn puffs|Müsli, Maiskolben
-785613|Cereal (General Mills Count Chocula)|Getreide (General Mills Count Chocula)
-785614|Cereal (Kellogg's Cracklin' Oat Bran)|Getreide (Kellogg&#39;s Cracklin &#39;Haferkleie)
-785615|Cereal (Post Great Grains, Cranberry Almond Crunch)|Müsli (Post Great Grains, Cranberry Almond Crunch)
-785616|Cereal (Kellogg's Crispix)|Getreide (Kellogg&#39;s Crispix)
-785617|Cereal, crispy brown rice|Müsli, knuspriger brauner Reis
-785618|Cereal, crispy rice|Müsli, knuspriger Reis
-785619|Cereal (General Mills Dora The Explorer)|Getreide (General Mills Dora The Explorer)
+785613|Cereal (General Mills Count Chocula)|Müsli (General Mills Count Chocula)
+785614|Cereal (Kellogg's Cracklin' Oat Bran)|Müsli (Kellogs Haferkleie)
+785615|Cereal (Post Great Grains, Cranberry Almond Crunch)|Müsli (Cranberry-Mandel-Crunch)
+785616|Cereal (Kellogg's Crispix)|Müsli (Kellogs Crispix)
+785617|Cereal, crispy brown rice|Müsli, Puffreis, braun
+785618|Cereal, crispy rice|Müsli, Puffreis
+785619|Cereal (General Mills Dora The Explorer)|Müsli (Nuss-Beeren)
 785620|Cereal (Famila)|Müsli (Familie)
-785621|Cereal (General Mills Fiber One)|Getreide (General Mills Fibre One)
-785622|Cereal (General Mills Fiber One Caramel Delight)|Getreide (General Mills Fibre One Caramel Delight)
-785623|Cereal (General Mills Fiber One Honey Clusters)|Getreide (General Mills Fibre One Honigcluster)
-785624|Cereal (General Mills Fiber One Raisin Bran Clusters)|Getreide (General Mills Fibre One Rosinenkleie-Cluster)
-785625|Cereal (Healt Valley Fiber 7 Flakes)|Getreide (Healt Valley Fiber 7 Flakes)
+785621|Cereal (General Mills Fiber One)|Müsli (ballaststoffreich)
+785622|Cereal (General Mills Fiber One Caramel Delight)|Müsli (ballaststoffreich Caramel Delight)
+785623|Cereal (General Mills Fiber One Honey Clusters)|Müsli (ballaststoffreich Honigcluster)
+785624|Cereal (General Mills Fiber One Raisin Bran Clusters)|Müsli (ballaststoffreich Rosinenkleie-Cluster)
+785625|Cereal (Healt Valley Fiber 7 Flakes)|Müsli (ballaststoffreich 7 Flocken)
 785626|Cereal, bran flakes|Müsli, Kleieflocken
-785627|Cereal (Kellogg's All-Bran Complete Wheat Flakes)|Getreide (Kellogg&#39;s All-Bran Complete Weizenflocken)
-785628|Cereal (Post Bran Flakes)|Getreide (Post Bran Flakes)
-785629|Cereal (General Mills Frankenberry)|Getreide (General Mills Frankenberry)
-785630|Cereal (Kellogg's Froot Loops)|Getreide (Kellogg&#39;s Froot Loops)
-785631|Cereal (Kellogg's Froot Loops Marshmallow)|Getreide (Kellogg&#39;s Froot Loops Marshmallow)
-785632|Cereal (General Mills Cheerios Frosted)|Getreide (General Mills Cheerios Frosted)
-785633|Cereal (Kellogg's Frosted Mini-Wheats)|Müsli (Kellogg&#39;s Frosted Mini-Wheats)
-785634|Cereal, frosted rice|Müsli, gefrosteter Reis
-785635|Cereal (Kellogg's Frosted Krispies)|Müsli (Kellogg&#39;s Frosted Krispies)
+785627|Cereal (Kellogg's All-Bran Complete Wheat Flakes)|Müsli (Kellogs All-Bran Weizenflocken)
+785628|Cereal (Post Bran Flakes)|Müsli
+785629|Cereal (General Mills Frankenberry)|Müsli (Frankenberry)
+785630|Cereal (Kellogg's Froot Loops)|Müsli, bunte Puffkringel (Froot Loops)
+785631|Cereal (Kellogg's Froot Loops Marshmallow)|Müsli, bunte Puffringe (froot Loops Marshmallow)
+785632|Cereal (General Mills Cheerios Frosted)|Müsli (rosted)
+785633|Cereal (Kellogg's Frosted Mini-Wheats)|Müsli (Kellogs Frosted Mini-Wheats)
+785634|Cereal, frosted rice|Müsli, gefrosteter Puffreis
+785635|Cereal (Kellogg's Frosted Krispies)|Müsli (Kellogs Frosted Crispies)
 785638|Cereal, fruit rings|Müsli, Fruchtringe
 785639|Cereal, fruit whirls|Müsli, Fruchtwirbel
-785640|Cereal (General Mills Cheerios Fruity)|Getreide (General Mills Cheerios Fruity)
+785640|Cereal (General Mills Cheerios Fruity)|Müsli (General Mills Cheerios Fruity)
 785641|Cereal (Post Fruity Pebbles)|Müsli (Post Fruity Pebbles)
-785642|Cereal (General Mills Golden Grahams)|Getreide (General Mills Golden Grahams)
+785642|Cereal (General Mills Golden Grahams)|Müsli (General Mills Golden Grahams)
 785643|Cereal, granola|Müsli, Müsli
 785644|Granola, homemade|Müsli, hausgemacht
-785645|Cereal (Kellogg's Low Fat Granola)|Getreide (Kellogg&#39;s fettarmes Müsli)
-785647|Cereal (Post Grape-Nuts)|Getreide (Post Traubennüsse)
-785648|Cereal (Post Grape-Nuts Flakes)|Getreide (Post Trauben-Nüsse Flocken)
-785650|Cereal (Post Great Grains Double Pecan Whole Grain Cereal)|Getreide (Post Great Grains Double Pecan Vollkorn-Getreide)
-785651|Cereal (Post Honey Bunches of Oats Honey Roasted)|Müsli (Post Honey Bunches von Hafer Honig geröstet)
-785654|Cereal (Post Honey Bunches of Oats wth Pecan Bunches)|Müsli (Post Honey Bunches of Hafer mit Pecan Bunches)
+785645|Cereal (Kellogg's Low Fat Granola)|Müsli (Kellogs fettarmes Müsli)
+785647|Cereal (Post Grape-Nuts)|Müsli (Traube-Nuss)
+785648|Cereal (Post Grape-Nuts Flakes)|Müsli (Post Trauben-Nüsse Flocken)
+785650|Cereal (Post Great Grains Double Pecan Whole Grain Cereal)|Müsli (Pekanuss-Vollkorn-Müsli)
+785651|Cereal (Post Honey Bunches of Oats Honey Roasted)|Müsli (Honig-Hafer-Crunches)
+785654|Cereal (Post Honey Bunches of Oats wth Pecan Bunches)|Müsli (Hafer-Pekanuss-Crunches)
 785655|Cereal (Post Honey Bunches of Oats Just Bunches)|Müsli (Post Honey Bunches of Hafer nur Bunches)
-785656|Cereal (Post Honeycomb)|Getreide (Post Honeycomb)
-785657|Cereal (Kellogg's Honey Crunch Corn Flakes)|Müsli (Kellogg&#39;s Honey Crunch Corn Flakes)
-785658|Cereal (General Mills Chex Honey Nut)|Getreide (General Mills Chex Honignuss)
-785659|Cereal (General Mills Cheerios Honey Nut)|Getreide (General Mills Cheerios Honignuss)
-785660|Cereal (Post Shredded Wheat Honey Nut)|Getreide (Post Shredded Wheat Honey Nut)
-785661|Cereal (Kellogg's Honey Smacks)|Müsli (Kellogg&#39;s Honey Smacks)
-785662|Cereal (Kashi 7 Whole Grain Puffs)|Getreide (Kashi 7 Vollkornbeutel)
-785663|Cereal (Kashi Autumn Wheat)|Getreide (Kashi Herbstweizen)
-785664|Cereal (Kashi GOLEAN)|Getreide (Kashi GOLEAN)
+785656|Cereal (Post Honeycomb)|Müsli (Honeycomb)
+785657|Cereal (Kellogg's Honey Crunch Corn Flakes)|Müsli (Honeycomb Cornflakes)
+785658|Cereal (General Mills Chex Honey Nut)|Müsli (Honig-Nuss)
+785659|Cereal (General Mills Cheerios Honey Nut)|Müsli (Puffer Honig-Nuss)
+785660|Cereal (Post Shredded Wheat Honey Nut)|Müsli (Weizen-Honig-Nuss)
+785661|Cereal (Kellogg's Honey Smacks)|Müsli (Kellogs Honey Smacks)
+785662|Cereal (Kashi 7 Whole Grain Puffs)|Müsli (Vollkorn-Puffer)
+785663|Cereal (Kashi Autumn Wheat)|Müsli (Herbstweizen)
+785664|Cereal (Kashi GOLEAN)|Müsli (Kashi GOLEAN)
 785665|Cereal (Kashi GOLEAN Crunch)|Müsli (Kashi GOLEAN Crunch)
 785666|Cereal (Kashi GOLEAN Crunch Honey Almond Flax)|Müsli (Kashi GOLEAN Crunch Honig Mandel Flachs)
 785667|Cereal (Kashi Good Friends)|Müsli (Kashi Good Friends)
 785668|Cereal (Kashi Heart to Heart Honey Toasted Oat)|Müsli (Kashi Herz zu Herz Honig gerösteter Hafer)
-785670|Cereal (Kashi Honey Sunshine Squares)|Getreide (Kashi Honey Sunshine Squares)
-785671|Cereal (Quaker King Vitaman)|Getreide (Quäkerkönig Vitaman)
-785672|Cereal (General Mills Kix)|Getreide (General Mills Kix)
-785673|Cereal (General Mills Honey Kix)|Getreide (General Mills Honey Kix)
-785674|Cereal (Kellogg's Krave)|Getreide (Kellogg&#39;s Cows)
-785675|Cereal (Quaker Life)|Getreide (Quäkerleben)
-785676|Cereal (General Mills Lucky Charms)|Getreide (General Mills Glücksbringer)
-785678|Cereal (Malt-O-Meal Blueberry Muffin Tops)|Müsli (Malt-O-Meal Blueberry Muffin Tops)
-785679|Cereal (Malt-O-Meal Cinnamon Toasters)|Müsli (Malt-O-Meal Cinnamon Toaster)
-785680|Cereal (Malt-O-Meal Coco-Roos)|Getreide (Malt-O-Meal Coco-Roos)
-785681|Cereal (Malt-O-Meal Colossal Crunch)|Getreide (Malt-O-Meal Colossal Crunch)
-785682|Cereal (Malt-O-Meal Cocoa Dyno-Bites)|Getreide (Malt-O-Meal Cocoa Dyno-Bites)
-785683|Cereal (Malt-O-Meal Corn Bursts)|Getreide (Malt-O-Meal Corn Bursts)
-785684|Cereal (Malt-O-Meal Crispy Rice)|Getreide (knuspriger Malt-O-Meal-Reis)
-785685|Cereal (Malt-O-Meal Frosted Flakes)|Getreide (Malt-O-Meal Frosted Flakes)
+785670|Cereal (Kashi Honey Sunshine Squares)|Müsli (Kashi Honey Sunshine Squares)
+785671|Cereal (Quaker King Vitaman)|Müsli (Quäkerkönig Vitaman)
+785672|Cereal (General Mills Kix)|Müsli (General Mills Kix)
+785673|Cereal (General Mills Honey Kix)|Müsli (General Mills Honey Kix)
+785674|Cereal (Kellogg's Krave)|Müsli, Weizenpuffer, Schokoladenfüllung (Krave)
+785675|Cereal (Quaker Life)|Müsli (Schoko-Crunch)
+785676|Cereal (General Mills Lucky Charms)|Müsli (General Mills Lucky-Charms)
+785678|Cereal (Malt-O-Meal Blueberry Muffin Tops)|Müsli (Malt-O-Meal Blueberry-Muffin)
+785679|Cereal (Malt-O-Meal Cinnamon Toasters)|Müsli (Malt-O-Meal Cinnamon-Toaster)
+785680|Cereal (Malt-O-Meal Coco-Roos)|Müsli (Malt-O-Meal Coco-Roos)
+785681|Cereal (Malt-O-Meal Colossal Crunch)|Müsli (Malt-O-Meal Colossal Crunch)
+785682|Cereal (Malt-O-Meal Cocoa Dyno-Bites)|Müsli (Malt-O-Meal Cocoa Dyno-Bites)
+785683|Cereal (Malt-O-Meal Corn Bursts)|Müsli (Malt-O-Meal Haferfleks)
+785684|Cereal (Malt-O-Meal Crispy Rice)|Müsli (Puffreis Malt-O-Meal)
+785685|Cereal (Malt-O-Meal Frosted Flakes)|Müsli (Malt-O-Meal Frosted-Fleks)
 785686|Cereal (Malt-O-Meal Frosted Mini Spooners)|Müsli (Malt-O-Meal Frosted Mini Spooners)
-785687|Cereal (Malt-O-Meal Fruity Dyno-Bites)|Getreide (Malt-O-Meal Fruchtige Dyno-Bites)
-785688|Cereal (Malt-O-Meal Honey Graham Squares)|Getreide (Malt-O-Meal Honey Graham Squares)
-785689|Cereal (Malt-O-Meal Honey Nut Toasty O's)|Getreide (Malt-O-Meal Honey Nut Toasty O&#39;s)
-785690|Cereal (Malt-O-Meal Marshmallow Mateys)|Getreide (Malt-O-Meal Marshmallow Mateys)
-785691|Cereal (Malt-O-Meal Raisin Bran)|Getreide (Malt-O-Meal Rosinenkleie)
-785692|Cereal (Malt-O-Meal Golden Puffs)|Getreide (Malt-O-Meal Golden Puffs)
-785693|Cereal (Malt-O-Meal Toasted Oat Cereal)|Getreide (geröstetes Haferflocken-Müsli)
-785694|Cereal (Malt-O-Meal Tootie Fruities)|Getreide (Malt-O-Meal Tootie Fruities)
-785695|Cereal (Post Maple Pecan Crunch)|Müsli (Post Maple Pecan Crunch)
-785696|Cereal, millet, puffed|Müsli, Hirse, aufgeblasen
-785697|Cereal, muesli|Müsli, Müsli
-785698|Cereal (General Mills Cheerios Multigrain)|Getreide (General Mills Cheerios Multigrain)
-785699|Cereal (Nature Valley Granola)|Getreide (Nature Valley Granola)
+785687|Cereal (Malt-O-Meal Fruity Dyno-Bites)|Müsli (Malt-O-Meal Fruchtige Dyno-Bites)
+785688|Cereal (Malt-O-Meal Honey Graham Squares)|Müsli (Malt-O-Meal Honey Graham Squares)
+785689|Cereal (Malt-O-Meal Honey Nut Toasty O's)|Müsli (Malt-O-Meal Honey Nut Toasters)
+785690|Cereal (Malt-O-Meal Marshmallow Mateys)|Müsli (Malt-O-Meal Marshmallow-Flakes)
+785691|Cereal (Malt-O-Meal Raisin Bran)|Müsli (Cornflakes-braun, Rosinen)
+785692|Cereal (Malt-O-Meal Golden Puffs)|Müsli (Malt-O-Meal Honigpops (Weizenform))
+785693|Cereal (Malt-O-Meal Toasted Oat Cereal)|Müsli (geröstetes Müsli)
+785694|Cereal (Malt-O-Meal Tootie Fruities)|Müsli (Malt-O-Meal Tootie Fruities)
+785695|Cereal (Post Maple Pecan Crunch)|Müsli (Ahornsirup-Pekanus-Crunchies)
+785696|Cereal, millet, puffed|Müsli, Hirse, gepufft
+785697|Cereal, muesli|Müsli
+785698|Cereal (General Mills Cheerios Multigrain)|Müsli (General Mills Cheerios Multigrain)
+785699|Cereal (Nature Valley Granola)|Müsli (Nature Valley Granola)
 785700|Cereal, nutty nuggets|Müsli, nussige Nuggets
-785701|Cereal (Health Valley Oat Bran Flakes)|Getreide (Health Valley Haferkleieflocken)
-785702|Cereal (General Mills Cheerios Oat Cluster Crunch)|Getreide (General Mills Cheerios Oat Cluster Crunch)
-785703|Cereal (General Mills Cheerios Protein)|Getreide (General Mills Cheerios Protein)
+785701|Cereal (Health Valley Oat Bran Flakes)|Müsli (Health Valley Haferkleieflocken)
+785702|Cereal (General Mills Cheerios Oat Cluster Crunch)|Müsli (General Mills Cheerios Oat Cluster Crunch)
+785703|Cereal (General Mills Cheerios Protein)|Müsli (General Mills Cheerios Protein)
 785706|Cereal (Quaker Honey Graham Oh's)|Müsli (Quäkerhonig Graham Oh&#39;s)
-785708|Cereal (Nature's Path Organic Flax Plus)|Getreide (Naturpfad Bio Flachs Plus)
+785708|Cereal (Nature's Path Organic Flax Plus)|Müsli (Naturpfad Bio Flachs Plus)
 785709|Cereal (Quaker Sweet Crunch)|Müsli (Quaker Sweet Crunch)
-785710|Cereal (Kellogg's Product 19)|Getreide (Kellogg&#39;s Produkt 19)
-785711|Cereal (Barbara's Puffins)|Getreide (Barbaras Papageientaucher)
-785712|Cereal (Quaker Toasted Oat Bran)|Getreide (Quäker geröstete Haferkleie)
-785713|Cereal (Quaker Oatmeal Squares)|Getreide (Quäker-Haferflocken-Quadrate)
-785714|Cereal (Quaker Quisp)|Getreide (Quäker Quisp)
+785710|Cereal (Kellogg's Product 19)|Müsli (Kellogs Produkt 19)
+785711|Cereal (Barbara's Puffins)|Müsli (Barbaras Papageientaucher)
+785712|Cereal (Quaker Toasted Oat Bran)|Müsli (Quäker geröstete Haferkleie)
+785713|Cereal (Quaker Oatmeal Squares)|Müsli (Quäker-Haferflocken-Quadrate)
+785714|Cereal (Quaker Quisp)|Müsli (Quäker Quisp)
 785715|Cereal, raisin bran|Müsli, Rosinenkleie
-785716|Cereal (Kellogg's Raisin Bran)|Getreide (Kellogg&#39;s Rosinenkleie)
-785717|Cereal (Kellogg's Raisin Bran Crunch)|Müsli (Kellogg&#39;s Raisin Bran Crunch)
-785718|Cereal (Post Raisin Bran)|Getreide (Post Rosinenkleie)
-785719|Cereal (General Mills Total Raisin Bran)|Getreide (General Mills Total Rosinenkleie)
-785720|Cereal (General Mills Raisin Nut Bran)|Getreide (General Mills Rosinennusskleie)
-785721|Cereal (General Mills Reese's Puffs)|Getreide (General Mills Reese&#39;s Puffs)
-785722|Cereal (General Mills Chex Rice)|Getreide (General Mills Chex Rice)
+785716|Cereal (Kellogg's Raisin Bran)|Müsli (Kellogs Rosinenkleie)
+785717|Cereal (Kellogg's Raisin Bran Crunch)|Müsli (Kellogs Raisin Bran Crunch)
+785718|Cereal (Post Raisin Bran)|Müsli (Post Rosinenkleie)
+785719|Cereal (General Mills Total Raisin Bran)|Müsli (General Mills Total Rosinenkleie)
+785720|Cereal (General Mills Raisin Nut Bran)|Müsli (General Mills Rosinennusskleie)
+785721|Cereal (General Mills Reese's Puffs)|Müsli (General Mills Reese&#39;s Puffs)
+785722|Cereal (General Mills Chex Rice)|Müsli (General Mills Chex Rice)
 785723|Cereal, rice flakes|Müsli, Reisflocken
-785724|Cereal (Kellogg's Rice Krispies)|Müsli (Kellogg&#39;s Rice Krispies)
-785725|Cereal (Kellogg's Rice Krispies Treats Cereal)|Müsli (Kellogg&#39;s Rice Krispies behandelt Müsli)
+785724|Cereal (Kellogg's Rice Krispies)|Müsli (Kellogs Rice Krispies)
+785725|Cereal (Kellogg's Rice Krispies Treats Cereal)|Müsli (Kellogs Rice Krispies behandelt Müsli)
 785726|Cereal, puffed rice|Müsli, Puffreis
-785727|Cereal (Post Shredded Wheat'n Bran)|Getreide (Post Shredded Wheat&#39;n Bran)
-785728|Cereal (Kellogg's Smart Start Strong)|Getreide (Kelloggs Smart Start Strong)
-785729|Cereal (Kellogg's Special K)|Getreide (Kellogg&#39;s Special K)
-785730|Cereal (Kellogg's Special K Blueberry)|Getreide (Kellogg&#39;s Special K Blueberry)
-785731|Cereal (Kellogg's Special K Chocolatey Delight)|Müsli (Kellogg&#39;s Special K Chocolatey Delight)
-785732|Cereal (Kellogg's Special K Low Fat Granola)|Müsli (Kellogg&#39;s Special K fettarmes Müsli)
-785733|Cereal (Kellogg's Special K Red Berries)|Müsli (Kellogg&#39;s Special K Red Berries)
-785734|Cereal (Kellogg's Special K Fruit & Yogurt)|Müsli (Kellogg&#39;s Special K Fruit &amp; Yogurt)
-785735|Cereal (Kellogg's Special K Vanilla Almond)|Müsli (Kellogg&#39;s Special K Vanille Mandel)
-785736|Cereal (Kellogg's Special K Cinnamon Pecan)|Müsli (Kellogg&#39;s Special K Cinnamon Pecan)
-785737|Cereal (Kellogg's Corn Pops)|Müsli (Kellogg&#39;s Corn Pops)
-785738|Cereal, frosted corn flakes|Getreide, gefrostete Cornflakes
-785739|Cereal (Kellogg's Frosted Flakes)|Getreide (Kellogg&#39;s Frosted Flakes)
-785740|Cereal (Kellogg's Frosted Flakes, Reduced Sugar)|Getreide (Kellogg&#39;s Frosted Flakes, reduzierter Zucker)
-785741|Cereal (Post Golden Crisp)|Getreide (Post Golden Crisp)
-785743|Cereal (General Mills Total)|Getreide (General Mills Total)
-785744|Cereal (General Mills Trix)|Getreide (General Mills Trix)
-785745|Cereal (General Mills 25% Less Sugar Trix)|Getreide (General Mills 25% weniger Zucker Trix)
-785746|Cereal (Uncle Sam)|Getreide (Onkel Sam)
-785747|Cereal (Post Waffle Crisp)|Getreide (Post Waffle Crisp)
-785748|Cereal (Weetabix Whole Grain)|Getreide (Weetabix Vollkorn)
-785749|Cereal (General Mills Chex Wheat)|Getreide (General Mills Chex Wheat)
+785727|Cereal (Post Shredded Wheat'n Bran)|Müsli (Weizen-Toppas)
+785728|Cereal (Kellogg's Smart Start Strong)|Müsli (Kelloggs Smart Start Strong)
+785729|Cereal (Kellogg's Special K)|Müsli (Kellogs
+785730|Cereal (Kellogg's Special K Blueberry)|Müsli (Kellogs Blueberry)
+785731|Cereal (Kellogg's Special K Chocolatey Delight)|Müsli (Kellogs Schoko)
+785732|Cereal (Kellogg's Special K Low Fat Granola)|Müsli (Kellogs fettarmes Müsli)
+785733|Cereal (Kellogg's Special K Red Berries)|Müsli (Kellogs Red Berries)
+785734|Cereal (Kellogg's Special K Fruit & Yogurt)|Müsli (Kellogs Frucht, Yogurt)
+785735|Cereal (Kellogg's Special K Vanilla Almond)|Müsli (Kellogs Vanille, Mandel)
+785736|Cereal (Kellogg's Special K Cinnamon Pecan)|Müsli (Kellogs Zimt, Prekanuss)
+785737|Cereal (Kellogg's Corn Pops)|Müsli (Kellogs Corn Pops)
+785738|Cereal, frosted corn flakes|Müsli, gefrostete Cornflakes
+785739|Cereal (Kellogg's Frosted Flakes)|Müsli (Kellogs Frosted Flakes)
+785740|Cereal (Kellogg's Frosted Flakes, Reduced Sugar)|Müsli (Kellogs Frosted Flakes, reduzierter Zucker)
+785741|Cereal (Post Golden Crisp)|Müsli (Post Golden Crisp)
+785743|Cereal (General Mills Total)|Müsli (General Mills Total)
+785744|Cereal (General Mills Trix)|Müsli (General Mills Trix)
+785745|Cereal (General Mills 25% Less Sugar Trix)|Müsli (General Mills 25% weniger Zucker )
+785746|Cereal (Uncle Sam)|Müsli (Onkel Sam)
+785747|Cereal (Post Waffle Crisp)|Müsli (Post Waffle Crisp)
+785748|Cereal (Weetabix Whole Grain)|Müsli (Weetabix Vollkorn)
+785749|Cereal (General Mills Chex Wheat)|Müsli (General Mills Chex Wheat)
 785752|Cereal, puffed wheat, plain|Müsli, Puffweizen, glatt
-785753|Cereal, puffed wheat, sweetened|Getreide, Puffweizen, gesüßt
-785754|Cereal (Post Shredded Wheat)|Getreide (Post Shredded Wheat)
-785755|Cereal (General Mills Wheaties)|Getreide (General Mills Wheaties)
-785756|Cereal (General Mills Cheerios Yogurt Burst)|Getreide (General Mills Cheerios Joghurt Burst)
+785753|Cereal, puffed wheat, sweetened|Müsli, Puffweizen, gesüßt
+785754|Cereal (Post Shredded Wheat)|Müsli (Post Shredded Wheat)
+785755|Cereal (General Mills Wheaties)|Müsli (General Mills Wheaties)
+785756|Cereal (General Mills Cheerios Yogurt Burst)|Müsli (General Mills Cheerios Joghurt Burst)
 786008|Cornmeal fritter, Puerto Rican style|Maismehlkrapfen nach puertoricanischer Art
 786009|Cornmeal stick, Puerto Rican style|Maismehlstab nach puertoricanischer Art
 786458|Upma, Indian breakfast dish|Upma, indisches Frühstücksgericht
@@ -1812,12 +1811,12 @@
 787037|Potato chips, restructured, fat free|Kartoffelchips, umstrukturiert, fettfrei
 787038|Potato chips, unsalted|Kartoffelchips, ungesalzen
 787039|Potato chips, reduced fat, unsalted|Kartoffelchips, fettarm, ungesalzen
-787042|Potato chips, popped, plain|Kartoffelchips, geknallt, schlicht
-787043|Potato chips, popped, flavored|Kartoffelchips, geknallt, aromatisiert
-787044|Potato chips, popped|Kartoffelchips, geknallt
-787045|Potato sticks, plain|Kartoffelstangen, schlicht
-787046|Potato sticks, flavored|Kartoffelstangen, aromatisiert
-787047|Potato sticks, fry shaped|Kartoffelstangen, bratenförmig
+787042|Potato chips, popped, plain|Kartoffelchips, nicht frittiert
+787043|Potato chips, popped, flavored|Kartoffelchips, nicht frittiert, aromatisiert
+787044|Potato chips, popped|Kartoffelchips, nicht frittiert
+787045|Potato sticks, plain|Kartoffelsticks, blank
+787046|Potato sticks, flavored|Kartoffelsticks, aromatisiert
+787047|Potato sticks, fry shaped|Kartoffelsticks
 787048|Vegetable chips|Gemüsechips
 787173|Plantain chips|Wegerichchips
 787184|Casabe, cassava bread|Casabe, Maniokbrot
@@ -1825,20 +1824,20 @@
 787198|Taro chips|Taro-Chips
 787665|Sweet potato chips|Süßkartoffelchips
 789192|Coconut cream cake, Puerto Rican style|Kokoscremetorte nach puertoricanischer Art
-781168|Yogurt, frozen, chocolate, lowfat milk|Joghurt, gefroren, Schokolade, fettarme Milch
-781169|Yogurt, frozen, flavors other than chocolate, lowfat milk|Joghurt, gefroren, andere Aromen als Schokolade, fettarme Milch
-781171|Yogurt, frozen, chocolate, nonfat milk|Joghurt, gefroren, Schokolade, fettfreie Milch
-781173|Yogurt, frozen, flavors other than chocolate, nonfat milk|Joghurt, gefroren, andere Aromen als Schokolade, fettfreie Milch
-781177|Yogurt, frozen, chocolate, whole milk|Joghurt, gefroren, Schokolade, Vollmilch
-781178|Yogurt, frozen, flavors other than chocolate, whole milk|Joghurt, gefroren, andere Aromen als Schokolade, Vollmilch
-781179|Yogurt, frozen, chocolate-coated|Joghurt, gefroren, mit Schokolade paniert
-781180|Yogurt, frozen, sandwich|Joghurt, gefroren, Sandwich
-781181|Yogurt, frozen, cone, chocolate|Joghurt, gefroren, Zapfen, Schokolade
-781182|Yogurt, frozen, cone, flavors other than chocolate|Joghurt, gefroren, Zapfen, andere Aromen als Schokolade
-781183|Yogurt, frozen, cone, flavors other than chocolate, lowfat milk|Joghurt, gefroren, Zapfen, andere Aromen als Schokolade, fettarme Milch
-781184|Yogurt, frozen, cone, chocolate, lowfat milk|Joghurt, gefroren, Zapfen, Schokolade, fettarme Milch
+781168|Yogurt, frozen, chocolate, lowfat milk|Frozen Yogurt, Schokolade, fettarme Milch
+781169|Yogurt, frozen, flavors other than chocolate, lowfat milk|Frozen Yogurt, andere Aromen als Schokolade, fettarme Milch
+781171|Yogurt, frozen, chocolate, nonfat milk|Frozen Yogurt, Schokolade, fettfreie Milch
+781173|Yogurt, frozen, flavors other than chocolate, nonfat milk|Frozen Yogurt, andere Aromen als Schokolade, fettfreie Milch
+781177|Yogurt, frozen, chocolate, whole milk|Frozen Yogurt, Schokolade, Vollmilch
+781178|Yogurt, frozen, flavors other than chocolate, whole milk|Frozen Yogurt, andere Aromen als Schokolade, Vollmilch
+781179|Yogurt, frozen, chocolate-coated|Frozen Yogurt, Schokoladenhülle
+781180|Yogurt, frozen, sandwich|Frozen Yogurt, Sandwich
+781181|Yogurt, frozen, cone, chocolate|Frozen Yogurt, in Waffel, Schokolade
+781182|Yogurt, frozen, cone, flavors other than chocolate|Frozen Yogurt, in Waffel, andere Aromen als Schokolade
+781183|Yogurt, frozen, cone, flavors other than chocolate, lowfat milk|Frozen Yogurt, in Waffel, andere Aromen als Schokolade, fettarme Milch
+781184|Yogurt, frozen, cone, chocolate, lowfat milk|Frozen Yogurt, in Waffel, Schokolade, fettarme Milch
 781509|Ice cream|Eiscreme
-781510|Ice cream, regular, flavors other than chocolate|Eis, normal, andere Aromen als Schokolade
+781510|Ice cream, regular, flavors other than chocolate|Eis, andere Aromen als Schokolade
 781511|Ice cream, regular, chocolate|Eis, normal, Schokolade
 781512|Ice cream, rich, flavors other than chocolate|Eis, reichhaltig, andere Aromen als Schokolade
 781513|Ice cream, rich, chocolate|Eis, reichhaltig, Schokolade
@@ -1846,45 +1845,45 @@
 781516|Ice cream, soft serve, chocolate|Eis, Softeis, Schokolade
 781519|Ice cream, no sugar added, flavors other than chocolate|Eis ohne Zuckerzusatz, andere Aromen als Schokolade
 781520|Ice cream, no sugar added, chocolate|Eis, ohne Zuckerzusatz, Schokolade
-781528|Ice cream bar, cake covered|Eisriegel, Kuchen bedeckt
+781528|Ice cream bar, cake covered|Eisriegel, Keksmantel
 781531|Ice cream sandwich|Eiscreme-Sandwich
-781532|Ice cream cookie sandwich|Eiscreme-Kekssandwich
-781536|Ice cream cone, no topping, flavors other than chocolate|Eistüte, kein Belag, andere Aromen als Schokolade
-781540|Ice cream cone, no topping, chocolate ice cream|Eistüte, kein Belag, Schokoladeneis
-781542|Ice cream sundae cone|Eisbecher
+781532|Ice cream cookie sandwich|Eiscreme-Keks-Sandwich
+781536|Ice cream cone, no topping, flavors other than chocolate|Eis in Waffel, andere Aromen als Schokolade
+781540|Ice cream cone, no topping, chocolate ice cream|Eis in Waffel, Schokolade
+781542|Ice cream sundae cone|Eis, Becher
 781547|Ice cream sundae, prepackaged type, flavors other than chocolate|Eisbecher, vorverpackt, andere Aromen als Schokolade
-781551|Ice cream pie, no crust|Eistorte, keine Kruste
-781553|Ice cream, fried|Eis, gebraten
-781554|Dippin' Dots, flash frozen ice cream snacks, flavors other than chocolate|Dippin &#39;Dots, tiefgefrorene Eiscremesnacks, andere Aromen als Schokolade
-781555|Dippin' Dots, flash frozen ice cream snacks, chocolate|Dippin &#39;Dots, tiefgefrorene Eiscremesnacks, Schokolade
-781557|Light ice cream, flavors other than chocolate|Leichtes Eis, andere Aromen als Schokolade
-781558|Light ice cream, chocolate|Leichtes Eis, Schokolade
-781560|Light ice cream, no sugar added, flavors other than chocolate|Leichtes Eis, ohne Zuckerzusatz, andere Aromen als Schokolade
-781561|Light ice cream, no sugar added, chocolate|Leichtes Eis, ohne Zuckerzusatz, Schokolade
-781563|Light ice cream, soft serve, flavors other than chocolate|Leichtes Eis, Softeis, andere Aromen als Schokolade
-781564|Light ice cream, soft serve, chocolate|Leichtes Eis, Softeis, Schokolade
-781565|Light ice cream, soft serve cone, flavors other than chocolate|Leichtes Eis, Softeistüte, andere Aromen als Schokolade
-781566|Light ice cream, soft serve cone, chocolate|Leichtes Eis, Softeistüte, Schokolade
-781574|Light ice cream, cone|Leichtes Eis, Tüte
-781575|Light ice cream, cone, flavors other than chocolate|Leichtes Eis, Tüte, andere Aromen als Schokolade
-781576|Light ice cream, cone, chocolate|Leichtes Eis, Tüte, Schokolade
-781578|Light ice cream, no sugar added, cone, flavors other than chocolate|Leichtes Eis, ohne Zuckerzusatz, Zapfen, andere Aromen als Schokolade
-781579|Light ice cream, no sugar added, cone, chocolate|Leichtes Eis, ohne Zuckerzusatz, Zapfen, Schokolade
-781584|Light ice cream, sundae, soft serve, fruit topping, without whipped cream|Leichtes Eis, Eisbecher, Softeis, Fruchtbelag, ohne Schlagsahne
-781588|Light ice cream, fudgesicle|Leichtes Eis, Fudgesicle
+781551|Ice cream pie, no crust|Eistorte, ungedeckt
+781553|Ice cream, fried|Frittiertes Speiseeis
+781554|Dippin' Dots, flash frozen ice cream snacks, flavors other than chocolate|Dippin Dots (tiefgefrorene Eiscremekugeln), andere Aromen als Schokolade
+781555|Dippin' Dots, flash frozen ice cream snacks, chocolate|Dippin Dots (tiefgefrorene Eiscremekugeln), Schokolade
+781557|Light ice cream, flavors other than chocolate|fettarmes Eis, andere Aromen als Schokolade
+781558|Light ice cream, chocolate|fettarmes Eis, Schokolade
+781560|Light ice cream, no sugar added, flavors other than chocolate|fettarmes Eis, ohne Zuckerzusatz, andere Aromen als Schokolade
+781561|Light ice cream, no sugar added, chocolate|fettarmes Eis, ohne Zuckerzusatz, Schokolade
+781563|Light ice cream, soft serve, flavors other than chocolate|fettarmes Softeis, andere Aromen als Schokolade
+781564|Light ice cream, soft serve, chocolate|fettarmes Softeis, Schokolade
+781565|Light ice cream, soft serve cone, flavors other than chocolate|fettarmes Softeis in Waffel, andere Aromen als Schokolade
+781566|Light ice cream, soft serve cone, chocolate|fettarmes Softeis in Waffel, Schokolade
+781574|Light ice cream, cone|fettarmes Eis in Waffel
+781575|Light ice cream, cone, flavors other than chocolate|fettarmes Eis in Waffel, andere Aromen als Schokolade
+781576|Light ice cream, cone, chocolate|fettarmes Eis in Waffel, Schokolade
+781578|Light ice cream, no sugar added, cone, flavors other than chocolate|fettarmes Eis in Waffel, ohne Zuckerzusatz, andere Aromen als Schokolade
+781579|Light ice cream, no sugar added, cone, chocolate|fettarmes Eis in Waffel, ohne Zuckerzusatz, Schokolade
+781584|Light ice cream, sundae, soft serve, fruit topping, without whipped cream|fettarmes Softeis, Becher, Fruchttopping, ohne Schlagsahne
+781588|Light ice cream, fudgesicle|fettarmes Eis, Karamelltopping
 781590|Sherbet, all flavors|Sorbet, alle Geschmacksrichtungen
-781591|Fat free ice cream, no sugar added, chocolate|Fettfreies Eis, ohne Zuckerzusatz, Schokolade
-781592|Fat free ice cream, no sugar added, flavors other than chocolate|Fettfreies Eis ohne Zuckerzusatz, andere Aromen als Schokolade
-781593|Fat free ice cream, flavors other than chocolate|Fettfreies Eis, andere Aromen als Schokolade
-781594|Fat free ice cream, chocolate|Fettfreies Eis, Schokolade
-781596|Milk dessert bar, frozen, made from lowfat milk|Milchdessertbar, gefroren, hergestellt aus fettarmer Milch
-781597|Milk dessert sandwich bar, frozen, made from lowfat milk|Milchdessert-Sandwichbar, gefroren, hergestellt aus fettarmer Milch
-781601|Baked Alaska|Baked Alaska
+781591|Fat free ice cream, no sugar added, chocolate|fettfreies Eis, ohne Zuckerzusatz, Schokolade
+781592|Fat free ice cream, no sugar added, flavors other than chocolate|fettfreies Eis ohne Zuckerzusatz, andere Aromen als Schokolade
+781593|Fat free ice cream, flavors other than chocolate|fettfreies Eis, andere Aromen als Schokolade
+781594|Fat free ice cream, chocolate|fettfreies Eis, Schokolade
+781596|Milk dessert bar, frozen, made from lowfat milk|Milchdessertriegel, gefroren, fettarme Milch
+781597|Milk dessert sandwich bar, frozen, made from lowfat milk|Milchdessert-Sandwich-riegel, gefroren, fettarme Milch
+781601|Baked Alaska|Baked Alaska (diverses Creme-/Fruchteis geschichtet)
 781602|Pudding|Pudding
-781603|Pudding, bread|Pudding, Brot
+781603|Pudding, bread|Semmelauflauf/Semmelschmarn/Puddingbrot
 781605|Diplomat pudding, Puerto Rican style|Diplomatenpudding nach puertoricanischer Art
-781606|Pudding, Mexican bread|Pudding, mexikanisches Brot
-781607|Pudding, Mexican bread, low fat|Pudding, mexikanisches Brot, fettarm
+781606|Pudding, Mexican bread|Capirotada (mexikanischer Semmelauflauf)
+781607|Pudding, Mexican bread, low fat|Capirotada (mexikanischer Semmelauflauf)Capirotada (mexikanischer Semmelauflauf), fettarm
 781610|Rice flour cream, Puerto Rican style|Reismehlcreme nach puertoricanischer Art
 781611|Custard, Puerto Rican style|Vanillesoße im puertoricanischen Stil
 781614|Custard|Pudding
@@ -1894,23 +1893,23 @@
 781623|Pudding, pumpkin|Pudding, Kürbis
 781624|Pumpkin pudding, Puerto Rican style|Kürbispudding nach puertoricanischer Art
 781625|Fresh corn custard, Puerto Rican style|Frischer Maispudding nach puertoricanischer Art
-781626|Pudding, flavors other than chocolate, prepared from dry mix, milk added|Pudding, andere Aromen als Schokolade, hergestellt aus trockener Mischung, Milch hinzugefügt
-781627|Pudding, chocolate, prepared from dry mix, milk added|Pudding, Schokolade, hergestellt aus trockener Mischung, Milch hinzugefügt
-781628|Pudding, flavors other than chocolate, prepared from dry mix, low calorie, containing artificial sweetener, milk added|Pudding, andere Aromen als Schokolade, hergestellt aus trockener Mischung, kalorienarm, mit künstlichem Süßstoff, Milchzusatz
-781629|Pudding, chocolate, prepared from dry mix, low calorie, containing artificial sweetener, milk added|Pudding, Schokolade, hergestellt aus Trockenmischung, kalorienarm, mit künstlichem Süßstoff, Milchzusatz
-781630|Pudding, ready-to-eat, chocolate, reduced fat|Pudding, verzehrfertig, Schokolade, fettarm
-781631|Pudding, ready-to-eat, chocolate, fat free|Pudding, verzehrfertig, schokoladenfrei, fettfrei
-781632|Pudding, ready-to-eat, flavors other than chocolate, reduced fat|Pudding, verzehrfertig, andere Aromen als Schokolade, weniger Fett
-781633|Pudding, ready-to-eat, flavors other than chocolate, fat free|Pudding, verzehrfertig, andere Aromen als Schokolade, fettfrei
-781634|Pudding, ready-to-eat, flavors other than chocolate|Pudding, verzehrfertig, andere Aromen als Schokolade
-781635|Pudding, ready-to-eat, low calorie, containing artificial sweetener, flavors other than chocolate|Pudding, verzehrfertig, kalorienarm, mit künstlichem Süßstoff, anderen Aromen als Schokolade
-781636|Pudding, ready-to-eat, chocolate|Pudding, verzehrfertig, Schokolade
-781637|Pudding, ready-to-eat, low calorie, containing artificial sweetener, chocolate|Pudding, verzehrfertig, kalorienarm, mit künstlichem Süßstoff, Schokolade
-781639|Pudding, ready-to-eat, tapioca|Pudding, verzehrfertig, Tapioka
-781640|Pudding, ready-to-eat, tapioca, fat free|Pudding, verzehrfertig, Tapioka, fettfrei
+781626|Pudding, flavors other than chocolate, prepared from dry mix, milk added|Pudding, andere Aromen als Schokolade
+781627|Pudding, chocolate, prepared from dry mix, milk added|Pudding, Schokolade
+781628|Pudding, flavors other than chocolate, prepared from dry mix, low calorie, containing artificial sweetener, milk added|Pudding, andere Aromen als Schokolade, kalorienarm, süßstoff
+781629|Pudding, chocolate, prepared from dry mix, low calorie, containing artificial sweetener, milk added|Pudding, Schokolade, hergestellt aus Trockenmischung, kalorienarm, süßstoff
+781630|Pudding, ready-to-eat, chocolate, reduced fat|Pudding, Schokolade, fettarm
+781631|Pudding, ready-to-eat, chocolate, fat free|Pudding, schokoladenfrei, fettfrei
+781632|Pudding, ready-to-eat, flavors other than chocolate, reduced fat|Pudding, andere Aromen als Schokolade, fettarm
+781633|Pudding, ready-to-eat, flavors other than chocolate, fat free|Pudding, andere Aromen als Schokolade, fettfrei
+781634|Pudding, ready-to-eat, flavors other than chocolate|Pudding, andere Aromen als Schokolade
+781635|Pudding, ready-to-eat, low calorie, containing artificial sweetener, flavors other than chocolate|Pudding, kalorienarm, süßstoff, anderen Aromen als Schokolade
+781636|Pudding, ready-to-eat, chocolate|Pudding, Schokolade
+781637|Pudding, ready-to-eat, low calorie, containing artificial sweetener, chocolate|Pudding, kalorienarm, Süßstoff, Schokolade
+781639|Pudding, ready-to-eat, tapioca|Pudding, Tapioka
+781640|Pudding, ready-to-eat, tapioca, fat free|Pudding, Tapioka, fettfrei
 781642|Mousse, chocolate|Mousse, Schokolade
 781643|Mousse, not chocolate|Mousse, keine Schokolade
-781644|Mousse, chocolate, lowfat, reduced calorie, prepared from dry mix, water added|Mousse, Schokolade, fettarm, kalorienreduziert, hergestellt aus Trockenmischung, Wasser hinzugefügt
+781644|Mousse, chocolate, lowfat, reduced calorie, prepared from dry mix, water added|Mousse, Schokolade, fettarm, kalorienreduziert
 781645|Coconut custard, Puerto Rican style|Kokosnusspudding nach puertoricanischer Art
 783960|Egg dessert, Puerto Rican style|Eierdessert nach puertoricanischer Art
 783961|Zabaglione|Zabaglione
@@ -1921,24 +1920,24 @@
 785074|Pastry, puff|Gebäck, Blätterteig
 785076|Cheese pastry puffs|Käsegebäck
 785080|Breakfast pastry|Frühstücksgebäck
-785085|Doughnut, cake type|Donut, Kuchentyp
-785086|Doughnut, chocolate, cake type|Donut, Schokolade, Kuchentyp
-785087|Doughnut, cake type, chocolate covered|Donut, Kuchentyp, mit Schokolade paniert
+785085|Doughnut, cake type|Donut, kuchenteig
+785086|Doughnut, chocolate, cake type|Donut, Schokolade, kuchenteig
+785087|Doughnut, cake type, chocolate covered|Donut, Kuchenteig, mit Schokolade umhüllt
 785090|Churros|Churros
 785091|Doughnut, Asian|Donut, asiatisch
 785092|Cruller|Cruller
 785093|French cruller|Französischer Cruller
-785098|Doughnut, jelly|Donut, Gelee
+785098|Doughnut, jelly|Krapfen (Berliner)
 785099|Doughnut, custard-filled|Donut, mit Pudding gefüllt
 785100|Doughnut, chocolate cream-filled|Donut, mit Schokoladencreme gefüllt
 785102|Breakfast tart|Frühstückstorte
 785103|Breakfast tart, lowfat|Frühstückstorte, fettarm
-785526|Rice, frozen dessert, nondairy, flavors other than chocolate|Reis, gefrorenes Dessert, Nichtmilch, andere Aromen als Schokolade
-785530|Rice dessert bar, frozen, flavors other than chocolate, nondairy, carob covered|Reisdessertbar, gefroren, andere Aromen als Schokolade, Nichtmilch, Johannisbrot
-785531|Rice dessert bar, frozen, chocolate, nondairy, chocolate covered|Reisdessertbar, gefroren, Schokolade, Nichtmilch, Schokolade paniert
+785526|Rice, frozen dessert, nondairy, flavors other than chocolate|Reis, gefrorenes Dessert, ohne Milch, andere Aromen als Schokolade
+785530|Rice dessert bar, frozen, flavors other than chocolate, nondairy, carob covered|Reisdessert-Riegel, gefroren, andere Aromen als Schokolade, ohne Milch, Johannisbrot
+785531|Rice dessert bar, frozen, chocolate, nondairy, chocolate covered|Reisdessert-Riegel, gefroren, Schokolade, ohne Milch, Schokolade paniert
 786013|Cornstarch coconut dessert, Puerto Rican style|Maisstärke-Kokosnussdessert nach puertoricanischer Art
 786014|Cornmeal coconut dessert, Puerto Rican style|Maismehl-Kokosnuss-Dessert nach puertoricanischer Art
-786028|Pastry, cheese-filled|Mit Käse gefülltes Gebäck
+786028|Pastry, cheese-filled|Gebäck, käsefüllung
 786315|Spicy rice pudding, Puerto Rican style|Würziger Milchreis nach puertoricanischer Art
 786545|Calamondin|Calamondin
 786546|Grapefruit|Grapefruit
@@ -1946,14 +1945,14 @@
 786556|Lemon|Zitrone
 786558|Lime|Limette
 786559|Orange|Orange
-786560|Orange, sections, canned, juice pack|Orange, Schnitte, Dosen, Saftpackung
+786560|Orange, sections, canned, juice pack|Orange, eingelegt
 786565|Tangelo|Tangelo
 786566|Tangerine|Mandarine
 786588|Fruit, dried, uncooked|Obst, getrocknet, ungekocht
 786589|Fruit mixture, dried|Fruchtmischung, getrocknet
 786590|Apple, dried, uncooked|Apfel, getrocknet, ungekocht
 786592|Apple, dried, cooked, unsweetened|Apfel, getrocknet, gekocht, ungesüßt
-786594|Apple chips|Apple-Chips
+786594|Apple chips|Apfelchips
 786595|Apricot, dried, uncooked|Aprikose, getrocknet, ungekocht
 786597|Apricot, dried, cooked, unsweetened|Aprikose, getrocknet, gekocht, ungesüßt
 786599|Blueberries, dried|Blaubeeren, getrocknet
@@ -1962,7 +1961,7 @@
 786602|Banana chips|Bananenchips
 786603|Currants, dried|Johannisbeeren, getrocknet
 786604|Cranberries, dried|Preiselbeeren, getrocknet
-786605|Date|Datum
+786605|Date|Dattel
 786606|Fig, dried, uncooked|Feige, getrocknet, ungekocht
 786608|Fig, dried, cooked, unsweetened|Feige, getrocknet, gekocht, ungesüßt
 786610|Lychee, dried|Litschi, getrocknet
@@ -1974,8 +1973,8 @@
 786619|Pear, dried, cooked, unsweetened|Birne, getrocknet, gekocht, ungesüßt
 786621|Pineapple, dried|Ananas, getrocknet
 786622|Plum, rock salt, dried|Pflaume, Steinsalz, getrocknet
-786623|Prune, dried, uncooked|Beschneiden, getrocknet, ungekocht
-786625|Prune, dried, cooked, unsweetened|Beschneiden, getrocknet, gekocht, ungesüßt
+786623|Prune, dried, uncooked|Dörrpflaume, getrocknet, ungekocht
+786625|Prune, dried, cooked, unsweetened|Dörrpflaume, getrocknet, gekocht, ungesüßt
 786627|Raisins|Rosinen
 786628|Raisins, cooked|Rosinen, gekocht
 786629|Tamarind pulp, dried, sweetened|Tamarindenpulpe, getrocknet, gesüßt
@@ -1987,35 +1986,35 @@
 786643|Apple, fried|Apfel, gebraten
 786644|Apricot|Aprikose
 786652|Banana|Banane
-786653|Banana, white, Guineo blanco maduro|Banane, weiß, reife weiße Banane
+786653|Banana, white, Guineo blanco maduro|Banane, reif
 786654|Banana, Chinese|Banane, Chinesisch
-786655|Banana, red, Guineo morado|Banane, rote, lila Banane
+786655|Banana, red, Guineo morado|Banane, rot
 786656|Banana, red, fried|Banane, rot, gebraten
 786657|Banana, baked|Banane, gebacken
 786658|Banana, ripe, fried|Banane, reif, gebraten
 786659|Banana, ripe, boiled|Banane, reif, gekocht
-786660|Banana, batter-dipped, fried|Banane, Teig getaucht, gebraten
-786661|Cantaloupe|Cantaloup-Melone
-786662|Cantaloupe, frozen|Cantaloupe, gefroren
+786660|Banana, batter-dipped, fried|Banane, in Teig gebraten
+786661|Cantaloupe|Cantaloup-Melone (Zuckermelone)
+786662|Cantaloupe, frozen|Cantaloupe (Zuckermelone), gefroren
 786663|Starfruit|Sternfrucht
 786665|Cassaba melon|Cassaba Melone
 786666|Cherries, maraschino|Kirschen, Maraschino
 786667|Cherries, sour, red|Kirschen, sauer, rot
 786669|Cherries, sour, red, cooked, unsweetened|Kirschen, sauer, rot, gekocht, ungesüßt
 786670|Cherries, sweet|Kirschen, süß
-786672|Cherries, sweet, cooked, unsweetened, water pack|Kirschen, süß, gekocht, ungesüßt, Wasserpackung
+786672|Cherries, sweet, cooked, unsweetened, water pack|Kirschen, süß, gekocht, ungesüßt, flüssig Verpackt
 786677|Cherries, frozen|Kirschen, gefroren
 786678|Currants|Johannisbeeren
 786679|Fig|Feige
-786685|Grapes, European type, adherent skin|Trauben, europäischer Typ, haftende Haut
-786686|Grapes, American type, slip skin|Trauben, amerikanischer Typ, rutschige Haut
+786685|Grapes, European type, adherent skin|Trauben, europäischer Typ (pelzige Haut)
+786686|Grapes, American type, slip skin|Trauben, amerikanischer Typ (glatte Haut)
 786690|Guava|Guave
 786692|Juneberry|Juneberry
 786693|Kiwi fruit|Kiwi
 786694|Lychee|Litschi
 786696|Longans|Longans
 786697|Honeydew melon|Honigmelone
-786698|Honeydew, frozen|Honigtau, gefroren
+786698|Honeydew, frozen|Honigmelone, gefroren
 786699|Mango|Mango
 786700|Mango, pickled|Mango, eingelegt
 786701|Mango, cooked|Mango, gekocht
@@ -2030,7 +2029,7 @@
 786719|Peach, spiced|Pfirsich, gewürzt
 786720|Pear|Birne
 786721|Pear, Japanese|Birne, Japanisch
-786728|Persimmon|Persimmon
+786728|Persimmon|Kaki
 786729|Pineapple|Ananas
 786736|Plum|Pflaume
 786743|Plum, pickled|Pflaume, eingelegt
@@ -2060,12 +2059,12 @@
 786796|Strawberries, frozen, unsweetened|Erdbeeren, gefroren, ungesüßt
 786798|Youngberries|Youngberries
 786799|Ambrosia|Ambrosia
-786800|Cranberry-orange relish, uncooked|Cranberry-Orangen-Relish, ungekocht
+786800|Cranberry-orange relish, uncooked|Cranberry-Orangen-Relish (Würzsoße), ungekocht
 786801|Cranberry-raspberry Sauce|Cranberry-Himbeer-Sauce
 786812|Fruit salad, Puerto Rican style|Obstsalat nach puertoricanischer Art
 786814|Apple, candied|Apfel, kandiert
 786815|Fruit, chocolate covered|Obst, Schokolade paniert
-786817|Banana whip|Bananenpeitsche
+786817|Banana whip|Banane, gefroren
 786818|Prune whip|Pflaumenpudding
 786819|Fried dwarf banana, Puerto Rican style|Gebratene Zwergbanane nach puertoricanischer Art
 786832|Lime souffle|Kalkatem
@@ -2075,7 +2074,7 @@
 786842|Sorbet, fruit, noncitrus flavor|Sorbet, Obst, Nicht-Zitrus-Geschmack
 786843|Sorbet, fruit, citrus flavor|Sorbet, Obst, Zitrusgeschmack
 787199|Beet greens|Rübengrün
-787206|Broccoli raab|Brokkoli-Raab
+787206|Broccoli raab|Stängelkohl
 787213|Chard|Mangold
 787220|Collards|Collards
 787245|Cress|Kresse
@@ -2088,21 +2087,21 @@
 787555|Carrots, cooked, from frozen, glazed|Karotten, gekocht, gefroren, glasiert
 787556|Carrots, cooked, from canned, glazed|Karotten, gekocht, aus der Dose, glasiert
 787621|Calabaza, cooked|Kürbis, gekocht
-787628|Squash, winter type|Squash, Wintertyp
+787628|Squash, winter type|Kürbis (Wintertyp)
 787640|Sweet potato|Süßkartoffel
 787659|Sweet potato, candied|Süßkartoffel, kandiert
 787664|Sweet potato fries|Süßkartoffelpommes
-787667|Sweet potato fries, frozen, fried|Süßkartoffel-Pommes, gefroren, gebraten
+787667|Sweet potato fries, frozen, fried|Süßkartoffel-Pommes, gefroren, frittiert
 787668|Sweet potato fries, frozen, baked|Süßkartoffel-Pommes, gefroren, gebacken
-787669|Sweet potato fries, from fresh, fried|Süßkartoffel-Pommes, frisch, gebraten
+787669|Sweet potato fries, from fresh, fried|Süßkartoffel-Pommes, frisch, frittiert
 787670|Sweet potato fries, from fresh, baked|Süßkartoffel-Pommes, frisch, gebacken
-787671|Sweet potato fries, fast food / restaurant|Süßkartoffel Pommes, Fast Food / Restaurant
-787672|Sweet potato fries, school|Süßkartoffel-Pommes, Schule
-787673|Sweet potato tots|Süßkartoffel-Tots
-787674|Sweet potato tots, from frozen, fried|Süßkartoffel-Tots, gefroren, gebraten
-787675|Sweet potato tots, from frozen, baked|Süßkartoffel-Tots, gefroren, gebacken
-787677|Sweet potato tots, fast food / restaurant|Süßkartoffeln, Fast Food / Restaurant
-787678|Sweet potato tots, school|Süßkartoffelkleine, Schule
+787671|Sweet potato fries, fast food / restaurant|Süßkartoffel Pommes, Fast-Food/Restaurant
+787672|Sweet potato fries, school|Süßkartoffel-Pommes, Mensa
+787673|Sweet potato tots|Süßkartoffel-Pops
+787674|Sweet potato tots, from frozen, fried|Süßkartoffel-Pops, gefroren, frittiert
+787675|Sweet potato tots, from frozen, baked|Süßkartoffel-Pops, gefroren, gebacken
+787677|Sweet potato tots, fast food / restaurant|Süßkartoffeln, Fast-Food/Restaurant
+787678|Sweet potato tots, school|Süßkartoffel-Pops, Schule
 787679|Sweet potato, yellow, Puerto Rican, cooked|Süßkartoffel, gelb, puertoricanisch, gekocht
 787683|Tomatoes|Tomaten
 787689|Tomatoes, from fresh, broiled|Tomaten, frisch, gegrillt
@@ -2118,32 +2117,32 @@
 789191|Yokan|Yokan
 789193|Pineapple custard, Puerto Rican style|Ananas-Vanillepudding nach puertoricanischer Art
 789194|Haupia|Haupia
-789195|Gelatin, frozen, whipped, on a stick|Gelatine, gefroren, geschlagen, am Stiel
+789195|Gelatin, frozen, whipped, on a stick|Eiscreme am Stiel
 789196|Ice, fruit|Eis, Obst
 789197|Ice pop|Eis am Stiel
-789200|Snow cone|Schneekegel
+789200|Snow cone|Slush-Eis (Schneekegel)
 789201|Candy|Süßigkeiten
-789202|M&M's Almond Chocolate Candies|Mandel-Pralinen von M &amp; M.
-789203|Almonds, chocolate covered|Mandeln, Schokolade paniert
-789204|Almonds, sugar-coated|Mandeln, mit Zucker paniert
-789205|Almonds, yogurt-covered|Mit Joghurt panierte Mandeln
+789202|M&M's Almond Chocolate Candies|M&M, Mandel
+789203|Almonds, chocolate covered|Mandeln, schokoliert
+789204|Almonds, sugar-coated|gebrannte Mandeln
+789205|Almonds, yogurt-covered|Mandel, Yogurthülle
 789206|Butterscotch morsels|Butterscotch Bissen
-789207|Caramel, chocolate-flavored roll|Karamell, Brötchen mit Schokoladengeschmack
-789208|Caramel, flavor other than chocolate|Karamell, anderer Geschmack als Schokolade
-789210|Caramel candy, chocolate covered|Karamellbonbons, mit Schokolade paniert
-789213|Rolo|Rollen
+789207|Caramel, chocolate-flavored roll|Karamellriegel, schokoliert
+789208|Caramel, flavor other than chocolate|Karamell, ohne Schokolade
+789210|Caramel candy, chocolate covered|Karamellbonbons, schokoliert
+789213|Rolo|Schokoladenpraline
 789214|Caramel, all flavors, sugar free|Karamell, alle Geschmacksrichtungen, zuckerfrei
 789216|TWIX Caramel Cookie Bars|TWIX Karamell-Keksriegel
 789217|TWIX Chocolate Fudge Cookie Bars|TWIX Schokoladenfondant-Keksriegel
 789218|TWIX Peanut Butter Cookie Bars|TWIX Erdnussbutter-Keksriegel
-789219|Whatchamacallit|Dingenskirchen
-789220|Nuts, carob-coated|Muttern, mit Johannisbrot paniert
+789219|Whatchamacallit|Keks-Schokoladenriegel
+789220|Nuts, carob-coated|Nüsse, mit Johannisbrot paniert
 789221|Espresso coffee beans, chocolate-covered|Espresso-Kaffeebohnen mit Schokoladenüberzug
-789222|Milk chocolate candy, plain|Milchschokolade, schlicht
-789224|Kit Kat|Kit Kat
+789222|Milk chocolate candy, plain|Milchschokolade
+789224|Kit Kat|Kit-Kat
 789230|Chocolate, semi-sweet morsel|Schokolade, halbsüßes Stückchen
 789233|Chocolate, white|Schokolade, weiß
-789236|Kit Kat White|Kit Kat White
+789236|Kit Kat White|Kit-Kat, weiß
 789237|Mexican chocolate, tablet|Mexikanische Schokolade, Tablette
 789238|Coconut candy, chocolate covered|Kokosnussbonbons, mit Schokolade paniert
 789239|Coconut candy, no chocolate covering|Kokosnussbonbons, kein Schokoladenüberzug
@@ -2155,49 +2154,49 @@
 789245|Soft fruit confections|Weichobstkonfekt
 789247|Fun Fruits Creme Supremes|Fun Fruits Creme Supremes
 789248|Tamarind candy|Tamarindensüßigkeiten
-789252|Gumdrops, chocolate covered|Gummibärchen, mit Schokolade paniert
-789253|Fudge, chocolate, chocolate-coated|Fudge, Schokolade, schokoladenpaniert
-789255|Fudge, chocolate|Fudge, Schokolade
-789257|Fudge, peanut butter|Fudge, Erdnussbutter
-789259|Fudge, vanilla|Fudge, Vanille
-789261|Fudge, divinity|Fudge, Göttlichkeit
-789262|Fudge, brown sugar, penuche|Fudge, brauner Zucker, Penuche
-789264|SNICKERS Bar|SNICKERS Bar
-789265|Baby Ruth|Baby Ruth
-789266|100 GRAND Bar|100 BIG Bar
-789267|Halvah, plain|Halwa, schlicht
-789268|Halvah, chocolate covered|Halwa, mit Schokolade paniert
+789252|Gumdrops, chocolate covered|Gummibärchen, Schokoladenmantel
+789253|Fudge, chocolate, chocolate-coated|Karamell, Schokolade, schokoladenpaniert
+789255|Fudge, chocolate|Karamell, Schokolade
+789257|Fudge, peanut butter|Karamell, Erdnussbutter
+789259|Fudge, vanilla|Karamell, Vanille
+789261|Fudge, divinity|Fudge, Göttlichkeit (Maissirup)
+789262|Fudge, brown sugar, penuche|FudgKaramell, brauner Zucker, Penuche
+789264|SNICKERS Bar|SNICKERS
+789265|Baby Ruth|Baby Ruth (Schokoladenriegel)
+789266|100 GRAND Bar|100-Grand-Bar (Schokoladenriegel)
+789267|Halvah, plain|Halwa
+789268|Halvah, chocolate covered|Halwa, Schokoladenmantel
 789271|Butterfinger|Butterfinger
 789272|Butterfinger Crisp|Butterfinger Crisp
 789273|Chocolate-flavored sprinkles|Streusel mit Schokoladengeschmack
 789274|Ladoo, round ball, Asian-Indian dessert|Ladoo, runder Ball, asiatisch-indisches Dessert
 789275|Licorice|Lakritze
-789276|Marshmallow|Mäusespeck
-789277|Marshmallow, chocolate covered|Marshmallow, mit Schokolade paniert
-789278|Marshmallow, candy-coated|Marshmallow, mit Süßigkeiten paniert
-789279|Marshmallow, coconut-coated|Marshmallow, mit Kokosnuss paniert
-789280|Nougat, plain|Nougat, schlicht
-789282|MILKY WAY Bar|MILKY WAY Bar
-789283|MILKY WAY MIDNIGHT Bar|MILKY WAY MIDNIGHT Bar
-789284|MARS Almond Bar|MARS Mandelbar
-789285|Nougat, chocolate covered|Nougat, mit Schokolade paniert
-789286|3 MUSKETEERS Bar|3 MUSKETEERS Bar
+789276|Marshmallow|Marshmallow
+789277|Marshmallow, chocolate covered|Marshmallow, Schokoladenmantel
+789278|Marshmallow, candy-coated|Marshmallow, Süßgikeitenmantel
+789279|Marshmallow, coconut-coated|Marshmallow, Kokosmantel
+789280|Nougat, plain|Nougat
+789282|MILKY WAY Bar|MILKY WAY
+789283|MILKY WAY MIDNIGHT Bar|MILKY WAY MIDNIGHT
+789284|MARS Almond Bar|MARS, Mandelbar
+789285|Nougat, chocolate covered|Nougat, Schokoliert
+789286|3 MUSKETEERS Bar|3 MUSKETEERS
 789287|3 Musketeers Truffle Crisp Bar|3 Musketiere Trüffel Crisp Bar
-789291|Peanuts, chocolate covered|Erdnüsse, Schokolade paniert
-789292|M&M's Peanut Chocolate Candies|Erdnuss-Pralinen von M &amp; M.
-789293|M&M's Peanut Butter Chocolate Candies|Erdnussbutter-Pralinen von M &amp; M.
-789294|Peanuts, sugar-coated|Erdnüsse, mit Zucker paniert
-789295|Peanuts, yogurt covered|Erdnüsse, Joghurt bedeckt
+789291|Peanuts, chocolate covered|Erdnüsse, schokoliert
+789292|M&M's Peanut Chocolate Candies|M&M, Erdnuss
+789293|M&M's Peanut Butter Chocolate Candies|M&M, Erdnussbutter
+789294|Peanuts, sugar-coated|gebrannte Erdnüsse
+789295|Peanuts, yogurt covered|Erdnüsse, Joghurtmantel
 789296|Peanut bar|Erdnussriegel
-789297|Planters Peanut Bar|Pflanzer Erdnuss Bar
+789297|Planters Peanut Bar|Erdnuss-Riegel
 789298|Peanut brittle|Erdnusskrokant
-789299|Peanut Bar, chocolate covered candy|Erdnussriegel, mit Schokolade panierte Süßigkeiten
-789300|Peanut butter, chocolate covered|Erdnussbutter, Schokolade paniert
-789301|Reese's Peanut Butter Cup|Reese&#39;s Peanut Butter Cup
+789299|Peanut Bar, chocolate covered candy|Erdnussriegel, Schokoladen-Süßigkeitenmantel
+789300|Peanut butter, chocolate covered|Erdnussbutter, schokoliert
+789301|Reese's Peanut Butter Cup|Erdnussbutter-Schokoladenriegel (Reeses)
 789302|Reese's Pieces|Reeses Stücke
-789303|Reese's Sticks|Reese&#39;s Sticks
+789303|Reese's Sticks|Reeses Sticks
 789304|Reese's Fast Break|Reeses schnelle Pause
-789305|Reese's Crispy Crunchy Bar|Reese&#39;s Crispy Crunchy Bar
+789305|Reese's Crispy Crunchy Bar|Reeses Crispy Crunchy Bar
 789306|Peanut butter morsels|Erdnussbutterstückchen
 789307|Pralines|Pralinen
 789308|Pineapple candy, Puerto Rican style|Ananasbonbons nach puertoricanischer Art
@@ -2209,27 +2208,27 @@
 789314|Butterscotch hard candy|Butterscotch Bonbons
 789315|Skittles|Kegelspiel
 789316|Sugar-coated chocolate discs|Mit Zucker panierte Schokoladenscheiben
-789317|M&M's Milk Chocolate Candies|Milchschokoladen von M &amp; M.
+789317|M&M's Milk Chocolate Candies|M&M, Milchschokolade
 789318|Sixlets|Sixlets
-789319|Easter egg, candy coated chocolate|Osterei, mit Süßigkeiten panierte Schokolade
-789320|M&M's Pretzel Chocolate Candies|Brezel-Pralinen von M &amp; M.
+789319|Easter egg, candy coated chocolate|Osterei, Zuckermantel
+789320|M&M's Pretzel Chocolate Candies|M&M, Brezel-Schoko
 789321|Taffy|Toffee
-789322|Toffee, plain|Toffee, schlicht
-789323|Toffee, chocolate covered|Toffee, Schokolade paniert
+789322|Toffee, plain|Toffee
+789323|Toffee, chocolate covered|Toffee, schokoliert
 789325|Truffles|Trüffel
-789326|Wax candy, liquid filled|Wachssüßigkeiten, mit Flüssigkeit gefüllt
+789326|Wax candy, liquid filled|Wachssüßigkeiten
 789332|Chewing gum|Kaugummi
 789333|Chewing gum, regular|Kaugummi
 789334|Chewing gum, sugar free|Kaugummi, zuckerfrei
 786651|Avocado|Avocado
 787166|Green plantains, boiled|Grüne Kochbananen, gekocht
-787167|Fried green plantain, Puerto Rican style|Gebratene grüne Wegerich nach puertoricanischer Art
-787168|Ripe plantain|Reife Wegerich
+787167|Fried green plantain, Puerto Rican style|Banane, grün, frittiert nach puertoricanischer Art
+787168|Ripe plantain|Reife Banane
 787169|Ripe plantain, boiled|Reife Kochbanane, gekocht
-787170|Fried ripe plantain, Puerto Rican style|Gebratene reife Wegerich nach puertoricanischer Art
-787172|Candied ripe plantain, Puerto Rican style|Kandierte reife Wegerich im puertoricanischen Stil
+787170|Fried ripe plantain, Puerto Rican style|Reife Kochbanane, frittiert nach puertoricanischer Art
+787172|Candied ripe plantain, Puerto Rican style|Reife Kochbanane, kandiert im puertoricanischen Stil
 787175|Green banana, fried|Grüne Banane, gebraten
-787183|Yuca fries|Yuca Pommes
+787183|Yuca fries|Maniok-Pommes
 787186|Yam, cooked, Puerto Rican|Yam, gekocht, puertoricanisch
 787188|Tannier, cooked|Gerber, gekocht
 787189|Celeriac, cooked|Knollensellerie, gekocht
@@ -2238,7 +2237,7 @@
 787192|Taro, baked|Taro, gebacken
 787193|Starchy vegetables, Puerto Rican style|Stärkehaltiges Gemüse nach puertoricanischer Art
 787196|Fufu|Fufu
-787197|Poi|Dann
+787197|Poi|Poi
 787271|Romaine lettuce|Römersalat
 787372|Radicchio|Radicchio
 787455|Watercress|Brunnenkresse
@@ -2252,7 +2251,7 @@
 787773|Artichoke, Jerusalem|Artischocke, Jerusalem
 787774|Asparagus|Spargel
 787775|Bean sprouts|Bohnensprossen
-787776|Beans, string, green|Bohnen, Schnur, grün
+787776|Beans, string, green|Stangenbohnen, grün
 787777|Beets|Rüben
 787778|Broccoflower|Broccoflower
 787779|Brussels sprouts|Rosenkohl
@@ -2268,7 +2267,7 @@
 787792|Eggplant|Aubergine
 787794|Jicama|Jicama
 787795|Kohlrabi|Kohlrabi
-787796|Leek|Schien
+787796|Leek|Lauch
 787797|Lettuce|Grüner Salat
 787798|Lettuce, Boston|Kopfsalat, Boston
 787799|Lettuce, manoa|Kopfsalat, Manoa
@@ -2286,23 +2285,23 @@
 787814|Radish|Rettich
 787815|Rutabaga|Steckrübe
 787816|Seaweed|Seetang
-787817|Snowpeas|Schneeerbsen
-787818|Squash, summer, yellow|Kürbis, Sommer, gelb
-787819|Squash, summer, green|Kürbis, Sommer, grün
+787817|Snowpeas|Zuckererbse
+787818|Squash, summer, yellow|Sommerkürbis, gelb
+787819|Squash, summer, green|Sommerkürbis, grün
 787820|Turnip|Steckrübe
-788055|Breadfruit, fried|Brotfrucht, gebraten
+788055|Breadfruit, fried|Brotfrucht, frittiert
 788178|Corn, dried, cooked|Mais, getrocknet, gekocht
 788204|Corn, yellow, from canned, cream style|Mais, gelb, aus der Dose, cremefarben
 788256|Corn, white, from canned, cream style|Mais, weiß, aus der Dose, cremefarben
 788313|Mushroom, Asian, cooked, from dried|Pilz, asiatisch, gekocht, aus getrocknet
-788363|Onions, pearl, cooked, from fresh|Zwiebeln, Perle, gekocht, frisch
-788364|Onions, pearl, cooked, from frozen|Zwiebeln, Perle, gekocht, aus gefrorenem
-788365|Onions, pearl, cooked, from canned|Zwiebeln, Perle, gekocht, aus der Dose
+788363|Onions, pearl, cooked, from fresh|Perlzwiebel, gekocht, frisch
+788364|Onions, pearl, cooked, from frozen|Perlzwiebel, gekocht, tiefgefroren
+788365|Onions, pearl, cooked, from canned|Perlzwiebel, gekocht, aus der Dose
 788562|Water chestnut|Wasserkastanie
 788563|Winter melon, cooked|Wintermelone, gekocht
 781277|Fruit smoothie|Fruchtsmoothie
-781468|Cream, light|Creme, leicht
-781472|Cream, heavy|Sahne, schwer
+781468|Cream, light|Sahne, fettarm
+781472|Cream, heavy|Sahne, fett
 781473|Cream, whipped|Sahne, geschlagen
 781474|Coffee creamer|Kaffeesahne
 781475|Coffee creamer, liquid|Kaffeesahne, flüssig
@@ -2317,7 +2316,7 @@
 781484|Coffee creamer,powder, fat free, flavored|Kaffeesahne, Pulver, fettfrei, aromatisiert
 781485|Coffee creamer,powder, sugar free, flavored|Kaffeesahne, Pulver, zuckerfrei, aromatisiert
 781486|Coffee creamer, soy, liquid|Kaffeesahne, Soja, flüssig
-781487|Whipped topping|Auspeitschen
+781487|Whipped topping|Schlagsahne
 781488|Whipped topping, fat free|Schlagsahne, fettfrei
 781489|Whipped topping, sugar free|Schlagsahne, zuckerfrei
 781490|Sour cream|Sauerrahm
@@ -2327,15 +2326,15 @@
 781495|Sour cream, imitation|Saure Sahne, Nachahmung
 781712|Cheese, cream|Käsecreme
 781726|Cheese spread, cream cheese, regular|Käseaufstrich, Frischkäse, regelmäßig
-781978|Fat back, cooked|Fett zurück, gekocht
-783803|Stuffed green pepper, frozen meal|Gefüllter grüner Pfeffer, Tiefkühlmehl
+781978|Fat back, cooked|Rückenfett, gekocht
+783803|Stuffed green pepper, frozen meal|Paprika, grün, gefüllt
 783938|Egg curry|Eiercurry
 784298|Sambar, vegetable stew|Sambar, Gemüseeintopf
 784304|Miso sauce|Miso-Sauce
 784305|Miso|Miso
 784306|Natto|Natto
 784307|Hoisin sauce|Hoisin Soße
-784308|Soy sauce|Ich bin Weide
+784308|Soy sauce|Sojasauce
 784309|Soy sauce, reduced sodium|Sojasauce, salzarm
 784311|Teriyaki sauce|Teriyaki Soße
 784312|Teriyaki sauce, reduced sodium|Teriyaki-Sauce, salzarm
@@ -2343,13 +2342,13 @@
 784450|Coconut water, unsweetened|Kokoswasser, ungesüßt
 784451|Coconut water, sweetened|Kokoswasser, gesüßt
 786567|Grapefruit juice, 100%, freshly squeezed|Grapefruitsaft, 100%, frisch gepresst
-786571|Grapefruit juice,100%, frozen, reconstituted|Grapefruitsaft, 100%, gefroren, rekonstituiert
+786571|Grapefruit juice,100%, frozen, reconstituted|Grapefruitsaft, 100%, tiefgefroren
 786573|Lemon juice, 100%, freshly squeezed|Zitronensaft, 100%, frisch gepresst
 786576|Lime juice, 100%, freshly squeezed|Limettensaft, 100%, frisch gepresst
 786578|Orange juice, 100%|Orangensaft, 100%
 786579|Orange juice, 100%,  freshly squeezed|Orangensaft, 100%, frisch gepresst
-786582|Orange juice, 100%, frozen, reconstituted|Orangensaft, 100%, gefroren, rekonstituiert
-786583|Orange juice, 100%, frozen, not reconstituted|Orangensaft, 100%, gefroren, nicht rekonstituiert
+786582|Orange juice, 100%, frozen, reconstituted|Orangensaft, 100%, tiefgefroren
+786583|Orange juice, 100%, frozen, not reconstituted|Orangensaft, 100%, tiefgefroren
 786585|Tangerine juice, 100%|Mandarinensaft, 100%
 786586|Fruit juice blend, citrus, 100% juice|Fruchtsaftmischung, Zitrus, 100% Saft
 786835|Chutney|Chutney
@@ -2359,7 +2358,7 @@
 786849|Apple cider|Apfelwein
 786850|Apple juice, 100%|Apfelsaft, 100%
 786852|Blackberry juice, 100%|Brombeersaft, 100%
-786853|Cranberry juice, 100%, not a blend|Cranberry-Saft, 100%, keine Mischung
+786853|Cranberry juice, 100%, not a blend|Cranberry-Saft, 100%, echt
 786854|Grape juice, 100%|Traubensaft, 100%
 786856|Papaya juice, 100%|Papayasaft, 100%
 786857|Passion fruit juice, 100%|Passionsfruchtsaft, 100%
@@ -2368,8 +2367,8 @@
 786860|Prune juice, 100%|Pflaumensaft, 100%
 786861|Strawberry juice, 100%|Erdbeersaft, 100%
 786862|Watermelon juice, 100%|Wassermelonensaft, 100%
-786865|Fruit smoothie juice drink, no dairy|Fruchtsmoothie-Saftgetränk, keine Molkerei
-786866|Fruit smoothie, light|Fruchtsmoothie, leicht
+786865|Fruit smoothie juice drink, no dairy|Fruchtsmoothie-Saftgetränk, michfrei
+786866|Fruit smoothie, light|Fruchtsmoothie, fettarm
 786867|Fruit smoothie, bottled|Fruchtsmoothie, abgefüllt
 786868|Fruit nectar|Fruchtnektar
 786869|Apricot nectar|Aprikosennektar
@@ -2385,65 +2384,65 @@
 786879|Vinegar|Essig
 786980|Potato|Kartoffel
 786981|Potato, baked|Kartoffel, gebacken
-786982|Potato, baked, peel not eaten|Kartoffel, gebacken, Schale nicht gegessen
+786982|Potato, baked, peel not eaten|Kartoffel, gebacken, geschält
 786983|Potato, boiled|Kartoffel, gekocht
-786984|Potato, boiled, ready-to-heat|Kartoffel, gekocht, erhitzungsfertig
+786984|Potato, boiled, ready-to-heat|Kartoffel, gekocht, Fertiggericht
 787000|Potato, roasted|Kartoffel, geröstet
-787013|Potato, roasted, ready-to-heat|Kartoffel, geröstet, erhitzungsfertig
+787013|Potato, roasted, ready-to-heat|Kartoffel, geröstet, Fertiggericht
 787014|Stewed potatoes, Puerto Rican style|Geschmorte Kartoffeln nach puertoricanischer Art
 787049|Potato, scalloped|Kartoffel, überbacken
 787051|Potato, scalloped, from fresh|Kartoffel, überbacken, frisch
-787053|Potato, scalloped, from dry mix|Kartoffel, überbacken, aus trockener Mischung
-787055|Potato, scalloped, ready-to-heat|Kartoffel, überbacken, erhitzungsfertig
+787053|Potato, scalloped, from dry mix|Kartoffel, überbacken, Trockenmischung
+787055|Potato, scalloped, ready-to-heat|Kartoffel, überbacken, Fertiggericht
 787057|Potato, french fries|Kartoffel, Pommes
-787059|Potato, french fries, from fresh, fried|Kartoffel, Pommes Frites, frisch, gebraten
-787060|Potato, french fries, from fresh, baked|Kartoffel, Pommes Frites, frisch, gebacken
-787061|Potato, french fries, from frozen, baked|Kartoffel, Pommes Frites, aus gefrorenem, gebackenem
-787062|Potato, french fries, fast food|Kartoffeln, Pommes Frites, Fast Food
+787059|Potato, french fries, from fresh, fried|Kartoffel, Pommes Frites, frisch, frittiert
+787060|Potato, french fries, from fresh, baked|Kartoffel, Pommes Frites, frisch, frittiert
+787061|Potato, french fries, from frozen, baked|Kartoffel, Pommes Frites, frittiert, tiefgefroren
+787062|Potato, french fries, fast food|Kartoffeln, Pommes Frites, Fast-Food
 787063|Potato, french fries, restaurant|Kartoffel, Pommes Frites, Restaurant
-787064|Potato, french fries, from frozen, fried|Kartoffel, Pommes Frites, aus gefrorenem, gebratenem
+787064|Potato, french fries, from frozen, fried|Kartoffel, Pommes Frites, tiefgefroren, frittert
 787065|Potato, french fries, school|Kartoffel, Pommes, Schule
 787073|Potato, home fries|Kartoffel, Pommes
 787075|Potato, home fries, from fresh|Kartoffel, Pommes Frites, frisch
-787076|Potato, home fries, ready-to-heat|Kartoffeln, Pommes Frites, fertig zum Erhitzen
+787076|Potato, home fries, ready-to-heat|Kartoffeln, Pommes Frites, Fertiggericht
 787078|Potato, hash brown|Kartoffel, Rösti
-787079|Potato, hash brown, from fast food|Kartoffel, Rösti, aus Fast Food
-787081|Potato, hash brown, from restaurant|Kartoffel, Rösti, aus dem Restaurant
-787083|Potato, hash brown, from school lunch|Kartoffel, Rösti, vom Schulessen
+787079|Potato, hash brown, from fast food|Kartoffel, Rösti, Fast-Food
+787081|Potato, hash brown, from restaurant|Kartoffel, Rösti, Restaurant
+787083|Potato, hash brown, from school lunch|Kartoffel, Rösti, Mensa
 787084|Potato, hash brown, from fresh|Kartoffel, Rösti, frisch
-787086|Potato, hash brown, from dry mix|Kartoffel, Rösti, aus trockener Mischung
+787086|Potato, hash brown, from dry mix|Kartoffel, Rösti, Fertiggericht
 787087|Potato, hash brown, ready-to-heat|Kartoffel, Rösti, hitzefertig
 787089|Potato skins without topping|Kartoffelschalen ohne Belag
 787092|Potato skins|Kartoffelschalen
 787093|Potato, mashed|Kartoffel, püriert
-787094|Potato, mashed, from fast food|Kartoffelpüree aus Fast Food
-787096|Potato, mashed, ready-to-heat|Kartoffel, püriert, hitzefertig
+787094|Potato, mashed, from fast food|Kartoffelpüree, Fast-Food
+787096|Potato, mashed, ready-to-heat|Kartoffel, püriert, Fertiggericht
 787100|Potato, mashed, from fresh|Kartoffel, püriert, frisch
-787101|Potato, mashed, from restaurant|Kartoffelpüree aus dem Restaurant
-787103|Potato, mashed, from school lunch|Kartoffelpüree vom Schulessen
-787104|Potato, mashed, from dry mix|Kartoffelpüree aus trockener Mischung
+787101|Potato, mashed, from restaurant|Kartoffelpüree, Restaurant
+787103|Potato, mashed, from school lunch|Kartoffelpüree, Mensa
+787104|Potato, mashed, from dry mix|Kartoffelpüree, Trockenpulver, angerührt
 787108|Potato, mashed, ready-to-heat|Kartoffel, püriert, hitzefertig
 787111|Potato patty|Kartoffelpastetchen
-787112|Potato tots|Kartoffel alle
-787113|Potato tots, fast food / restaurant|Kartoffel alle, Fast Food / Restaurant
-787114|Potato tots, school|Potato Tots, Schule
-787116|Potato tots, frozen, baked|Kartoffelkleine, gefroren, gebacken
-787117|Potato tots, frozen, fried|Kartoffelkleine, gefroren, gebraten
+787112|Potato tots|Kroketten
+787113|Potato tots, fast food / restaurant|Kroketten, Fast-Food/Restaurant
+787114|Potato tots, school|Kroketten, Mensa
+787116|Potato tots, frozen, baked|Kroketten, tiefgefroren, gebacken
+787117|Potato tots, frozen, fried|Kroketten, tiefgefroren, frittiert
 787125|Potato, baked, peel eaten|Kartoffel, gebacken, Schale gegessen
 787142|Potato salad, German style|Kartoffelsalat nach deutscher Art
 787143|Potato salad, from restaurant|Kartoffelsalat aus dem Restaurant
-787153|Potato pancake|Kartoffelpfannkuchen
+787153|Potato pancake|Kartoffelpfannkuchen (Reibekuchen)
 787154|Lefse (Norwegian)|Lefse (norwegisch)
 787155|Potato pudding|Kartoffelpudding
 787156|Stewed potatoes|Geschmorte Kartoffeln
-787279|Escarole, creamed|Escarole, Rahmspinat
-787399|Spinach, from fresh, creamed|Spinat, frisch, Rahmspinat
-787400|Spinach, from frozen, creamed|Spinat, aus gefrorenem, Rahmspinat
-787401|Spinach, from canned, creamed|Spinat aus der Dose, Rahmspinat
-787408|Palak Paneer|Grüne Kotze
+787279|Escarole, creamed|Escarole, mit Sahne
+787399|Spinach, from fresh, creamed|Rahmspinat, frisch
+787400|Spinach, from frozen, creamed|Rahmspinat, tiefgefroren
+787401|Spinach, from canned, creamed|Rahmspinat, aus der Dose
+787408|Palak Paneer|Palak Paneer (Indisches Spinatgericht)
 787409|Channa Saag|Channa Saag
-787523|Carrots, salad|Karotten, Salat
-787550|Carrots, cooked, from fresh, creamed|Karotten, gekocht, frisch, Rahmspinat
+787523|Carrots, salad|Karottensalat
+787550|Carrots, cooked, from fresh, creamed|Karotten, gekocht, mit Sahne
 787551|Carrots, cooked, from frozen, creamed|Karotten, gekocht, gefroren, Rahmspinat
 787552|Carrots, cooked, from canned, creamed|Karotten, gekocht, aus der Dose, Rahmspinat
 787567|Carrot juice, 100%|Karottensaft, 100%
@@ -2457,7 +2456,7 @@
 787709|Tomato chili sauce|Tomaten-Chili-Sauce
 787710|Salsa|Salsa
 787711|Salsa, pico de gallo|Pico De Gallo Salsa
-787712|Salsa, red, commercially-prepared|Salsa, rot, kommerziell hergestellt
+787712|Salsa, red, commercially-prepared|Salsa, rot, industriell hergestellt
 787713|Salsa, red, homemade|Salsa, rot, hausgemacht
 787714|Enchilada sauce, red|Enchilada-Sauce, rot
 787722|Tomato relish|Tomatengenuss
@@ -2473,89 +2472,89 @@
 787849|Greek Salad, no dressing|Griechischer Salat, kein Dressing
 787850|Spinach salad, no dressing|Spinatsalat, kein Dressing
 787851|Cobb salad, no dressing|Cobb-Salat, kein Dressing
-787858|Aloe vera juice drink|Aloe Vera Saft trinken
+787858|Aloe vera juice drink|Aloe Vera Saftgetränk
 788278|Garlic, cooked|Knoblauch, gekocht
-788590|Bean salad, yellow and/or green string beans|Bohnensalat, gelbe und / oder grüne Bohnen
+788590|Bean salad, yellow and/or green string beans|Bohnensalat, grün, gelb
 788676|Ratatouille|Ratatouille
 788702|Jai, Monk's Food|Jai, Mönchsessen
 788703|Pinacbet|Pinacbet
 788705|Artichokes, stuffed|Artischocken, gefüllt
-788733|Brussels sprouts, from fresh, creamed|Rosenkohl, frisch, Rahmspinat
-788734|Brussels sprouts, from frozen, creamed|Rosenkohl, aus gefrorener, Rahmspinat
-788735|Cabbage, creamed|Kohl, Rahmspinat
-788737|Cauliflower, from fresh, creamed|Blumenkohl, frisch, Rahmspinat
-788738|Cauliflower, from frozen, creamed|Blumenkohl, aus gefrorenem, Rahmspinat
-788739|Cauliflower, from canned, creamed|Blumenkohl, aus der Dose, Rahmspinat
-788740|Cauliflower, batter-dipped, fried|Blumenkohl, in Teig getaucht, gebraten
-788741|Celery, creamed|Sellerie, Rahmspinat
+788733|Brussels sprouts, from fresh, creamed|Rosenkohl, frisch, mit Sahne
+788734|Brussels sprouts, from frozen, creamed|Rosenkohl, tiefgefroren, mit Sahne
+788735|Cabbage, creamed|Kohl, mit Sahne
+788737|Cauliflower, from fresh, creamed|Blumenkohl, frisch, mit Sahne
+788738|Cauliflower, from frozen, creamed|Blumenkohl, tiefgefroren, mit Sahne
+788739|Cauliflower, from canned, creamed|Blumenkohl, aus der Dose, mit Sahne
+788740|Cauliflower, batter-dipped, fried|Blumenkohl, in Teig getaucht, frittiert
+788741|Celery, creamed|Sellerie, mit Sahne
 788746|Corn fritter|Maisstückchen
-788751|Eggplant, batter-dipped, fried|Aubergine, Teig getaucht, gebraten
-788753|Eggplant parmesan casserole, regular|Auberginen-Parmesan-Auflauf, regelmäßig
-788755|Kohlrabi, creamed|Kohlrabi, creamed
-788757|Mushrooms, from fresh, creamed|Pilze, frisch, Rahmspinat
-788758|Mushrooms, from frozen, creamed|Pilze aus gefrorenem, Rahmspinat
-788759|Mushrooms, from canned, creamed|Pilze aus der Dose, Rahmspinat
+788751|Eggplant, batter-dipped, fried|Aubergine, Teig getaucht, frittiert
+788753|Eggplant parmesan casserole, regular|Auberginen-Parmesan-Auflauf
+788755|Kohlrabi, creamed|Kohlrabi, mit Sahne
+788757|Mushrooms, from fresh, creamed|Pilze, frisch, mit Sahne
+788758|Mushrooms, from frozen, creamed|Pilze, tiefgefroren, mit Sahne
+788759|Mushrooms, from canned, creamed|Pilze aus der Dose, mit Sahne
 788760|Mushrooms, stuffed|Pilze, gefüllt
-788761|Mushrooms, batter-dipped, fried|Pilze, Teig getaucht, gebraten
-788762|Okra, batter-dipped, fried|Okra, in Teig getaucht, gebraten
-788764|Onions, from fresh, creamed|Zwiebeln, frisch, Rahmspinat
-788768|Parsnips, creamed|Pastinaken, Rahmspinat
+788761|Mushrooms, batter-dipped, fried|Pilze, Teig getaucht, frittiert
+788762|Okra, batter-dipped, fried|Okra, in Teig getaucht, frittiert
+788764|Onions, from fresh, creamed|Zwiebeln, frisch, mit Sahne
+788768|Parsnips, creamed|Pastinaken, mit Sahne
 788769|Pea salad|Erbsensalat
-788772|Peas, from fresh, creamed|Erbsen, frisch, Rahmspinat
-788773|Peas, from frozen, creamed|Erbsen aus gefrorener Sahne
-788774|Peas, from canned, creamed|Erbsen aus Dosen, Rahmspinat
-788789|Squash, summer, from fresh, creamed|Kürbis, Sommer, frisch, cremig
-788790|Squash, summer, from frozen, creamed|Kürbis, Sommer, aus gefroren, Rahmspinat
-788791|Squash, summer, from canned, creamed|Kürbis, Sommer, aus der Dose, Rahmspinat
-788794|Turnips, from fresh, creamed|Rüben, frisch, Rahmspinat
-788795|Turnips, from frozen, creamed|Rüben aus gefrorenem Rahm
+788772|Peas, from fresh, creamed|Erbsen, frisch, mit Sahne
+788773|Peas, from frozen, creamed|Erbsen, tiefgefroren, mit Sahne
+788774|Peas, from canned, creamed|Erbsen aus Dosen, mit Sahne
+788789|Squash, summer, from fresh, creamed|Sommerkürbis, frisch, mit Sahne
+788790|Squash, summer, from frozen, creamed|Sommerkürbis, tiefgefroren, mit Sahne
+788791|Squash, summer, from canned, creamed|Sommerkürbis, aus der Dose, mit Sahne
+788794|Turnips, from fresh, creamed|Rüben, frisch, mit Sahne
+788795|Turnips, from frozen, creamed|Rüben, tiefgefroren, mit Sahne
 788796|Turnips, from canned, creamed|Rüben aus Dosen, Rahmspinat
-788797|Creamed christophine, Puerto Rican style|Christophincreme im puertoricanischen Stil
+788797|Creamed christophine, Puerto Rican style|Christophin, mit Sahne im puertoricanischen Stil
 788798|Vegetable stew without meat|Gemüseeintopf ohne Fleisch
-788802|Vegetable tempura|Gemüsetempura
+788802|Vegetable tempura|Gemüsetempura (frittiertes Gemüse)
 788808|Vegetable curry|Gemüsecurry
 788963|Fried stuffed potatoes, Puerto Rican style|Gebratene gefüllte Kartoffeln nach puertoricanischer Art
-788967|Ripe plantain fritters, Puerto Rican style|Reife Wegerichkrapfen nach puertoricanischer Art
+788967|Ripe plantain fritters, Puerto Rican style|Reife Bananenkrapfen nach puertoricanischer Art
 788972|Tannier fritters, Puerto Rican style|Gerbstückkrapfen im puertoricanischen Stil
-788983|Table fat|Tischfett
+788983|Table fat|Tischfett ???
 788984|Butter|Butter
-788985|Butter, stick, salted|Butter, Stock, gesalzen
-788986|Butter, whipped, tub, salted|Butter, geschlagen, Wanne, gesalzen
-788987|Butter, whipped, stick, salted|Butter, geschlagen, Stick, gesalzen
-788988|Butter, stick, unsalted|Butter, Stick, ungesalzen
-788989|Butter, whipped, tub, unsalted|Butter, geschlagen, Wanne, ungesalzen
-788990|Butter, whipped, stick, unsalted|Butter, geschlagen, kleben, ungesalzen
-788991|Light butter, stick, salted|Leichte Butter, Stick, gesalzen
-788992|Light butter, whipped, tub, salted|Leichte Butter, geschlagen, Wanne, gesalzen
+788985|Butter, stick, salted|Butter (Stick), gesalzen
+788986|Butter, whipped, tub, salted|Butter, schaumig geschlagen, gesalzen
+788987|Butter, whipped, stick, salted|Butter, schaumig geschlagen (Stick), gesalzen
+788988|Butter, stick, unsalted|Butter (Stick), ungesalzen
+788989|Butter, whipped, tub, unsalted|Butter, schaumig geschlagen, ungesalzen
+788990|Butter, whipped, stick, unsalted|Butter, schaumig geschlagen (Stick), ungesalzen
+788991|Light butter, stick, salted|fettarme Butter( Stick), gesalzen
+788992|Light butter, whipped, tub, salted|fettarme Butter, schaumig geschlagen, gesalzen
 788993|Margarine|Margarine
-788994|Margarine, stick, salted|Margarine, Stock, gesalzen
-788995|Margarine, tub, salted|Margarine, Wanne, gesalzen
-788996|Margarine, whipped, tub, salted|Margarine, geschlagen, Wanne, gesalzen
-788997|Margarine, stick, unsalted|Margarine, Stock, ungesalzen
-788998|Margarine-like spread, stick, salted|Margarine-ähnlicher Aufstrich, Stock, gesalzen
-788999|Margarine-like spread, tub, salted|Margarine-ähnlicher Aufstrich, Wanne, gesalzen
+788994|Margarine, stick, salted|Margarine (Stick), gesalzen
+788995|Margarine, tub, salted|Margarine,, gesalzen
+788996|Margarine, whipped, tub, salted|Margarine, schaumig geschlagen, Wanne, gesalzen
+788997|Margarine, stick, unsalted|Margarine (Stick), ungesalzen
+788998|Margarine-like spread, stick, salted|Margarine-ähnlicher Aufstrich (Stick), gesalzen
+788999|Margarine-like spread, tub, salted|Margarine-ähnlicher Aufstrich, gesalzen
 789000|Margarine-like spread, liquid, salted|Margarineähnlicher Aufstrich, flüssig, gesalzen
-789001|Margarine like spread, whipped, tub, salted|Margarine wie ausgebreitet, geschlagen, Wanne, gesalzen
-789002|Margarine-like spread, reduced calorie, about 40% fat, tub, salted|Margarine-ähnlicher Aufstrich, kalorienreduziert, ca. 40% Fett, Wanne, gesalzen
-789004|Margarine-like spread, reduced calorie, about 40% fat, stick, salted|Margarine-ähnlicher Aufstrich, kalorienreduziert, ca. 40% Fett, Stick, gesalzen
-789005|Margarine like spread, reduced calorie, about 20% fat, tub, salted|Margarine wie Aufstrich, kalorienreduziert, ca. 20% Fett, Wanne, gesalzen
-789006|Margarine like spread, fat free, tub, salted|Margarine wie Brotaufstrich, fettfrei, Wanne, gesalzen
+789001|Margarine like spread, whipped, tub, salted|Margarine wie ausgebreitet, geschlagen, gesalzen
+789002|Margarine-like spread, reduced calorie, about 40% fat, tub, salted|Margarine-ähnlicher Aufstrich, kalorienreduziert, ca. 40% Fett, gesalzen
+789004|Margarine-like spread, reduced calorie, about 40% fat, stick, salted|Margarine-ähnlicher Aufstrich, kalorienreduziert, ca. 40% Fett (Stick), gesalzen
+789005|Margarine like spread, reduced calorie, about 20% fat, tub, salted|Margarine wie Aufstrich, kalorienreduziert, ca. 20% Fett, gesalzen
+789006|Margarine like spread, fat free, tub, salted|Margarine wie Brotaufstrich, fettfrei, gesalzen
 789007|Margarine like spread, fat free, liquid, salted|Margarine wie Brotaufstrich, fettfrei, flüssig, gesalzen
-789008|Vegetable oil-butter spread, stick, salted|Pflanzenöl-Butter-Aufstrich, Stick, gesalzen
-789009|Vegetable oil-butter spread, tub, salted|Pflanzenöl-Butteraufstrich, Wanne, gesalzen
-789010|Vegetable oil-butter spread, reduced calorie, stick, salted|Pflanzenöl-Butter-Aufstrich, kalorienreduziert, Stick, gesalzen
-789011|Vegetable oil-butter spread, reduced calorie, tub, salted|Pflanzenöl-Butter-Aufstrich, kalorienreduziert, Wanne, gesalzen
-789012|Butter-margarine blend, stick, salted|Butter-Margarine-Mischung, Stick, gesalzen
+789008|Vegetable oil-butter spread, stick, salted|Pflanzenöl-Butter-Aufstrich (Stick), gesalzen
+789009|Vegetable oil-butter spread, tub, salted|Pflanzenöl-Butteraufstrich, gesalzen
+789010|Vegetable oil-butter spread, reduced calorie, stick, salted|Pflanzenöl-Butter-Aufstrich, kalorienreduziert (Stick), gesalzen
+789011|Vegetable oil-butter spread, reduced calorie, tub, salted|Pflanzenöl-Butter-Aufstrich, kalorienreduziert,  gesalzen
+789012|Butter-margarine blend, stick, salted|Butter-Margarine-Mischung (Stick), gesalzen
 789013|Butter-margarine blend, tub, salted|Butter-Margarine-Mischung, Wanne, gesalzen
 789014|Butter-vegetable oil blend|Butter-Pflanzenöl-Mischung
 789015|Butter replacement, fat-free powder|Butterersatz, fettfreies Pulver
 789018|Lard|Schmalz
-789020|Shortening, vegetable|Backfett, Gemüse
-789021|Shortening, animal|Verkürzung, Tier
+789020|Shortening, vegetable|Backfett, pflanzlich
+789021|Shortening, animal|Backfett, tierisch
 789022|Ghee, clarified butter|Ghee, geklärte Butter
 789026|Sandwich spread|Sandwichaufstrich
 789027|Tartar sauce|Tartarsauce
-789030|Tartar sauce, reduced fat/calorie|Tartarsauce, reduziert Fett / Kalorien
+789030|Tartar sauce, reduced fat/calorie|Tartarsauce, fettreduziert, kalorienarm
 789031|Honey butter|Honigbutter
 789032|Vegetable oil|Pflanzenöl
 789033|Almond oil|Mandelöl
@@ -2572,32 +2571,32 @@
 789047|Sunflower oil|Sonnenblumenöl
 789048|Walnut oil|Walnussöl
 789049|Wheat germ oil|Weizenkeimöl
-789050|Salad dressing, for salads|Salatdressing für Salate
+789050|Salad dressing, for salads|Salatdressing
 789051|Salad dressing, for sandwiches|Salatdressing für Sandwiches
-789054|Caesar dressing|Caesar Dressing
-789055|Coleslaw dressing|Krautsalat Dressing
+789054|Caesar dressing|Caesar-Dressing
+789055|Coleslaw dressing|Krautsalat-Dressing
 789057|Honey mustard dressing|Honig-Senf-Dressing
-789059|Mayonnaise, regular|Mayonnaise, regelmäßig
-789060|Mayonnaise, imitation|Mayonnaise, Nachahmung
+789059|Mayonnaise, regular|Mayonnaise
+789060|Mayonnaise, imitation|Mayonnaise, Imitat
 789061|Russian dressing|Russischer Dressing
 789062|Mayonnaise-type salad dressing|Salatdressing vom Mayonnaise-Typ
-789063|Avocado dressing|Avocado Dressing
-789064|Creamy dressing|Cremiges Dressing
-789065|Poppy seed dressing|Mohn Dressing
+789063|Avocado dressing|Avocado-Dressing
+789064|Creamy dressing|Cremiges -Dressing
+789065|Poppy seed dressing|Mohndressing
 789066|Sesame dressing|Sesamdressing
 789067|Thousand Island dressing|Thousand Island Dressing
 789068|Yogurt dressing|Joghurtdressing
-789069|Salad dressing, light|Salatdressing, leicht
-789071|Coleslaw dressing, light|Krautsalat Dressing, leicht
-789073|Caesar dressing, light|Caesar Dressing, leicht
-789074|Mayonnaise, light|Mayonnaise, leicht
-789076|Mayonnaise-type salad dressing, light|Salatdressing vom Mayonnaise-Typ, leicht
-789077|Honey mustard dressing, light|Honig-Senf-Dressing, leicht
-789078|Italian dressing, light|Italienisches Dressing, leicht
-789079|Russian dressing, light|Russisches Dressing, leicht
-789080|Sesame dressing, light|Sesamdressing, leicht
-789081|Thousand Island dressing, light|Tausend Insel Dressing, leicht
-789083|Creamy dressing, light|Cremiges Dressing, leicht
+789069|Salad dressing, light|Salatdressing, fettarm
+789071|Coleslaw dressing, light|Krautsalat Dressing, fettarm
+789073|Caesar dressing, light|Caesar Dressing, fettarm
+789074|Mayonnaise, light|Mayonnaise, fettarm
+789076|Mayonnaise-type salad dressing, light|Salatdressing vom Mayonnaise-Typ, fettarm
+789077|Honey mustard dressing, light|Honig-Senf-Dressing, fettarm
+789078|Italian dressing, light|Italienisches Dressing, fettarm
+789079|Russian dressing, light|Russisches Dressing, fettarm
+789080|Sesame dressing, light|Sesamdressing, fettarm
+789081|Thousand Island dressing, light|Thousand-Island-Dressing , fettarm
+789083|Creamy dressing, light|Cremiges Dressing, fettarm
 789085|Caesar dressing, fat free|Caesar Dressing, fettfrei
 789086|Creamy dressing, fat free|Cremiges Dressing, fettfrei
 789088|Honey mustard dressing, fat free|Honig-Senf-Dressing, fettfrei
@@ -2615,7 +2614,7 @@
 789344|Coffee, macchiato |Kaffee, Macchiato
 789345|Coffee, macchiato, sweetened|Kaffee, Macchiato, gesüßt
 789346|Coffee, cafe con leche|Kaffee, Kaffee mit Milch
-789347|Coffee, cafe con leche, decaffeinated |Kaffee, Cafe con Leche, entkoffeiniert
+789347|Coffee, cafe con leche, decaffeinated |Kaffee, Cafe mit Milch, entkoffeiniert
 789348|Coffee, Latte|Kaffee, Latte
 789349|Coffee, Latte, nonfat|Kaffee, Latte, fettfrei
 789351|Coffee, Latte, flavored|Kaffee, Latte, aromatisiert
@@ -2655,56 +2654,56 @@
 789415|Coffee, instant, decaffeinated, reconstituted|Kaffee, Instant, entkoffeiniert, rekonstituiert
 789428|Coffee, pre-lightened|Kaffee, vorgehellt
 789429|Coffee, decaffeinated, pre-lightened|Kaffee, entkoffeiniert, vorgehellt
-789436|Coffee, Cappuccino|Kaffee, Cappuccino
+789436|Coffee, Cappuccino|Cappuccino
 789437|Coffee, Cappuccino, nonfat|Kaffee, Cappuccino, fettfrei
 789439|Coffee, Cappuccino, decaffeinated|Kaffee, Cappuccino, entkoffeiniert
 789440|Coffee, Cappuccino, decaffeinated, nonfat|Kaffee, Cappuccino, entkoffeiniert, fettfrei
-789442|Coffee, bottled/canned|Kaffee, abgefüllt / aus der Dose
-789443|Coffee, bottled/canned, light|Kaffee, abgefüllt / aus der Dose, leicht
+789442|Coffee, bottled/canned|Kaffee, abgefüllt/Tetrapack
+789443|Coffee, bottled/canned, light|Kaffee, abgefüllt/Tetrapack, fettarm
 789455|Coffee substitute|Kaffeeersatz
 789456|Chicory beverage|Chicorée-Getränk
 789457|Cereal beverage|Getreidegetränk
-789460|Tea, hot, leaf, black|Tee, heiß, Blatt, schwarz
-789461|Tea, hot, leaf, black, decaffeinated|Tee, heiß, Blatt, schwarz, entkoffeiniert
-789462|Tea, hot, leaf, green|Tee, heiß, Blatt, grün
-789463|Tea, hot, leaf, green, decaffeinated|Tee, heiß, Blatt, grün, entkoffeiniert
+789460|Tea, hot, leaf, black|Schwarzer Tee, Blätter
+789461|Tea, hot, leaf, black, decaffeinated|Schwarzer Tee, Blätter, entkoffeiniert
+789462|Tea, hot, leaf, green|Grüner Tee, Blätter
+789463|Tea, hot, leaf, green, decaffeinated|Grüner Tee, Blätter, entkoffeiniert
 789464|Tea, hot, leaf, oolong|Tee, heiß, Blatt, Oolong
-789465|Tea, iced, instant, black, unsweetened|Tee, gefroren, Instant, schwarz, ungesüßt
-789470|Tea, iced, instant, black, decaffeinated, unsweetened|Tee, gefroren, Instant, schwarz, entkoffeiniert, ungesüßt
-789471|Tea, iced, instant, green, unsweetened|Tee, gefroren, Instant, grün, ungesüßt
-789474|Tea, hot, herbal|Tee, heiß, Kräuter
+789465|Tea, iced, instant, black, unsweetened|Schwarzer Tee (tiefgefroren/instant), ungesüßt
+789470|Tea, iced, instant, black, decaffeinated, unsweetened|Schwarzer Tee (tiefgefroren/instant), entkoffeiniert, ungesüßt
+789471|Tea, iced, instant, green, unsweetened|Grüner Tee (tiefgefroren/instant), ungesüßt
+789474|Tea, hot, herbal|Tee, Kräuter
 789475|Tea, hot, hibiscus |Tee, heiß, Hibiskus
 789476|Corn beverage|Maisgetränk
 789477|Tea, hot, chamomile|Tee, heiß, Kamille
 789481|Iced Tea / Lemonade juice drink|Eistee / Limonadensaftgetränk
-789482|Iced Tea / Lemonade juice drink, light|Eistee / Limonadensaftgetränk, leicht
+789482|Iced Tea / Lemonade juice drink, light|Eistee / Limonadensaftgetränk, zuckerarm
 789483|Iced Tea / Lemonade juice drink, diet|Eistee / Limonadensaft Getränk, Diät
-789486|Tea, iced, brewed, black, unsweetened|Tee, gefroren, gebrüht, schwarz, ungesüßt
-789489|Tea, iced, brewed, black, decaffeinated, unsweetened|Tee, gefroren, gebrüht, schwarz, entkoffeiniert, ungesüßt
-789492|Tea, iced, brewed, green, unsweetened|Tee, gefroren, gebrüht, grün, ungesüßt
-789495|Tea, iced, brewed, green, decaffeinated, unsweetened|Tee, gefroren, gebrüht, grün, entkoffeiniert, ungesüßt
-789496|Tea, iced, bottled, black|Tee, gefroren, abgefüllt, schwarz
-789497|Tea, iced, bottled, black, decaffeinated|Tee, gefroren, abgefüllt, schwarz, entkoffeiniert
-789498|Tea, iced, bottled, black, diet|Tee, gefroren, abgefüllt, schwarz, Diät
-789499|Tea, iced, bottled, black, decaffeinated, diet|Tee, gefroren, abgefüllt, schwarz, entkoffeiniert, Diät
-789500|Tea, iced, bottled, black, unsweetened|Tee, gefroren, abgefüllt, schwarz, ungesüßt
-789501|Tea, iced, bottled, black, decaffeinated, unsweetened|Tee, gefroren, abgefüllt, schwarz, entkoffeiniert, ungesüßt
-789502|Tea, iced, bottled, green|Tee, gefroren, abgefüllt, grün
-789503|Tea, iced, bottled, green, diet|Tee, gefroren, abgefüllt, grün, Diät
-789504|Tea, iced, bottled, green, unsweetened|Tee, gefroren, abgefüllt, grün, ungesüßt
+789486|Tea, iced, brewed, black, unsweetened|Schwarzer Tee (tiefgefroren/gebrüht), ungesüßt
+789489|Tea, iced, brewed, black, decaffeinated, unsweetened|Schwarzer Tee (tiefgefroren/gebrüht), entkoffeiniert, ungesüßt
+789492|Tea, iced, brewed, green, unsweetened|Grüner Tee (tiefgefroren/gebrüht), ungesüßt
+789495|Tea, iced, brewed, green, decaffeinated, unsweetened|Grüner Tee (tiefgefroren/gebrüht), entkoffeiniert, ungesüßt
+789496|Tea, iced, bottled, black|Schwarzer Tee (tiefgefroren/abgefüllt)
+789497|Tea, iced, bottled, black, decaffeinated|Schwarzer Tee (tiefgefroren/abgefüllt), entkoffeiniert
+789498|Tea, iced, bottled, black, diet|Schwarzer Tee (tiefgefroren/abgefüllt), Diät
+789499|Tea, iced, bottled, black, decaffeinated, diet|Schwarzer Tee (tiefgefroren/abgefüllt), entkoffeiniert, Diät
+789500|Tea, iced, bottled, black, unsweetened|Schwarzer Tee (tiefgefroren/abgefüllt), ungesüßt
+789501|Tea, iced, bottled, black, decaffeinated, unsweetened|Schwarzer Tee (tiefgefroren/abgefüllt), entkoffeiniert, ungesüßt
+789502|Tea, iced, bottled, green|Grüner Tee (tiefgefroren/abgefüllt)
+789503|Tea, iced, bottled, green, diet|Grüner Tee (tiefgefroren/abgefüllt), Diät
+789504|Tea, iced, bottled, green, unsweetened|Grüner Tee (tiefgefroren/abgefüllt), ungesüßt
 789505|Soft drink|Erfrischungsgetränk
-789506|Soft drink, diet|Erfrischungsgetränk, Diät
+789506|Soft drink, diet|Erfrischungsgetränk, diätetisch
 789507|Carbonated water, sweetened|Kohlensäurehaltiges Wasser, gesüßt
 789508|Carbonated water, unsweetened|Kohlensäurehaltiges Wasser, ungesüßt
 789510|Soft drink, cola|Erfrischungsgetränk, Cola
-789511|Soft drink, cola, reduced sugar|Erfrischungsgetränk, Cola, reduzierter Zucker
-789512|Soft drink, cola, diet|Erfrischungsgetränk, Cola, Diät
+789511|Soft drink, cola, reduced sugar|Erfrischungsgetränk, Cola, zuckerreduziert
+789512|Soft drink, cola, diet|Erfrischungsgetränk, Cola, diätetisch
 789513|Soft drink, cola, decaffeinated|Erfrischungsgetränk, Cola, entkoffeiniert
 789514|Soft drink, cola, decaffeinated, diet|Erfrischungsgetränk, Cola, entkoffeiniert, Diät
-789515|Soft drink, pepper type|Erfrischungsgetränk vom Typ Pfeffer
-789516|Soft drink, pepper type, diet|Erfrischungsgetränk, Pfeffersorte, Diät
-789517|Soft drink, pepper type, decaffeinated|Erfrischungsgetränk vom Typ Pfeffer, entkoffeiniert
-789518|Soft drink, pepper type, decaffeinated, diet|Erfrischungsgetränk, Pfeffertyp, entkoffeiniert, Diät
+789515|Soft drink, pepper type|Erfrischungsgetränk (Dr. Pepper)
+789516|Soft drink, pepper type, diet|Erfrischungsgetränk (Dr. Pepper), Diät
+789517|Soft drink, pepper type, decaffeinated|Erfrischungsgetränk (Dr. Pepper), entkoffeiniert
+789518|Soft drink, pepper type, decaffeinated, diet|Erfrischungsgetränk (Dr. Pepper), entkoffeiniert, Diät
 789519|Soft drink, cream soda|Erfrischungsgetränk, Sahnesoda
 789520|Soft drink, cream soda, diet|Erfrischungsgetränk, Sahnesoda, Diät
 789521|Soft drink, fruit flavored, caffeine free|Erfrischungsgetränk, Fruchtgeschmack, koffeinfrei
@@ -2713,14 +2712,14 @@
 789524|Soft drink, fruit flavored, caffeine containing, diet|Erfrischungsgetränk, Fruchtgeschmack, koffeinhaltig, Diät
 789525|Soft drink, ginger ale|Erfrischungsgetränk, Ginger Ale
 789526|Soft drink, ginger ale, diet|Erfrischungsgetränk, Ginger Ale, Diät
-789527|Soft drink, root beer|Erfrischungsgetränk, Wurzelbier
-789528|Soft drink, root beer, diet|Erfrischungsgetränk, Wurzelbier, Diät
+789527|Soft drink, root beer|Erfrischungsgetränk, Rootbier
+789528|Soft drink, root beer, diet|Erfrischungsgetränk, Rootbier, Diät
 789529|Soft drink, chocolate flavored|Erfrischungsgetränk mit Schokoladengeschmack
 789530|Soft drink, chocolate flavored, diet|Erfrischungsgetränk, Schokoladengeschmack, Diät
 789532|Soft drink, cola, chocolate flavored|Erfrischungsgetränk, Cola, Schokoladengeschmack
 789534|Soft drink, cola, chocolate flavored, diet|Erfrischungsgetränk, Cola, Schokoladengeschmack, Diät
 789535|Fruit juice drink, citrus, carbonated|Fruchtsaftgetränk, Zitrus, kohlensäurehaltig
-789536|Fruit juice drink, noncitrus, carbonated|Fruchtsaftgetränk, nicht zitrisch, kohlensäurehaltig
+789536|Fruit juice drink, noncitrus, carbonated|Fruchtsaftgetränk, nicht Zitus, kohlensäurehaltig
 789537|Fruit juice drink|Fruchtsaftgetränk
 789538|Tamarind drink|Tamarindendrink
 789541|Lemonade, fruit juice drink|Limonade, Fruchtsaftgetränk
@@ -2738,9 +2737,9 @@
 789565|Apple juice beverage, 40-50% juice, light|Apfelsaftgetränk, 40-50% Saft, leicht
 789566|Lemonade, fruit juice drink, light|Limonade, Fruchtsaftgetränk, leicht
 789567|Pomegranate juice beverage, 40-50% juice, light|Granatapfelsaftgetränk, 40-50% Saft, leicht
-789574|Fruit juice drink, reduced sugar (Sunny D)|Fruchtsaftgetränk, reduzierter Zucker (Sunny D)
-789575|Fruit juice drink (Capri Sun)|Fruchtsaftgetränk (Capri Sun)
-789577|Fruit juice drink, added calcium (Sunny D)|Fruchtsaftgetränk, Kalzium hinzugefügt (Sunny D)
+789574|Fruit juice drink, reduced sugar (Sunny D)|Fruchtsaftgetränk (Sunny D), zuckerreduziert
+789575|Fruit juice drink (Capri Sun)|Fruchtsaftgetränk (Capri-Sonne)
+789577|Fruit juice drink, added calcium (Sunny D)|Fruchtsaftgetränk (Sunny D), Kalzium hinzugefügt
 789582|Sugar cane beverage|Zuckerrohrgetränk
 789583|Cornmeal beverage|Maismehlgetränk
 789585|Wine, nonalcoholic|Wein, alkoholfrei
@@ -2748,53 +2747,53 @@
 789587|Nonalcoholic malt beverage|Alkoholfreies Malzgetränk
 789588|Shirley Temple|Shirley Temple
 789593|Beer|Bier
-789594|Beer, light|Bier, leicht
+789594|Beer, light|Leichtbier
 789595|Beer, low carb|Bier, kohlenhydratarm
-789596|Beer, light, higher alcohol|Bier, leichter, höherer Alkohol
+789596|Beer, light, higher alcohol|Leichtbier, höherer Alkohol
 789597|Beer, higher alcohol|Bier, höherer Alkohol
 789598|Alcoholic malt beverage, sweetened|Alkoholisches Malzgetränk, gesüßt
 789599|Alcoholic malt beverage, higher alcohol, sweetened|Alkoholisches Malzgetränk, höherer Alkoholgehalt, gesüßt
 789600|Alcoholic malt beverage|Alkoholisches Malzgetränk
-789601|Hard cider|Harter Apfelwein
+789601|Hard cider|Apfelwein (alkoholisch)
 789604|Cocktail|Cocktail
 789605|Alexander|Alexander
 789606|Bacardi cocktail|Bacardi Cocktail
 789607|Bloody Mary|Bloody Mary
 789609|Cape Cod|Cape Cod
 789610|Daiquiri|Daiquiri
-789611|Gelatin shot, alcoholic|Gelatineschuss, alkoholisch
-789612|Gimlet|Handbohrer
+789611|Gelatin shot, alcoholic|Gelatinenshot (alkoholisch)
+789612|Gimlet|Gimlet (Cocktail)
 789614|Grasshopper|Heuschrecke
 789615|Greyhound|Windhund
-789616|High ball|Hoher Ball
-789617|Jagerbomb|Jägerbombe
-789618|Kamikaze|Kamikaze
-789619|Manhattan|Manhattan
-789620|Margarita|Gänseblümchen
-789621|Martini|Martini
-789622|Martini, flavored|Martini, gewürzt
-789623|Mimosa|Mimose
-789624|Mint julep|mint Julep
-789625|Mojito|Mojito
-789626|Old fashioned|Altmodisch
-789627|Orange Blossom|Orangenblüte
-789628|Rob Roy|Rob roy
-789629|Rusty Nail|rostiger Nagel
-789630|Salty Dog|Salziger Hund
-789631|Screwdriver|Schraubendreher
-789632|Seabreeze|Meeresbriese
-789634|Tom Collins|Tom Collins
-789635|Whiskey sour|Whiskey Sour
-789643|Pina Colada|Pina Colada
-789652|Sloe gin fizz|Sloe Gin Fizz
-789653|Black Russian|Schwarzer Russe
-789654|White Russian|weißer Russe
-789655|Fruit punch, alcoholic|Fruchtpunsch, alkoholisch
+789616|High ball|Highball (Cocktail)
+789617|Jagerbomb|Jägermeister
+789618|Kamikaze|Kamikaze (Cocktail)
+789619|Manhattan|Manhattan (Cocktail)
+789620|Margarita|MArgarita (Cocktail)
+789621|Martini|Martini (Cocktail)
+789622|Martini, flavored|Martini, gewürzt (Cocktail)
+789623|Mimosa|Mimosa (Cocktail)
+789624|Mint julep|mint Julep (Cocktail)
+789625|Mojito|Mojito (Cocktail)
+789626|Old fashioned|Old fashioned (Cocktail)
+789627|Orange Blossom|Orange Blossom (Cocktail)
+789628|Rob Roy|Rob Roy (Cocktail)
+789629|Rusty Nail|Rusty Nail (Cocktail)
+789630|Salty Dog|Salty Dog (Cocktail)
+789631|Screwdriver|Screwdriver (Cocktail)
+789632|Seabreeze|Seabreeze (Cocktail)
+789634|Tom Collins|Tom Collins (Cocktail)
+789635|Whiskey sour|Whiskey Sour (Cocktail)
+789643|Pina Colada|Pina Colada (Cocktail)
+789652|Sloe gin fizz|Sloe Gin Fizz (Cocktail)
+789653|Black Russian|Black Russian (Cocktail)
+789654|White Russian|White Russian (Cocktail)
+789655|Fruit punch, alcoholic|Fruchtpunsch (alkoholisch)
 789656|Champagne punch|Champagnerpunsch
-789657|Singapore Sling|Singapore Sling
-789658|Stinger|Stinger
-789659|Mai Tai|Mai Tai
-789660|Tequila Sunrise|Tequila Sonnenaufgang
+789657|Singapore Sling|Singapore Sling (Cocktail)
+789658|Stinger|Stinger (Cocktail)
+789659|Mai Tai|Mai Tai (Cocktail)
+789660|Tequila Sunrise|Tequila Sunrise (Cocktail)
 789661|Gin Rickey|Gin Rickey
 789662|Golden Cadillac|Goldener Cadillac
 789663|Long Island iced tea|Long Island-Eistee
@@ -2802,47 +2801,47 @@
 789665|Irish Coffee|Irischer Kaffee
 789667|Frozen daiquiri|Gefrorener Daiquiri
 789668|Frozen margarita|Gefrorene Margarita
-789669|Eggnog, alcoholic|Eierlikör, Alkoholiker
+789669|Eggnog, alcoholic|Eierlikör (alkoholisch)
 789670|Gin fizz|Gin Fizz
-789671|Rum, hot buttered|Rum, heiß gebuttert
+789671|Rum, hot buttered|Rum mit heißer Butter (hot buttered Rum)
 789672|Zombie|Zombie
-789673|Wine, table, red|Wein, Tisch, rot
-789674|Wine, table, white|Wein, Tisch, Weiß
-789675|Wine, table, rose|Wein, Tisch, Rose
-789676|Wine, rice|Wein, Reis
-789677|Wine, dessert, sweet|Wein, Dessert, süß
-789678|Wine, light|Wein, leicht
-789679|Wine cooler|Weinkühler
+789673|Wine, table, red|Rotwein
+789674|Wine, table, white|Weißwein
+789675|Wine, table, rose|Rosewein
+789676|Wine, rice|Reiswein
+789677|Wine, dessert, sweet|Dessertwein, süß
+789678|Wine, light|Wein, wenig Alkohol
+789679|Wine cooler|Wein-Frucht-Coctail
 789680|Sangria, red|Sangria, rot
 789681|Sangria, white|Sangria, weiß
-789682|Wine spritzer|Wine spritzer
-789683|Glug|Gluckern
+789682|Wine spritzer|Weinschorle
+789683|Glug|Vietnamesischer Kaffee
 789684|Brandy|Brandy
 789685|Whiskey|Whiskey
 789686|Scotch|Scotch
 789687|Gin|Gin
-789688|Rum|Zimmer
-789689|Rum cooler|Raumkühler
+789688|Rum|Rum
+789689|Rum cooler|Rum-Frucht-Coctail
 789690|Vodka|Wodka
 789691|Tequila |Tequila
 789692|Water, tap|Wasserhahn
 789693|Water, bottled, unsweetened|Wasser, abgefüllt, ungesüßt
-789699|Water, bottled, flavored, sugar free (Glaceau Vitamin Water)|Wasser, abgefüllt, aromatisiert, zuckerfrei (Glaceau Vitamin Water)
+789699|Water, bottled, flavored, sugar free (Glaceau Vitamin Water)|Wasser, abgefüllt, aromatisiert, zuckerfrei
 789700|Water, bottled, flavored, sugar free (SoBe)|Wasser, abgefüllt, aromatisiert, zuckerfrei (SoBe)
-789736|Energy drink (Full Throttle)|Energy Drink (Vollgas)
+789736|Energy drink (Full Throttle)|Energy Drink
 789737|Energy drink (Monster)|Energy Drink (Monster)
 789738|Energy drink (Mountain Dew AMP)|Energy Drink (Mountain Dew AMP)
-789739|Energy drink (No Fear)|Energy Drink (keine Angst)
+789739|Energy drink (No Fear)|Energy Drink (No Fear)
 789740|Energy drink (No Fear Motherload)|Energy Drink (No Fear Motherload)
 789741|Energy drink (NOS)|Energy Drink (NOS)
 789742|Energy drink (Red Bull)|Energy Drink (Red Bull)
 789743|Energy drink (Rockstar)|Energy Drink (Rockstar)
 789744|Energy drink (SoBe Energize Energy Juice Drink)|Energy Drink (SoBe Energize Energy Juice Drink)
-789745|Energy drink (Vault)|Energy Drink (Tresor)
+789745|Energy drink (Vault)|Energy Drink (Vault)
 789746|Energy Drink|Energiegetränk
 789747|Energy drink, low calorie (Monster)|Energy Drink, kalorienarm (Monster)
 789748|Energy drink, sugar free (Mountain Dew AMP)|Energy Drink, zuckerfrei (Mountain Dew AMP)
-789749|Energy drink, sugar free (No Fear)|Energy Drink, zuckerfrei (keine Angst)
+789749|Energy drink, sugar free (No Fear)|Energy Drink, zuckerfrei (No Fear)
 789750|Energy drink, sugar-free (NOS)|Energy Drink, zuckerfrei (NOS)
 789751|Energy drink (Ocean Spray Cran-Energy Juice Drink)|Energy Drink (Ocean Spray Cran-Energy Juice Drink)
 789752|Energy drink, sugar-free (Red Bull)|Energy Drink, zuckerfrei (Red Bull)
@@ -2859,14 +2858,14 @@
 789763|Fluid replacement, electrolyte solution|Flüssigkeitsersatz, Elektrolytlösung
 789765|Fruit juice, acai blend|Fruchtsaft, Acai-Mischung
 789771|Energy drink, sugar free|Energy Drink, zuckerfrei
-781082|Milk, human|Milch, Mensch
-781156|Chipotle dip, yogurt based|Chipotle-Dip auf Joghurtbasis
-781157|Dill dip, yogurt based|Dill Dip auf Joghurtbasis
-781158|Onion dip, yogurt based|Zwiebeldip auf Joghurtbasis
-781159|Ranch dip, yogurt based|Ranch Dip auf Joghurtbasis
-781160|Spinach dip, yogurt based|Spinat-Dip auf Joghurtbasis
+781082|Milk, human|Muttermilch
+781156|Chipotle dip, yogurt based|Chipotle-Dip, Joghurtbasis
+781157|Dill dip, yogurt based|Dill-Dip, Joghurtbasis
+781158|Onion dip, yogurt based|Zwiebeldip, Joghurtbasis
+781159|Ranch dip, yogurt based|Ranch Dip, Joghurtbasis
+781160|Spinach dip, yogurt based|Spinat-Dip, Joghurtbasis
 781161|Tzatziki dip|Tzatziki-Dip
-781162|Vegetable dip, yogurt based|Gemüsedip auf Joghurtbasis
+781162|Vegetable dip, yogurt based|Gemüsedip, Joghurtbasis
 781282|Infant formula|Säuglingsnahrung
 781284|Infant formula, ready-to-feed (Similac Expert Care Alimentum)|Säuglingsnahrung, futterfertig (Similac Expert Care Alimentum)
 781290|Infant formula, ready-to-feed (Similac Advance)|Säuglingsnahrung, futterfertig (Similac Advance)
@@ -2891,61 +2890,61 @@
 781445|Infant formula, ready-to-feed (Enfamil Nutramigen)|Säuglingsnahrung, futterfertig (Enfamil Nutramigen)
 781451|Infant formula, ready-to-feed (Enfamil Pregestimil)|Säuglingsnahrung, futterfertig (Enfamil Pregestimil)
 781453|Infant formula, ready-to-feed, low iron (Enfamil Premature 20 Cal)|Säuglingsnahrung, verzehrfertig, eisenarm (Enfamil Premature 20 Cal)
-781456|Milk, dry, not reconstituted, whole|Milch, trocken, nicht rekonstituiert, ganz
-781457|Milk, dry, not reconstituted, low fat (1%)|Milch, trocken, nicht rekonstituiert, fettarm (1%)
-781458|Milk, dry, not reconstituted, fat free (skim)|Milch, trocken, nicht rekonstituiert, fettfrei (Magermilch)
+781456|Milk, dry, not reconstituted, whole|Vollmilchpulver
+781457|Milk, dry, not reconstituted, low fat (1%)|fettarmes Milchpulver (1%)
+781458|Milk, dry, not reconstituted, fat free (skim)|Magermilchpulver, fettfrei
 781459|Whey, sweet, dry|Molke, süß, trocken
-781460|Hot chocolate / Cocoa, dry mix, not reconstituted|Heiße Schokolade / Kakao, Trockenmischung, nicht rekonstituiert
-781461|Hot chocolate / Cocoa, dry mix, no sugar added, not reconstituted|Heiße Schokolade / Kakao, Trockenmischung, ohne Zuckerzusatz, nicht rekonstituiert
-781462|Cocoa powder, not reconstituted|Kakaopulver, nicht rekonstituiert
-781464|Chocolate beverage powder, reduced sugar, dry mix, not reconstituted|Schokoladengetränkepulver, reduzierter Zucker, Trockenmischung, nicht rekonstituiert
-781465|Milk, malted, dry mix, not reconstituted|Milch, Malz, Trockenmischung, nicht rekonstituiert
-781466|Strawberry beverage powder, dry mix, not reconstituted|Erdbeer-Getränkepulver, Trockenmischung, nicht rekonstituiert
-781496|Dip|Tauchen
-781497|Chipotle dip, regular|Chipotle Dip, regelmäßig
-781498|Chipotle dip, light|Chipotle Dip, leicht
-781499|Dill dip, regular|Dill Dip, regelmäßig
-781500|Dill dip, light|Dill Dip, leicht
-781501|Onion dip, regular|Zwiebeldip, regelmäßig
-781502|Onion dip, light|Zwiebeldip, leicht
-781503|Ranch dip, regular|Ranch Dip, regelmäßig
-781504|Ranch dip, light|Ranch Dip, leicht
-781505|Spinach dip, regular|Spinat Dip, regelmäßig
-781506|Spinach dip, light|Spinat Dip, leicht
-781507|Vegetable dip, regular|Gemüsedip, regelmäßig
-781508|Vegetable dip, light|Gemüsedip, leicht
-781652|White sauce, milk sauce|Weiße Sauce, Milchsauce
-781653|Milk gravy, quick gravy|Milchsoße, schnelle Soße
+781460|Hot chocolate / Cocoa, dry mix, not reconstituted|Heißes Schokoladen/Kakaopulver
+781461|Hot chocolate / Cocoa, dry mix, no sugar added, not reconstituted|Heißes Schokoladen/Kakaopulver, ohne Zuckerzusatz
+781462|Cocoa powder, not reconstituted|Kakaopulver
+781464|Chocolate beverage powder, reduced sugar, dry mix, not reconstituted|Schokoladengetränkepulver, zuckerreduziert
+781465|Milk, malted, dry mix, not reconstituted|Malzmilch, Trockenpulver
+781466|Strawberry beverage powder, dry mix, not reconstituted|Erdbeer-Getränkepulver, trocken
+781496|Dip|Dip
+781497|Chipotle dip, regular|Chipotle Dip
+781498|Chipotle dip, light|Chipotle Dip, fettarm
+781499|Dill dip, regular|Dill Dip
+781500|Dill dip, light|Dill Dip, fettarm
+781501|Onion dip, regular|Zwiebeldip
+781502|Onion dip, light|Zwiebeldip, fettarm
+781503|Ranch dip, regular|Ranch Dip
+781504|Ranch dip, light|Ranch Dip, fettarm
+781505|Spinach dip, regular|Spinat Dip
+781506|Spinach dip, light|Spinat Dip, fettarm
+781507|Vegetable dip, regular|Gemüsedip
+781508|Vegetable dip, light|Gemüsedip, fettarm
+781652|White sauce, milk sauce|Bechamelsauce
+781653|Milk gravy, quick gravy|Einbrenne, hell
 781734|Artichoke dip|Artischocken-Dip
 781736|Seafood dip|Meeresfrüchtedip
 781738|Cheese dip|Käse Dip
 781743|Cheese fondue|Käsefondue
-781745|Welsh rarebit|Walisisches Rarebit
+781745|Welsh rarebit|Walisisches Rarebit (gewürzter Käse auf geröstetem Brot)
 781796|Cheese sauce|Käsesoße
 781798|Alfredo sauce|Alfredo Sauce
 782927|Lobster sauce|Hummersauce
 782928|Oyster sauce|Austernsauce
 782929|Fish sauce|Fischsoße
-783889|Gravy, poultry|Soße, Geflügel
-783892|Gravy, poultry, low sodium|Soße, Geflügel, salzarm
-783894|Gravy, giblet|Soße, Innereien
-783897|Gravy, poultry, home recipe|Soße, Geflügel, Hausrezept
-783898|Gravy, mushroom|Soße, Pilz
-783899|Gravy, redeye|Soße, rotes Auge
-783901|Gravy, poultry, fat free|Soße, Geflügel, fettfrei
+783889|Gravy, poultry|Geflügelsoße
+783892|Gravy, poultry, low sodium|Geflügelsoße, salzarm
+783894|Gravy, giblet|Soße aus Innereien
+783897|Gravy, poultry, home recipe|Geflügelsoße, Hausrezept
+783898|Gravy, mushroom|Pilzsoße
+783899|Gravy, redeye|Rote-Augen-Soße (USA)
+783901|Gravy, poultry, fat free|Geflügelsoße, fettfrei
 783906|Oyster-flavored sauce|Sauce mit Austerngeschmack
-783907|Mole poblano sauce|Maulwurf Poblano Sauce
-783908|Mole verde sauce|Mole Verde Sauce
+783907|Mole poblano sauce|Mole (mexikanische Sauce)
+783908|Mole verde sauce|Kürbiskern-Chilli-Sauce
 784241|Layer dip|Schichtdip
-784242|Hummus, plain|Hummus, schlicht
+784242|Hummus, plain|Hummus
 784243|Hummus, flavored|Hummus, aromatisiert
 784244|Black bean sauce|Sauce aus schwarzen Bohnen
 784424|Peanut sauce|Erdnusssoße
 784425|Brown nut gravy, meatless|Braune Nusssauce, Fleischersatz
-785154|Cookie, teething, baby|Keks, Zahnen, Baby
-785155|Cookie, rice, baby|Keks, Reis, Baby
+785154|Cookie, teething, baby|Biscuitkeks (Babynahrung)
+785155|Cookie, rice, baby|Reiskeks (Babynahrung)
 785573|Cereal, nestum|Getreide, Nestum
-785750|Wheat germ, plain|Weizenkeime, schlicht
+785750|Wheat germ, plain|Weizenkeime
 785757|Wheat bran, unprocessed|Weizenkleie, unverarbeitet
 785758|Oats|Hafer
 785759|Oat bran, uncooked|Haferkleie, ungekocht
@@ -2953,12 +2952,12 @@
 786668|Cherry pie filling|Kirschkuchenfüllung
 786770|Blueberry pie filling|Blaubeerkuchenfüllung
 786833|Guacamole|Guacamole
-787176|Pickled green bananas, Puerto Rican style|Eingelegte grüne Bananen nach puertoricanischer Art
+787176|Pickled green bananas, Puerto Rican style|grüne Bananen, eingelegt, nach puertoricanischer Art
 787700|Tomato, green, pickled|Tomate, grün, eingelegt
 787715|Enchilada sauce, green|Enchilada-Sauce, grün
 787717|Spaghetti sauce|Spaghettisoße
-787719|Spaghetti sauce, reduced sodium|Spaghettisauce, salzarm
-787720|Spaghetti sauce, fat free|Spaghettisauce, fettfrei
+787719|Spaghetti sauce, reduced sodium|Spaghettisoße, salzarm
+787720|Spaghetti sauce, fat free|Spaghettisoße, fettfrei
 787787|Basil|Basilikum
 787788|Chives|Schnittlauch
 787789|Cilantro|Koriander
@@ -2966,28 +2965,28 @@
 788466|Pimiento|Pfeffer
 788500|Seaweed, dried|Seetang, getrocknet
 788564|Yeast|Hefe
-788565|Yeast extract spread|Hefeextraktaufstrich
+788565|Yeast extract spread|Hefeextrakt
 788704|Vegetable mixture, dried|Gemüsemischung, getrocknet
 788752|Eggplant dip|Auberginendip
-788817|Beans, string, green, pickled|Bohnen, Schnur, grün, eingelegt
+788817|Beans, string, green, pickled|grüne Bohnen, eingelegt
 788818|Beets, pickled|Eingelegte Rüben
 788819|Celery, pickled|Sellerie, eingelegt
-788820|Corn relish|Mais Relish
+788820|Corn relish|Mais Relish (Würzsoße)
 788821|Cauliflower, pickled|Blumenkohl, eingelegt
 788822|Cabbage, fresh, pickled, Japanese style|Kohl, frisch, eingelegt, nach japanischer Art
-788823|Cabbage, red, pickled|Kohl, rot, eingelegt
+788823|Cabbage, red, pickled|Rotkohl, eingelegt
 788824|Kimchi|Kimchi
 788825|Cabbage, mustard, salted|Kohl, Senf, gesalzen
-788826|Cucumber pickles, dill|Gurkengurken, Dill
-788827|Cucumber pickles, relish|Gurkengurken, genießen
-788828|Cucumber pickles, sour|Gurkengurken, sauer
-788829|Cucumber pickles, sweet|Gurkengurken, süß
+788826|Cucumber pickles, dill|Gewürzgurken, Dill
+788827|Cucumber pickles, relish|Gewürzgurken, genießen
+788828|Cucumber pickles, sour|Gewürzgurken, sauer
+788829|Cucumber pickles, sweet|Gewürzgurken, süß
 788830|Eggplant, pickled|Aubergine, eingelegt
 788831|Ginger root, pickled|Ingwerwurzel, eingelegt
 788832|Horseradish|Meerrettich
 788833|Mustard pickles|Senfgurken
-788834|Cucumber pickles, dill, reduced salt|Gurkengurken, Dill, reduziertes Salz
-788835|Cucumber pickles, sweet, reduced salt|Gurkengurken, süßes, reduziertes Salz
+788834|Cucumber pickles, dill, reduced salt|Gurkengurken, Dill, salzarm
+788835|Cucumber pickles, sweet, reduced salt|Gurkengurken, süßes, salzarm
 788836|Mushrooms, pickled|Eingelegte Pilze
 788837|Mustard|Senf
 788838|Honey mustard dip|Honig-Senf-Dip
@@ -3004,7 +3003,7 @@
 788850|Recaito|Recaito
 788851|Seaweed, pickled|Eingelegter Seetang
 788852|Vegetables, pickled, Hawaiian style|Eingelegtes Gemüse nach hawaiianischer Art
-788853|Vegetable relish|Gemüse Relish
+788853|Vegetable relish|Gemüse Würzsoße (Relish)
 788854|Vegetables, pickled|Eingelegtes Gemüse
 788855|Turnip, pickled|Rübe, eingelegt
 788856|Tsukemono, Japanese pickles|Tsukemono, japanische Gurken
@@ -3018,7 +3017,7 @@
 789094|Sugar|Zucker
 789096|Sugar, white, confectioner's, powdered|Zucker, weiß, Konditor, pulverisiert
 789097|Sugar, brown|Zucker, braun
-789098|Sugar, cinnamon|Zucker, Zimt
+789098|Sugar, cinnamon|Zimtzucker
 789100|Sugar substitute, sucralose, powder|Zuckerersatz, Sucralose, Pulver
 789101|Sugar substitute, stevia, powder|Zuckerersatz, Stevia, Pulver
 789102|Sugar substitute, stevia, liquid|Zuckerersatz, Stevia, flüssig
@@ -3036,20 +3035,20 @@
 789116|Chocolate syrup, thin type|Schokoladensirup, dünner Typ
 789117|Chocolate syrup, thin type, light|Schokoladensirup, dünne Sorte, leicht
 789118|Chocolate syrup, thin type, sugar free|Schokoladensirup, dünn, zuckerfrei
-789119|Sorghum syrup|Sorghumsirup
+789119|Sorghum syrup|Sorghumsirup (Zuckerrohrsirup)
 789121|Sugar, carmelized|Zucker, karmeliert
 789125|Syrup, pancake, reduced calorie|Sirup, Pfannkuchen, kalorienreduziert
 789126|Honey|Honig
-789127|Agave liquid sweetener|Agave flüssiger Süßstoff
+789127|Agave liquid sweetener|Agavendicksaft
 789128|Molasses|Melasse
 789129|Sugar, brown, liquid|Zucker, braun, flüssig
-789131|Topping, chocolate, thick, fudge type|Belag, Schokolade, dick, Fudge-Typ
+789131|Topping, chocolate, thick, fudge type|Belag, Schokolade, dick, karamellartig
 789132|Topping, fruit|Belag, Obst
 789133|Topping, marshmallow|Richtfest, Marshmallow
 789134|Hard sauce|Harte Soße
-789136|Topping, peanut butter, thick, fudge type|Topping, Erdnussbutter, dick, Fudge-Typ
+789136|Topping, peanut butter, thick, fudge type|Topping, Erdnussbutter, dick, karamellartig
 789137|Topping, fruit, unsweetened|Belag, Obst, ungesüßt
-789140|Topping, chocolate, hard coating|Belag, Schokolade, harte Beschichtung
+789140|Topping, chocolate, hard coating|Belag, Schokoladenmantel
 789141|Icing, chocolate|Zuckerguss, Schokolade
 789142|Icing, white|Zuckerguss, weiß
 789143|Caramel dip, regular|Karamell Dip, regelmäßig
@@ -3057,38 +3056,38 @@
 789145|Chocolate dip|Schokoladendip
 789146|Dessert dip|Dessert Dip
 789147|Syrup, dietetic|Sirup, diätetisch
-789148|Topping, dietetic|Richtfest, diätetisch
+789148|Topping, dietetic|Topping diätetisch
 789150|Fruit sauce|Fruchtsauce
 789151|Dessert sauce|Dessertsauce
-789152|Duck sauce|Enten Sosse
+789152|Duck sauce|Entensoße
 789153|Plum sauce, Asian style|Pflaumensauce nach asiatischer Art
 789154|Jelly, all flavors|Gelee, alle Geschmacksrichtungen
-789155|Jam, preserve, all flavors|Marmelade, Konserven, alle Geschmacksrichtungen
+789155|Jam, preserve, all flavors|Marmelade, konserviert, alle Geschmacksrichtungen
 789156|Fruit butter, all flavors|Fruchtbutter, alle Geschmacksrichtungen
 789157|Marmalade, all flavors|Marmelade, alle Geschmacksrichtungen
 789158|Jelly, sugar free, all flavors|Gelee, zuckerfrei, alle Geschmacksrichtungen
 789159|Jelly, reduced sugar, all flavors|Gelee, reduzierter Zucker, alle Geschmacksrichtungen
-789160|Jam, preserve, marmalade, sugar free, all flavors|Marmelade, Konfitüre, Marmelade, zuckerfrei, alle Geschmacksrichtungen
-789162|Jam, preserve, marmalade, reduced sugar, all flavors|Marmelade, Konfitüre, Marmelade, reduzierter Zucker, alle Geschmacksrichtungen
+789160|Jam, preserve, marmalade, sugar free, all flavors|Marmelade, zuckerfrei, alle Geschmacksrichtungen
+789162|Jam, preserve, marmalade, reduced sugar, all flavors|Marmelade,zuckerarm, alle Geschmacksrichtungen
 789163|Guava paste|Guavenpaste
 789164|Sweet potato paste|Süßkartoffelpaste
 789165|Bean paste, sweetened|Bohnenpaste, gesüßt
 789166|Chinese preserved sweet vegetable|Chinesisches konserviertes süßes Gemüse
-789445|Coffee, instant, 50% less caffeine, not reconstituted|Kaffee, Instant, 50% weniger Koffein, nicht rekonstituiert
+789445|Coffee, instant, 50% less caffeine, not reconstituted|Kaffee, Instant, 50% weniger Koffein, pulverisiert
 789459|Coffee substitute, dry powder|Kaffeeersatz, trockenes Pulver
 789479|Tea, iced, instant, black, unsweetened, dry|Eistee, Instantpulver, schwarz, ungesüßt
 789480|Tea, iced, instant, black, pre-sweetened, dry|Eistee Instantpulver, schwarz, vorgesüßt
-789592|Sports drink, dry concentrate, not reconstituted|Sportgetränk, trockenes Konzentrat, nicht rekonstituiert
-789701|Water, baby, bottled, unsweetened|Wasser, Baby, abgefüllt, ungesüßt
-789718|Nutritional powder mix (Carnation Instant Breakfast)|Nährpulvermischung (Carnation Instant Breakfast)
-789719|Nutritional powder mix, sugar free (Carnation Instant Breakfast)|Nährpulvermischung, zuckerfrei (Carnation Instant Breakfast)
-789720|Nutritional powder mix (EAS Whey Protein Powder)|Nährpulvermischung (EAS Whey Protein Powder)
-789721|Nutritional powder mix (EAS Soy Protein Powder)|Nährpulvermischung (EAS Sojaproteinpulver)
+789592|Sports drink, dry concentrate, not reconstituted|Sportgetränk, Konzentratpulver
+789701|Water, baby, bottled, unsweetened|Wasser, Babynahrung
+789718|Nutritional powder mix (Carnation Instant Breakfast)|Nährpulvermischung (Frühstück)
+789719|Nutritional powder mix, sugar free (Carnation Instant Breakfast)|Nährpulvermischung, zuckerfrei (Frühstück)
+789720|Nutritional powder mix (EAS Whey Protein Powder)|Nährpulvermischung (Proteinpulver)
+789721|Nutritional powder mix (EAS Soy Protein Powder)|Nährpulvermischung (Sojaproteinpulver)
 789722|Nutritional powder mix, high protein (Herbalife)|Nährpulvermischung, proteinreich (Herbalife)
 789723|Nutritional powder mix (Isopure)|Nährpulvermischung (Isopure)
-789724|Nutritional powder mix (Kellogg's Special K20 Protein Water)|Nährpulvermischung (Kellogg&#39;s Special K20 Protein Water)
-789725|Nutritional powder mix (Muscle Milk)|Nährpulvermischung (Muskelmilch)
-789726|Nutritional powder mix, light (Muscle Milk)|Nährpulvermischung, leicht (Muskelmilch)
+789724|Nutritional powder mix (Kellogg's Special K20 Protein Water)|Nährpulvermischung (Kellogs Protein Water)
+789725|Nutritional powder mix (Muscle Milk)|Nährpulvermischung (muscle milk)
+789726|Nutritional powder mix, light (Muscle Milk)|Nährpulvermischung, leicht (muscle milk)
 789727|Nutritional powder mix (Slim Fast)|Nährpulvermischung (Slim Fast)
 789728|Nutritional powder mix, sugar free (Slim Fast)|Nährpulvermischung, zuckerfrei (Slim Fast)
 789729|Nutritional powder mix, high protein (Slim Fast)|Nährstoffpulvermischung, proteinreich (Slim Fast)
