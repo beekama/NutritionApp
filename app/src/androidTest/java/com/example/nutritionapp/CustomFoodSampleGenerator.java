@@ -12,6 +12,9 @@ public class CustomFoodSampleGenerator {
         f1.fiber = 10;
         Nutrition n1 = new Nutrition();
         n1.getElements().replace(NutritionElement.CALCIUM, 50);
+
+        n1.getElements().replace(NutritionElement.VITAMIN_C, 20);
+        n1.getElements().replace(NutritionElement.VITAMIN_D, 30);
         f1.nutrition = n1;
         return f1;
     }

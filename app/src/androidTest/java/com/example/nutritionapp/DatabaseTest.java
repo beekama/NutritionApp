@@ -95,17 +95,21 @@ public class DatabaseTest {
                     Food f1 = CustomFoodSampleGenerator.buildCustomFoodWithNutrition(defaultName);
                     db.createNewFood(f1, NO_REUSE_ID);
                     ArrayList<Food> foods = db.getFoodsByExactName("FOOD_A");
+
                     assertNotEquals("DB failed to retrieve custom food", 0, foods.size());
                     assertEquals("DB responded with more than one food.", 1, foods.size());
                     assertEquals("Name of retrieve food didn't match", foods.get(0).name, defaultName);
+
                     Food ret = new Food(foods.get(0).name, foods.get(0).id, db, null);
-                    assertEquals("Energy of retrieved custom Food not equal", ret.energy, f1.energy);
-                    assertEquals("Fiber of retrieved custom Food not equal", ret.fiber, f1.fiber);
-                    assertEquals("Calcium (MG) of retrieved custom Food not equal", ret.energy, f1.energy);
-                    assertEquals("Calcium (MG) of retrieved custom Food not equal", ret.nutrition.getElements().get(NutritionElement.CALCIUM),
-                            f1.nutrition.getElements().get(NutritionElement.CALCIUM));
-                    assertEquals("VITAMIN_C (UG) of retrieved custom Food not equal", ret.nutrition.getElements().get(NutritionElement.VITAMIN_C),
-                            f1.nutrition.getElements().get(NutritionElement.VITAMIN_C));
+
+                    assertEquals("Energy of retrieved custom Food not equal", f1.energy, ret.energy);
+                    assertEquals("Fiber of retrieved custom Food not equal", f1.fiber, ret.fiber);
+                    assertEquals("Calcium (MG) of retrieved custom Food not equal", f1.nutrition.getElements().get(NutritionElement.CALCIUM),
+                            ret.nutrition.getElements().get(NutritionElement.CALCIUM));
+                    assertEquals("VITAMIN_D (MG_ATE) of retrieved custom Food not equal", f1.nutrition.getElements().get(NutritionElement.VITAMIN_D),
+                    ret.nutrition.getElements().get(NutritionElement.VITAMIN_D));
+                    assertEquals("VITAMIN_C (UG) of retrieved custom Food not equal", f1.nutrition.getElements().get(NutritionElement.VITAMIN_C),
+                            ret.nutrition.getElements().get(NutritionElement.VITAMIN_C));
                 }
         );
     }
