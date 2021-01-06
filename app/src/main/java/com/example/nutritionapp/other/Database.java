@@ -233,16 +233,18 @@ public class Database {
 
         String altDescription = getLocalizedDescriptionForId(foodId);
 
-        if(foodCache.containsKey(foodId)){
-            return foodCache.get(foodId);
-        }else {
+        final LocalDateTime loggedAt;
+        if (loggedAtIso != null) {
+            loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
+        }else{
+            loggedAt = null;
+        }
 
-            final LocalDateTime loggedAt;
-            if (loggedAtIso != null) {
-                loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
-            }else{
-                loggedAt = null;
-            }
+        if(foodCache.containsKey(foodId)){
+            Food f = foodCache.get(foodId).deepclone();
+            f.loggedAt = loggedAt;
+            return f;
+        }else {
 
             if (c.moveToFirst()) {
                 String foodName;

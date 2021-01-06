@@ -36,7 +36,10 @@ public class Food {
         if(db != null) {
             setNutritionFromDb(db);
         }
-        this.loggedAt = loggedAt;
+        this.loggedAt = null;
+        if(loggedAt != null){
+            this.loggedAt = LocalDateTime.from(loggedAt);
+        }
     }
 
     public boolean equals(Object o){
@@ -62,7 +65,11 @@ public class Food {
     }
 
     public Food deepclone() {
-        Food clone = new Food(this.name, this.id, null, this.loggedAt);
+        LocalDateTime copy = null;
+        if(this.loggedAt != null){
+            copy = LocalDateTime.from(this.loggedAt);
+        }
+        Food clone = new Food(this.name, this.id, null, copy);
         if(this.associatedAmount != -1) {
             clone.setAssociatedAmount(this.associatedAmount);
         }
