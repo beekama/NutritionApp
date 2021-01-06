@@ -45,10 +45,10 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
         CreateFoodNutritionSelectorItem item = this.items.get(position);
 
         /* inflate layout */
-        if(convertView == null) {
+        //if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.create_food_nutrition_selection_item, parent, false);
-        }
+        //}
 
         /* get relevant sub-views */
         TextView name = convertView.findViewById(R.id.name);
