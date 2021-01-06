@@ -298,7 +298,7 @@ public class Database {
 
         String table = "foodlog";
         String[] columns = {"food_id", "group_id", "loggedAt", "amountInGram"};
-        String whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")" , endISO, startISO);
+        String whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")" , startISO, endISO);
         if(start.equals(LocalDate.MIN) || end.equals(LocalDate.MAX)){
             whereStm = "date(loggedAt)";
         }
