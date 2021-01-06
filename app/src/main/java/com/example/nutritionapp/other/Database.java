@@ -211,7 +211,10 @@ public class Database {
     }
     public synchronized void deleteLoggedFood(Food f, LocalDateTime d) {
         String[] whereArgs = { f.id, d.format(Utils.sqliteDatetimeFormat) };
-        db.delete(JOURNAL_TABLE, "food_id = ? AND loggedAt = ?", whereArgs);
+        int rowsDeleted = db.delete(JOURNAL_TABLE, "food_id = ? AND loggedAt = ?", whereArgs);
+        if(rowsDeleted <= 0){
+            throw new AssertionError("Foods could not be deleted, id = " + whereArgs[0] + ", loggedAt = " + whereArgs[1]);
+        }
     }
 
     public boolean checkFoodExists(Food f){
