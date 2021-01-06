@@ -69,7 +69,9 @@ public class CreateNewFoodItem extends AppCompatActivity {
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
         if(this.editMode){
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem(db, "Serving Size", 1, false));
+            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, "Serving Size", 100, false);
+            servingSize.unit = "G";
+            staticSelectors.add(servingSize);
             CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, "Energy", editFood.energy, false);
             CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, "Fiber", editFood.fiber, false);
             energyItemEdit.unit = "KCAL";
