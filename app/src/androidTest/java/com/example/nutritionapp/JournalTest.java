@@ -9,6 +9,7 @@ import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -27,11 +28,11 @@ import static org.junit.Assert.*;
 public class JournalTest {
 
     @Before
+    @After
     public void purgeDB(){
         ActivityScenario.launch(MainActivity.class).onActivity(activity -> {
             Database db = new Database(activity);
             db.purgeDatabase();
-            db.close();
         });
     }
 
@@ -41,7 +42,6 @@ public class JournalTest {
             Database db = new Database(activity);
             ArrayList<Food> foods = JournalFoodSampleGenerator.generateSampleFoodGroup(db);
             db.logExistingFoods(foods, LocalDateTime.now());
-            db.close();
         });
     }
 
@@ -67,7 +67,6 @@ public class JournalTest {
                 assertEquals("food group doesn't match input", af.size(), foods.size());
                 runOnce = false;
             }
-            db.close();
         });
     }
 
@@ -100,7 +99,6 @@ public class JournalTest {
             for(ArrayList<Food> af : foodGroups.values()){
                 assertEquals("food group doesn't match input", af.size(), foods.size());
             }
-            db.close();
         });
     }
 
@@ -116,8 +114,8 @@ public class JournalTest {
             ArrayList<Food> foods = JournalFoodSampleGenerator.generateSampleFoodGroup(db);
 
             LocalDateTime day1 = LocalDateTime.of(2020, 9, 1, 20, 10);
-            LocalDateTime day2 = LocalDateTime.of(2020, 9, 2, 20, 10);
-            LocalDateTime day3 = LocalDateTime.of(2020, 9, 3, 20, 10);
+            LocalDateTime day2 = LocalDateTime.of(2020, 9, 2, 20, 11);
+            LocalDateTime day3 = LocalDateTime.of(2020, 9, 3, 20, 12);
 
             LocalDateTime prev = LocalDateTime.from(day1);
             LocalDateTime post = LocalDateTime.from(day3);
@@ -130,14 +128,15 @@ public class JournalTest {
 
             HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(prev, post);
 
+            /* remove */
             for(Integer key: foodGroups.keySet()){
                 ArrayList<Food> af = foodGroups.get(key);
                 assertNotNull(af);
+                Log.wtf("WTF", ""+af.get(0).loggedAt);
                 db.deleteLoggedFood(af, af.get(0).loggedAt);
-                assertEquals("food group doesn't match input", 0, db.getLoggedFoodByGroupId(key).size());
             }
+
             assertEquals("Foods weren't completely deleted from log", 0,  db.getLoggedFoodsByDate(prev, post).keySet().size());
-            db.close();
         });
     }
 
@@ -152,7 +151,6 @@ public class JournalTest {
                 String assertMsg = String.format("Returned food didn't contain pattern (name: %s)", f.name);
                 assertTrue(assertMsg, f.name.toLowerCase().contains(pattern.toLowerCase()));
             }
-            db.close();
         });
     }
 
@@ -172,8 +170,6 @@ public class JournalTest {
             assertNotEquals("food search produced empty result", 0, suggested.size());
             assertTrue("Food 1 missing in suggestion list", suggested.contains(foods.get(1)));
             assertTrue("Food 2 missing in suggestion list", suggested.contains(foods.get(2)));
-
-            db.close();
         });
     }
 }
