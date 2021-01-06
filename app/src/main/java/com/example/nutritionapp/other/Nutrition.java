@@ -31,11 +31,11 @@ public class Nutrition {
         nutritionElementToDatabaseId.put(NutritionElement.POTASSIUM, DB_ID_POTASSIUM);
 
         nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_A, DB_ID_VITAMIN_A);
-        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B12, DB_ID_VITAMIN_C);
-        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_C, DB_ID_VITAMIN_D);
-        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_D, DB_ID_VITAMIN_E);
-        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_E, DB_ID_VITAMIN_K);
-        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_K, DB_ID_VITAMIN_B12);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B12, DB_ID_VITAMIN_B12);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_C, DB_ID_VITAMIN_C);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_D, DB_ID_VITAMIN_D);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_E, DB_ID_VITAMIN_E);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_K, DB_ID_VITAMIN_K);
     }
 
 
