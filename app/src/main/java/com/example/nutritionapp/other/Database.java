@@ -57,7 +57,6 @@ public class Database {
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
         if (db == null){
-            targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
             createDatabase(false);
             db = SQLiteDatabase.openDatabase(targetPath, null, NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
         }
@@ -78,6 +77,7 @@ public class Database {
     }
 
     private void createDatabase(boolean forceOverwrite){
+        targetPath = srcActivity.getFilesDir().getParent() + "/" + DATABASE_NAME;
         File file = new File(targetPath);
         if(forceOverwrite && file.exists()){
             boolean deleted = file.delete();
