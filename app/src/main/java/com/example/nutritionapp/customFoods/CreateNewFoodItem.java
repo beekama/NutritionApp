@@ -80,7 +80,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true));
             staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false));
             CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem("Energy", false);
-            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem("Energy", false);
+            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem("Fiber", false);
             energyItem.unit = "KCAL";
             fiberItem.unit = "MG";
             staticSelectors.add(energyItem);
