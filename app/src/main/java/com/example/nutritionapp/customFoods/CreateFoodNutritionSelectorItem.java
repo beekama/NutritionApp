@@ -51,7 +51,8 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
         //Log.wtf("LOL", ne.toString() + " " + presetAmount + " " + this.unit + " " + Conversions.convert("UG", this.unit, presetAmount));
         this.tag = ne.toString();
         this.inputTypeString = inputTypeString;
-        this.amount = Conversions.convert("UG", this.unit, presetAmount);
+        this.amount = presetAmount;
+        //this.amount = Conversions.convert("UG", this.unit, presetAmount);
     }
 
     public CreateFoodNutritionSelectorItem(NutritionElement ne, String presetData, boolean inputTypeString) {
