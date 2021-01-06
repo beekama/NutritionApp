@@ -221,6 +221,10 @@ public class Database {
         return getFoodById(f.id) != null;
     }
 
+    public void invalidateFoodIdInCache(String foodID){
+        foodCache.remove(foodID);
+    }
+
     public Food getFoodById(String foodId) {
         return getFoodById(foodId, null);
     }
@@ -552,6 +556,7 @@ public class Database {
         if(!origFood.isIdValid() || !checkFoodExists(origFood)){
             return false;
         }
+        invalidateFoodIdInCache(origFood.id);
         String[] whereArgs = { origFood.id };
         db.delete(FOOD_TABLE, "fdc_id = ?", whereArgs);
         createNewFood(changedFood, Integer.parseInt(changedFood.id));
