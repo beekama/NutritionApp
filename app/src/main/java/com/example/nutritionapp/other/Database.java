@@ -437,11 +437,7 @@ public class Database {
                 /* convert raw amount into native value */
                 String nutrientID = nutrients.getString(0);
                 int rawAmount = nutrients.getInt(1);
-
-                String unitName = getNutrientNativeUnit(nutrientID);
-
-                int normalizedAmount = Conversions.normalize(unitName, rawAmount);
-                ret.put(nutrientID, normalizedAmount);
+                ret.put(nutrientID, rawAmount);
 
             } while (nutrients.moveToNext());
         }else{
