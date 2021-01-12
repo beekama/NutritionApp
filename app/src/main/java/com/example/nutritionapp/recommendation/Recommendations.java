@@ -1,20 +1,25 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 
@@ -77,6 +82,13 @@ public class Recommendations extends AppCompatActivity {
             }
         }));
 
+        /* PROGRESS BAR */
+        ProgressBar energyBar = findViewById(R.id.energyBar);
+        TextView energyBarText = findViewById(R.id.energyBarTextAnalysis);
+
+        setProgressBar(currentDateParsed, db, energyBar, energyBarText);
+
+
 
         /* LISTVIEW */
         // NutritionAnalysis-data:
@@ -113,6 +125,7 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
                 updateDate(currentDateParsed, mainLv, currentDate);
+                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
 
@@ -123,6 +136,7 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
                 updateDate(currentDateParsed, mainLv, currentDate);
+                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
 
@@ -135,6 +149,7 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusWeeks(1);
                 updateDate(currentDateParsed, mainLv, currentDate);
+                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
 
@@ -145,6 +160,7 @@ public class Recommendations extends AppCompatActivity {
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusWeeks(1);
                 updateDate(currentDateParsed, mainLv, currentDate);
+                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
     }
@@ -177,6 +193,28 @@ public class Recommendations extends AppCompatActivity {
             }
         }
         return listItems;
+    }
+
+    void setProgressBar(LocalDate currentDateParsed, Database db, ProgressBar energyBar, TextView energyBarText){
+
+        //create Arraylist with foods of the given day:
+        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));              //red db-access?
+
+        int energyUsed = Conversions.jouleToKCal(Nutrition.totalEnergy(foods));
+        int energyNeeded = 2000;
+        int energyUsedPercentage = energyUsed*100/energyNeeded;
+
+        if(energyUsedPercentage < 2){
+            energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }else if(energyUsedPercentage < 125){
+            energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        }else{
+            energyBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+
+        energyBar.setProgress(Math.min(energyUsedPercentage, 100));
+        String energyBarContent = String.format("Energy %d/%d", energyUsed, energyNeeded);
+        energyBarText.setText(energyBarContent);
     }
 
 

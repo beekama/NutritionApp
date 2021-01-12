@@ -84,6 +84,39 @@
 
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- ENERGY ON THIS DAY -->
+
+
+    <ProgressBar
+        android:id="@+id/energyBar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/textviewDate"
+        app:layout_constraintBottom_toTopOf="@+id/listview"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="32sp"
+        android:progress="0"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/energyBarTextAnalysis"
+        android:background="#00000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/energyBar"
+        android:layout_alignStart="@id/energyBar"
+        android:layout_alignTop="@id/energyBar"
+        android:layout_alignEnd="@id/energyBar"
+        android:layout_alignBottom="@id/energyBar"
+        />
 
     <ListView
         android:id="@+id/listview"
