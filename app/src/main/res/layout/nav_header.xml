@@ -23,6 +23,7 @@
             app:layout_constraintGuide_percent="0.8"/>
 
     <ImageButton
+        android:id="@+id/switchToNight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_night_foreground"
