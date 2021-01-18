@@ -10,6 +10,8 @@
         <item name="cardBackgroundColor">#ffffff</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="background">@android:color/white</item>
+        <!-- animation-->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationFading</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -41,5 +43,11 @@
     <!--splash-->
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <!--fading between darkmode - nightmode -->
+    <style name="WindowAnimationFading">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 </resources>

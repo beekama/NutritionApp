@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         View navHeader = navigationView.getHeaderView(0);
         ImageButton switchToNightd = navHeader.findViewById(R.id.switchToNight);
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) switchToNightd.setImageResource(R.drawable.ic_grainright);
         switchToNightd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     default:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 }
+                //finish();
+                //startActivity(getIntent());
             }
         });
 
