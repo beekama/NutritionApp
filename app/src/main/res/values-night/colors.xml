@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBlack">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="eierschalenfarbe">#efebdc</color>
+    <color name="green_strong">#a4de02</color>
+    <color name="green_dark">#1e5631</color>
+    <color name="green_middle">#66aa33</color>
+    <color name="green_light">#76ba1b</color>
+    <color name="green_soft">#799d86</color>
+    <color name="green_nice">#cde2b8</color>
+    <color name="p1">#00a0dc</color>
+    <color name="p2">#8d6cab</color>
+    <color name="p3">#dd5143</color>
+    <color name="p4">#e68523</color>
+    <color name="red">#ff0000</color>
+    <color name="greyLight">#80ffffff</color>
+    <color name="greyDark">#808080</color>
+
+    <color name="chartBlue">#0278ae</color>
+    <color name="chartOrange">#fca652</color>
+    <color name="chartBrown">#ac4b1c</color>
+    <color name="chartGold">#f0a500</color>
+    <color name="chartRed">#931a25</color>
+    <color name="chartGreenDark">#335d2d</color>
+    <color name="chartYellow">#ffefa0</color>
+    <color name="chartBerry">#b83b5e</color>
+    <color name="chartGreenLight">#7ea04d</color>
+    <color name="chartTinte">#1e5f74</color>
+    <color name="chartApricot">#f8bd7f</color>
+    <color name="chartLila">#31112c</color>
+    <color name="chartTurquoise">#b9fffc</color>
+    <color name="chartGreenly">#41aea9</color>
+    <color name="chartBrownTwo">#87431d</color>
+
+    <color name="DayChartLigthGreen">#C8FFC8</color>
+    <color name="DayChartDarkGreen">#006400</color>
+    <color name="DayChartLightOrange">#ffd27f</color>
+    <color name="DayChartDarkOrange">#e68523</color>
+    <color name="DayChartLightRed">#ffaaab</color>
+    <color name="DayChartDarkRed">#931a25</color>
+
+    <array name="DayChartGreen">
+        <item>@color/DayChartDarkGreen</item>
+        <item>@color/DayChartLigthGreen</item>
+    </array>
+    <array name="DayChartOrange">
+        <item>@color/DayChartDarkOrange</item>
+        <item>@color/DayChartLightOrange</item>
+    </array>
+    <array name="DayChartRed">
+        <item>@color/DayChartDarkRed</item>
+        <item>@color/DayChartLightRed</item>
+    </array>
+
+    <array name="chartColorCollection">
+        <item>@color/chartBlue</item>
+        <item>@color/chartOrange</item>
+        <item>@color/chartBrown</item>
+        <item>@color/chartGold</item>
+        <item>@color/chartRed</item>
+        <item>@color/chartGreenDark</item>
+        <item>@color/chartYellow</item>
+        <item>@color/chartBerry</item>
+        <item>@color/chartGreenLight</item>
+        <item>@color/chartTinte</item>
+        <item>@color/chartApricot</item>
+        <item>@color/chartLila</item>
+        <item>@color/chartTurquoise</item>
+        <item>@color/chartGreenly</item>
+        <item>@color/chartBrownTwo</item>
+        <item>@color/greyDark</item>
+        <item>@color/green_middle</item>
+    </array>
+
+    <color name="backgroundColor">#000000</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="buttonColor">@color/greyDark</color>
+
+
+</resources>
