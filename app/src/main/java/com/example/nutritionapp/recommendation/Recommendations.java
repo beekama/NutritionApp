@@ -198,7 +198,7 @@ public class Recommendations extends AppCompatActivity {
     void setProgressBar(LocalDate currentDateParsed, Database db, ProgressBar energyBar, TextView energyBarText){
 
         //create Arraylist with foods of the given day:
-        ArrayList<Food> foods = db.getFoodsFromHashmap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));              //red db-access?
+        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));            //red db-access?
 
         int energyUsed = Conversions.jouleToKCal(Nutrition.totalEnergy(foods));
         int energyNeeded = 2000;
