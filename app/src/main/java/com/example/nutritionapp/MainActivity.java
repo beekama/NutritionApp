@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         View navHeader = navigationView.getHeaderView(0);
         ImageButton switchToNightd = navHeader.findViewById(R.id.switchToNight);
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) switchToNightd.setImageResource(R.drawable.ic_grainright);
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) switchToNightd.setImageResource(R.mipmap.ic_sun_foreground);
         switchToNightd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case Configuration.UI_MODE_NIGHT_NO:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         //change background to ic_day:
-                        switchToNightd.setImageResource(R.drawable.ic_night_background);    //todo: create image
+                        switchToNightd.setImageResource(R.mipmap.ic_night_foreground);
                         break;
                     case Configuration.UI_MODE_NIGHT_YES:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         //change background to ic_night:
-                        switchToNightd.setImageResource(R.drawable.ic_grainleft);
+                        switchToNightd.setImageResource(R.mipmap.ic_night_foreground);
                         break;
                     //case Configuration.UI_MODE_NIGHT_UNDEFINED:
                     default:
