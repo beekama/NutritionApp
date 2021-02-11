@@ -1,7 +1,10 @@
 package com.example.nutritionapp.recommendation;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -10,7 +13,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.example.nutritionapp.R;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -47,6 +54,7 @@ class RecommendationAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -64,6 +72,7 @@ class RecommendationAdapter extends BaseAdapter {
         PieChart rec_chart = convertView.findViewById(R.id.pieChar);
 
         /*Text-column*/
+        rec_item.setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
         rec_item.setText(item.nutritionElement.toString());
 
         /*chart*/
@@ -93,6 +102,7 @@ class RecommendationAdapter extends BaseAdapter {
         //PERCENTAGE-LABEL:
         rec_chart.getDescription().setText(String.format("%.2f %%", item.percentage));
         rec_chart.getDescription().setPosition(225f, 25f);
+        rec_chart.getDescription().setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
 
         rec_chart.notifyDataSetChanged();
 

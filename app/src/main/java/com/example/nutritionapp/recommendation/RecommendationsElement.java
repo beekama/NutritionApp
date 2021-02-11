@@ -1,6 +1,9 @@
 package com.example.nutritionapp.recommendation;
 
+import android.content.res.Configuration;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -9,12 +12,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -88,7 +93,6 @@ public class RecommendationsElement extends AppCompatActivity {
 
 /*        chartElement.setTouchEnabled(false);
         chartElement.getLegend().setEnabled(false);*/
-
         XAxis xAxis = chartElement.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
@@ -157,6 +161,12 @@ public class RecommendationsElement extends AppCompatActivity {
         lineDataSet.setLineWidth(3f);
         lineDataSet.setCircleRadius(5f);
 
+
+        lineChart.getLegend().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        lineChart.getXAxis().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        lineDataSet.setValueTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        lineChart.getAxisRight().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        lineChart.getAxisLeft().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
 
 
         /* set x-axis label */

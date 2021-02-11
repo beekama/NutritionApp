@@ -1,6 +1,7 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +9,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
@@ -16,6 +19,7 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -228,12 +232,18 @@ public class RecommendationsWeek extends AppCompatActivity {
 
 /*        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(barDataSet);*/
+
         BarData data = new BarData(barDataSets);
         data.setValueTextSize(10f);
         data.setBarWidth(0.9f);
         chartWeek.setData(data);
         data.setHighlightEnabled(true);
         chartWeek.setHighlightPerTapEnabled(true);
+        chartWeek.getLegend().setTextColor(ContextCompat.getColor(this.getBaseContext(), R.color.textColor));
+        chartWeek.getXAxis().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        data.setValueTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        chartWeek.getAxisRight().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
+        chartWeek.getAxisLeft().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
         chartWeek.invalidate();
     }
 

@@ -1,5 +1,6 @@
 package com.example.nutritionapp.customFoods;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Conversions;
@@ -91,6 +94,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
         ListView mainLv = findViewById(R.id.main_lv);
+        mainLv.setCacheColorHint(ContextCompat.getColor(this.getApplicationContext(),R.color.textColorHint));
         for (NutritionElement ne : n.getElements().keySet()) {
             if(this.editMode){
                 Integer presetAmount = n.getElements().get(ne);

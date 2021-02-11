@@ -8,9 +8,9 @@
         <item name="colorAccent">@color/green_soft</item>
         <item name="buttonTint">#ffffff</item>
         <item name="cardBackgroundColor">#ffffff</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="background">@android:color/white</item>
-        <!-- animation-->
+        <!-- animation navigation-drawer -->
         <item name="android:windowAnimationStyle">@style/WindowAnimationFading</item>
     </style>
 
@@ -27,12 +27,10 @@
 
     <style name="Button_Bottom" >
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="target_overview_dateText" >
         <item name="android:textSize">25sp</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="button_text_toRec">

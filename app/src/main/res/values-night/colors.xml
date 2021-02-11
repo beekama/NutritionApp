@@ -78,6 +78,7 @@
 
     <color name="backgroundColor">#000000</color>
     <color name="textColor">#FFFFFF</color>
+    <color name="textColorHint">@color/greyDark</color>
     <color name="buttonColor">@color/greyDark</color>
 
 

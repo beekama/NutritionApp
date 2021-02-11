@@ -18,6 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
         android:id="@+id/value"
+        android:textColorHint="@color/textColorHint"
+        android:backgroundTint="@color/textColorHint"
         android:inputType="number"
         android:layout_width="0dp"
         android:layout_height="match_parent"

@@ -17,7 +17,6 @@
         android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:text=""
-        android:textColor="@color/colorBlack"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:ignore="MissingConstraints" />

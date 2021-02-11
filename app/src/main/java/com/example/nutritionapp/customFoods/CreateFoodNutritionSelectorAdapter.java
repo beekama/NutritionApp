@@ -1,6 +1,7 @@
 package com.example.nutritionapp.customFoods;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
@@ -43,7 +49,6 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
 
         /* item at position */
         CreateFoodNutritionSelectorItem item = this.items.get(position);
-
         /* inflate layout */
         //if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,7 +57,9 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
 
         /* get relevant sub-views */
         TextView name = convertView.findViewById(R.id.name);
+        name.setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
         EditText value = convertView.findViewById(R.id.value);
+        value.setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
         if(item.inputTypeString){
             value.setInputType(EditText.AUTOFILL_TYPE_TEXT);
         }

@@ -76,8 +76,10 @@
         <item>@color/green_middle</item>
     </array>
 
+    <!-- settings -->
     <color name="backgroundColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
+    <color name="textColorHint">@color/greyDark</color>
     <color name="buttonColor">@color/greyDark</color>
 
 
