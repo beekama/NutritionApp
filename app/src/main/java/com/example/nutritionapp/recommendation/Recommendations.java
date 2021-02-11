@@ -70,7 +70,7 @@ public class Recommendations extends AppCompatActivity {
         //Goto Week-Chart
         tb_forward.setImageResource(R.drawable.add_circle_filled);
         tb.setTitle("");
-        tb_title.setText("daily targets");
+        tb_title.setText(R.string.daily_targets);
         setSupportActionBar(tb);
         //refresh:
         tb_forward.setOnClickListener((new View.OnClickListener() {
@@ -168,7 +168,7 @@ public class Recommendations extends AppCompatActivity {
 
     /* change date */
     private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
-        tv.setText(LocalDate.now().compareTo(currentDateParsed) == 0 ? "today" : currentDateParsed.toString());
+        tv.setText(LocalDate.now().compareTo(currentDateParsed) == 0 ? getResources().getString(R.string.today) : currentDateParsed.toString());
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         lv.setAdapter(newDayAdapter);

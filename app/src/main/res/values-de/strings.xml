@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Nutrition App</string>
+    <string name="backArrow"><![CDATA[<]]></string>
+    <string name="forwardArrow"><![CDATA[>]]></string>
+    <string name="backDoubleArrow"><![CDATA[<<]]></string>
+    <string name="doubleForwardArrow"><![CDATA[>>]]></string>
+    <string name="textConfirm">Bestätigen</string>
+    <string name="textCancel">Abbrechen</string>
+    <string name="searchHint">Suchbegriff</string>
+    <string name="toolbarStringGroupDetails">DETAILS</string>
+    <string name="addSingleFood">Hinzufügen..</string>
+    <string name="placeholder">PLATZHALTER PLATZHALTER PLATZHALTER</string>
+    <string name="journalToolbarText">LOGBUCH</string>
+    <string name="journalAddMeal">Mahlzeit hinzufügen</string>
+    <string name="configurationTitle">Einstellungen</string>
+
+    <string name="createFoodsButton">Eigene Gerichte</string>
+    <string name="createFoodsButtonLeftText">Erstelle deine eigenen Gerichte.</string>
+
+    <string name="analysisButtonTitle">Auswertung</string>
+    <string name="analysisButtonLeftTag">Lasse deine Einträge auswerten und erhalte Tipps.</string>
+
+    <string name="configButtonTitle">Einstellungen</string>
+    <string name="configButtonLeftTag">Gewicht, Größe und weitere Anpassungen.</string>
+
+    <string name="foodJournalButtonTitle">Logbuch</string>
+    <string name="foodJournalButtonLeftTag">Füge Mahlzeiten hinzu oder betrachte deine Einträge.</string>
+
+    <string name="mainActivityToolbarTitle">HOME</string>
+
+    <string name="age_in_years">Alter in Jahren:</string>
+    <string name="height">Größe:</string>
+    <string name="weight">Gewicht:</string>
+    <string name="gender">Geschlecht:</string>
+    <string name="age">Alter:</string>
+    <string name="male_or_female">\'male\' or \'female\'</string>
+    <string name="searchHintWeight">Gewicht in kg</string>
+    <string name="searchHintHeight">Größe in cm</string>
+    <string name="derived_metrics">abgeleitete Kennzahlen:</string>
+    <string name="bmi">BMI</string>
+    <string name="calories">Kalorien:</string>
+    <string name="submitChangesButtonConfig">Änderungen speichern</string>
+    <string name="languageSectionHeader">Sprachauswahl</string>
+    <string name="localization_de">Deutsch</string>
+    <string name="export_data_button">Daten exportieren</string>
+    <string name="import_backup_button">Backup importieren</string>
+
+    <string name="today">heute</string>
+    <string name="daily_targets">Tagesziele</string>
+    <string name="week_overview">Wochenübersicht</string>
+    <string name="weekly_targets">Wochenziele</string>
+    <string name="current_week">aktuelle Woche</string>
+
+    <string name="nav_drawer_open">Navigationsleiste öffnen</string>
+    <string name="nav_drawer_close">Navigationsleiste schließen</string>
+</resources>

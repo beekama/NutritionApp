@@ -45,6 +45,14 @@
     <string name="export_data_button">Export Data</string>
     <string name="import_backup_button">Import Backup</string>
 
+    <string name="today">today</string>
+    <string name="daily_targets">daily targets</string>
+    <string name="week_overview">week overview</string>
+    <string name="weekly_targets">weekly targets</string>
+    <string name="current_week">current week</string>
+
+    <string name="Impressum">Impressum</string>
+
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>
 </resources>

@@ -43,7 +43,7 @@ public class CustomMarkerView extends MarkerView {
             //tv.setText(Utils.formatNumber(ce.get));
         } else {
 
-            String printDate = oneWeekAgo.plusDays((long) e.getX()).compareTo(LocalDate.now())==0? "today" : oneWeekAgo.plusDays((long) e.getX()).toString();
+            String printDate = oneWeekAgo.plusDays((long) e.getX()).compareTo(LocalDate.now())==0?  getResources().getString(R.string.today) : oneWeekAgo.plusDays((long) e.getX()).toString();
             tv.setText(printDate + "\nNutrition value: " + Utils.formatNumber(e.getY(),2,true)); //TODO this looks broken af -- Yannik
             //tv.setText(Utils.formatNumber(e.getX(),0,true));
         }

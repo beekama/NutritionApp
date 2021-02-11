@@ -1,6 +1,7 @@
 package com.example.nutritionapp.recommendation;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -61,7 +62,7 @@ public class RecommendationsWeek extends AppCompatActivity {
 
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        tb_title.setText("weekly targets");
+        tb_title.setText(R.string.weekly_targets);
 
         //back home button:
         tb_back.setOnClickListener((new View.OnClickListener() {
@@ -248,7 +249,7 @@ public class RecommendationsWeek extends AppCompatActivity {
     }
 
     String printDate(LocalDate localDate){
-        return localDate.compareTo(LocalDate.now())==0? "current week" : localDate.minusWeeks(1).toString() + "\nto\n" + localDate.toString();
+        return localDate.compareTo(LocalDate.now())==0? getResources().getString(R.string.current_week) : localDate.minusWeeks(1).toString() + "\nto\n" + localDate.toString();
     }
 
 }

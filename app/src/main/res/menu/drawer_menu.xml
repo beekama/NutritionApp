@@ -5,20 +5,21 @@
 
         <group android:checkableBehavior="single">
             <item android:id="@+id/nav_foodJournal"
-                android:title="Food Journal" />
+                android:title= "@string/foodJournalButtonTitle"/>
             <item android:id="@+id/nav_customFoods"
-                android:title="Custom Foods" />
+                android:title="@string/createFoodsButton" />
             <item android:id="@+id/nav_analysis"
-                android:title="Analysis" />
+                android:title="@string/analysisButtonTitle" />
             <item android:id="@+id/nav_configuration"
-                android:title="Configuration" />
+                android:title="@string/configButtonTitle" />
         </group>
 
         <item android:title="randomStuff">
             <menu>
                 <item android:id="@+id/nav_impressum"
-                    android:title="Impressum" />
+                    android:title="@string/Impressum" />
             </menu>
 
         </item>
 </menu>
+
