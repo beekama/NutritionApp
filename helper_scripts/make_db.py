@@ -76,6 +76,7 @@ def createDB(count):
     with open(DB_INIT_FILE) as f:
         with open(DB_INIT_FILE_NEW, "w") as fout:
             fout.write(f.read())
+            # TODO: Sort CSV by fdc_id #
             for x in range(0, int(count / MAX_LENGHT) + 1):
                 fout.write(".import food_nutrient_{0:02d}.csv food_nutrient_{0:02d}\n".format(x))
 
