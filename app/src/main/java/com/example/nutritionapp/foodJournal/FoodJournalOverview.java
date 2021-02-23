@@ -91,10 +91,18 @@ public class FoodJournalOverview extends AppCompatActivity {
             String dateString = day.format(DateTimeFormatter.ISO_DATE);
             ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();
             for(Integer groupId : localFoodGroups.keySet()){
+
                 ArrayList<Food> foodsInGroup = localFoodGroups.get(groupId);
                 if(foodsInGroup == null){
                     throw new AssertionError("Got null when querying for group id.");
                 }
+
+                /* set nutrition and energy */
+                for(Food foodToBeSet : foodsInGroup){
+                    foodToBeSet.setNutritionFromDb(db);
+                }
+
+                /* append foods */
                 foodListForGroupOnDay.addAll(foodsInGroup);
             }
             FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
