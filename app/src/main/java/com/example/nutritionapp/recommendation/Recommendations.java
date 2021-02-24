@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,10 +23,12 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+import com.example.nutritionapp.other.NutritionPercentageTuple;
 
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -180,18 +183,28 @@ public class Recommendations extends AppCompatActivity {
         /* generate Adapter-content for RecommendationAdapter */
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();
-        if (!(foods.isEmpty())) {
-            NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
-            for (NutritionElement ne : NutritionElement.values()) {
-                listItems.add(new RecommendationListItem(ne, dayNutritionAnalysis.getNutritionPercentage().get(ne)));
-            }
+
+        /* track source of display elements */
+        HashMap<NutritionElement, Boolean> nonZero = new HashMap<>();
+        for(NutritionElement ne : NutritionElement.values()){
+            nonZero.put(ne, false);
         }
-        //case no foods added:
-        else {
-            for (NutritionElement ne : NutritionElement.values()) {
+
+        /* display sorted non-zero percentages */
+        NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
+        ArrayList<NutritionPercentageTuple> nutritionPercentages = dayNutritionAnalysis.getNutritionPercentageSortedFilterZero();
+        for (NutritionPercentageTuple net : nutritionPercentages) {
+            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage));
+            nonZero.put(net.nutritionElement, true);
+        }
+
+        /* display zero value if desired */
+        for(NutritionElement ne : nonZero.keySet()){
+            if(!nonZero.get(ne)){
                 listItems.add(new RecommendationListItem(ne, 0));
             }
         }
+
         return listItems;
     }
 
