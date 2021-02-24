@@ -74,9 +74,8 @@ public class FoodOverviewAdapter extends BaseAdapter {
         });
 
         NutritionAnalysis analysis = new NutritionAnalysis(itemAtCurPos.foods);
-        int energyUsed = Conversions.jouleToKCal(analysis.getTotalEnergy());
         int energyNeeded = 2000;
-        int energyUsedPercentage = energyUsed*100/energyNeeded;
+        int energyUsedPercentage = analysis.getTotalEnergy()*100/energyNeeded;
 
         if(energyUsedPercentage < 75){
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
@@ -87,7 +86,7 @@ public class FoodOverviewAdapter extends BaseAdapter {
         }
 
         energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format("Energy %d/%d", energyUsed, energyNeeded);
+        String energyBarContent = String.format("Energy %d/%d", analysis.getTotalEnergy(), energyNeeded);
         energyBarText.setText(energyBarContent);
 
 
