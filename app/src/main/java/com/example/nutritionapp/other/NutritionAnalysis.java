@@ -66,6 +66,7 @@ public class NutritionAnalysis {
             ret.add(n);
         }
         Collections.sort(ret);
+        Collections.reverse(ret);
         return ret;
     }
 
