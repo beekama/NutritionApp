@@ -1,5 +1,6 @@
 package com.example.nutritionapp.other;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -114,8 +115,11 @@ public class Nutrition {
 
 
     public static Nutrition getRecommendation() {
+
         /* Returns the correct recommendation (USDA Values)*/
         Nutrition allowance = new Nutrition();
+
+        /* all units in microgram */
         allowance.elements.put(NutritionElement.CALCIUM, 1200);
         allowance.elements.put(NutritionElement.IRON, 18);
         allowance.elements.put(NutritionElement.MAGNESIUM, 420);
@@ -127,6 +131,15 @@ public class Nutrition {
         allowance.elements.put(NutritionElement.VITAMIN_D, 15);
         allowance.elements.put(NutritionElement.VITAMIN_E, 15000);
         allowance.elements.put(NutritionElement.VITAMIN_K, 110);
+
+        /* convert to native units of db */
+        for(NutritionElement el : allowance.elements.keySet()){
+            String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
+            Log.wtf("TAG",  nutrientNativeUnit + " " + el);
+            int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, allowance.elements.get(el));
+            allowance.elements.put(el, converted);
+        }
+
         return allowance;
     }
 

@@ -453,15 +453,22 @@ public class Database {
         return ret;
     }
 
-    public String getNutrientNativeUnit(String nutrientID) {
+    public static String getNutrientNativeUnit(String nutrientID) throws IllegalStateException {
+        if(db == null){
+            throw new IllegalStateException("Database was not initialized before use of static member.");
+        }
+
         String tableNut = "nutrient";
         String[] columnsNut = {"unit_name"};
         String whereStmNut = String.format("id = \"%s\"", nutrientID);
         Cursor nutrientConversion = db.query(tableNut, columnsNut, whereStmNut, null, null, null, null);
+
         if(!nutrientConversion.moveToFirst()) {
+            Log.w("ConversionWarning", "Nutrient native unit not found, assuming microgram. " + nutrientID);
             nutrientConversion.close();
-            throw new RuntimeException("Nutrient not found: " + nutrientID);
+            return Conversions.MICROGRAM;
         }
+
         String unitName = nutrientConversion.getString(0);
         nutrientConversion.close();
         return unitName;

@@ -8,6 +8,8 @@ public class Conversions {
 
     public static final String JOULE = "JOULE";
     public static final String KCAL = "KCAL";
+    public static final String MICROGRAM = "UG";
+    public static final String MILLIGRAM = "MG";
 
     public static int normalize(String unitName, int inputAmount){
         /* normalize unitValues to their base values (microgram or joule) */
