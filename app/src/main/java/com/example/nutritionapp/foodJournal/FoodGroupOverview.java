@@ -137,7 +137,6 @@ public class FoodGroupOverview extends AppCompatActivity {
             }else {
                 db.logExistingFoods(selected, computedLoggedAt, null);
             }
-            //db.close();
             finish();
         });
 
