@@ -105,13 +105,8 @@ The *NutritionAnalysis* class provides analysis based on a List of Foods and the
     ArrayList<NutritionPercentageTuple> getNutritionPercentageSorted() /* get the above information sorted */
     ArrayList<NutritionPercentageTuple> getNutritionPercentageSortedFilterZero() /* get the above information without zero-values */
 
-# Conversions
-All conversions (milligram, microgram, joule, kcal, etc..) are handled in static functions in *other.Conversions*. Only the following units should be persisted in fields of instantiated object:
-
-    microgram (UG) for weights
-    joule for energy
-
-The static function *normalize(String unitName, int inputAmount)* should be used to obtain those values.
+# Conversions and Units
+The static functions *Database::getNutrientNativeUnit(String nutrientID)*, *Conversions::normalize(String unitName, int inputAmount)* and *Conversions::convert(String from, String to, int presetAmount)* can be used to handle different units. Only the result of *getNutrientNativeUnit* should be used to set any nutrition, energy or fiber value in the Database. Please avoid unessesary conversions.
 
 # Handling Date
 All date(-time) formats are listed as public static fields in *other.Utils*, new formats should only be added when absolutely necessary. The dates can be parsed as follows:
