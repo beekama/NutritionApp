@@ -749,7 +749,7 @@ public class Database {
         return ret;
     }
 
-    public void importDatabaseBackup(JSONObject in){
+    public void importDatabaseBackup(JSONObject in) throws JSONException{
         JSONArray journal = null;
         JSONArray custom = null;
 
@@ -766,11 +766,52 @@ public class Database {
         }
 
         if(journal != null){
-            //TODO
+            /* iterate through foods groups with date */
+            for(int i = 0; i < journal.length(); i++){
+
+                JSONObject foodsAndDate = journal.getJSONObject(i);
+                JSONArray foods = foodsAndDate.getJSONArray("foods");
+                String date = foodsAndDate.getString("date");
+                LocalDateTime dateTime = LocalDateTime.parse(date, Utils.sqliteDatetimeFormat);
+
+                /* iterate through foods */
+                ArrayList<Food> foodsArrayList = new ArrayList<>();
+                for(int k = 0; k < foods.length(); k++){
+                    JSONObject jsonFood = foods.getJSONObject(k);
+                    Food f = new Food(jsonFood.getString("name"), jsonFood.getString("id"), null, dateTime);
+                    foodsArrayList.add(f);
+                }
+
+                /* add foods to database */
+                logExistingFoods(foodsArrayList, dateTime);
+            }
         }
 
         if(custom != null){
-            //TODO
+            for(int i = 0; i < custom.length(); i++){
+
+                /* parse json object */
+                JSONObject customFood = custom.getJSONObject(i);
+                String id = customFood.getString("id");
+                String name = customFood.getString("name");
+                Integer amount = customFood.getInt("amount");
+
+                /* create food */
+                Food f = new Food(name, id, null, null);
+
+                /* set nutrition */
+                String nutritionInformation = customFood.getString("nutrition");
+                JSONObject nutInfoObjCollection = new JSONObject(nutritionInformation);
+                for(NutritionElement key : Nutrition.nutritionElementToDatabaseId.keySet()){
+                    String value = Nutrition.nutritionElementToDatabaseId.get(key);
+                    if(value != null && nutInfoObjCollection.has(value)){
+                        f.nutrition.put(key, nutInfoObjCollection.getInt(value));
+                    }
+                }
+
+                /* add food to db */
+                createNewFood(f, Integer.parseInt(id));
+            }
         }
     }
 

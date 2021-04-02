@@ -23,7 +23,7 @@ public class Nutrition {
     public static final String DB_ID_VITAMIN_K = "1183";
     public static final String DB_ID_VITAMIN_B12 = "1178";
 
-    private final static HashMap<NutritionElement, String> nutritionElementToDatabaseId = new HashMap<>();
+    public final static HashMap<NutritionElement, String> nutritionElementToDatabaseId = new HashMap<>();
     static{
         nutritionElementToDatabaseId.put(NutritionElement.IRON, DB_ID_IRON);
         nutritionElementToDatabaseId.put(NutritionElement.MAGNESIUM, DB_ID_MAGNESIUM);
@@ -166,5 +166,9 @@ public class Nutrition {
 
     public HashMap<NutritionElement, Integer> getElements() {
         return elements;
+    }
+
+    public void put(NutritionElement key, int value) {
+        this.elements.put(key, value);
     }
 }
