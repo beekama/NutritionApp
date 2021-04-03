@@ -39,6 +39,9 @@ import java.util.Locale;
 
 public class PersonalInformation extends AppCompatActivity {
 
+    private static final int JSON_INDENT = 2;
+    private static final int REQUEST_CODE_EXPORT  = 0;
+    private static final int REQUEST_CODE_IMPORT  = 1;
     private Database db;
 
     @SuppressLint("ResourceAsColor")
@@ -111,14 +114,14 @@ public class PersonalInformation extends AppCompatActivity {
             Intent fileDialog = new Intent(Intent.ACTION_CREATE_DOCUMENT);
             fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
             fileDialog.setType("text/plain");
-            startActivityForResult(fileDialog, 0);
+            startActivityForResult(fileDialog, REQUEST_CODE_EXPORT);
         });
 
-        exportButton.setOnClickListener(v -> {
+        importButton.setOnClickListener(v -> {
             Intent fileDialog = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
             fileDialog.setType("text/plain");
-            startActivityForResult(fileDialog, 1);
+            startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
         });
     }
 
@@ -133,7 +136,7 @@ public class PersonalInformation extends AppCompatActivity {
                             outputStream = getContentResolver().openOutputStream(data.getData());
                             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
                             JSONObject json = db.exportDatabase(true, true);
-                            bw.write(json.toString(2));
+                            bw.write(json.toString(JSON_INDENT));
                             bw.flush();
                             bw.close();
                         } catch (IOException e) {
@@ -144,8 +147,13 @@ public class PersonalInformation extends AppCompatActivity {
                             error.show();
                         }
                     }
+
+                    Toast noticeExportSuccess = Toast.makeText(this, "Database export successfully!", Toast.LENGTH_LONG);
+                    noticeExportSuccess.show();
                     break;
                 case Activity.RESULT_CANCELED:
+                    Toast noticeExportCancel = Toast.makeText(this, "Database export canceled!", Toast.LENGTH_LONG);
+                    noticeExportCancel.show();
                     break;
             }
         }else if (requestCode == 1) {
@@ -159,13 +167,24 @@ public class PersonalInformation extends AppCompatActivity {
                                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                                 bufferedReader.lines().forEach(inJson::append); // <- how fucking cool is this
                                 bufferedReader.close();
+                                JSONObject json = new JSONObject(inJson.toString());
+                                db.importDatabaseBackup(json);
                             } catch (IOException e) {
                                 Toast error = Toast.makeText(this,"IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
                                 error.show();
+                            } catch (JSONException e){
+                                Toast error = Toast.makeText(this,"JSON Parse Error: " + e.getMessage(), Toast.LENGTH_LONG);
+                                error.show();
                             }
                         }
+
+                        Toast noticeImportSuccess = Toast.makeText(this, "Database imported successfully!", Toast.LENGTH_LONG);
+                        noticeImportSuccess.show();
                         break;
+
                     case Activity.RESULT_CANCELED:
+                        Toast noticeImportCancel = Toast.makeText(this, "Database imported canceled!", Toast.LENGTH_LONG);
+                        noticeImportCancel.show();
                         break;
                 }
         }

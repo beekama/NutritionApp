@@ -738,7 +738,7 @@ public class Database {
                         }
                     }
 
-                    customFood.put("nutrition", nutrientsForFood);
+                    customFood.put("nutrition", new JSONObject(nutrientsForFood));
                     customFoods.put(customFood);
                 }
             }
@@ -779,6 +779,7 @@ public class Database {
                 for(int k = 0; k < foods.length(); k++){
                     JSONObject jsonFood = foods.getJSONObject(k);
                     Food f = new Food(jsonFood.getString("name"), jsonFood.getString("id"), null, dateTime);
+                    f.setAssociatedAmount(jsonFood.getInt("amount"));
                     foodsArrayList.add(f);
                 }
 
