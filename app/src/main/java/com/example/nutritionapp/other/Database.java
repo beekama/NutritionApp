@@ -603,9 +603,6 @@ public class Database {
             db.insert("food_nutrient_custom", null, valuesNutrient);
         }
 
-        Log.wtf("LOL2", "" + food.energy);
-        Log.wtf("LOL2", "" + food.fiber);
-
         ContentValues valuesEnergy = new ContentValues();
         valuesEnergy.put("id", currentId*10);
         valuesEnergy.put("fdc_id", currentId);
@@ -675,13 +672,11 @@ public class Database {
             do{
                 String[] columnsFood = {"description"};
                 String fdc_id = c.getString(0);
-                Log.wtf("WTF", fdc_id);
                 String[] selectionArgs = { fdc_id, "disabled" };
                 cFood = db.query(FOOD_TABLE, columnsFood, "fdc_id = ? AND data_type != ?", selectionArgs, null, null, null, null);
                 if(cFood.moveToNext()) {
                     do{
                         ret.add(new Food(cFood.getString(0), fdc_id));
-                        Log.wtf("WTF", ret.get(ret.size()-1).name);
                     }while(cFood.moveToNext());
                 }
             }while(c.moveToNext());
@@ -745,7 +740,6 @@ public class Database {
 
             ret.put("custom", customFoods);
         }
-        Log.wtf("TEST", ret.toString());
         return ret;
     }
 
