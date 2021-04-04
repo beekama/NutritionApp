@@ -21,6 +21,38 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/first"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/second"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/third"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fourth"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintGuide_percent="0.85" />
+
     <!--    TOOLBAR-->
     <include
         android:id="@+id/toolbar"
@@ -32,54 +64,70 @@
         layout="@layout/app_activity_main_button"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
 
-        android:layout_height="170dp"
-        android:layout_width="170dp"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintEnd_toStartOf="@id/middle"
-/>
-
-    <include
-        android:id="@+id/config"
-        layout="@layout/app_activity_main_button"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@id/middle"
+        app:layout_constraintTop_toTopOf="@+id/first"
+        app:layout_constraintBottom_toTopOf="@+id/second"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/food_journal"/>
-
-    <include
-        android:id="@+id/create_foods"
-        layout="@layout/app_activity_main_button"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@id/middle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/food_journal" />
+/>
 
     <include
         android:id="@+id/recommendations"
         layout="@layout/app_activity_main_button"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
 
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
 
-        app:layout_constraintTop_toBottomOf="@id/config"
-        app:layout_constraintStart_toEndOf="@id/middle"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/third"
+        app:layout_constraintTop_toBottomOf="@+id/food_journal"/>
+
+    <include
+        android:id="@+id/config"
+        layout="@layout/app_activity_main_button"
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        app:layout_constraintTop_toBottomOf="@id/recommendations"
+        app:layout_constraintBottom_toTopOf="@id/fourth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/middle" />
+
+    <include
+        android:id="@+id/create_foods"
+        layout="@layout/app_activity_main_button"
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/middle"
+        app:layout_constraintBottom_toTopOf="@id/fourth"
+        app:layout_constraintTop_toBottomOf="@id/recommendations" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
