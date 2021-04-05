@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -22,15 +23,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.customFoods.CustomFoodOverview;
+import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.google.android.material.navigation.NavigationView;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -45,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* load database on Application start */
         final Database db = new Database(this);
+        LocalDate currentDateParsed = LocalDate.now();
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -102,14 +112,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
         TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.button_title);
-        TextView foodJournalButtonLeftTag = foodJournalButtonView.findViewById(R.id.buttonDescription);
+        ImageButton foodJournalButtonAdd = foodJournalButtonView.findViewById(R.id.button_add);
+        ImageButton foodJournalButtonViewJournal = foodJournalButtonView.findViewById(R.id.button_view);
+        //TextView foodJournalButtonLeftTag = foodJournalButtonView.findViewById(R.id.buttonDescription);
 
         foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
-        foodJournalButtonLeftTag.setText(R.string.foodJournalButtonLeftTag);
+        //foodJournalButtonAdd.setText("add");
+        //foodJournalButtonViewJournal.setText("view log");
+        //foodJournalButtonLeftTag.setText(R.string.foodJournalButtonLeftTag);
 
+        /*
         foodJournalButtonView.setOnClickListener(v -> {
             Intent journal = new Intent(v.getContext(), FoodJournalOverview.class);
             startActivity(journal, Utils.getDefaultTransition(this));
+        });
+        */
+
+        foodJournalButtonAdd.setOnClickListener(v -> {
+            Intent add = new Intent(v.getContext(), FoodGroupOverview.class);
+            startActivity(add, Utils.getDefaultTransition(this));
+        });
+
+        foodJournalButtonViewJournal.setOnClickListener(v -> {
+            Intent viewJournal = new Intent(v.getContext(), FoodJournalOverview.class);
+            startActivity(viewJournal, Utils.getDefaultTransition(this));
         });
 
         /* Configuration */
@@ -117,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
         TextView configButtonTitle = configButtonView.findViewById(R.id.button_title);
-        TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
+       // TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
 
         configButtonTitle.setText(R.string.configButtonTitle);
-        configButtonLeftTag.setText(R.string.configButtonLeftTag);
+       // configButtonLeftTag.setText(R.string.configButtonLeftTag);
 
         configButtonView.setOnClickListener(v -> {
             Intent configuration = new Intent(v.getContext(), PersonalInformation.class);
@@ -132,10 +158,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
         TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.button_title);
-        TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
+       // TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
 
         createCustomFoodButtonTitle.setText(R.string.createFoodsButton);
-        createCustomFoodTagLef.setText(R.string.createFoodsButtonLeftText);
+       // createCustomFoodTagLef.setText(R.string.createFoodsButtonLeftText);
 
         createCustomFoodsView.setOnClickListener(v -> {
             Intent createCustomFood = new Intent(v.getContext(), CustomFoodOverview.class);
@@ -147,15 +173,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
 
         TextView analysisButtonTitle = showAnalysisButtonView.findViewById(R.id.button_title);
-        TextView analysisButtonDescription = showAnalysisButtonView.findViewById(R.id.buttonDescription);
+        Button showAnalysisButton = showAnalysisButtonView.findViewById(R.id.button_recommendation);
+        ProgressBar energyBar = showAnalysisButtonView.findViewById(R.id.progressbar_main);
+        TextView energyBarText = showAnalysisButtonView.findViewById(R.id.progressbarTV_main);
+       // TextView analysisButtonDescription = showAnalysisButtonView.findViewById(R.id.buttonDescription);
 
         analysisButtonTitle.setText(R.string.analysisButtonTitle);
-        analysisButtonDescription.setText(R.string.analysisButtonLeftTag);
+        showAnalysisButton.setText("show Analysis");
+       // analysisButtonDescription.setText(R.string.analysisButtonLeftTag);
 
-        showAnalysisButtonView.setOnClickListener(v -> {
-            Intent analysis =  new Intent(v.getContext(), Recommendations.class);
+        //get logged foods of day:
+        ArrayList<Food> foodsOfDay = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed,currentDateParsed));
+
+        NutritionAnalysis nutAnalysis = new NutritionAnalysis(foodsOfDay);
+        int energyNeeded = 2000;
+        int energyUsedPercentage = nutAnalysis.getTotalEnergy()*100/energyNeeded;
+
+
+        if(energyUsedPercentage < 75){
+            energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }else if(energyUsedPercentage < 125){
+            energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        }else{
+            energyBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+
+        energyBar.setProgress(Math.min(energyUsedPercentage, 100));
+        String energyBarContent = String.format("Energy %d/%d", nutAnalysis.getTotalEnergy(), energyNeeded);
+        energyBarText.setText(energyBarContent);
+
+        showAnalysisButton.setOnClickListener(v -> {
+            Intent analysis = new Intent(v.getContext(), Recommendations.class);
             startActivity(analysis, Utils.getDefaultTransition(this));
         });
+
+        /*showAnalysisButtonView.setOnClickListener(v -> {
+            Intent analysis =  new Intent(v.getContext(), Recommendations.class);
+            startActivity(analysis, Utils.getDefaultTransition(this));
+        }); */
 
     }
 
