@@ -5,9 +5,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/green_dark</item>
-        <item name="colorAccent">@color/green_soft</item>
+        <item name="colorAccent">#ffffff</item>
         <item name="buttonTint">#ffffff</item>
-        <item name="cardBackgroundColor">#ffffff</item>
+        <item name="cardBackgroundColor">#f3f1f0</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="background">@android:color/white</item>
         <!-- animation navigation-drawer -->
@@ -18,6 +18,7 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
 
     <style name="Button_Title" >
         <item name="android:textSize">20sp</item>

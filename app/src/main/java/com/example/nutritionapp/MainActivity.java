@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* Journal */
         View foodJournalButtonView = findViewById(R.id.food_journal);
-        foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
+        //foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
         TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.button_title);
         ImageButton foodJournalButtonAdd = foodJournalButtonView.findViewById(R.id.button_add);
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* Analysis */
         View showAnalysisButtonView = findViewById(R.id.recommendations);
-        showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
+        //showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
 
         TextView analysisButtonTitle = showAnalysisButtonView.findViewById(R.id.button_title);
         Button showAnalysisButton = showAnalysisButtonView.findViewById(R.id.button_recommendation);

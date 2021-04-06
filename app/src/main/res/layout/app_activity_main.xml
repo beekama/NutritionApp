@@ -72,8 +72,7 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/first"
-        app:layout_constraintEnd_toEndOf="parent"
-/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <include
         android:id="@+id/recommendations"

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#F29F05</color>
+    <color name="colorPrimaryDark">#F2CB05</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorBlack">#000000</color>
+    <color name="BlackWhite">#FFFFFF</color>
+    <color name="BlackWhiteReverse">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="whiteish">#f3f1f0</color>
     <color name="eierschalenfarbe">#efebdc</color>
     <color name="green_strong">#a4de02</color>
     <color name="green_dark">#1e5631</color>
@@ -19,6 +22,7 @@
     <color name="red">#ff0000</color>
     <color name="greyLight">#80ffffff</color>
     <color name="greyDark">#808080</color>
+    <color name="buttonMain">#ffffff</color>
 
     <color name="chartBlue">#0278ae</color>
     <color name="chartOrange">#fca652</color>
