@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/green_dark</item>
         <item name="colorAccent">#ffffff</item>
-        <item name="buttonTint">#ffffff</item>
+        <item name="buttonTint">#000000</item>
         <item name="cardBackgroundColor">#f3f1f0</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="background">@android:color/white</item>
