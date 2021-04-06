@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* Configuration */
         View configButtonView = findViewById(R.id.config);
-        configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
+        //configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
         TextView configButtonTitle = configButtonView.findViewById(R.id.button_title);
        // TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* Custom Food Creation */
         View createCustomFoodsView = findViewById(R.id.create_foods);
-        createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
+        //createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
         TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.button_title);
        // TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
