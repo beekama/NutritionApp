@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/green_dark</item>
+        <item name="colorAccent">#000000</item>
+        <item name="buttonTint">#ffffff</item>
+        <item name="cardBackgroundColor">#f3f1f0</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="background">@android:color/white</item>
+        <!-- animation navigation-drawer -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationFading</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Button_Title" >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Button_Bottom" >
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="target_overview_dateText" >
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="button_text_toRec">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/greyDark</item>
+    </style>
+
+    <!--splash-->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <!--fading between darkmode - nightmode -->
+    <style name="WindowAnimationFading">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+</resources>
