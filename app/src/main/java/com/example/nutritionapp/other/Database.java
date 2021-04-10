@@ -918,13 +918,50 @@ public class Database {
     }
 
     public ArrayList<PortionTypes> portionsForFood(Food food) {
+
+        String table = "assigned_portion";
+        String[] columns = {"cup ", "small" , "medium" , "large" , "packet" , "scoop" , "tablespoon" , "teaspoon", "ml"};
+        String[] whereArgs = {food.id};
+        Log.wtf("FoodId", food.id);
+        Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
         ArrayList<PortionTypes> ret = new ArrayList<>();
-        ret.add(PortionTypes.GRAM);
-        ret.add(PortionTypes.CUP);
-        ret.add(PortionTypes.HAND);
-        ret.add(PortionTypes.LITER);
+        if (c.moveToFirst()) {
+            if (!c.getString(0).equals("")) {
+                ret.add(PortionTypes.CUP);
+            }
+            if (!c.getString(1).equals("")) {
+                ret.add(PortionTypes.SMALL);
+            }
+            if (!c.getString(2).equals("")) {
+                ret.add(PortionTypes.MEDIUM);
+            }
+            if (!c.getString(3).equals("")) {
+                ret.add(PortionTypes.LARGE);
+            }
+            if (!c.getString(4).equals("")) {
+                ret.add(PortionTypes.PACKET);
+            }
+            if (!c.getString(5).equals("")) {
+                ret.add(PortionTypes.SCOOP);
+            }
+            if (!c.getString(6).equals("")) {
+                ret.add(PortionTypes.TABLESPOON);
+            }
+            if (!c.getString(7).equals("")) {
+                ret.add(PortionTypes.TEASPOON);
+            }
+            if (!c.getString(8).equals("")) {
+                ret.add(PortionTypes.ML);
+            }
+            c.close();
+        }
+        if (!ret.contains(PortionTypes.ML)) {
+            ret.add(PortionTypes.GRAM);
+        }
         return ret;
+
     }
+
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper>{
         public int counter;
