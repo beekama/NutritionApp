@@ -3,6 +3,8 @@ package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -21,10 +23,10 @@ import com.example.nutritionapp.other.PortionTypes;
 
 import java.util.ArrayList;
 
-public class DialogAmountSelector extends Dialog {
+public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
-    public final PortionTypes typeSelected = null;
-    public final int amountSelected = 0;
+    public PortionTypes typeSelected = null;
+    public int amountSelected = 0;
     final Food selectedFood;
     final Activity context;
     final Database db;
@@ -53,7 +55,8 @@ public class DialogAmountSelector extends Dialog {
 
         Button confirm = findViewById(R.id.confirmButton);
         confirm.setText(R.string.textConfirm);
-        confirm.setOnClickListener(v -> this.dismiss());
+        //confirm.setOnClickListener(v -> this.dismiss());
+
 
         RecyclerView portionTypeSelector = findViewById(R.id.portionTypeSelector);
         RecyclerView amountSelector = findViewById(R.id.amountSelector);
@@ -63,20 +66,26 @@ public class DialogAmountSelector extends Dialog {
         portionTypeSelector.setLayoutManager(portionSelectorLayoutManager);
         amountSelector.setLayoutManager(amountSelectorLayoutManager);
 
+        //update amountSelector if selectedPortion has changed:
+        //portionTypeSelector.setOnClickListener( v -> updateAmountSelectorItems);
+
+
         ArrayList<Integer> amountOptions = new ArrayList<>();
         amountOptions.add(1);
         amountOptions.add(10);
         amountOptions.add(50);
         amountOptions.add(100);
 
-        ArrayList<PortionTypes> portionOptions = db.portionsForFood(new Food(null, null));
-        RecyclerView.Adapter<?> portionSelectorAdapter = new SelectorDialogAdapterPortions(context, portionOptions);
+        ArrayList<PortionTypes> portionOptions = db.portionsForFood(new Food(selectedFood.name,selectedFood.id));
+        RecyclerView.Adapter<?> portionSelectorAdapter = new SelectorDialogAdapterPortions(context, portionOptions, this  );
         RecyclerView.Adapter<?> amountSelectorAdapter = new SelectorDialogAdapterAmount(context, amountOptions);
 
         portionTypeSelector.setAdapter(portionSelectorAdapter);
         amountSelector.setAdapter(amountSelectorAdapter);
 
-        updateNutritionOverview(100);
+
+
+       //updateNutritionOverview(100);
     }
 
     private void updateNutritionOverview(int amount) {
@@ -88,4 +97,13 @@ public class DialogAmountSelector extends Dialog {
         ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(context, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
+
+    @Override
+    public void setValues(PortionTypes p) {
+        typeSelected = p;
+        Log.wtf("shebaaang", this.typeSelected.toString()) ;}
 }
+
+// create two arraylists for two bigportiontypes
+// onamount selector give portionlist accorting to a
+// update amount selecto in setValues
