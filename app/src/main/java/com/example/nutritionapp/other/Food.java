@@ -39,6 +39,7 @@ public class Food {
         if(db != null) {
             setNutritionFromDb(db);
             setPreferedPortionFromDb(db);
+            setAmountByAssociatedPortionType();
         }
         this.loggedAt = null;
         if(loggedAt != null){
@@ -138,6 +139,14 @@ public class Food {
     public void setPreferedPortionFromDb(Database db){
         this.associatedPortionType = db.getPreferedPortionType(this);
         this.associatedPortionTypeAmount = db.getPortionAmountForPortionType(this,this.associatedPortionType);
+    }
+
+    public void setAmountByAssociatedPortionType(){     //todo rethink amounts in gereral
+        if (this.associatedPortionType.equals(PortionTypes.FLUID_OUNZE) || this.associatedPortionType.equals(PortionTypes.ML) || this.associatedPortionType.equals(PortionTypes.GRAM)){
+            this.associatedAmount = 100f;
+        } else{
+            this.associatedAmount = 1f;
+        }
     }
 }
 

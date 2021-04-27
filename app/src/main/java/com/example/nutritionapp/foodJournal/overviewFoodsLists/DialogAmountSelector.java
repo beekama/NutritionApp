@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
     public PortionTypes typeSelected;
-    public float amountSelected = 0;
+    public float amountSelected;
     final Food selectedFood;
     final Activity context;
     final Database db;
@@ -37,6 +37,7 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
         this.db = db;
         this.selectedFood = selectedFood;
         this.typeSelected = selectedFood.getAssociatedPortionType();
+        this.amountSelected = selectedFood.getAssociatedAmount();
     }
 
     @Override
@@ -55,11 +56,8 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
         Button confirm = findViewById(R.id.confirmButton);
         confirm.setText(R.string.textConfirm);
-        //confirm.setOnClickListener(v -> this.dismiss());
         confirm.setOnClickListener(v -> {
             getValues();
-            Log.wtf("AMOUNT SELECTED", Float.toString(amountSelected));
-            Log.wtf("PORTIONTYPE SELECTED", typeSelected==null?"null":typeSelected.toString());
             updateNutritionOverview(amountSelected, typeSelected);
             this.dismiss();
         });
@@ -122,8 +120,8 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
 
         ArrayList<PortionTypes> portionOptions = db.portionsForFood(new Food(selectedFood.name,selectedFood.id));
-        RecyclerView.Adapter<?> portionSelectorAdapter = new SelectorDialogAdapterPortions(context, portionOptions, this  );
-        RecyclerView.Adapter<?> amountSelectorAdapter = new SelectorDialogAdapterAmount(context, amountOptions, this);
+        RecyclerView.Adapter<?> portionSelectorAdapter = new SelectorDialogAdapterPortions(context, portionOptions, this, selectedFood.associatedPortionType);
+        RecyclerView.Adapter<?> amountSelectorAdapter = new SelectorDialogAdapterAmount(context, amountOptions, this, selectedFood.associatedAmount);
 
         portionTypeSelector.setAdapter(portionSelectorAdapter);
         amountSelector.setAdapter(amountSelectorAdapter);
@@ -144,8 +142,7 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
     @Override
     public void setValues(PortionTypes p) {
-        typeSelected = p;
-        Log.wtf("shebaaang", this.typeSelected.toString()) ;}
+        typeSelected = p;}
 
     @Override
     public void getValues() {
@@ -159,6 +156,3 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
     }
 }
 
-// create two arraylists for two bigportiontypes
-// onamount selector give portionlist accorting to a
-// update amount selecto in setValues

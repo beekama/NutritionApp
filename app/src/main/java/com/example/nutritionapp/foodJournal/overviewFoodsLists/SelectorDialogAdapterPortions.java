@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<SelectorDialogAdapterPortions.LocalViewHolder> {
     DataTransfer dt;
-    public static PortionTypes typeSelected = null;
+    public static PortionTypes typeSelected ;
     private final Context context;
     private final ArrayList<PortionTypes> items;
     private static int isSelected = -1;
@@ -30,10 +30,11 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
     private static TextView lastSelected = null;
 
 
-    public SelectorDialogAdapterPortions(Context context, ArrayList<PortionTypes> items, DataTransfer dataTransfer) {
+    public SelectorDialogAdapterPortions(Context context, ArrayList<PortionTypes> items, DataTransfer dataTransfer, PortionTypes defaultType) {
         this.context = context;
         this.items = items;
         this.dt = dataTransfer;
+        this.typeSelected = defaultType;
     }
 
     @NonNull
@@ -50,7 +51,7 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
     public void onBindViewHolder(@NonNull LocalViewHolder holder, int position) {
         LocalViewHolder lvh = (LocalViewHolder) holder;
         lvh.itemContent.setText(items.get(position).toString());
-        if (position == 0) lvh.itemContent.setSelected(true);
+        if (items.get(position).equals(typeSelected)) lvh.itemContent.setSelected(true);
         if (position == 0 && lvh.itemContent.isSelected()) {
             lastSelected = lvh.itemContent;
             lastCheckPos = 0;
@@ -75,7 +76,6 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
                         isSelected = clickPos;
                         typeSelected = items.get(position);
                         dt.setValues(typeSelected);
-                        Log.wtf("PORTION SELECTED", typeSelected.toString());
                     }
                 }
 

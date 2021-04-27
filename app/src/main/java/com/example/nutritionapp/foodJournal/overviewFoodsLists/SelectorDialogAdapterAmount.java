@@ -25,10 +25,11 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     private static int lastCheckPos = 0;
     private static TextView lastSelected = null;
 
-    public SelectorDialogAdapterAmount(Context context, ArrayList<Float> items, DataTransfer dataTransfer) {
+    public SelectorDialogAdapterAmount(Context context, ArrayList<Float> items, DataTransfer dataTransfer, Float defaultAmount) {
         this.context = context;
         this.items = items;
         this.dt = dataTransfer;
+        this.amountSelected = defaultAmount;
     }
 
     @NonNull
@@ -44,7 +45,7 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         LocalViewHolder lvh = (LocalViewHolder) holder;
         lvh.itemContent.setText(items.get(position).toString());
-        if (position == 0) lvh.itemContent.setSelected(true);
+        if (items.get(position).equals(amountSelected)) lvh.itemContent.setSelected(true);
         if (position == 0 && lvh.itemContent.isSelected()) {
             lastSelected = lvh.itemContent;
             lastCheckPos = 0;
@@ -66,7 +67,6 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
                         isSelected = clickPos;
                         amountSelected = items.get(position);
                         dt.setValues(amountSelected);
-                       Log.wtf("SELDIAAMOUNT", Float.toString(amountSelected));
                     }
                 }
 

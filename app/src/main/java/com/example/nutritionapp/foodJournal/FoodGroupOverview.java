@@ -196,15 +196,14 @@ public class FoodGroupOverview extends AppCompatActivity {
             return;
         }
         selectedFood.setPreferedPortionFromDb(this.db);
+        selectedFood.setAmountByAssociatedPortionType();
         DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
             DialogAmountSelector castedDialog = (DialogAmountSelector) dialog;
             float amountSelected = castedDialog.amountSelected;
-            //amountSelected = DEFAULT_AMOUNT;                        //todo!!
             PortionTypes typeSelected = castedDialog.typeSelected;
-            //typeSelected = PortionTypes.GRAM;
 
             /* abort if bad selection */
             if(amountSelected == 0 || typeSelected == null){
