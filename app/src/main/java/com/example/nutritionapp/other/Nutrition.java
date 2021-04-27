@@ -156,7 +156,7 @@ public class Nutrition {
         int total = 0;
         for(Food f : calculatedFrom){
             if(f.associatedAmount > 0) {
-                total += f.energy * (f.associatedAmount/100f);
+                total += f.energy * ((f.associatedAmount*f.associatedPortionTypeAmount)/100f);
             }else{
                 total += f.energy;
             }

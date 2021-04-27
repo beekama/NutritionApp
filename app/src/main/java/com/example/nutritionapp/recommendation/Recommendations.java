@@ -213,11 +213,11 @@ public class Recommendations extends AppCompatActivity {
         //create Arraylist with foods of the given day:
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));            //red db-access?
 
-        int energyUsed = Conversions.jouleToKCal(Nutrition.totalEnergy(foods));
+        int energyUsed = Nutrition.totalEnergy(foods);
         int energyNeeded = 2000;
         int energyUsedPercentage = energyUsed*100/energyNeeded;
 
-        if(energyUsedPercentage < 2){
+        if(energyUsedPercentage < 75){
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }else if(energyUsedPercentage < 125){
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
