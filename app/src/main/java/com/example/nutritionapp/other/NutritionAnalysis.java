@@ -15,7 +15,7 @@ public class NutritionAnalysis {
     private final int totalEnergy;
     private final HashMap<NutritionElement, Float> nutritionPercentage;
 
-    public NutritionAnalysis(ArrayList<Food> calculatedFrom){
+    public NutritionAnalysis(ArrayList<Food> calculatedFrom) {
         this.calculatedFrom = calculatedFrom;
         this.nutritionActual = calculateTotalNutrition(calculatedFrom);
         this.nutritionMissing = Nutrition.subtract(nutritionTarget, nutritionActual);
@@ -25,11 +25,13 @@ public class NutritionAnalysis {
 
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
         ArrayList<Nutrition> nutritionCalculatedFrom = new ArrayList<>();
-        for(Food f : calculatedFrom){
-            Log.wtf("CALCTOTALNUT_getassammount", Float.toString(f.getAssociatedAmount()));
-            Log.wtf("PORTTYPEAMITUN", Float.toString(f.getAssociatedPortionTypeAmount()));
-            Float amountGram = f.getAssociatedAmount() * f.getAssociatedPortionTypeAmount() ;
-            nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(amountGram));
+        for (Food f : calculatedFrom) {
+            if (f != null) {
+                Log.wtf("CALCTOTALNUT_getassammount", Float.toString(f.getAssociatedAmount()));
+                Log.wtf("PORTTYPEAMITUN", Float.toString(f.getAssociatedPortionTypeAmount()));
+                Float amountGram = f.getAssociatedAmount() * f.getAssociatedPortionTypeAmount();
+                nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(amountGram));
+            }
         }
         return Nutrition.sum(nutritionCalculatedFrom);
     }
@@ -48,7 +50,7 @@ public class NutritionAnalysis {
 
     public ArrayList<NutritionPercentageTuple> getNutritionPercentageSorted() {
         ArrayList<NutritionPercentageTuple> ret = new ArrayList<>();
-        for(NutritionElement key: nutritionPercentage.keySet()){
+        for (NutritionElement key : nutritionPercentage.keySet()) {
             NutritionPercentageTuple n = new NutritionPercentageTuple(key, nutritionPercentage.get(key));
             ret.add(n);
         }
@@ -57,15 +59,15 @@ public class NutritionAnalysis {
     }
 
 
-    public HashMap<NutritionElement, Float> getNutritionPercentageMultipleDays(Integer days){
+    public HashMap<NutritionElement, Float> getNutritionPercentageMultipleDays(Integer days) {
         return Nutrition.percentages(nutritionActual, Nutrition.getRecommendationMultipleDays(days));
     }
 
     public ArrayList<NutritionPercentageTuple> getNutritionPercentageSortedFilterZero() {
         ArrayList<NutritionPercentageTuple> ret = new ArrayList<>();
-        for(NutritionElement key: nutritionPercentage.keySet()){
+        for (NutritionElement key : nutritionPercentage.keySet()) {
             NutritionPercentageTuple n = new NutritionPercentageTuple(key, nutritionPercentage.get(key));
-            if(n.percentage == 0){
+            if (n.percentage == 0) {
                 continue;
             }
             ret.add(n);

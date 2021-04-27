@@ -457,7 +457,6 @@ public class Database {
                 String nutrientID = nutrients.getString(0);
                 int rawAmount = nutrients.getInt(1);
                 ret.put(nutrientID, rawAmount);
-
             } while (nutrients.moveToNext());
         } else {
             Log.w("NA", "No Nutrition found for this foodId: " + foodId + "in sub-db: " + table);
