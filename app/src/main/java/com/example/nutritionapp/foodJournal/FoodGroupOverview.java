@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -91,7 +92,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             this.editMode = true;
             ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
             for (Food f : foods) {
-                selected.add(new SelectedFoodItem(f, f.associatedAmount));
+                selected.add(new SelectedFoodItem(f, f.associatedAmount, f.associatedPortionType));
             }
             if (!foods.isEmpty()) {
                 loggedAt = foods.get(0).loggedAt;
@@ -194,15 +195,16 @@ public class FoodGroupOverview extends AppCompatActivity {
         if(selectedFood == null){
             return;
         }
+        selectedFood.setPreferedPortionFromDb(this.db);
         DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
             DialogAmountSelector castedDialog = (DialogAmountSelector) dialog;
-            int amountSelected = castedDialog.amountSelected;
-            amountSelected = DEFAULT_AMOUNT;
+            float amountSelected = castedDialog.amountSelected;
+            //amountSelected = DEFAULT_AMOUNT;                        //todo!!
             PortionTypes typeSelected = castedDialog.typeSelected;
-            typeSelected = PortionTypes.GRAM;
+            //typeSelected = PortionTypes.GRAM;
 
             /* abort if bad selection */
             if(amountSelected == 0 || typeSelected == null){
@@ -211,7 +213,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
             // TODO normalize selected amount
             /* update */
-            SelectedFoodItem sf = new SelectedFoodItem(selectedFood, amountSelected);
+            SelectedFoodItem sf = new SelectedFoodItem(selectedFood, amountSelected, typeSelected);
             if(position < 0){
                 addSelectedFoodItem(sf);
             }else{

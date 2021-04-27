@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Conversions;
+import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
 

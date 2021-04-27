@@ -4,5 +4,8 @@ import com.example.nutritionapp.other.PortionTypes;
 
 public interface DataTransfer {
     PortionTypes p = null;
-    public void setValues(PortionTypes p);
+    Float a = null;
+    void setValues(PortionTypes p);
+    void getValues();
+    void setValues(Float a);
 }

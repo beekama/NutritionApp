@@ -74,7 +74,8 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
                         t.setSelected(true);
                         isSelected = clickPos;
                         typeSelected = items.get(position);
-                        dt.setValues(items.get(position));
+                        dt.setValues(typeSelected);
+                        Log.wtf("PORTION SELECTED", typeSelected.toString());
                     }
                 }
 

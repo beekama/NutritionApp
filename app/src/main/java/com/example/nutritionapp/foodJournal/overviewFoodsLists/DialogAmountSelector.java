@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -25,8 +24,8 @@ import java.util.ArrayList;
 
 public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
-    public PortionTypes typeSelected = null;
-    public int amountSelected = 0;
+    public PortionTypes typeSelected;
+    public float amountSelected = 0;
     final Food selectedFood;
     final Activity context;
     final Database db;
@@ -37,6 +36,7 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
         this.context = context;
         this.db = db;
         this.selectedFood = selectedFood;
+        this.typeSelected = selectedFood.getAssociatedPortionType();
     }
 
     @Override
@@ -56,7 +56,13 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
         Button confirm = findViewById(R.id.confirmButton);
         confirm.setText(R.string.textConfirm);
         //confirm.setOnClickListener(v -> this.dismiss());
-
+        confirm.setOnClickListener(v -> {
+            getValues();
+            Log.wtf("AMOUNT SELECTED", Float.toString(amountSelected));
+            Log.wtf("PORTIONTYPE SELECTED", typeSelected==null?"null":typeSelected.toString());
+            updateNutritionOverview(amountSelected, typeSelected);
+            this.dismiss();
+        });
 
         RecyclerView portionTypeSelector = findViewById(R.id.portionTypeSelector);
         RecyclerView amountSelector = findViewById(R.id.amountSelector);
@@ -70,26 +76,64 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
         //portionTypeSelector.setOnClickListener( v -> updateAmountSelectorItems);
 
 
-        ArrayList<Integer> amountOptions = new ArrayList<>();
-        amountOptions.add(1);
-        amountOptions.add(10);
-        amountOptions.add(50);
-        amountOptions.add(100);
+        ArrayList<Float> amountOptions = new ArrayList<>();
+        amountOptions.add(0.125f);
+        amountOptions.add(0.25f);
+        amountOptions.add(0.5f);
+        amountOptions.add(0.75f);
+        amountOptions.add(1f);
+        amountOptions.add(1.5f);
+        amountOptions.add(2f);
+        amountOptions.add(2.5f);
+        amountOptions.add(3f);
+        amountOptions.add(3.5f);
+        amountOptions.add(4f);
+        amountOptions.add(4.5f);
+        amountOptions.add(5f);
+        amountOptions.add(5.5f);
+        amountOptions.add(6f);
+        amountOptions.add(6.5f);
+        amountOptions.add(7f);
+        amountOptions.add(8f);
+        amountOptions.add(9f);
+        amountOptions.add(10f);
+        amountOptions.add(11f);
+        amountOptions.add(12f);
+        amountOptions.add(14f);
+        amountOptions.add(16f);
+        amountOptions.add(18f);
+        amountOptions.add(20f);
+        amountOptions.add(22f);
+        amountOptions.add(24f);
+        amountOptions.add(26f);
+        amountOptions.add(28f);
+        amountOptions.add(30f);
+        amountOptions.add(32f);
+        amountOptions.add(40f);
+        amountOptions.add(50f);
+        amountOptions.add(60f);
+        amountOptions.add(70f);
+        amountOptions.add(80f);
+        amountOptions.add(90f);
+        amountOptions.add(100f);
+        amountOptions.add(200f);
+        amountOptions.add(500f);
+        amountOptions.add(1000f);
+
 
         ArrayList<PortionTypes> portionOptions = db.portionsForFood(new Food(selectedFood.name,selectedFood.id));
         RecyclerView.Adapter<?> portionSelectorAdapter = new SelectorDialogAdapterPortions(context, portionOptions, this  );
-        RecyclerView.Adapter<?> amountSelectorAdapter = new SelectorDialogAdapterAmount(context, amountOptions);
+        RecyclerView.Adapter<?> amountSelectorAdapter = new SelectorDialogAdapterAmount(context, amountOptions, this);
 
         portionTypeSelector.setAdapter(portionSelectorAdapter);
         amountSelector.setAdapter(amountSelectorAdapter);
 
 
-
-       //updateNutritionOverview(100);
     }
 
-    private void updateNutritionOverview(int amount) {
+    private void updateNutritionOverview(float amount, PortionTypes portionType) {
         selectedFood.setAssociatedAmount(amount);
+        selectedFood.setAssociatedPortionType(portionType);
         selectedFood.setNutritionFromDb(db);
         ArrayList<Food> analysis = new ArrayList<>();
         analysis.add(selectedFood);
@@ -102,6 +146,17 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
     public void setValues(PortionTypes p) {
         typeSelected = p;
         Log.wtf("shebaaang", this.typeSelected.toString()) ;}
+
+    @Override
+    public void getValues() {
+        if (p != null) typeSelected = p;
+        if (a != null) amountSelected = a;
+    }
+
+    @Override
+    public void setValues(Float a) {
+        amountSelected = a;
+    }
 }
 
 // create two arraylists for two bigportiontypes

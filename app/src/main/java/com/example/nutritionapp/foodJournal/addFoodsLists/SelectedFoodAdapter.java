@@ -60,7 +60,7 @@ public class SelectedFoodAdapter extends BaseAdapter {
         });
 
         nameView.setText(currentItem.food.name);
-        amountSelectorView.setText(Integer.toString(currentItem.food.associatedAmount));
+        amountSelectorView.setText(Float.toString(currentItem.food.associatedAmount));
         return  convertView;
     }
 }

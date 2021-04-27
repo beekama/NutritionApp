@@ -99,6 +99,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
                 /* set nutrition and energy */
                 for(Food foodToBeSet : foodsInGroup){
+                    foodToBeSet.setPreferedPortionFromDb(db);
                     foodToBeSet.setNutritionFromDb(db);
                 }
 
