@@ -52,7 +52,10 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
         Button cancel = findViewById(R.id.cancelButton);
         cancel.setText(R.string.textCancel);
-        cancel.setOnClickListener(v -> this.dismiss());
+        cancel.setOnClickListener(v -> {
+            amountSelected = 0f;
+            this.cancel();
+        });
 
         Button confirm = findViewById(R.id.confirmButton);
         confirm.setText(R.string.textConfirm);

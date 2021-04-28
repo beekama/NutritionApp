@@ -26,12 +26,8 @@ public class NutritionAnalysis {
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
         ArrayList<Nutrition> nutritionCalculatedFrom = new ArrayList<>();
         for (Food f : calculatedFrom) {
-            if (f != null) {
-                Log.wtf("CALCTOTALNUT_getassammount", Float.toString(f.getAssociatedAmount()));
-                Log.wtf("PORTTYPEAMITUN", Float.toString(f.getAssociatedPortionTypeAmount()));
                 Float amountGram = f.getAssociatedAmount() * f.getAssociatedPortionTypeAmount();
                 nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(amountGram));
-            }
         }
         return Nutrition.sum(nutritionCalculatedFrom);
     }

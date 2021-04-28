@@ -3,6 +3,7 @@ package com.example.nutritionapp.foodJournal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
