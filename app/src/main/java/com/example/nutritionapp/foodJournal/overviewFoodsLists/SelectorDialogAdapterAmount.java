@@ -45,7 +45,10 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         LocalViewHolder lvh = (LocalViewHolder) holder;
         lvh.itemContent.setText(items.get(position).toString());
-        if (items.get(position).equals(amountSelected)) lvh.itemContent.setSelected(true);
+        if (items.get(position).equals(amountSelected)) {
+            lvh.itemContent.setSelected(true);
+            lastSelected = lvh.itemContent;
+        } else lvh.itemContent.setSelected(false);
         if (position == 0 && lvh.itemContent.isSelected()) {
             lastSelected = lvh.itemContent;
             lastCheckPos = 0;
@@ -54,6 +57,8 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.wtf("GIVEN POSITION", Integer.toString(position));
+                        Log.wtf("CALCULATED POSITION", Integer.toString(lvh.getLayoutPosition()));
                         TextView t = (TextView) v;
                         int clickPos = lvh.getAdapterPosition();
 
