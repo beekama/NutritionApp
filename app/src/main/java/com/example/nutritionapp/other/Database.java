@@ -499,7 +499,7 @@ public class Database {
                 String foodId = c.getString(0);
                 String date = c.getString(1);
                 int amount = c.getInt(2);
-                PortionTypes portionType = PortionTypes.valueOf(c.getString(3).toUpperCase()); //todo python
+                PortionTypes portionType = PortionTypes.valueOf(c.getString(3));
                 Food f = this.getFoodById(foodId, date);
                 if (f != null) {
                     f.associatedAmount = amount;
@@ -1000,7 +1000,7 @@ public class Database {
         PortionTypes prefType = null;
         if (c.moveToFirst()) {
             if (!c.getString(0).equals(""))
-                prefType = PortionTypes.valueOf(c.getString(0).toUpperCase());  //todo python
+                prefType = PortionTypes.valueOf(c.getString(0));
             c.close();
         }
         return prefType;
@@ -1010,7 +1010,7 @@ public class Database {
     public Float getPortionAmountForPortionType(Food food, PortionTypes portionType) {
         String table = "assigned_portion";
         if (portionType==PortionTypes.GRAM) return 1f;
-        String[] columns = {portionType.toString().toLowerCase()};  //todo pythondb
+        String[] columns = {portionType.toString()};
         String[] whereArgs = {food.id};
         Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
         Float amount = 0f;
