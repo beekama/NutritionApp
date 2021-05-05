@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -126,15 +128,19 @@ public class FoodGroupOverview extends AppCompatActivity {
             runFoodSelectionPipeline((ListFoodItem) parent.getItemAtPosition(position), position);
         });
 
+        selectedAdapter.setOnDataChangeListener(amount -> {
+            updateNutritionOverview();
+        });
+
         suggestions.setOnItemClickListener((parent, view, position, id) -> {
             ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
             runFoodSelectionPipeline(item, NO_UPDATE_EXISTING);
         });
 
 
-        toolbarBack.setOnClickListener(v -> onBackPressed())
-        ;
+        toolbarBack.setOnClickListener(v -> onBackPressed());
     }
+
 
     private void addSelectedFoodItem(SelectedFoodItem foodItem) {
         if (foodItem == null) {

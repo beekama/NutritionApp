@@ -8,9 +8,9 @@ import com.example.nutritionapp.other.PortionTypes;
 public class SelectedFoodItem {
     public final Food food;
 
-    public SelectedFoodItem(Food f, float amountInGram, PortionTypes portionTypes){
+    public SelectedFoodItem(Food f, Float amount, PortionTypes portionTypes){
         this.food = f;
-        this.food.associatedAmount = amountInGram;
+        this.food.associatedAmount = amount;
         this.food.associatedPortionType = portionTypes;
     }
 }
