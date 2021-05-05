@@ -107,7 +107,7 @@ public class Nutrition {
         HashMap<NutritionElement, Float> ret = new HashMap<>();
         for (NutritionElement nutEl : a.elements.keySet()) {
             if(b.elements.get(nutEl) != 0){
-                ret.put(nutEl, (float)a.elements.get(nutEl) / (float)b.elements.get(nutEl));
+                ret.put(nutEl, (float)a.elements.get(nutEl)*100 / (float)b.elements.get(nutEl));
             }
         }
         return ret;
@@ -137,7 +137,7 @@ public class Nutrition {
             String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
             Log.wtf("TAG",  nutrientNativeUnit + " " + el);
             int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, allowance.elements.get(el));
-            allowance.elements.put(el, converted);
+           allowance.elements.put(el, converted);
         }
 
         return allowance;
