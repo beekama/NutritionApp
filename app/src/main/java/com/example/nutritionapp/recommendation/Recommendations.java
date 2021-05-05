@@ -4,20 +4,19 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
@@ -28,7 +27,6 @@ import com.example.nutritionapp.other.NutritionPercentageTuple;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -98,14 +96,15 @@ public class Recommendations extends AppCompatActivity {
         allFood = db.getFoodsFromHashMap(foodList);
 
         // add nutrition items:
-        ListView mainLv = findViewById(R.id.listView);
+        RecyclerView nutritionRList = findViewById(R.id.listView);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
+        nutritionRList.setLayoutManager(nutritionReportLayoutManager);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
 
-        //adapter:
-        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-        mainLv.setAdapter(newAdapter);
+        RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(getApplicationContext(), listItems);
+        nutritionRList.setAdapter(nutritionReport);
 
-        mainLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /*  nutritionRList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), RecommendationsElement.class);
@@ -113,12 +112,12 @@ public class Recommendations extends AppCompatActivity {
                 myIntent.putExtra("nutritionelement", nutritionElement);
                 startActivity(myIntent);
             }
-        });
+        });*/
 
         //date textview:
         TextView currentDate = findViewById(R.id.textviewDate);
         //currentDate.setText(currentDateParsed.compareTo(LocalDate.now()) == 0 ? "today" : currentDateParsed.toString());
-        updateDate(currentDateParsed, mainLv, currentDate);
+       // updateDate(currentDateParsed, mainLv, currentDate);
 
         /* SWITCH BETWEEN DAYS */
         //dateBack:
@@ -127,7 +126,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusDays(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
+               // updateDate(currentDateParsed, mainLv, currentDate);
                 setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
@@ -138,7 +137,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusDays(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
+                //updateDate(currentDateParsed, mainLv, currentDate);
                 setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
@@ -151,7 +150,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.minusWeeks(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
+                //updateDate(currentDateParsed, mainLv, currentDate);
                 setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
@@ -162,7 +161,7 @@ public class Recommendations extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDateParsed = currentDateParsed.plusWeeks(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
+                //updateDate(currentDateParsed, mainLv, currentDate);
                 setProgressBar(currentDateParsed,db,energyBar,energyBarText);
             }
         }));
@@ -170,13 +169,13 @@ public class Recommendations extends AppCompatActivity {
 
 
     /* change date */
-    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
+/*    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
         tv.setText(LocalDate.now().compareTo(currentDateParsed) == 0 ? getResources().getString(R.string.today) : currentDateParsed.toString());
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
-        RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+        RecommendationAdapterzw newDayAdapter = new RecommendationAdapterzw(getApplicationContext(), listItems);
         lv.setAdapter(newDayAdapter);
     }
-
+*/
 
     ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
 
@@ -192,16 +191,19 @@ public class Recommendations extends AppCompatActivity {
 
         /* display sorted non-zero percentages */
         NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
+        Nutrition target = Nutrition.getRecommendation();
         ArrayList<NutritionPercentageTuple> nutritionPercentages = dayNutritionAnalysis.getNutritionPercentageSortedFilterZero();
         for (NutritionPercentageTuple net : nutritionPercentages) {
-            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage));
+            Integer nutTarget = target.getElements().get(net.nutritionElement);
+            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage, nutTarget));
             nonZero.put(net.nutritionElement, true);
         }
 
         /* display zero value if desired */
         for(NutritionElement ne : nonZero.keySet()){
             if(!nonZero.get(ne)){
-                listItems.add(new RecommendationListItem(ne, 0));
+                Integer nutTarget = target.getElements().get(ne);
+                listItems.add(new RecommendationListItem(ne, 0f, nutTarget));
             }
         }
 

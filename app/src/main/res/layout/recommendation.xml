@@ -94,7 +94,7 @@
 
         style="@android:style/Widget.ProgressBar.Horizontal"
         app:layout_constraintTop_toBottomOf="@+id/textviewDate"
-        app:layout_constraintBottom_toTopOf="@+id/listview"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
         android:background="@android:color/darker_gray"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="32sp"
@@ -118,7 +118,7 @@
         android:layout_alignBottom="@id/energyBar"
         />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"

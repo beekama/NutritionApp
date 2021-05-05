@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recommendation_nutritions_element">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:id="@+id/nutrition_textview"
+        app:layout_constraintStart_toStartOf="@id/nutProgressBar"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nutrition_target"
+        app:layout_constraintEnd_toEndOf="@id/nutProgressBar"
+        app:layout_constraintBottom_toBottomOf="@id/nutrition_textview"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nutProgressBar"
+        style="@style/theProgressBar"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@id/nutrition_textview"
+        app:layout_constraintStart_toStartOf="@id/nutrition_textview"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
