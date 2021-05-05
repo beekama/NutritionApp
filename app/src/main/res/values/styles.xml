@@ -43,6 +43,14 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <!--progressbar-->
+    <style name="theProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:progressDrawable">@drawable/progress_bar_horizontal</item>
+    </style>
+
     <!--fading between darkmode - nightmode -->
     <style name="WindowAnimationFading">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
