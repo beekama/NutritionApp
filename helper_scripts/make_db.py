@@ -1,8 +1,10 @@
 #!/usr/bin/python3
+
 import os
 import sqlite3
 import subprocess
 import argparse
+from csv import DictReader, writer
 
 SRC_FILE = "food_nutrient.csv"
 TMP_FILE = "food_nutrient_cut.csv"
@@ -17,6 +19,9 @@ FOOD_MAIN_SRC_FILTERED_DE = "food_filtered_de.csv"
 DB_TARGET_PATH = "food.db"
 DB_TARGET_PATH_DE = "food_de.db"
 
+ALL_PORTIONS = "food_portion.csv"
+ASSIGNED_PORTIONS = "assigned_portion.csv"
+
 MAX_LENGHT = 50000
 PARTIAL_DB_FILE_NAME = "food_nutrient_{0:02d}.csv"
 SCHEMA = '''"id","fdc_id","nutrient_id","amount"\n'''
@@ -27,6 +32,7 @@ def clean():
     '''Remove all generated files,
         only keep "id","fdc_id","nutrient_id","amount"'''
     os.system("rm food_nutrient_*")
+    os.system("rm assigned_portion.csv")
     os.system("cut -d, -f1,2,3,4 < {} > {}".format(SRC_FILE, TMP_FILE))
 
 def filterAndReplace():
@@ -50,17 +56,55 @@ def filterAndReplace():
                         lclean = lclean.replace(wRemove, "")
                     fout.write(lclean)
 
+def getPortionSize():
+    '''Assign portionsize to each food and create new csv'''
+
+    print("Read portionsizes...")
+    PORTIONS = {"fdc_id": None, "ML": None, "prefered": None}
+    with open("portion_sizes.txt", "r") as f:
+        for l in f:
+            PORTIONS.update({l.strip() : None})
+
+    print("Assign portionsizes...")
+    FLOZ_TO_ML = 29.574
+    with open(ALL_PORTIONS, "r") as f:
+        with open(ASSIGNED_PORTIONS, "w") as fout:
+            r = DictReader(f)
+            w = writer(fout)
+            w.writerow(PORTIONS.keys())
+            for row in r:
+
+                #push data to new table if one food is complete:
+                if ((PORTIONS['fdc_id']) and (row['fdc_id'] != PORTIONS['fdc_id'])):
+                    w.writerow(PORTIONS.values())
+                    PORTIONS = PORTIONS.fromkeys(PORTIONS, None)
+
+                #read new food:
+                PORTIONS.update({'fdc_id' : row['fdc_id'],'prefered':'GRAM'})
+                for size in PORTIONS.keys():
+                    if ("1 " + size.replace("_"," ")) in row['portion_description']:
+                            PORTIONS.update({size : row['gram_weight']})
+                            if (row['seq_num'] == '1'):
+                                PORTIONS.update({"prefered": size})
+                #add 'ml':
+                if (PORTIONS['FL_OZ']):
+                    if (PORTIONS['prefered'] == 'FL_OZ'):
+                        PORTIONS.update({"prefered": "ML"})
+                    PORTIONS.update({"ML" : round(float(PORTIONS['FL_OZ'])/FLOZ_TO_ML, 4)})
+            w.writerow(PORTIONS.values())
+
+
+
 def split():
     '''Split CSV files into usable chunks'''
 
     count = 0
-    print("Run file splitter...")
-    with open(TMP_FILE) as f:
-        for line in f:
-            curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT))
-            if os.path.isfile(curFileName) or count == 0:
-                with open(curFileName, "a") as fout:
-                    fout.write(line)
+    print("Run file splitter...") 
+    with open(TMP_FILE) as f: 
+        for line in f: 
+            curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT)) 
+            if os.path.isfile(curFileName) or count == 0: 
+                with open(curFileName, "a") as fout: fout.write(line)
             else:
                 with open(curFileName, "w") as fout:
                     fout.write(SCHEMA)
@@ -99,5 +143,6 @@ if __name__ == "__main__":
         clean()
     if args.recreate_db:
         filterAndReplace()
+        getPortionSize() 
         count = split()
         createDB(count)
