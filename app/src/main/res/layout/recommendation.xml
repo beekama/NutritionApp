@@ -18,19 +18,14 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <!-- guidline veritcal since we use scalable strings in textview -->
+    <!--
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vGuidline1"
+        android:id="@+id/vertGuidline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3"/>
+        app:layout_constraintGuide_percent="0.5" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vGuidline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7"/>
 
     <TextView
         android:id="@+id/textviewDate"
@@ -82,7 +77,20 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/dateBackButtonWeek"
 
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" /> -->
+    
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dateGuidline"
+        />
+
 
     <!-- ENERGY ON THIS DAY -->
 
@@ -93,8 +101,8 @@
         android:layout_height="30dp"
 
         style="@android:style/Widget.ProgressBar.Horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/textviewDate"
-        app:layout_constraintBottom_toTopOf="@+id/listview"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
         android:background="@android:color/darker_gray"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="32sp"
@@ -118,7 +126,7 @@
         android:layout_alignBottom="@id/energyBar"
         />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -129,7 +137,7 @@
         android:dividerHeight="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textviewDate"
+        app:layout_constraintTop_toBottomOf="@id/date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintVertical_bias="1.0" />

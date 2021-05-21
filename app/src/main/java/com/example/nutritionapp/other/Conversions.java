@@ -53,7 +53,7 @@ public class Conversions {
                 if(isWeightUnit) {
                     return normalized / G_TO_UG;
                 }
-            case "MG":
+            case "MG": return normalized;
             case "MG_ATE":
                 if(isWeightUnit) {
                     return normalized / MG_TO_UG;

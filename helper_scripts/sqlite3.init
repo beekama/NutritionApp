@@ -10,7 +10,8 @@ create TABLE foodlog(
     "food_id"   TEXT,
     "date"  INTEGER,
     "group_id"  TEXT,
-    "amountInGram" INTEGER,
+    "amount"    INTEGER,
+    "portion_type" TEXT,
     "loggedAt"  INTEGER
 );
 
@@ -25,3 +26,4 @@ CREATE TABLE food_nutrient_custom(
 .import food_filtered.csv food
 .import food_portion.csv food_portion
 .import nutrient.csv nutrient
+.import assigned_portion.csv assigned_portion

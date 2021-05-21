@@ -1,5 +1,7 @@
 package com.example.nutritionapp.recommendation;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -9,36 +11,42 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
+import com.example.nutritionapp.other.Utils;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 
 public class Recommendations extends AppCompatActivity {
 
-    private Database db;
-    HashMap<Integer, ArrayList<Food>> foodList;
-    ArrayList<Food> allFood;
 
-    LocalDate currentDateParsed = LocalDate.now();
+
+    private Database db;
+    private ProgressBar energyBar;
+    private TextView energyBarText;
+    private RecyclerView nutritionRList;
+    private TextView dateView;
+
+    private LocalDate currentDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,6 @@ public class Recommendations extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation);
         db = new Database(this);
-        foodList = db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed);
 
 
         /* APP TOOLBAR */
@@ -86,99 +93,35 @@ public class Recommendations extends AppCompatActivity {
         }));
 
         /* PROGRESS BAR */
-        ProgressBar energyBar = findViewById(R.id.energyBar);
-        TextView energyBarText = findViewById(R.id.energyBarTextAnalysis);
-
-        setProgressBar(currentDateParsed, db, energyBar, energyBarText);
-
+        energyBar = findViewById(R.id.energyBar);
+        energyBarText = findViewById(R.id.energyBarTextAnalysis);
+        setProgressBar(currentDateParsed);
 
 
-        /* LISTVIEW */
-        // NutritionAnalysis-data:
-        allFood = db.getFoodsFromHashMap(foodList);
-
+        /* NUTRITION LIST */
         // add nutrition items:
-        ListView mainLv = findViewById(R.id.listView);
-        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+        nutritionRList = findViewById(R.id.listView);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        nutritionRList.setLayoutManager(nutritionReportLayoutManager);
+        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed);
 
-        //adapter:
-        RecommendationAdapter newAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-        mainLv.setAdapter(newAdapter);
+        RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(getApplicationContext(), listItems);
+        nutritionRList.setAdapter(nutritionReport);
 
-        mainLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(view.getContext(), RecommendationsElement.class);
-                NutritionElement nutritionElement = listItems.get(position).nutritionElement;
-                myIntent.putExtra("nutritionelement", nutritionElement);
-                startActivity(myIntent);
-            }
-        });
-
-        //date textview:
-        TextView currentDate = findViewById(R.id.textviewDate);
-        //currentDate.setText(currentDateParsed.compareTo(LocalDate.now()) == 0 ? "today" : currentDateParsed.toString());
-        updateDate(currentDateParsed, mainLv, currentDate);
-
-        /* SWITCH BETWEEN DAYS */
-        //dateBack:
-        Button dateBack = findViewById(R.id.dateBackButton);
-        dateBack.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDateParsed = currentDateParsed.minusDays(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
-                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
-            }
-        }));
-
-        //dateForeward:
-        Button dateForeward = findViewById(R.id.dateForewardButton);
-        dateForeward.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDateParsed = currentDateParsed.plusDays(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
-                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
-            }
-        }));
-
-
-        /* SWITCH BETWEEN WEEKS */
-        //dateBack:
-        Button weekBack = findViewById(R.id.dateBackButtonWeek);
-        weekBack.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDateParsed = currentDateParsed.minusWeeks(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
-                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
-            }
-        }));
-
-        //dateForeward:
-        Button weekForeward = findViewById(R.id.dateForewardButtonWeek);
-        weekForeward.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDateParsed = currentDateParsed.plusWeeks(1);
-                updateDate(currentDateParsed, mainLv, currentDate);
-                setProgressBar(currentDateParsed,db,energyBar,energyBarText);
-            }
-        }));
+        dateView = findViewById(R.id.date);
+        dateView.setText(currentDateParsed.format(Utils.sqliteDateFormat));
+        dateView.setOnClickListener(v -> {dateUpdateDialog(currentDateParsed);});
     }
 
 
-    /* change date */
-    private void updateDate(LocalDate currentDateParsed, ListView lv, TextView tv) {
-        tv.setText(LocalDate.now().compareTo(currentDateParsed) == 0 ? getResources().getString(R.string.today) : currentDateParsed.toString());
-        ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed, db);
+    private void updateNutritionList(LocalDate localDate) {
+        ArrayList<RecommendationListItem> listItems = generateAdapterContent(localDate);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
-        lv.setAdapter(newDayAdapter);
+        nutritionRList.setAdapter(newDayAdapter);
     }
 
 
-    ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed, Database db) {
+    ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed) {
 
         /* generate Adapter-content for RecommendationAdapter */
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
@@ -192,32 +135,36 @@ public class Recommendations extends AppCompatActivity {
 
         /* display sorted non-zero percentages */
         NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
+        Nutrition target = Nutrition.getRecommendation();
         ArrayList<NutritionPercentageTuple> nutritionPercentages = dayNutritionAnalysis.getNutritionPercentageSortedFilterZero();
         for (NutritionPercentageTuple net : nutritionPercentages) {
-            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage));
+            Integer nutTarget = target.getElements().get(net.nutritionElement);
+            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage, nutTarget));
             nonZero.put(net.nutritionElement, true);
         }
 
         /* display zero value if desired */
         for(NutritionElement ne : nonZero.keySet()){
             if(!nonZero.get(ne)){
-                listItems.add(new RecommendationListItem(ne, 0));
+                Integer nutTarget = target.getElements().get(ne);
+                listItems.add(new RecommendationListItem(ne, 0f, nutTarget));
             }
         }
 
         return listItems;
     }
 
-    void setProgressBar(LocalDate currentDateParsed, Database db, ProgressBar energyBar, TextView energyBarText){
+
+    void setProgressBar(LocalDate currentDateParsed){
 
         //create Arraylist with foods of the given day:
-        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));            //red db-access?
+        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
 
-        int energyUsed = Conversions.jouleToKCal(Nutrition.totalEnergy(foods));
+        int energyUsed = Nutrition.totalEnergy(foods);
         int energyNeeded = 2000;
         int energyUsedPercentage = energyUsed*100/energyNeeded;
 
-        if(energyUsedPercentage < 2){
+        if(energyUsedPercentage < 75){
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }else if(energyUsedPercentage < 125){
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
@@ -229,6 +176,20 @@ public class Recommendations extends AppCompatActivity {
         String energyBarContent = String.format("Energy %d/%d", energyUsed, energyNeeded);
         energyBarText.setText(energyBarContent);
     }
+
+
+    private void dateUpdateDialog(final LocalDate localDate) {
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            LocalDate selected = LocalDate.of(year, month, dayOfMonth);
+            this.dateView.setText(selected.format(Utils.sqliteDateFormat));
+            if (selected != localDate){
+                updateNutritionList(selected);
+                setProgressBar(selected);
+            }
+        }, localDate.getYear(),localDate.getMonthValue(), localDate.getDayOfMonth());
+        dialog.show();
+    }
+
 
 
 }

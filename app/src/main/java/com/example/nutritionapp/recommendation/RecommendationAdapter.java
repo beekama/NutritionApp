@@ -1,123 +1,84 @@
 package com.example.nutritionapp.recommendation;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.SelectorDialogAdapterAmount;
 
 import java.util.ArrayList;
 
-class RecommendationAdapter extends BaseAdapter {
+import static java.lang.String.*;
+
+public class RecommendationAdapter extends RecyclerView.Adapter {
+
     private Context context;
     private ArrayList<RecommendationListItem> items;
-    PieData pieData;
 
-
-    public RecommendationAdapter() {
-        super();
-    }
-
-    public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> items) {
+    public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> items){
         this.context = context;
         this.items = items;
     }
 
+    @NonNull
     @Override
-    public int getCount() {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.recommendation_nutritions_element, parent, false);
+        return new LocalViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        LocalViewHolder lvh = (LocalViewHolder) holder;
+        lvh.itemContent.setText(items.get(position).nutritionElement.toString());
+        lvh.itemPercentage.setText(format("%d mg", items.get(position).target));
+
+        Float nutPercentage = items.get(position).percentage;
+        if (nutPercentage < 50){
+            lvh.progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }else if(nutPercentage < 75){
+            lvh.progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        }else {
+            lvh.progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+
+        lvh.progressBar.setProgress(Math.min(Math.round(nutPercentage), 100));
+
+    }
+
+    @Override
+    public int getItemCount() {
         return items.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return items.get(position);
-    }
+    static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final TextView itemContent;
+        final ProgressBar progressBar;
+        final TextView itemPercentage;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @SuppressLint("ResourceAsColor")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        RecommendationListItem item = this.items.get(position);
-
-        /* initiate LayoutInflater */
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.recommendation_nutritions, parent, false);
+        LocalViewHolder(View itemView) {
+            super(itemView);
+            itemContent = itemView.findViewById(R.id.nutrition_textview);
+            itemView.setOnClickListener(this);
+            progressBar = itemView.findViewById(R.id.nutProgressBar);
+            itemPercentage = itemView.findViewById(R.id.nutrition_target);
         }
-        //item.pieEntryList.clear();
 
-        /* sub views */
-        TextView rec_item = convertView.findViewById(R.id.nutritionName);
-        PieChart rec_chart = convertView.findViewById(R.id.pieChar);
-
-        /*Text-column*/
-        rec_item.setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
-        rec_item.setText(item.nutritionElement.toString());
-
-        /*chart*/
-        PieDataSet pieDataSet = item.pieDataSet;
-        //Log.wtf("ZZZ--"+item.tag,((Float)item.percentage).toString());
-
-        //STYLING:
-        rec_chart.setUsePercentValues(true);
-
-        // set chartColors - AmpelTheme:
-        if (item.percentage< 40){
-            item.pieDataSet.setColors(context.getResources().getIntArray(R.array.DayChartRed));
-        }else if (item.percentage < 80) {
-            item.pieDataSet.setColors(context.getResources().getIntArray(R.array.DayChartOrange));
-        }else {
-            item.pieDataSet.setColors(context.getResources().getIntArray(R.array.DayChartGreen));
+        @Override
+        public void onClick(View view) {
         }
-        pieDataSet.setDrawValues(false);
-        // rec_chart.setCenterText(generateCenterSpannableText((Float)item.percentage));
-        // rec_chart.getDescription().setEnabled(false);
-        rec_chart.getLegend().setEnabled(false);
-        rec_chart.setDrawSliceText(false);
-        rec_chart.setRotationEnabled(false);
-        rec_chart.setHighlightPerTapEnabled(false);
-        rec_chart.setHoleColor(Color.TRANSPARENT);
-
-        //PERCENTAGE-LABEL:
-        rec_chart.getDescription().setText(String.format("%.2f %%", item.percentage));
-        rec_chart.getDescription().setPosition(225f, 25f);
-        rec_chart.getDescription().setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
-
-        rec_chart.notifyDataSetChanged();
-
-        pieData = new PieData(pieDataSet);
-        rec_chart.setData(pieData);
-
-
-
-        return convertView;
-    }
-
-    private SpannableString generateCenterSpannableText(Float in) {
-        String inString = String.format("%.2f %%", in);
-        SpannableString s = new SpannableString(inString);
-        s.setSpan(new RelativeSizeSpan(0.8f), 0, inString.length(), 0);
-        return s;
     }
 }

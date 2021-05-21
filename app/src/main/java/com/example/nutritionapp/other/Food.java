@@ -2,6 +2,7 @@ package com.example.nutritionapp.other;
 
 import android.util.JsonReader;
 import android.util.Log;
+import android.util.Pair;
 
 import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
 
@@ -23,7 +24,9 @@ public class Food {
     public Nutrition nutrition;
     public LocalDateTime loggedAt;
 
-    public int associatedAmount = -1;
+    public float associatedAmount = -1;
+    public PortionTypes associatedPortionType = null;
+    public float associatedPortionTypeAmount = -1;
 
     public Food(String name, String id){
         this.id = id;
@@ -35,6 +38,8 @@ public class Food {
         this.id = foodId;
         if(db != null) {
             setNutritionFromDb(db);
+            setPreferedPortionFromDb(db);
+            setAmountByAssociatedPortionType();
         }
         this.loggedAt = null;
         if(loggedAt != null){
@@ -53,15 +58,37 @@ public class Food {
         }
     }
 
-    public void setAssociatedAmount(int associatedAmount) {
+    public void setAssociatedAmount(float associatedAmount) {
         this.associatedAmount = associatedAmount;
     }
 
-    public int getAssociatedAmount() {
+    public float getAssociatedAmount() {
         if(associatedAmount == -1){
             throw new AssertionError("Food for Database must have set associatedAmount in gram");
         }
         return associatedAmount;
+    }
+
+    public void setAssociatedPortionType(PortionTypes associatedPortionType) {
+        this.associatedPortionType = associatedPortionType;
+    }
+
+    public PortionTypes getAssociatedPortionType() {
+        if(associatedPortionType == null){
+            throw new AssertionError("Food for Database must have set legal associatedPortionType");
+        }
+        return associatedPortionType;
+    }
+
+    public void setAssociatedPortionTypeAmount(Float associatedPortionTypeAmount) {
+        this.associatedPortionTypeAmount = associatedPortionTypeAmount;
+    }
+
+    public Float getAssociatedPortionTypeAmount() {
+        if(this.associatedPortionTypeAmount == -1){
+            throw new AssertionError("Food for Database must have set associatedPortionTypeAmount in gram");
+        }
+        return associatedPortionTypeAmount;
     }
 
     public Food deepclone() {
@@ -72,6 +99,7 @@ public class Food {
         Food clone = new Food(this.name, this.id, null, copy);
         if(this.associatedAmount != -1) {
             clone.setAssociatedAmount(this.associatedAmount);
+            clone.setAssociatedPortionType(this.associatedPortionType);
         }
         clone.energy = this.energy;
         clone.fiber = this.fiber;
@@ -105,6 +133,19 @@ public class Food {
             this.energy = 0;
             this.nutrition = new Nutrition();
             Log.w("FOOD_DB", "Nutrition Information was Null");
+        }
+    }
+
+    public void setPreferedPortionFromDb(Database db){
+        this.associatedPortionType = db.getPreferedPortionType(this);
+        this.associatedPortionTypeAmount = db.getPortionAmountForPortionType(this,this.associatedPortionType);
+    }
+
+    public void setAmountByAssociatedPortionType(){     //todo rethink amounts in gereral
+        if (this.associatedPortionType.equals(PortionTypes.FLUID_OUNZE) || this.associatedPortionType.equals(PortionTypes.ML) || this.associatedPortionType.equals(PortionTypes.GRAM)){
+            this.associatedAmount = 100f;
+        } else{
+            this.associatedAmount = 1f;
         }
     }
 }

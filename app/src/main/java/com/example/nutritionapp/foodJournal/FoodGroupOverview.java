@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -51,6 +55,9 @@ public class FoodGroupOverview extends AppCompatActivity {
     ListView nutOverviewList;
     Database db;
 
+    SelectedFoodAdapter selectedAdapter;
+    int groupId;
+
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
@@ -67,7 +74,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         selectedListView = findViewById(R.id.selected_items);
-        SelectedFoodAdapter selectedAdapter = new SelectedFoodAdapter(getApplicationContext(), new ArrayList<>());
+        selectedAdapter = new SelectedFoodAdapter(getApplicationContext(), new ArrayList<>());
         selectedListView.setAdapter(selectedAdapter);
 
         dateView = findViewById(R.id.date);
@@ -85,13 +92,13 @@ public class FoodGroupOverview extends AppCompatActivity {
         db = new Database(this);
 
         /* set existing items if edit mode */
-        int groupId = this.getIntent().getIntExtra("groupId", -1);
+        groupId = this.getIntent().getIntExtra("groupId", -1);
 
         if (groupId >= 0) {
             this.editMode = true;
             ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
             for (Food f : foods) {
-                selected.add(new SelectedFoodItem(f, f.associatedAmount));
+                selected.add(new SelectedFoodItem(f, f.associatedAmount, f.associatedPortionType));
             }
             if (!foods.isEmpty()) {
                 loggedAt = foods.get(0).loggedAt;
@@ -121,29 +128,22 @@ public class FoodGroupOverview extends AppCompatActivity {
             runFoodSelectionPipeline((ListFoodItem) parent.getItemAtPosition(position), position);
         });
 
+        selectedAdapter.setOnDataChangeListener(amount -> {
+            updateNutritionOverview();
+        });
+
         suggestions.setOnItemClickListener((parent, view, position, id) -> {
             ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
             runFoodSelectionPipeline(item, NO_UPDATE_EXISTING);
         });
 
-        toolbarBack.setOnClickListener(v -> {
-            String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
-            LocalDateTime computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
-            for(int i = 0; i < selectedAdapter.getCount(); i++){
-                SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
-            }
-            if(this.editMode){
-                db.updateFoodGroup(selected, groupId, computedLoggedAt);
-            }else {
-                db.logExistingFoods(selected, computedLoggedAt, null);
-            }
-            finish();
-        });
 
+        toolbarBack.setOnClickListener(v -> onBackPressed());
     }
 
+
     private void addSelectedFoodItem(SelectedFoodItem foodItem) {
-        if(foodItem == null){
+        if (foodItem == null) {
             return;
         }
         this.selected.add(foodItem);
@@ -152,7 +152,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void updateSelectedFoodItem(SelectedFoodItem foodItem, int index) {
-        if(foodItem == null){
+        if (foodItem == null) {
             return;
         }
         SelectedFoodItem f = this.selected.get(index);
@@ -164,14 +164,14 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
-        if(selectedFoodItem == null){
+        if (selectedFoodItem == null) {
             Dialog foodSelectionDialog = new DialogFoodSelector(this);
             foodSelectionDialog.setOnDismissListener(dialog -> {
                 DialogFoodSelector castedDialog = (DialogFoodSelector) dialog;
                 runAmountSelectorDialog(castedDialog.selectedFood, position);
             });
             displaySelectorDialog(foodSelectionDialog);
-        }else {
+        } else {
             runAmountSelectorDialog(selectedFoodItem.food, position);
         }
     }
@@ -182,7 +182,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         foodSelectionDialog.show();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = foodSelectionDialog.getWindow();
-        if(window != null){
+        if (window != null) {
             lp.copyFrom(window.getAttributes());
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;
             lp.height = WindowManager.LayoutParams.MATCH_PARENT;
@@ -191,30 +191,30 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void runAmountSelectorDialog(Food selectedFood, int position) {
-        if(selectedFood == null){
+        if (selectedFood == null) {
             return;
         }
+        selectedFood.setPreferedPortionFromDb(this.db);
+        selectedFood.setAmountByAssociatedPortionType();
         DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
             DialogAmountSelector castedDialog = (DialogAmountSelector) dialog;
-            int amountSelected = castedDialog.amountSelected;
-            amountSelected = DEFAULT_AMOUNT;
+            float amountSelected = castedDialog.amountSelected;
             PortionTypes typeSelected = castedDialog.typeSelected;
-            typeSelected = PortionTypes.GRAM;
 
             /* abort if bad selection */
-            if(amountSelected == 0 || typeSelected == null){
+            if (amountSelected == 0 || typeSelected == null) {
                 return;
             }
 
             // TODO normalize selected amount
             /* update */
-            SelectedFoodItem sf = new SelectedFoodItem(selectedFood, amountSelected);
-            if(position < 0){
+            SelectedFoodItem sf = new SelectedFoodItem(selectedFood, amountSelected, typeSelected);
+            if (position < 0) {
                 addSelectedFoodItem(sf);
-            }else{
+            } else {
                 updateSelectedFoodItem(sf, position);
             }
         });
@@ -225,7 +225,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     private void dateUpdateDialog(final LocalDateTime loggedAt) {
         DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            LocalDateTime selected = LocalDateTime.of(year, month, dayOfMonth, 0 ,0);
+            LocalDateTime selected = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
         }, loggedAt.getYear(), loggedAt.getMonthValue(), loggedAt.getDayOfMonth());
         dialog.show();
@@ -264,7 +264,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     private void updateNutritionOverview() {
         ArrayList<Food> analysis = new ArrayList<>();
-        for(SelectedFoodItem sfi : selected){
+        for (SelectedFoodItem sfi : selected) {
             analysis.add(sfi.food);
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
@@ -272,4 +272,18 @@ public class FoodGroupOverview extends AppCompatActivity {
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
 
+    @Override
+    public void onBackPressed() {
+        String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
+        LocalDateTime computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
+        for (int i = 0; i < selectedAdapter.getCount(); i++) {
+            SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
+        }
+        if (this.editMode) {
+            db.updateFoodGroup(selected, groupId, computedLoggedAt);
+        } else {
+            db.logExistingFoods(selected, computedLoggedAt, null);
+        }
+        finish();
+    }
 }

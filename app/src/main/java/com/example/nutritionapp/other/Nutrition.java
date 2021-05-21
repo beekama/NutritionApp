@@ -79,11 +79,11 @@ public class Nutrition {
         return Integer.parseInt(dbId);
     }
 
-    public Nutrition getNutritionForAmount(int amountInGram){
+    public Nutrition getNutritionForAmount(float amount){
         Nutrition newNut = new Nutrition(this);
         for(NutritionElement el : newNut.elements.keySet()){
             Integer content = newNut.elements.getOrDefault(el, 0);
-            float calculatedContent = content*amountInGram/100f;
+            float calculatedContent = content*amount/100f;
             newNut.elements.put(el, Math.round(calculatedContent));
         }
         return newNut;
@@ -107,7 +107,7 @@ public class Nutrition {
         HashMap<NutritionElement, Float> ret = new HashMap<>();
         for (NutritionElement nutEl : a.elements.keySet()) {
             if(b.elements.get(nutEl) != 0){
-                ret.put(nutEl, (float)a.elements.get(nutEl) / (float)b.elements.get(nutEl));
+                ret.put(nutEl, (float)a.elements.get(nutEl)*100 / (float)b.elements.get(nutEl));
             }
         }
         return ret;
@@ -137,7 +137,7 @@ public class Nutrition {
             String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
             Log.wtf("TAG",  nutrientNativeUnit + " " + el);
             int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, allowance.elements.get(el));
-            allowance.elements.put(el, converted);
+           allowance.elements.put(el, converted);
         }
 
         return allowance;
@@ -156,7 +156,7 @@ public class Nutrition {
         int total = 0;
         for(Food f : calculatedFrom){
             if(f.associatedAmount > 0) {
-                total += f.energy * (f.associatedAmount/100f);
+                total += f.energy * ((f.associatedAmount*f.associatedPortionTypeAmount)/100f);
             }else{
                 total += f.energy;
             }
