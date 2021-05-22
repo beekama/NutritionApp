@@ -82,7 +82,7 @@ def getPortionSize():
                 #read new food:
                 PORTIONS.update({'fdc_id' : row['fdc_id'],'prefered':'GRAM'})
                 for size in PORTIONS.keys():
-                    if ("1 " + size.replace("_"," ")) in row['portion_description']:
+                    if ("1 " + size.lower().replace("_"," ")) in row['portion_description']:
                             PORTIONS.update({size : row['gram_weight']})
                             if (row['seq_num'] == '1'):
                                 PORTIONS.update({"prefered": size})
@@ -99,28 +99,18 @@ def split():
     '''Split CSV files into usable chunks'''
 
     count = 0
-    print("Run file splitter...")
-    lines = []
-    with open(TMP_FILE) as f:
-
-        # sort #
-        for line in f:
-            lines += [line.split(",")]
-        lines_sorted = sorted(lines, key=lambda x: x[1])
-
-        # split #
-        for line in lines_sorted:
-            curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT))
-            if os.path.isfile(curFileName):
-                with open(curFileName, "a") as fout:
-                    fout.write(",".join(line))
+    print("Run file splitter...") 
+    with open(TMP_FILE) as f: 
+        for line in f: 
+            curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT)) 
+            if os.path.isfile(curFileName) or count == 0: 
+                with open(curFileName, "a") as fout: fout.write(line)
             else:
                 with open(curFileName, "w") as fout:
                     fout.write(SCHEMA)
-                    fout.write(",".join(line))
+                    fout.write(line)
 
             count += 1
-
     return count
 
 def createDB(count):
@@ -130,6 +120,7 @@ def createDB(count):
     with open(DB_INIT_FILE) as f:
         with open(DB_INIT_FILE_NEW, "w") as fout:
             fout.write(f.read())
+            # TODO: Sort CSV by fdc_id #
             for x in range(0, int(count / MAX_LENGHT) + 1):
                 fout.write(".import food_nutrient_{0:02d}.csv food_nutrient_{0:02d}\n".format(x))
 
