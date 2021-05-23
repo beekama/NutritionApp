@@ -322,7 +322,7 @@ public class Database {
                 String foodId = c.getString(0);
                 int groupID = c.getInt(1);
                 String loggedAtISO = c.getString(2);
-                int amount = c.getInt(3);
+                float amount = c.getFloat(3);
                 PortionTypes portionType = PortionTypes.valueOf(c.getString(4));
 
                 ArrayList<Food> group = ret.get(groupID);
@@ -455,7 +455,7 @@ public class Database {
 
                 /* convert raw amount into native value */
                 String nutrientID = nutrients.getString(0);
-                int rawAmount = nutrients.getInt(1);
+                Integer rawAmount = nutrients.getInt(1);
                 ret.put(nutrientID, rawAmount);
             } while (nutrients.moveToNext());
         } else {
@@ -498,7 +498,7 @@ public class Database {
             do {
                 String foodId = c.getString(0);
                 String date = c.getString(1);
-                int amount = c.getInt(2);
+                float amount = c.getFloat(2);
                 PortionTypes portionType = PortionTypes.valueOf(c.getString(3));
                 Food f = this.getFoodById(foodId, date);
                 if (f != null) {
@@ -791,7 +791,7 @@ public class Database {
                 for (int k = 0; k < foods.length(); k++) {
                     JSONObject jsonFood = foods.getJSONObject(k);
                     Food f = new Food(jsonFood.getString("name"), jsonFood.getString("id"), null, dateTime);
-                    f.setAssociatedAmount(jsonFood.getInt("amount"));                                               //todo fix for import export
+                    f.setAssociatedAmount(jsonFood.getInt("amount"));                                           //todo: PortionType in json im-/export                   //todo fix for import export
                     PortionTypes portionType = PortionTypes.valueOf(jsonFood.getString("portion_type"));
                     f.setAssociatedPortionType(portionType);
                     f.setAssociatedPortionTypeAmount(getPortionAmountForPortionType(f, portionType));
