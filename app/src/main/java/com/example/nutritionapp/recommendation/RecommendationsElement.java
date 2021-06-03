@@ -1,9 +1,11 @@
 package com.example.nutritionapp.recommendation;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,16 +19,24 @@ import androidx.core.content.ContextCompat;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.time.LocalDate;
@@ -45,10 +55,10 @@ public class RecommendationsElement extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         /* set NutritionElement */
         Bundle b = getIntent().getExtras();
-        if (b!=null){
-            nutritionElement =(NutritionElement) b.get("nutritionelement");
+        if (b != null) {
+            nutritionElement = (NutritionElement) b.get("nutritionelement");
         }
-        Toast t = Toast.makeText(getApplicationContext(),nutritionElement.toString(),Toast.LENGTH_LONG);
+        Toast t = Toast.makeText(getApplicationContext(), nutritionElement.toString(), Toast.LENGTH_LONG);
         t.show();
 
         //splash screen when needed:
@@ -56,7 +66,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
         //basic settings:
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recommendation_element);
+        setContentView(R.layout.recommendation_nutrition);
         db = new Database(this);
 
 
@@ -84,105 +94,48 @@ public class RecommendationsElement extends AppCompatActivity {
         tb_title.setText(nutritionElement.toString());
         setSupportActionBar(tb);
 
-        /* LINECHART - NUTRITIONELEMENT */
-        LineChart chartElement = findViewById(R.id.lineChartNutritionElement);
-        //styling
-        chartElement.setPinchZoom(false);
-        chartElement.getDescription().setText("");
-        chartElement.setDrawGridBackground(false);
-
-/*        chartElement.setTouchEnabled(false);
-        chartElement.getLegend().setEnabled(false);*/
-        XAxis xAxis = chartElement.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        /* CHART */
+        BarChart barChart = findViewById(R.id.barChartNutrition);
+        Pair<BarData, ArrayList<String >> chartData = getChartData();
+        XAxis xAxis = barChart.getXAxis();
         xAxis.setGranularity(1f);
-        YAxis yAxis = chartElement.getAxisLeft();
-        YAxis rAxis = chartElement.getAxisRight();
-        rAxis.setDrawLabels(false);
-        rAxis.setDrawGridLines(false);
-        yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        yAxis.setSpaceTop(15f);
-        yAxis.setGranularity(1f);
-        yAxis.setAxisMinimum(0);
-
-
-        //Marker
-        MarkerView mv = new CustomMarkerView(this, R.layout.marker_view);
-        mv.setChartView(chartElement);
-        chartElement.setMarker(mv);
-
-        //data
-        setData(chartElement);
-
-        //headline
-        TextView headline = findViewById(R.id.textViewHeadline);
-        headline.setText("week overview");
-
-
-        /* SWITCH BETWEEN WEEKS */
-        //dateBack:
-        Button weekBack = findViewById(R.id.dateBackButtonWeek);
-        weekBack.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDateParsed = currentDateParsed.minusWeeks(1);
-                //update chart:
-                setData(chartElement);
-            }
-        }));
-
-        //dateForward:
-        Button weekForward = findViewById(R.id.dateForewardButtonWeek);
-        weekForward.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDateParsed = currentDateParsed.plusWeeks(1);
-                //update chart:
-                setData(chartElement);
-            }
-        }));
-    }
-
-
-    void setData(LineChart lineChart) {
-        LocalDate oneWeekAgo = currentDateParsed.minusWeeks(1);
-        ArrayList<Entry> entries = new ArrayList<>();
-        /* daily NutritionAnalysis - ONE WEEK */
-        for  (int i = 6; i >= 0; i--) {
-            //get foods:
-            ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
-            currentDateParsed = currentDateParsed.minusDays(1);
-            //get analysed data:
-            NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
-            entries.add(0,new Entry(i,dayNutritionAnalysis.getNutritionPercentage().get(nutritionElement)));
-        }
-        LineDataSet lineDataSet = new LineDataSet(entries, nutritionElement.toString());
-        //style
-        lineDataSet.setLineWidth(3f);
-        lineDataSet.setCircleRadius(5f);
-
-
-        lineChart.getLegend().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
-        lineChart.getXAxis().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
-        lineDataSet.setValueTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
-        lineChart.getAxisRight().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
-        lineChart.getAxisLeft().setTextColor(ContextCompat.getColor(this.getBaseContext(),R.color.textColor));
-
-
-        /* set x-axis label */
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setLabelCount(7);
+        xAxis.setAxisMinimum(0);
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setLabelRotationAngle(-90);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
-            public String getFormattedValue(float value) {
-                int doM = oneWeekAgo.plusDays((int)value).getDayOfMonth();
-                int moY = oneWeekAgo.plusDays((int)value).getMonthValue();
-                return Integer.toString(doM) + "." + Integer.toString(moY);
+            public String getAxisLabel(float value, AxisBase axis) {
+                try {
+                    return chartData.second.get((int) value);
+                } catch (IndexOutOfBoundsException ie){
+                    Log.wtf("labelentry not found", Float.toString(value)); //todo: why do we get here
+                    return Float.toString(value);
+                }
             }
         });
-        LineData data = new LineData(lineDataSet);
-        lineChart.setData(data);
-        lineChart.invalidate();
+        barChart.setData(chartData.first);
+        barChart.invalidate();
+
     }
 
+    Pair<BarData, ArrayList<String>> getChartData() {
+        ArrayList<String> xAxisLabels = new ArrayList<>();
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        for (int day = 6; day >= 0; day--) {
+            xAxisLabels.add(currentDateParsed.minusDays(day).getDayOfWeek().toString());
+            Integer amount = 0;
+            HashMap<Integer, ArrayList<Food>> foodgroups = db.getLoggedFoodsByDate(currentDateParsed.minusDays(day), currentDateParsed.minusDays(day));
+            ArrayList<Food> foods = (foodgroups.isEmpty()) ? null : db.getFoodsFromHashMap(foodgroups);
+            if (foods != null) {
+                NutritionAnalysis nutritionAnalysis = new NutritionAnalysis(foods);
+                Nutrition nutrition = nutritionAnalysis.getNutritionActual();
+                amount = nutrition.getElements().get(nutritionElement);
+            }
+            barEntries.add(new BarEntry(6-day, amount));
+        }
+
+        BarDataSet set = new BarDataSet(barEntries, "NutritionElementSet");
+        BarData data = new BarData(set);
+        return new Pair<>(data, xAxisLabels);
+    }
 }
