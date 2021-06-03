@@ -149,8 +149,6 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
     @Override
     public void getValues() {
-        if (p != null) typeSelected = p;
-        if (a != null) amountSelected = a;
     }
 
     @Override
