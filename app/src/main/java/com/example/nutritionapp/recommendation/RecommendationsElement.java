@@ -2,19 +2,19 @@ package com.example.nutritionapp.recommendation;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.icu.text.Transliterator;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
@@ -22,21 +22,14 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.MarkerView;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.time.LocalDate;
@@ -47,9 +40,10 @@ import java.util.HashMap;
 public class RecommendationsElement extends AppCompatActivity {
     private Database db;
     private NutritionElement nutritionElement;
-    HashMap<Integer, ArrayList<Food>> foodList;
-    ArrayList<Food> allFood;
-    LocalDate currentDateParsed = LocalDate.now();
+    private HashMap<Integer, ArrayList<Food>> foodList;
+    private ArrayList<Food> allFood;
+    private LocalDate currentDateParsed = LocalDate.now();
+    private int recommendation;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -94,14 +88,19 @@ public class RecommendationsElement extends AppCompatActivity {
         tb_title.setText(nutritionElement.toString());
         setSupportActionBar(tb);
 
+        //recommendation:
+        Nutrition rec = Nutrition.getRecommendation();
+        recommendation = rec.getElements().get(nutritionElement);
+
         /* CHART */
-        BarChart barChart = findViewById(R.id.barChartNutrition);
+        ExtendedBarChart barChart = (ExtendedBarChart) findViewById(R.id.barChartNutrition);
+        barChart.getDescription().setText("");
         Pair<BarData, ArrayList<String >> chartData = getChartData();
         XAxis xAxis = barChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setAxisMinimum(0);
         xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelRotationAngle(-90);
+        xAxis.setLabelRotationAngle(-45);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
@@ -113,7 +112,24 @@ public class RecommendationsElement extends AppCompatActivity {
                 }
             }
         });
-        barChart.setData(chartData.first);
+
+        YAxis yAxis = barChart.getAxisLeft();
+        barChart.getAxisRight().setEnabled(false);
+        yAxis.setAxisMaximum(recommendation*1.1f);
+        yAxis.setAxisMinimum(0);
+
+
+        LimitLine l1 = new LimitLine(recommendation, "daily recommendation");
+        l1.setLineColor(R.color.green_dark);
+        LimitLine l2 = new LimitLine(0, "");
+        l2.setLineColor(R.color.green_dark);
+        barChart.getAxisLeft().addLimitLine(l1);
+        barChart.getAxisLeft().addLimitLine(l2);
+        barChart.getAxisLeft().setDrawGridLinesBehindData(true);
+
+        CombinedData data = new CombinedData();
+        data.setData(chartData.first);
+        barChart.setData(data);
         barChart.invalidate();
 
     }
@@ -134,7 +150,7 @@ public class RecommendationsElement extends AppCompatActivity {
             barEntries.add(new BarEntry(6-day, amount));
         }
 
-        BarDataSet set = new BarDataSet(barEntries, "NutritionElementSet");
+        BarDataSet set = new BarDataSet(barEntries, nutritionElement.toString());
         BarData data = new BarData(set);
         return new Pair<>(data, xAxisLabels);
     }
