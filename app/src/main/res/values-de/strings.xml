@@ -51,6 +51,9 @@
     <string name="weekly_targets">Wochenziele</string>
     <string name="current_week">aktuelle Woche</string>
 
+    <string name="recommendationDesc">Empfohlene Nahrungsmittel bei einem Mangel an </string>
+    <string name="dailyRecommendation">Dein Tagesbedarf beträgt</string>
+
     <string name="nav_drawer_open">Navigationsleiste öffnen</string>
     <string name="nav_drawer_close">Navigationsleiste schließen</string>
 </resources>

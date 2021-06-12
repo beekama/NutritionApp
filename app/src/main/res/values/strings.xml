@@ -51,8 +51,14 @@
     <string name="weekly_targets">weekly targets</string>
     <string name="current_week">current week</string>
 
-    <string name="Impressum">Impressum</string>
-
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>
+
+    <string name="recommendationDesc">Recommended food for lack of </string>
+    <string name="dailyRecommendation">Your daily needs are</string>
+
+
+    <string name="Impressum" translatable="false">Impressum</string>
+    <string name="microgram" translatable="false">µg</string>
+    <string name="kilokalorien" translatable="false">kcal</string>
 </resources>
