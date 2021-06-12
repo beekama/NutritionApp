@@ -10,9 +10,6 @@ import java.util.ArrayList;
 
 class RecommendationListItem {
 
-    //final float percentage;
-   // public final PieDataSet pieDataSet;
-    //final ArrayList<PieEntry> pieEntryList = new ArrayList<>();
 
     final NutritionElement nutritionElement;
     final Float percentage;
@@ -22,11 +19,5 @@ class RecommendationListItem {
         this.nutritionElement = nutritionElement;
         this.percentage = percentage;
         this.target = target;
-      //  this.percentage = percentage;
-       /* this.pieEntryList.add(new PieEntry(percentage,nutritionElement.toString()));
-        if (percentage < 100) {
-            this.pieEntryList.add(new PieEntry(100 - percentage, "missing"));
-        }*/
-       // this.pieDataSet = new PieDataSet(pieEntryList, "alldata");
     }
 }
