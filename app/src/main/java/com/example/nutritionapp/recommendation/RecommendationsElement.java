@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
@@ -22,6 +24,8 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+import com.example.nutritionapp.other.NutritionPercentageTuple;
+import com.example.nutritionapp.other.Utils;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,6 +40,8 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class RecommendationsElement extends AppCompatActivity {
     private Database db;
@@ -44,6 +50,7 @@ public class RecommendationsElement extends AppCompatActivity {
     private ArrayList<Food> allFood;
     private LocalDate currentDateParsed = LocalDate.now();
     private int recommendation;
+    private RecyclerView recList;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -93,7 +100,7 @@ public class RecommendationsElement extends AppCompatActivity {
         recommendation = rec.getElements().get(nutritionElement);
 
         /* CHART */
-        ExtendedBarChart barChart = (ExtendedBarChart) findViewById(R.id.barChartNutrition);
+        ExtendedBarChart barChart =  findViewById(R.id.barChartNutrition);
         barChart.getDescription().setText("");
         Pair<BarData, ArrayList<String >> chartData = getChartData();
         XAxis xAxis = barChart.getXAxis();
@@ -132,6 +139,34 @@ public class RecommendationsElement extends AppCompatActivity {
         barChart.setData(data);
         barChart.invalidate();
 
+        /* food-recommendation */
+        String dailyReq = getResources().getString(R.string.dailyRecommendation);
+        String microgr = getResources().getString(R.string.microgram);
+        TextView dailyR = findViewById(R.id.dailyReq);
+        dailyR.setText(String.format("%s %d %s ", dailyReq, recommendation, microgr));
+
+        TextView recDesc = findViewById(R.id.recommendation_description);
+        String header = getResources().getString(R.string.recommendationDesc);
+        recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.toString(),dailyReq, recommendation, microgr));
+        recDesc.setText(String.format("%s-rich food: ", nutritionElement.toString()));
+
+
+        recList = findViewById(R.id.RecListView);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recList.setLayoutManager(nutritionReportLayoutManager);
+        ArrayList<Pair<String, Float>> listItems = generateAdapterContent(db.getRecommendationMap(nutritionElement));
+
+        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(getApplicationContext(), listItems);
+        recList.setAdapter(foodRec);
+    }
+
+    ArrayList<Pair<String, Float>> generateAdapterContent(SortedMap<String, Float> map) {
+
+        ArrayList<Pair<String, Float>> listItems = new ArrayList<>();
+        for (String food : map.keySet()){
+            listItems.add(new Pair<String, Float>(food, map.get(food)));
+        }
+        return listItems;
     }
 
     Pair<BarData, ArrayList<String>> getChartData() {
@@ -154,4 +189,6 @@ public class RecommendationsElement extends AppCompatActivity {
         BarData data = new BarData(set);
         return new Pair<>(data, xAxisLabels);
     }
+
+
 }

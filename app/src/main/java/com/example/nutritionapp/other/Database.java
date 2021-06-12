@@ -34,6 +34,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
@@ -51,6 +53,7 @@ public class Database {
     final String FILE_KEY = "DEFAULT";
     private static SQLiteDatabase db = null;
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
+    private static final ArrayList<String> foodNutrientTableIds = new ArrayList<>();
     private final Activity srcActivity;
     private final HashMap<String, Food> foodCache = new HashMap<>();
     String targetPath;
@@ -106,7 +109,7 @@ public class Database {
         fdc_id can be found in which food_nutrient_table.
          */
 
-        ArrayList<String> tmpDbNames = new ArrayList<>();
+
         String[] columns = {"name"};
         Cursor c = db.query("sqlite_master", columns, "type = \"table\" AND name LIKE \"food_nutrient_%\"", null, null, null, null);
         while (c.moveToNext()) {
@@ -114,12 +117,12 @@ public class Database {
             if (tmpDbName.contains("custom")) {
                 continue;
             }
-            tmpDbNames.add(tmpDbName);
+            foodNutrientTableIds.add(tmpDbName);
         }
         c.close();
 
-        Collections.sort(tmpDbNames);
-        for (String table : tmpDbNames) {
+        Collections.sort(foodNutrientTableIds);
+        for (String table : foodNutrientTableIds) {
             String[] columnsNut = {"fdc_id"};
             Cursor nutC = db.query(table, columnsNut, null, null, null, null, "fdc_id ASC", "1");
             if (nutC.moveToNext()) {
@@ -1020,6 +1023,38 @@ public class Database {
         c.close();
         return amount;
     }
+
+    //returns TreeMap of food-name and amount, which contains highest nutrient values:
+    public SortedMap<String, Float> getRecommendationMap(NutritionElement nutritionElement){
+        /* look for food with highest amount of dedicated NutritionElement in all food_nutrient_ -tables */
+
+        // search all tables for high nutrient values:
+        TreeMap<String, Float> resultMap = new TreeMap<>();
+        for (String tableId : foodNutrientTableIds){
+            String[] columnNow = {"fdc_id", "amount"};
+            float minAm = 0f;
+            String[] whereArgs = {Integer.toString(Nutrition.databaseIdFromEnum(nutritionElement))};
+            Cursor cc = db.query(tableId, columnNow, "nutrient_id = ?", whereArgs,  null, null, "amount DESC", "5");
+
+            while (cc.moveToNext()){
+                String foodID = cc.getString(0);
+                float amount = Float.parseFloat(cc.getString(1));
+
+                // only consider values that are higher than the lowest tracked by now - since we analyze tables separately
+                if (minAm == 0 || amount < minAm) minAm = amount;
+                Food f = (getFoodById(foodID));
+
+                // todo: workaround of (not fixed by now) bug - there are more foodIds in nutrient-table than in the table used by 'getFoodById'
+                resultMap.put((f == null)? foodID.toString() : f.name,amount);
+            }
+            cc.close();
+        }
+
+        // sort TreeMap and return the 5 most nutritious foods:
+        return Utils.sortRecommendedTreeMap(resultMap);
+    }
+
+
 
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper> {
