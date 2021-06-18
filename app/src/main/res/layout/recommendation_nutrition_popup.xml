@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recommendation_nutrition_popup"
+    android:background="@color/chartApricot">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/popup_header"
+        android:textColor="@color/green_light"
+        android:background="@color/green_dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidline"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_energyAmountText"
+        android:text="Amount of Energy: "
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidline"
+        app:layout_constraintTop_toBottomOf="@id/popup_header"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_nutritionAmountText"
+        android:maxLines="1"
+        android:text="Amount of "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidline"
+        app:layout_constraintTop_toBottomOf="@id/popup_energyAmountText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_energyAmount"
+        app:layout_constraintStart_toEndOf="@id/guidline"
+        app:layout_constraintEnd_toStartOf="@id/popup_energyUnit"
+        app:layout_constraintTop_toBottomOf="@id/popup_header"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_energyUnit"
+        android:text="@string/kalPer100mg"
+        app:layout_constraintStart_toEndOf="@id/popup_energyAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/popup_header"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_nutritionAmount"
+        app:layout_constraintStart_toEndOf="@id/guidline"
+        app:layout_constraintEnd_toStartOf="@id/popup_nutritionUnity"
+        app:layout_constraintTop_toBottomOf="@id/popup_energyAmountText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_nutritionUnity"
+        android:text="@string/microPer100mg"
+        app:layout_constraintStart_toEndOf="@id/popup_nutritionAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/popup_energyAmountText"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

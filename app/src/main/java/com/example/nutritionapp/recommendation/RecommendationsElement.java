@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.icu.text.Transliterator;
 import android.os.Bundle;
+import android.util.FloatProperty;
 import android.util.Log;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -154,17 +157,16 @@ public class RecommendationsElement extends AppCompatActivity {
         recList = findViewById(R.id.RecListView);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recList.setLayoutManager(nutritionReportLayoutManager);
-        ArrayList<Pair<String, Float>> listItems = generateAdapterContent(db.getRecommendationMap(nutritionElement));
-
-        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(getApplicationContext(), listItems);
+        ArrayList<Pair<Food, Float>> listItems = generateAdapterContent(db.getRecommendationMap(nutritionElement));
+        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(getApplicationContext(), listItems, nutritionElement, db);
         recList.setAdapter(foodRec);
     }
 
-    ArrayList<Pair<String, Float>> generateAdapterContent(SortedMap<String, Float> map) {
+    ArrayList<Pair<Food, Float>> generateAdapterContent(SortedMap<Food, Float> map) {
 
-        ArrayList<Pair<String, Float>> listItems = new ArrayList<>();
-        for (String food : map.keySet()){
-            listItems.add(new Pair<String, Float>(food, map.get(food)));
+        ArrayList<Pair<Food, Float>> listItems = new ArrayList<>();
+        for (Food food : map.keySet()){
+            listItems.add(new Pair<Food, Float>(food, map.get(food)));
         }
         return listItems;
     }
