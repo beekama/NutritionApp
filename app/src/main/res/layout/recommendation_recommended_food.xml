@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@drawable/selector"
-        android:clickable="true"
         android:maxLines="4"
         android:id="@+id/recommendedFoodText"
         app:layout_constraintStart_toStartOf="parent"
