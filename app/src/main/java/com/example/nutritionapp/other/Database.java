@@ -151,15 +151,15 @@ public class Database {
                     /* this means we have DB so low it isn't even in the first db   */
                     /* in this case we return the first db, if we returned a bad db */
                     /* the app would crash, which seems a bit extreme in this case  */
-                    break;
+                    return DEFAULT_NUTRIENT_DB;
                 }
-                return String.format(Locale.ENGLISH, "food_nutrient_%02d", count - 1);
+                break;
             } else {
                 count++;
             }
         }
         Log.w("WARNING", "ID " + foodId + " has no associated Database. (nut good)");
-        return DEFAULT_NUTRIENT_DB;
+        return String.format(Locale.ENGLISH, "food_nutrient_%02d", count - 1);
     }
 
     /* ################ FOOD LOGGING ############## */
