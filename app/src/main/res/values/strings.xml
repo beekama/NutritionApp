@@ -56,9 +56,13 @@
 
     <string name="recommendationDesc">Recommended food for lack of </string>
     <string name="dailyRecommendation">Your daily needs are</string>
+    <string name="popupEnergyText">Amount of Energy: </string>
+    <string name="amountof"> Amount of </string>
 
 
     <string name="Impressum" translatable="false">Impressum</string>
     <string name="microgram" translatable="false">µg</string>
     <string name="kilokalorien" translatable="false">kcal</string>
+    <string name="kalPer100mg" translatable="false">kcal/100mg</string>
+    <string name="microPer100mg" translatable="false">µg/100mg</string>
 </resources>
