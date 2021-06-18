@@ -77,20 +77,7 @@ public class Recommendations extends AppCompatActivity {
             }
         }));
 
-        //Goto Week-Chart
-        tb_forward.setImageResource(R.drawable.add_circle_filled);
-        tb.setTitle("");
-        tb_title.setText(R.string.daily_targets);
-        setSupportActionBar(tb);
-        //refresh:
-        tb_forward.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // updateRecommendations(true);
-                Intent myIntent = new Intent(v.getContext(), RecommendationsWeek.class);
-                startActivity(myIntent);
-            }
-        }));
+
 
         /* PROGRESS BAR */
         energyBar = findViewById(R.id.energyBar);

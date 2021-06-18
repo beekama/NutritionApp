@@ -13,7 +13,6 @@
         android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name="com.example.nutritionapp.recommendation.RecommendationsElement"/>
         <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
-        <activity android:name="com.example.nutritionapp.recommendation.RecommendationsWeek"/>
         <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />
         <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
         <activity android:name="com.example.nutritionapp.customFoods.CustomFoodOverview" />
