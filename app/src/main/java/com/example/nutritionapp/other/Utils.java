@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 
+import com.example.nutritionapp.recommendation.RecommendationNutritionListItem;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -75,15 +77,15 @@ public class Utils {
         return foodByDate;
     }
 
-    public static SortedMap<String, Float> sortRecommendedTreeMap(TreeMap<String, Float> treeMap) {
-        SortedMap<String, Float> sortedFood = new TreeMap<String, Float>( (k1,k2) -> {
+    public static SortedMap<Food, Float> sortRecommendedTreeMap(TreeMap<Food, Float> treeMap) {
+        SortedMap<Food, Float> sortedFood = new TreeMap<Food, Float>( (k1,k2) -> {
             float v1 = treeMap.get(k1);
             float v2 = treeMap.get(k2);
             if (v1 == v2) return 0;
             else return (v1<v2) ? 1 : -1;
         });
 
-        sortedFood.putAll((Map<String, Float>)treeMap);
+        sortedFood.putAll((Map<Food, Float>)treeMap);
         return sortedFood;
     }
 

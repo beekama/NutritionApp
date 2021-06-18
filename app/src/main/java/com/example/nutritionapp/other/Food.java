@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-public class Food {
+public class Food implements Comparable{
 
     public static final String DB_ID_ENERGY = "1008";
     public static final String DB_ID_FIBER = "1079";
@@ -147,6 +147,11 @@ public class Food {
         } else{
             this.associatedAmount = 1f;
         }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return ((Food) o).name.compareTo(this.name);
     }
 }
 

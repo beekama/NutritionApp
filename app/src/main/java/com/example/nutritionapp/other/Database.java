@@ -13,6 +13,7 @@ import android.util.Pair;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
+import com.example.nutritionapp.recommendation.RecommendationNutritionListItem;
 
 import org.apache.commons.io.IOUtil;
 import org.json.JSONArray;
@@ -1025,16 +1026,21 @@ public class Database {
     }
 
     //returns TreeMap of food-name and amount, which contains highest nutrient values:
-    public SortedMap<String, Float> getRecommendationMap(NutritionElement nutritionElement){
+    public SortedMap<Food, Float> getRecommendationMap(NutritionElement nutritionElement){
         /* look for food with highest amount of dedicated NutritionElement in all food_nutrient_ -tables */
 
+        String idNutritionElement = Integer.toString(Nutrition.databaseIdFromEnum(nutritionElement));
+        String idEnergy = "1008";
+
         // search all tables for high nutrient values:
-        TreeMap<String, Float> resultMap = new TreeMap<>();
+        TreeMap<Food, Float> resultMap = new TreeMap<>();
         for (String tableId : foodNutrientTableIds){
-            String[] columnNow = {"fdc_id", "amount"};
+            String[] columnNow = {"nut.fdc_id", "(round((nut.amount / en.amount), 4)) as ratio"};
+            String table = tableId + " as nut, " + tableId + " as en";
             float minAm = 0f;
-            String[] whereArgs = {Integer.toString(Nutrition.databaseIdFromEnum(nutritionElement))};
-            Cursor cc = db.query(tableId, columnNow, "nutrient_id = ?", whereArgs,  null, null, "amount DESC", "5");
+            String where = "nut.fdc_id = en.fdc_id AND nut.nutrient_id=? AND en.nutrient_id=1008 AND ratio>=" + minAm;
+            String[] whereArgs = {idNutritionElement};
+            Cursor cc = db.query(table, columnNow, where , whereArgs,  null, null, "ratio DESC", "5");
 
             while (cc.moveToNext()){
                 String foodID = cc.getString(0);
@@ -1045,7 +1051,9 @@ public class Database {
                 Food f = (getFoodById(foodID));
 
                 // todo: workaround of (not fixed by now) bug - there are more foodIds in nutrient-table than in the table used by 'getFoodById'
-                resultMap.put((f == null)? foodID.toString() : f.name,amount);
+                if (f!=null){
+                    resultMap.put(f, amount);
+                }
             }
             cc.close();
         }
