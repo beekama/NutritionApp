@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 
-import com.example.nutritionapp.recommendation.RecommendationNutritionListItem;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

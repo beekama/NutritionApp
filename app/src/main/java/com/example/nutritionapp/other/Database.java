@@ -13,7 +13,6 @@ import android.util.Pair;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.recommendation.RecommendationNutritionListItem;
 
 import org.apache.commons.io.IOUtil;
 import org.json.JSONArray;
