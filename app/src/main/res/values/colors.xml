@@ -43,6 +43,8 @@
     <color name="DayChartLightRed">#ffaaab</color>
     <color name="DayChartDarkRed">#931a25</color>
 
+    <color name="hlineSilver">#c0c0c0</color>
+
     <array name="DayChartGreen">
         <item>@color/DayChartDarkGreen</item>
         <item>@color/DayChartLightGreen</item>

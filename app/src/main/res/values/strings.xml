@@ -65,4 +65,6 @@
     <string name="kilokalorien" translatable="false">kcal</string>
     <string name="kalPer100mg" translatable="false">kcal/100mg</string>
     <string name="microPer100mg" translatable="false">µg/100mg</string>
+    <string name="sideMenuAboutSectionName">Other</string>
+    <string name="about">About</string>
 </resources>

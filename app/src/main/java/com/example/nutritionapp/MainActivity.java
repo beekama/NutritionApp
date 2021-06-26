@@ -178,6 +178,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_analysis:
                 Intent analysis =  new Intent(this, Recommendations.class);
                 startActivity(analysis, Utils.getDefaultTransition(this));
+            case R.id.nav_about:
+                Intent about = new Intent(this, AboutPage.class);
+                startActivity(about);
         }
 
         drawer.closeDrawer(GravityCompat.START);

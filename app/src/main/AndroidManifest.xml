@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme"
         android:fullBackupContent="@xml/backup_descriptor">
+        <activity android:name="com.example.nutritionapp.AboutPage"/>
         <activity android:name="com.example.nutritionapp.recommendation.RecommendationsElement"/>
         <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
         <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />

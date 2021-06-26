@@ -14,10 +14,10 @@
                 android:title="@string/configButtonTitle" />
         </group>
 
-        <item android:title="randomStuff">
+        <item android:title="@string/sideMenuAboutSectionName">
             <menu>
-                <item android:id="@+id/nav_impressum"
-                    android:title="@string/Impressum" />
+                <item android:id="@+id/nav_about"
+                    android:title="@string/about" />
             </menu>
 
         </item>
