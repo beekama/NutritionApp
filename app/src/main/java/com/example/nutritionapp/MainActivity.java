@@ -181,6 +181,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_about:
                 Intent about = new Intent(this, AboutPage.class);
                 startActivity(about);
+            case R.id.nav_weight_tracking:
+                Intent weight = new Intent(this, WeightTracking.class);
+                startActivity(weight);
         }
 
         drawer.closeDrawer(GravityCompat.START);

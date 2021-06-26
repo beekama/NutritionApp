@@ -18,8 +18,9 @@
             <menu>
                 <item android:id="@+id/nav_about"
                     android:title="@string/about" />
+                <item android:id="@+id/nav_weight_tracking"
+                    android:title="Weight" />
             </menu>
-
         </item>
 </menu>
 

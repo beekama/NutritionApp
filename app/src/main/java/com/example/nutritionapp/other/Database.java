@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
@@ -51,6 +52,8 @@ public class Database {
     private static final String DEFAULT_NUTRIENT_DB = "food_nutrient_00";
 
     final String FILE_KEY = "DEFAULT";
+    final String WEIGHTS = "weightsByDate";
+
     private static SQLiteDatabase db = null;
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private static final ArrayList<String> foodNutrientTableIds = new ArrayList<>();
@@ -1061,8 +1064,60 @@ public class Database {
         return Utils.sortRecommendedTreeMap(resultMap);
     }
 
+    /* weights table interactions */
 
+    public void createWeightsTableIfNotExist(){
+        final String CREATE_TABLE_WEIGHT = "CREATE TABLE weightsByDate (date TEXT PRIMARY KEY, weight INTEGER)";
+        try {
+            db.execSQL(CREATE_TABLE_WEIGHT);
+        }catch (android.database.SQLException e){
+            Log.w("DB", "Table already Exists");
+        }
+    }
 
+    public void addWeightAtDate(int weightInGram, LocalDateTime date){
+        String dateString = date.format(Utils.sqliteDatetimeFormat);
+        ContentValues values = new ContentValues();
+        values.put("date", dateString);
+        values.put("weight", weightInGram);
+        db.insert(WEIGHTS, null, values);
+    }
+
+    public void removeWeightAtDate(int weightInGram, LocalDateTime date){
+        String[] whereArgs = { date.format(Utils.sqliteDatetimeFormat) };
+        db.delete(WEIGHTS, "date = ?", whereArgs);
+    }
+
+    public int getWeightAtDate(LocalDateTime date){
+        String[] columns = {"weight"};
+        String dateString = date.format(Utils.sqliteDatetimeFormat);
+        String[] whereArgs = { dateString };
+
+        Cursor c = db.query(WEIGHTS, columns, "date = ?", whereArgs, null, null, null);
+        if(c.moveToNext()){
+            int weight = c.getInt(0);
+            c.close();
+            return weight;
+        }else {
+            throw new AssertionError("Tried to access a weight with a date that doesn't exist.");
+        }
+    }
+
+    public LinkedHashMap<LocalDateTime, Integer> getWeightAll(){
+        LinkedHashMap<LocalDateTime, Integer> weightsByDate = new LinkedHashMap<>();
+        String[] columns = {"date", "weight"};
+
+        Cursor c = db.query(WEIGHTS, columns, null, null, null, null, null);
+        while(c.moveToNext()){
+            String dateString = c.getString(0);
+            int weight = c.getInt(1);
+            LocalDateTime localDateTime = LocalDateTime.parse(dateString, Utils.sqliteDatetimeFormat);
+            weightsByDate.put(localDateTime, weight);
+        }
+        c.close();
+
+        return weightsByDate;
+    }
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper> {
         public int counter;

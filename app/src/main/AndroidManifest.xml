@@ -3,27 +3,30 @@
     package="com.example.nutritionapp">
 
     <application
-        android:name="com.example.nutritionapp.DefaultApplication"
+        android:name=".DefaultApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/SplashTheme"
-        android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name="com.example.nutritionapp.AboutPage"/>
-        <activity android:name="com.example.nutritionapp.recommendation.RecommendationsElement"/>
-        <activity android:name="com.example.nutritionapp.recommendation.Recommendations" />
-        <activity android:name="com.example.nutritionapp.configuration.PersonalInformation" />
-        <activity android:name="com.example.nutritionapp.customFoods.CreateNewFoodItem" />
-        <activity android:name="com.example.nutritionapp.customFoods.CustomFoodOverview" />
-        <activity android:name="com.example.nutritionapp.foodJournal.FoodJournalOverview" />
-        <activity android:name="com.example.nutritionapp.foodJournal.FoodGroupOverview" />
-        <activity android:name="com.example.nutritionapp.MainActivity"
+        android:theme="@style/SplashTheme">
+        <activity android:name=".WeightTracking"></activity>
+        <activity android:name=".AboutPage" />
+        <activity android:name=".recommendation.RecommendationsElement" />
+        <activity android:name=".recommendation.Recommendations" />
+        <activity android:name=".configuration.PersonalInformation" />
+        <activity android:name=".customFoods.CreateNewFoodItem" />
+        <activity android:name=".customFoods.CustomFoodOverview" />
+        <activity android:name=".foodJournal.FoodJournalOverview" />
+        <activity android:name=".foodJournal.FoodGroupOverview" />
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
