@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/round_bg_light"
+    android:padding="10dp"
+    >
 
     <!-- DATE OF DAY-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/subLayoutTop"
+        android:background="@drawable/round_bg_header"
+        android:padding="15dp"
+
+        android:layout_marginEnd="50dp"
+        >
     <TextView
         android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="32sp"
+        android:gravity="start"
+        android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -26,9 +39,7 @@
         android:textSize="32sp"
         app:layout_constraintTop_toBottomOf="@id/dateText"
         android:progress="0"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         />
 
     <TextView
@@ -45,6 +56,7 @@
         android:layout_alignEnd="@id/energyBar"
         android:layout_alignBottom="@id/energyBar"
     />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- LIST OF FOODS ON THIS DAY -->
     <LinearLayout
@@ -56,13 +68,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/energyBar">
+        app:layout_constraintTop_toBottomOf="@id/subLayoutTop">
         <com.example.nutritionapp.other.NestableList
             android:id="@+id/list_grouped_foods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@android:color/background_light"
-            android:dividerHeight="1dp" />
+            android:divider="@android:color/transparent"
+            android:dividerHeight="2dp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
