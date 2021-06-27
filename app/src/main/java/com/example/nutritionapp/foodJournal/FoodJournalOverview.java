@@ -126,10 +126,4 @@ public class FoodJournalOverview extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        /* TODO implement new invalidation scheme for new entries */
-    }
 }
