@@ -111,7 +111,7 @@ public class Recommendations extends AppCompatActivity {
     ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed) {
 
         /* generate Adapter-content for RecommendationAdapter */
-        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
+        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();
 
         /* track source of display elements */
@@ -145,7 +145,7 @@ public class Recommendations extends AppCompatActivity {
     void setProgressBar(LocalDate currentDateParsed){
 
         //create Arraylist with foods of the given day:
-        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
+        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
 
         int energyUsed = Nutrition.totalEnergy(foods);
         int energyNeeded = 2000;

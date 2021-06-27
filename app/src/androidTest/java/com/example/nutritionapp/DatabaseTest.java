@@ -58,7 +58,7 @@ public class DatabaseTest {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
                     db.logExistingFoods(JournalFoodSampleGenerator.generateSampleFoodGroup(db), null);
-                    HashMap<Integer, ArrayList<Food>> ret = db.getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
+                    HashMap<Integer, ArrayList<Food>> ret = db.getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX, null);
                     assertNotNull(ret);
                     assert(!ret.keySet().isEmpty());
                 }

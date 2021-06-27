@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
@@ -38,7 +40,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
     private FoodOverviewAdapter adapter;
     private Database db;
-    private ListView mainListOfFoodsWithDayHeaders;
+    private RecyclerView mainListOfFoodsWithDayHeaders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,6 @@ public class FoodJournalOverview extends AppCompatActivity {
         db = new Database(this);
 
         /* retrieve items */
-        updateFoodJournalList(false);
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
@@ -63,10 +64,12 @@ public class FoodJournalOverview extends AppCompatActivity {
         /* set adapter */
         /* this is a list of layout of type journal_day_header, which contains the day-header and
         a nested sublist of the foods (food groups) on this */
-        adapter = new FoodOverviewAdapter(this, foodDataList);
+
         mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
+        adapter = new FoodOverviewAdapter(this, foodDataList, mainListOfFoodsWithDayHeaders, db);
+        LinearLayoutManager mainListLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
-        mainListOfFoodsWithDayHeaders.setTextFilterEnabled(true);
 
         final Button addStuff = findViewById(R.id.add_food);
         addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FoodGroupOverview.class)));
@@ -75,45 +78,6 @@ public class FoodJournalOverview extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        updateFoodJournalList(true);
-    }
-
-    private void updateFoodJournalList(boolean runInvalidation) {
-        HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(LocalDate.MIN, oldestDateShown);
-        SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(foodGroups);
-        foodDataList.clear();
-
-        /* generate reversed list */
-        ArrayList<LocalDate> keyListReversed = new ArrayList<>(foodGroupsByDay.keySet());
-        Collections.reverse(keyListReversed);
-
-        for(LocalDate day : keyListReversed){
-            HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(day);
-            String dateString = day.format(DateTimeFormatter.ISO_DATE);
-            ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();
-            for(Integer groupId : localFoodGroups.keySet()){
-
-                ArrayList<Food> foodsInGroup = localFoodGroups.get(groupId);
-                if(foodsInGroup == null){
-                    throw new AssertionError("Got null when querying for group id.");
-                }
-
-                /* set nutrition and energy */
-                for(Food foodToBeSet : foodsInGroup){
-                    foodToBeSet.setPreferedPortionFromDb(db);
-                    foodToBeSet.setNutritionFromDb(db);
-                }
-
-                /* append foods */
-                foodListForGroupOnDay.addAll(foodsInGroup);
-            }
-            FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
-            foodDataList.add(nextItem);
-        }
-        if(runInvalidation) {
-            adapter.notifyDataSetInvalidated();
-            mainListOfFoodsWithDayHeaders.invalidate();
-            mainListOfFoodsWithDayHeaders.setAdapter(adapter);
-        }
+        /* TODO implement new invalidation scheme for new entries */
     }
 }

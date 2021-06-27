@@ -177,7 +177,7 @@ public class RecommendationsElement extends AppCompatActivity {
         for (int day = 6; day >= 0; day--) {
             xAxisLabels.add(currentDateParsed.minusDays(day).getDayOfWeek().toString());
             Integer amount = 0;
-            HashMap<Integer, ArrayList<Food>> foodgroups = db.getLoggedFoodsByDate(currentDateParsed.minusDays(day), currentDateParsed.minusDays(day));
+            HashMap<Integer, ArrayList<Food>> foodgroups = db.getLoggedFoodsByDate(currentDateParsed.minusDays(day), currentDateParsed.minusDays(day), null);
             ArrayList<Food> foods = (foodgroups.isEmpty()) ? null : db.getFoodsFromHashMap(foodgroups);
             if (foods != null) {
                 NutritionAnalysis nutritionAnalysis = new NutritionAnalysis(foods);

@@ -300,11 +300,15 @@ public class Database {
         return altDescription;
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
-        return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.from(end));
+    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsAfterDate(LocalDateTime start, int limit) {
+        return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.MAX, Integer.toString(limit));
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end) {
+    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
+        return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.from(end), null);
+    }
+
+    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end, String limit) {
         /* Return create_foods logged by dates */
 
         HashMap<Integer, ArrayList<Food>> ret = new HashMap<>();
@@ -321,7 +325,7 @@ public class Database {
         if (start.equals(LocalDate.MIN) || end.equals(LocalDate.MAX)) {
             whereStm = "date(loggedAt)";
         }
-        Cursor c = db.query(table, columns, whereStm, null, null, null, null);
+        Cursor c = db.query(table, columns, whereStm, null, null, null, null, limit);
 
         if (c.moveToFirst()) {
             do {
@@ -527,7 +531,7 @@ public class Database {
             selectedSoFar.add(item.food);
         }
 
-        HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX);
+        HashMap<Integer, ArrayList<Food>> prevSelected = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX, null);
         ArrayList<SuggestionHelper> suggestionCounter = new ArrayList<>();
 
         /* try all group keys */

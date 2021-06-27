@@ -3,6 +3,7 @@ package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,61 +13,133 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
+import com.example.nutritionapp.other.Utils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.SortedMap;
 
-public class FoodOverviewAdapter extends BaseAdapter {
+public class FoodOverviewAdapter extends RecyclerView.Adapter {
+
+    final int VIEW_TYPE_LOADING = 0;
+    final int VIEW_TYPE_ITEM = 1;
+
     private final Context context;
     private final ArrayList<FoodOverviewListItem> items;
 
-    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items){
+    private volatile boolean isLoading = false;
+    private int visibleThreshold = 5;
+    int layoutItemCount = 0;
+    int lastVisibleItem = -1;
+
+    LocalDateTime lastDate;
+    Database db;
+
+    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items, RecyclerView parentRV, Database db){
         this.context = context;
         this.items   = items;
+        this.lastDate = LocalDateTime.MIN;
+        this.db = db;
+
+        loadMoreItems();
+
+        parentRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                LinearLayoutManager parentLLM = (LinearLayoutManager) parentRV.getLayoutManager();
+                assert parentLLM != null;
+
+                layoutItemCount = parentLLM.getItemCount();
+                lastVisibleItem = parentLLM.findLastVisibleItemPosition();
+
+                if(!isLoading && layoutItemCount < (lastVisibleItem + visibleThreshold)){
+                    loadMoreItems();
+                }
+
+            }
+        });
     }
+
+    private void loadMoreItems() {
+
+        items.add(null);
+        isLoading = true;
+
+        new Handler().post(() -> {
+            items.remove(items.size()-1);
+            this.notifyDataSetChanged();
+
+            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsAfterDate(lastDate, 10);
+            SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsAfterDate);
+
+            /* generate reversed list */
+            ArrayList<LocalDate> keyListReversed = new ArrayList<>(foodGroupsByDay.keySet());
+            Collections.reverse(keyListReversed);
+
+            for (LocalDate day : keyListReversed) {
+                HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(day);
+                String dateString = day.format(DateTimeFormatter.ISO_DATE);
+                ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();
+                for (Integer groupId : localFoodGroups.keySet()) {
+
+                    ArrayList<Food> foodsInGroup = localFoodGroups.get(groupId);
+                    if (foodsInGroup == null) {
+                        throw new AssertionError("Got null when querying for group id.");
+                    }
+
+                    /* set nutrition and energy */
+                    for (Food foodToBeSet : foodsInGroup) {
+                        foodToBeSet.setPreferedPortionFromDb(db);
+                        foodToBeSet.setNutritionFromDb(db);
+                    }
+
+                    /* append foods */
+                    foodListForGroupOnDay.addAll(foodsInGroup);
+                }
+                FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
+                items.add(nextItem);
+            }
+            this.notifyDataSetChanged();
+            this.isLoading = false;
+        });
+
+    }
+
+    @NonNull
     @Override
-    public int getCount() {
-        return items.size();
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
+        return new LocalViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return items.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        if(convertView != null){
-            return convertView;
-        }else{
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            assert inflater != null;
-            convertView = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
-        }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         /* item at position */
         FoodOverviewListItem itemAtCurPos = this.items.get(position);
-
-        /* get relevant sub-views */
-        TextView dateText = convertView.findViewById(R.id.dateText);
-        ProgressBar energyBar = convertView.findViewById(R.id.energyBar);
-        ListView subFoodList = convertView.findViewById(R.id.list_grouped_foods);
-        TextView energyBarText = convertView.findViewById(R.id.energyBarText);
+        LocalViewHolder castedHolder = (LocalViewHolder) holder;
 
         /* set the correct date */
-        dateText.setText(items.get(position).date);
+        castedHolder.dateText.setText(items.get(position).date);
 
-        dateText.setOnClickListener(view -> {
+        castedHolder.dateText.setOnClickListener(view -> {
             /* TODO reactivate this when it's fixed
             Intent target = new Intent(view.getContext(), NutritionOverview.class);
             target.putExtra("startDate", items.get(position).date);
@@ -79,16 +152,16 @@ public class FoodOverviewAdapter extends BaseAdapter {
         int energyUsedPercentage = analysis.getTotalEnergy()*100/energyNeeded;
 
         if(energyUsedPercentage < 75){
-            energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+            castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }else if(energyUsedPercentage < 125){
-            energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+            castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
         }else{
-            energyBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+            castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
         }
 
-        energyBar.setProgress(Math.min(energyUsedPercentage, 100));
+        castedHolder.energyBar.setProgress(Math.min(energyUsedPercentage, 100));
         String energyBarContent = String.format("Energy %d/%d", analysis.getTotalEnergy(), energyNeeded);
-        energyBarText.setText(energyBarContent);
+        castedHolder.energyBarText.setText(energyBarContent);
 
 
         /* calculate and set nutrition */
@@ -101,7 +174,43 @@ public class FoodOverviewAdapter extends BaseAdapter {
         }
 
         ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection);
-        subFoodList.setAdapter(subListViewAdapter);
-        return convertView;
+        castedHolder.subFoodList.setAdapter(subListViewAdapter);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    private class LocalViewHolder extends RecyclerView.ViewHolder {
+
+        final TextView dateText;
+        final ProgressBar energyBar;
+        final ListView subFoodList;
+        final TextView energyBarText;
+
+
+        public LocalViewHolder(View view) {
+            super(view);
+            /* get relevant sub-views */
+            dateText = view.findViewById(R.id.dateText);
+            energyBar = view.findViewById(R.id.energyBar);
+            subFoodList = view.findViewById(R.id.list_grouped_foods);
+            energyBarText = view.findViewById(R.id.energyBarText);
+        }
+    }
+
+    private class LocalCurrentlyLoadingViewHolder extends RecyclerView.ViewHolder {
+
+        final String test = "lol";
+
+        public LocalCurrentlyLoadingViewHolder(View view) {
+            super(view);
+        }
     }
 }
