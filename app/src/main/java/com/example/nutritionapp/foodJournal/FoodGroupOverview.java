@@ -1,8 +1,10 @@
 package com.example.nutritionapp.foodJournal;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -284,6 +286,12 @@ public class FoodGroupOverview extends AppCompatActivity {
         } else {
             db.logExistingFoods(selected, computedLoggedAt, null);
         }
+
+        /* report back a dirty date if necessary */
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("dateTimeString", computedLoggedAt.format(Utils.sqliteDatetimeFormat));
+        setResult(Activity.RESULT_OK, resultIntent);
+
         finish();
     }
 }

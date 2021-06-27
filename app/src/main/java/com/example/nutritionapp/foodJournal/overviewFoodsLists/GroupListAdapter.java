@@ -1,5 +1,6 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,16 +12,19 @@ import android.widget.TextView;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 
 public class GroupListAdapter extends BaseAdapter {
     private final Context context;
     private final ArrayList<GroupFoodItem> item;
+    private final Activity parentActivity;
 
-    public GroupListAdapter(Context context, ArrayList<GroupFoodItem> item){
+    public GroupListAdapter(Context context, ArrayList<GroupFoodItem> item, Activity parentActivity){
         this.context=context;
         this.item=item;
+        this.parentActivity = parentActivity;
     }
 
     public int getCount() {
@@ -47,7 +51,7 @@ public class GroupListAdapter extends BaseAdapter {
         foodsInGroupListItem.setOnClickListener(view -> {
             Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
             target.putExtra("groupId", item.groupId);
-            context.startActivity(target);
+            parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
         });
 
         StringBuilder allFoods = new StringBuilder();

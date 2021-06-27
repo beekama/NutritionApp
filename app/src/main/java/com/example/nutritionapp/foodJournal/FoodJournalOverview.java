@@ -1,6 +1,7 @@
 package com.example.nutritionapp.foodJournal;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.example.nutritionapp.other.Utils;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +39,10 @@ public class FoodJournalOverview extends AppCompatActivity {
     final private Duration ONE_DAY = Duration.ofDays(1);
     final private Duration ONE_WEEK = Duration.ofDays(7);
     final private ArrayList<FoodOverviewListItem> foodDataList = new ArrayList<>();
+
+    /* this map is used to reload invalidated data */
+    /* data gets invalidated by edits or adding new journal entries */
+    final private HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap = new HashMap<>();
 
     private FoodOverviewAdapter adapter;
     private Database db;
@@ -66,13 +72,33 @@ public class FoodJournalOverview extends AppCompatActivity {
         a nested sublist of the foods (food groups) on this */
 
         mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
-        adapter = new FoodOverviewAdapter(this, foodDataList, mainListOfFoodsWithDayHeaders, db);
+        adapter = new FoodOverviewAdapter(this, foodDataList, mainListOfFoodsWithDayHeaders, db,this, dataInvalidationMap);
         LinearLayoutManager mainListLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
 
         final Button addStuff = findViewById(R.id.add_food);
-        addStuff.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FoodGroupOverview.class)));
+        Intent foodGroupDetails = new Intent(addStuff.getContext(), FoodGroupOverview.class);
+        addStuff.setOnClickListener(v -> startActivityForResult(foodGroupDetails, Utils.FOOD_GROUP_DETAILS_ID));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Utils.FOOD_GROUP_DETAILS_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                String returnValue = data.getStringExtra("dateTimeString");
+                Log.wtf("TEST", returnValue);
+                LocalDateTime dateTime = LocalDateTime.parse(returnValue, Utils.sqliteDatetimeFormat);
+                FoodOverviewListItem dirtyItem = dataInvalidationMap.get(dateTime.toLocalDate());
+                if(dirtyItem == null){
+                    /* TODO load from db and insert into correct position */
+                }else{
+                    dirtyItem.reload(); // TODO implement this
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

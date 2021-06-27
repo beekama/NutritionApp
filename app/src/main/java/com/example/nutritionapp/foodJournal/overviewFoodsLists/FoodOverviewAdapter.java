@@ -1,5 +1,6 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -7,7 +8,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -42,18 +41,23 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     private final ArrayList<FoodOverviewListItem> items;
 
     private volatile boolean isLoading = false;
-    private int visibleThreshold = 5;
+    private final int visibleThreshold = 5;
     int layoutItemCount = 0;
     int lastVisibleItem = -1;
+    Activity parentActivity;
+    HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap;
 
-    LocalDateTime lastDate;
+    LocalDate firstDate;
     Database db;
 
-    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items, RecyclerView parentRV, Database db){
+    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items, RecyclerView parentRV, Database db,
+                                        Activity parentActivity, HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap){
         this.context = context;
         this.items   = items;
-        this.lastDate = LocalDateTime.MIN;
+        this.firstDate = LocalDate.MAX;
         this.db = db;
+        this.parentActivity = parentActivity;
+        this.dataInvalidationMap = dataInvalidationMap;
 
         loadMoreItems();
 
@@ -80,11 +84,11 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         items.add(null);
         isLoading = true;
 
-        new Handler().post(() -> {
+        new Handler().postDelayed(() -> {
             items.remove(items.size()-1);
             this.notifyDataSetChanged();
 
-            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsAfterDate(lastDate, 10);
+            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsBeforeDate(firstDate, 10);
             SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsAfterDate);
 
             /* generate reversed list */
@@ -110,23 +114,39 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
                     /* append foods */
                     foodListForGroupOnDay.addAll(foodsInGroup);
+
+                    /* update last date */
+                    if(day.isBefore(firstDate)){
+                        firstDate = day;
+                    }
                 }
                 FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
                 items.add(nextItem);
+                dataInvalidationMap.put(LocalDate.parse(nextItem.date, Utils.sqliteDateFormat), nextItem);
             }
             this.notifyDataSetChanged();
             this.isLoading = false;
-        });
+        }, 1000);
 
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
-        return new LocalViewHolder(view);
+
+        if(viewType == VIEW_TYPE_ITEM) {
+            View view = inflater.inflate(R.layout.journal_foods_dayheader, parent, false);
+            return new LocalViewHolder(view);
+        }else if(viewType == VIEW_TYPE_LOADING){
+            View view = inflater.inflate(R.layout.journal_dynamic_list_loading_indicator, parent, false);
+            return new LocalCurrentlyLoadingViewHolder(view);
+        }
+
+        throw new AssertionError("Bad ViewType in Dynamic Journal");
+
     }
 
     @Override
@@ -134,6 +154,14 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
         /* item at position */
         FoodOverviewListItem itemAtCurPos = this.items.get(position);
+
+        /* handle showing loading indicator */
+        if(holder instanceof LocalCurrentlyLoadingViewHolder){
+            LocalCurrentlyLoadingViewHolder loadingViewHolder = (LocalCurrentlyLoadingViewHolder) holder;
+            loadingViewHolder.loadingIndicator.setIndeterminate(true);
+            return;
+        }
+
         LocalViewHolder castedHolder = (LocalViewHolder) holder;
 
         /* set the correct date */
@@ -173,7 +201,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             listItemsInThisSection.add(new GroupFoodItem(itemAtCurPos.foodGroups.get(group), group));
         }
 
-        ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection);
+        ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection, parentActivity);
         castedHolder.subFoodList.setAdapter(subListViewAdapter);
     }
 
@@ -185,6 +213,11 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return items.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     private class LocalViewHolder extends RecyclerView.ViewHolder {
@@ -207,10 +240,11 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
     private class LocalCurrentlyLoadingViewHolder extends RecyclerView.ViewHolder {
 
-        final String test = "lol";
+        final ProgressBar loadingIndicator;
 
         public LocalCurrentlyLoadingViewHolder(View view) {
             super(view);
+            loadingIndicator = view.findViewById(R.id.loadingIndicator);
         }
     }
 }

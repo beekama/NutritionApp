@@ -300,8 +300,8 @@ public class Database {
         return altDescription;
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsAfterDate(LocalDateTime start, int limit) {
-        return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.MAX, Integer.toString(limit));
+    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
+        return getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
     }
 
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
@@ -327,7 +327,7 @@ public class Database {
             whereStm = "date(loggedAt)";
         }
 
-        Cursor c = db.query(table, columns, whereStm, null, null, null, null, limit);
+        Cursor c = db.query(table, columns, whereStm, null, null, null, "date(loggedAt) DESC", limit);
 
         if (c.moveToFirst()) {
             do {
@@ -1124,6 +1124,7 @@ public class Database {
 
         return weightsByDate;
     }
+
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper> {
         public int counter;

@@ -1,5 +1,7 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
+import android.util.Log;
+
 import com.example.nutritionapp.other.Food;
 
 import java.util.ArrayList;
@@ -16,4 +18,7 @@ public class FoodOverviewListItem{
         this.foodGroups = foodGroups;
     }
 
+    public void reload() {
+        /* TODO reload data */
+    }
 }
