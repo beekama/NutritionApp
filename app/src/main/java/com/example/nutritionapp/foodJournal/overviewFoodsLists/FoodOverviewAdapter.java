@@ -38,7 +38,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     final int VIEW_TYPE_ITEM = 1;
 
     private final Context context;
-    private final ArrayList<FoodOverviewListItem> items;
+    public final ArrayList<FoodOverviewListItem> items;
 
     private volatile boolean isLoading = false;
     private final int visibleThreshold = 5;
@@ -97,32 +97,16 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
             for (LocalDate day : keyListReversed) {
                 HashMap<Integer, ArrayList<Food>> localFoodGroups = foodGroupsByDay.get(day);
-                String dateString = day.format(DateTimeFormatter.ISO_DATE);
-                ArrayList<Food> foodListForGroupOnDay = new ArrayList<>();
-                for (Integer groupId : localFoodGroups.keySet()) {
 
-                    ArrayList<Food> foodsInGroup = localFoodGroups.get(groupId);
-                    if (foodsInGroup == null) {
-                        throw new AssertionError("Got null when querying for group id.");
-                    }
-
-                    /* set nutrition and energy */
-                    for (Food foodToBeSet : foodsInGroup) {
-                        foodToBeSet.setPreferedPortionFromDb(db);
-                        foodToBeSet.setNutritionFromDb(db);
-                    }
-
-                    /* append foods */
-                    foodListForGroupOnDay.addAll(foodsInGroup);
-
-                    /* update last date */
-                    if(day.isBefore(firstDate)){
-                        firstDate = day;
-                    }
-                }
-                FoodOverviewListItem nextItem = new FoodOverviewListItem(dateString, foodListForGroupOnDay, localFoodGroups);
+                FoodOverviewListItem nextItem = new FoodOverviewListItem(day, localFoodGroups, db);
                 items.add(nextItem);
-                dataInvalidationMap.put(LocalDate.parse(nextItem.date, Utils.sqliteDateFormat), nextItem);
+                dataInvalidationMap.put(nextItem.date, nextItem);
+
+                /* update last date */
+                if(nextItem.date.isBefore(firstDate)){
+                    firstDate = nextItem.date;
+                }
+
             }
             this.notifyDataSetChanged();
             this.isLoading = false;
@@ -165,7 +149,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         LocalViewHolder castedHolder = (LocalViewHolder) holder;
 
         /* set the correct date */
-        castedHolder.dateText.setText(items.get(position).date);
+        castedHolder.dateText.setText(items.get(position).date.format(Utils.sqliteDateFormat));
 
         castedHolder.dateText.setOnClickListener(view -> {
             /* TODO reactivate this when it's fixed

@@ -91,12 +91,38 @@ public class FoodJournalOverview extends AppCompatActivity {
                 Log.wtf("TEST", returnValue);
                 LocalDateTime dateTime = LocalDateTime.parse(returnValue, Utils.sqliteDatetimeFormat);
                 FoodOverviewListItem dirtyItem = dataInvalidationMap.get(dateTime.toLocalDate());
-                if(dirtyItem == null){
-                    /* TODO load from db and insert into correct position */
-                }else{
-                    dirtyItem.reload(); // TODO implement this
+
+                /* remove the old item */
+                if(dirtyItem != null) {
+                    adapter.items.remove(dirtyItem);
                 }
-                adapter.notifyDataSetChanged();
+
+                /* get the foods from that date from the db */
+                HashMap<Integer, ArrayList<Food>> loggedFoodsByDate = db.getLoggedFoodsByDate(dateTime, dateTime);
+
+                /* since we only queried one day we basically now have the same as one field in the result of
+                       Utils.foodGroupsByDays()
+                */
+                for(int key : loggedFoodsByDate.keySet()) {
+                    for (int i = 0; i < adapter.items.size(); i++) {
+
+                        ArrayList<Food> fList = loggedFoodsByDate.get(key);
+
+                        assert fList != null;
+                        assert fList.size() > 0;
+
+                        if (adapter.items.get(i).date.isBefore(dateTime.toLocalDate())){
+                            adapter.items.add(i, new FoodOverviewListItem(dateTime.toLocalDate(), loggedFoodsByDate, db));
+                            adapter.notifyDataSetChanged();
+                            return;
+                        }
+                    }
+
+                    /* add it to the end if condition above didn't trigger */
+                    adapter.items.add(new FoodOverviewListItem(dateTime.toLocalDate(), loggedFoodsByDate, db));
+                    adapter.notifyDataSetChanged();
+                    return;
+                }
             }
         }
     }
