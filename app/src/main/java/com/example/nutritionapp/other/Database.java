@@ -322,9 +322,11 @@ public class Database {
         String table = JOURNAL_TABLE;
         String[] columns = {"food_id", "group_id", "loggedAt", "amount", "portion_type"};
         String whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")", startISO, endISO);
-        if (start.equals(LocalDate.MIN) || end.equals(LocalDate.MAX)) {
+
+        if (start.equals(LocalDate.MIN) && end.equals(LocalDate.MAX)) {
             whereStm = "date(loggedAt)";
         }
+
         Cursor c = db.query(table, columns, whereStm, null, null, null, null, limit);
 
         if (c.moveToFirst()) {
