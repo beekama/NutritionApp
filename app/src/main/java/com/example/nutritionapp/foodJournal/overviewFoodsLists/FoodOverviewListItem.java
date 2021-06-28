@@ -26,6 +26,7 @@ public class FoodOverviewListItem{
         this.foodGroups = foodGroups;
 
         foods = new ArrayList<>();
+
         for (Integer groupId : foodGroups.keySet()) {
 
             ArrayList<Food> foodsInGroup = foodGroups.get(groupId);

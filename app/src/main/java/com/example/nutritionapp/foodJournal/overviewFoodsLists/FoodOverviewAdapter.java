@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,8 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             items.remove(items.size()-1);
             this.notifyDataSetChanged();
 
-            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsBeforeDate(firstDate, 10);
+            //TODO fix this here because currently it's limiting foods not groups, which is bad because it might lead to incomplete groups
+            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsBeforeDate(firstDate, 20);
             SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsAfterDate);
 
             /* generate reversed list */
@@ -100,6 +102,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
                 FoodOverviewListItem nextItem = new FoodOverviewListItem(day, localFoodGroups, db);
                 items.add(nextItem);
+                Log.wtf("BEFORE", "Added Item");
                 dataInvalidationMap.put(nextItem.date, nextItem);
 
                 /* update last date */
@@ -184,6 +187,15 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         for(int group : itemAtCurPos.foodGroups.keySet()){
             listItemsInThisSection.add(new GroupFoodItem(itemAtCurPos.foodGroups.get(group), group));
         }
+
+        /* sort entries in sublist */
+        Collections.sort(listItemsInThisSection,(o1, o2) -> {
+            if(o1.foods.get(0).loggedAt.equals(o2.foods.get(0).loggedAt)){
+                return 0;
+            }else{
+                return o1.foods.get(0).loggedAt.isAfter(o2.foods.get(0).loggedAt) ? -1 : 1;
+            }
+        });
 
         ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection, parentActivity);
         castedHolder.subFoodList.setAdapter(subListViewAdapter);
