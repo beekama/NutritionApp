@@ -284,12 +284,13 @@ public class FoodGroupOverview extends AppCompatActivity {
         if (this.editMode) {
             db.updateFoodGroup(selected, groupId, computedLoggedAt);
         } else {
-            db.logExistingFoods(selected, computedLoggedAt, null);
+            groupId = db.logExistingFoods(selected, computedLoggedAt, null);
         }
 
         /* report back a dirty date if necessary */
         Intent resultIntent = new Intent();
         resultIntent.putExtra("dateTimeString", computedLoggedAt.format(Utils.sqliteDatetimeFormat));
+        resultIntent.putExtra("groupId", groupId);
         setResult(Activity.RESULT_OK, resultIntent);
 
         finish();

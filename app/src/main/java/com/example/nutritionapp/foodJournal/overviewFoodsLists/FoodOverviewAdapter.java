@@ -84,6 +84,15 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         });
     }
 
+
+    public void reloadComputationallyExpensive() {
+        // xd
+        this.firstDate = LocalDate.MAX;
+        this.items.clear();
+        loadMoreItems();
+    }
+
+
     private void loadMoreItems() {
 
         items.add(null);
@@ -91,10 +100,9 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
         new Handler().postDelayed(() -> {
             items.remove(items.size()-1);
-            this.notifyDataSetChanged();
 
-            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsBeforeDate(firstDate, 20);
-            SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsAfterDate);
+            HashMap<Integer, ArrayList<Food>> loggedFoodsBeforeDate = db.getLoggedFoodsBeforeDate(firstDate, 20);
+            SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsBeforeDate);
 
             /* generate reversed list */
             ArrayList<LocalDate> keyListReversed = new ArrayList<>(foodGroupsByDay.keySet());
@@ -110,7 +118,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
                 /* update last date */
                 if(nextItem.date.isBefore(firstDate)){
-                    firstDate = nextItem.date;
+                    firstDate = nextItem.date.minusDays(1);
                 }
 
             }
@@ -166,7 +174,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         });
 
         NutritionAnalysis analysis;
-        if(nutAnalysisCache.containsKey(position)){
+        if(nutAnalysisCache.containsKey(position) && !itemAtCurPos.dirty){
             analysis = nutAnalysisCache.get(position);
         }else{
             analysis = new NutritionAnalysis(itemAtCurPos.foods);
@@ -245,6 +253,8 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         while(castedHolder.subLayoutContainingFoodGroups.getChildAt(index) != null){
             castedHolder.subLayoutContainingFoodGroups.removeViewAt(index);
         }
+
+        itemAtCurPos.dirty = false;
     }
 
     @Override

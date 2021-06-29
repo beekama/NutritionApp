@@ -12,9 +12,10 @@ import java.util.HashMap;
 
 public class FoodOverviewListItem{
     public final LocalDate date;
-    public final ArrayList<Food> foods;
+    public ArrayList<Food> foods;
     public final HashMap<Integer, ArrayList<Food>> foodGroups;
     private final Database db;
+    public boolean dirty = false;
 
     public FoodOverviewListItem(LocalDate date, HashMap<Integer, ArrayList<Food>> foodGroups, Database db) {
 
@@ -43,5 +44,14 @@ public class FoodOverviewListItem{
             /* append foods */
             foods.addAll(foodsInGroup);
         }
+    }
+
+    public void update(int groupId) {
+        ArrayList<Food> tmp = new ArrayList<>();
+        this.foodGroups.put(groupId, db.getLoggedFoodByGroupId(groupId));
+        for(ArrayList<Food> fa : foodGroups.values()){
+            tmp.addAll(fa);
+        }
+        this.foods = tmp;
     }
 }

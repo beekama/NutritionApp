@@ -87,42 +87,23 @@ public class FoodJournalOverview extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Utils.FOOD_GROUP_DETAILS_ID) {
             if (resultCode == Activity.RESULT_OK) {
+
                 String returnValue = data.getStringExtra("dateTimeString");
-                Log.wtf("TEST", returnValue);
+                int groupIdValue = data.getIntExtra("groupId", -1);
+                assert groupIdValue != -1;
+
                 LocalDateTime dateTime = LocalDateTime.parse(returnValue, Utils.sqliteDatetimeFormat);
                 FoodOverviewListItem dirtyItem = dataInvalidationMap.get(dateTime.toLocalDate());
 
-                /* remove the old item */
+                /* the group exists and was just changed */
                 if(dirtyItem != null) {
-                    adapter.items.remove(dirtyItem);
-                }
-
-                /* get the foods from that date from the db */
-                HashMap<Integer, ArrayList<Food>> loggedFoodsByDate = db.getLoggedFoodsByDate(dateTime, dateTime);
-
-                /* since we only queried one day we basically now have the same as one field in the result of
-                       Utils.foodGroupsByDays()
-                */
-                for(int key : loggedFoodsByDate.keySet()) {
-                    for (int i = 0; i < adapter.items.size(); i++) {
-
-                        ArrayList<Food> fList = loggedFoodsByDate.get(key);
-
-                        assert fList != null;
-                        assert fList.size() > 0;
-
-                        if (adapter.items.get(i).date.isBefore(dateTime.toLocalDate())){
-                            adapter.items.add(i, new FoodOverviewListItem(dateTime.toLocalDate(), loggedFoodsByDate, db));
-                            adapter.notifyDataSetChanged();
-                            return;
-                        }
-                    }
-
-                    /* add it to the end if condition above didn't trigger */
-                    adapter.items.add(new FoodOverviewListItem(dateTime.toLocalDate(), loggedFoodsByDate, db));
+                    dirtyItem.dirty = true;
+                    dirtyItem.update(groupIdValue);
                     adapter.notifyDataSetChanged();
-                    return;
+                }else{
+                    adapter.reloadComputationallyExpensive();
                 }
+
             }
         }
     }

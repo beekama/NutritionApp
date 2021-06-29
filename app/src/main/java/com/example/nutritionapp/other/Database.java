@@ -164,7 +164,7 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack) {
+    public synchronized int logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack) {
         /* This functions add a list of create_foods to the journal at a given date */
         if (hackyHack != null) {
             Log.w("WARN", "HackyHack parameter should always be null");
@@ -173,10 +173,10 @@ public class Database {
         for (SelectedFoodItem item : selectedSoFarItems) {
             selectedSoFar.add(item.food);
         }
-        logExistingFoods(selectedSoFar, d);
+        return logExistingFoods(selectedSoFar, d);
     }
 
-    public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDateTime d) {
+    public synchronized int logExistingFoods(ArrayList<Food> foods, LocalDateTime d) {
         /* This functions add a list of create_foods to the journal at a given date */
 
         if (d == null) {
@@ -196,6 +196,7 @@ public class Database {
             values.put("portion_type", f.getAssociatedPortionType().toString());
             db.insert(JOURNAL_TABLE, null, values);
         }
+        return groupID;
     }
 
     public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
@@ -327,6 +328,10 @@ public class Database {
         }
         String startISO = start.format(Utils.sqliteDateZeroPaddedFormat);
         String endISO = end.format(Utils.sqliteDateZeroPaddedFormat);
+
+        if(start.equals(LocalDate.MIN)){
+            startISO = "0000-01-01 00:00:00";
+        }
 
         String table = JOURNAL_TABLE;
         String[] columns = {"food_id", "group_id", "loggedAt", "amount", "portion_type"};
