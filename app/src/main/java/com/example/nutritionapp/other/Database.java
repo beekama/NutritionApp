@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.util.Pair;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
@@ -300,18 +299,28 @@ public class Database {
         return altDescription;
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
-        return getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
+    public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
+        LinkedHashMap<Integer, ArrayList<Food>> mainResults = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
+        int lastGroupId = -1;
+        for(int key : mainResults.keySet()) {
+            lastGroupId = key;
+        }
+        if(lastGroupId < 0){
+            return mainResults;
+        }else {
+            mainResults.put(lastGroupId, getLoggedFoodByGroupId(lastGroupId));
+            return mainResults;
+        }
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
+    public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
         return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.from(end), null);
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end, String limit) {
+    public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end, String limit) {
         /* Return create_foods logged by dates */
 
-        HashMap<Integer, ArrayList<Food>> ret = new HashMap<>();
+        LinkedHashMap<Integer, ArrayList<Food>> ret = new LinkedHashMap<>();
 
         if (end == null) {
             end = start.plusDays(1);
