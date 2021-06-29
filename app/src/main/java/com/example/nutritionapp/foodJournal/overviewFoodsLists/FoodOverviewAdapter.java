@@ -234,16 +234,16 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 foodsTextView = (TextView) child;
             }else {
                 foodsTextView = new TextView(context);
-                foodsTextView.setOnClickListener(view -> {
-                    Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
-                    target.putExtra("groupId", item.groupId);
-                    parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
-                });
                 castedHolder.subLayoutContainingFoodGroups.addView(foodsTextView);
             }
 
-            /* set text content */
+            /* set text content & update on click listener */
             foodsTextView.setText(allFoodsStringBuilder.toString());
+            foodsTextView.setOnClickListener(view -> {
+                Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
+                target.putExtra("groupId", item.groupId);
+                parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
+            });
 
             /* reset string builder & continue */
             allFoodsStringBuilder.setLength(0);
