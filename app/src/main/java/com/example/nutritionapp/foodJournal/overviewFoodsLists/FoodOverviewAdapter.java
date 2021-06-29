@@ -93,7 +93,6 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             items.remove(items.size()-1);
             this.notifyDataSetChanged();
 
-            //TODO fix this here because currently it's limiting foods not groups, which is bad because it might lead to incomplete groups
             HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsBeforeDate(firstDate, 20);
             SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsAfterDate);
 
