@@ -301,7 +301,6 @@ public class Database {
     }
 
     public HashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
-        Log.wtf("BEFORE", end.format(Utils.sqliteDateFormat));
         return getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
     }
 
