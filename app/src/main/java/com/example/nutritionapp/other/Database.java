@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.util.Pair;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
@@ -55,6 +54,8 @@ public class Database {
     final String WEIGHTS = "weightsByDate";
 
     private static SQLiteDatabase db = null;
+    private static final HashMap<Integer, ArrayList<Food>> foodGroupResult = new HashMap<>();
+    private static final HashMap<String, HashMap<String, Integer>> foodNutritionResults = new HashMap<>();
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private static final ArrayList<String> foodNutrientTableIds = new ArrayList<>();
     private final Activity srcActivity;
@@ -165,7 +166,7 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized void logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack) {
+    public synchronized int logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack) {
         /* This functions add a list of create_foods to the journal at a given date */
         if (hackyHack != null) {
             Log.w("WARN", "HackyHack parameter should always be null");
@@ -174,10 +175,10 @@ public class Database {
         for (SelectedFoodItem item : selectedSoFarItems) {
             selectedSoFar.add(item.food);
         }
-        logExistingFoods(selectedSoFar, d);
+        return logExistingFoods(selectedSoFar, d);
     }
 
-    public synchronized void logExistingFoods(ArrayList<Food> foods, LocalDateTime d) {
+    public synchronized int logExistingFoods(ArrayList<Food> foods, LocalDateTime d) {
         /* This functions add a list of create_foods to the journal at a given date */
 
         if (d == null) {
@@ -197,9 +198,13 @@ public class Database {
             values.put("portion_type", f.getAssociatedPortionType().toString());
             db.insert(JOURNAL_TABLE, null, values);
         }
+        return groupID;
     }
 
     public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
+
+        /* flush the cache */
+        foodGroupResult.remove(groupId);
 
         String[] whereArgs = {Integer.toString(groupId)};
         db.delete(JOURNAL_TABLE, "group_id = ?", whereArgs);
@@ -300,24 +305,38 @@ public class Database {
         return altDescription;
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
-        return getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
+    public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
+        LinkedHashMap<Integer, ArrayList<Food>> mainResults = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
+        int lastGroupId = -1;
+        for(int key : mainResults.keySet()) {
+            lastGroupId = key;
+        }
+        if(lastGroupId < 0){
+            return mainResults;
+        }else {
+            mainResults.put(lastGroupId, getLoggedFoodByGroupId(lastGroupId));
+            return mainResults;
+        }
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
+    public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
         return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.from(end), null);
     }
 
-    public HashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end, String limit) {
+    public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end, String limit) {
         /* Return create_foods logged by dates */
 
-        HashMap<Integer, ArrayList<Food>> ret = new HashMap<>();
+        LinkedHashMap<Integer, ArrayList<Food>> ret = new LinkedHashMap<>();
 
         if (end == null) {
             end = start.plusDays(1);
         }
         String startISO = start.format(Utils.sqliteDateZeroPaddedFormat);
         String endISO = end.format(Utils.sqliteDateZeroPaddedFormat);
+
+        if(start.equals(LocalDate.MIN)){
+            startISO = "0000-01-01 00:00:00";
+        }
 
         String table = JOURNAL_TABLE;
         String[] columns = {"food_id", "group_id", "loggedAt", "amount", "portion_type"};
@@ -454,8 +473,12 @@ public class Database {
     }
 
     public HashMap<String, Integer> getNutrientsForFood(String foodId) {
-        HashMap<String, Integer> ret = new HashMap<>();
 
+        if(foodNutritionResults.containsKey(foodId)){
+            return foodNutritionResults.get(foodId);
+        }
+
+        HashMap<String, Integer> ret = new HashMap<>();
         String table = getNutrientTableForFdcId(foodId);
 
         String[] columns = {"nutrient_id", "amount"};
@@ -476,6 +499,8 @@ public class Database {
             return null;
         }
         nutrients.close();
+
+        foodNutritionResults.put(foodId, ret);
         return ret;
     }
 
@@ -501,6 +526,12 @@ public class Database {
     }
 
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
+
+        /* check cache */
+        if(foodGroupResult.containsKey(groupId)){
+            return foodGroupResult.get(groupId);
+        }
+
         String[] whereArgs = {Integer.toString(groupId)};
         String[] columns = {"food_id", "loggedAt", "amount", "portion_type"};
         Cursor c = db.query(JOURNAL_TABLE, columns, "group_id = ?", whereArgs, null, null, null);
@@ -522,6 +553,7 @@ public class Database {
             } while (c.moveToNext());
         }
         c.close();
+        foodGroupResult.put(groupId, ret);
         return ret;
     }
 
@@ -596,6 +628,11 @@ public class Database {
         String[] whereArgs = {origFood.id};
         db.delete(FOOD_TABLE, "fdc_id = ?", whereArgs);
         createNewFood(changedFood, Integer.parseInt(changedFood.id));
+
+        /* flush relevant cache */
+        invalidateFoodIdInCache(origFood.id);
+        foodNutritionResults.remove(origFood.id);
+
         return true;
     }
 
@@ -647,6 +684,11 @@ public class Database {
         db.insert("food_nutrient_custom", null, valuesFiber);
 
         food.id = Integer.toString(currentId);
+
+        /* flush relevant cache */
+        invalidateFoodIdInCache(food.id);
+        foodNutritionResults.remove(food.id);
+
         return food;
     }
 
@@ -667,6 +709,11 @@ public class Database {
             }
             c.close();
         }
+
+        /* flush relevant cache */
+        invalidateFoodIdInCache(f.id);
+        foodNutritionResults.remove(f.id);
+
         return false;
     }
 

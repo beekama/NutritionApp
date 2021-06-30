@@ -2,12 +2,15 @@ package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -46,6 +50,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     int lastVisibleItem = -1;
     Activity parentActivity;
     HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap;
+    HashMap<Integer, NutritionAnalysis> nutAnalysisCache = new HashMap<>();
 
     LocalDate firstDate;
     Database db;
@@ -79,6 +84,15 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         });
     }
 
+
+    public void reloadComputationallyExpensive() {
+        // xd
+        this.firstDate = LocalDate.MAX;
+        this.items.clear();
+        loadMoreItems();
+    }
+
+
     private void loadMoreItems() {
 
         items.add(null);
@@ -86,10 +100,9 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
         new Handler().postDelayed(() -> {
             items.remove(items.size()-1);
-            this.notifyDataSetChanged();
 
-            HashMap<Integer, ArrayList<Food>> loggedFoodsAfterDate = db.getLoggedFoodsBeforeDate(firstDate, 10);
-            SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsAfterDate);
+            HashMap<Integer, ArrayList<Food>> loggedFoodsBeforeDate = db.getLoggedFoodsBeforeDate(firstDate, 20);
+            SortedMap<LocalDate, HashMap<Integer, ArrayList<Food>>> foodGroupsByDay = Utils.foodGroupsByDays(loggedFoodsBeforeDate);
 
             /* generate reversed list */
             ArrayList<LocalDate> keyListReversed = new ArrayList<>(foodGroupsByDay.keySet());
@@ -100,11 +113,12 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
                 FoodOverviewListItem nextItem = new FoodOverviewListItem(day, localFoodGroups, db);
                 items.add(nextItem);
+                Log.wtf("BEFORE", "Added Item");
                 dataInvalidationMap.put(nextItem.date, nextItem);
 
                 /* update last date */
                 if(nextItem.date.isBefore(firstDate)){
-                    firstDate = nextItem.date;
+                    firstDate = nextItem.date.minusDays(1);
                 }
 
             }
@@ -159,10 +173,15 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
              */
         });
 
-        NutritionAnalysis analysis = new NutritionAnalysis(itemAtCurPos.foods);
+        NutritionAnalysis analysis;
+        if(nutAnalysisCache.containsKey(position) && !itemAtCurPos.dirty){
+            analysis = nutAnalysisCache.get(position);
+        }else{
+            analysis = new NutritionAnalysis(itemAtCurPos.foods);
+            nutAnalysisCache.put(position, analysis);
+        }
         int energyNeeded = 2000;
         int energyUsedPercentage = analysis.getTotalEnergy()*100/energyNeeded;
-
         if(energyUsedPercentage < 75){
             castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }else if(energyUsedPercentage < 125){
@@ -176,17 +195,68 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         castedHolder.energyBarText.setText(energyBarContent);
 
 
-        /* calculate and set nutrition */
-        ArrayList<NutritionPercentageTuple> percentages = analysis.getNutritionPercentageSortedFilterZero();
-
         /* display the foods in the nested sub-list */
         ArrayList<GroupFoodItem> listItemsInThisSection = new ArrayList<>();
         for(int group : itemAtCurPos.foodGroups.keySet()){
             listItemsInThisSection.add(new GroupFoodItem(itemAtCurPos.foodGroups.get(group), group));
         }
 
-        ListAdapter subListViewAdapter = new GroupListAdapter(context, listItemsInThisSection, parentActivity);
-        castedHolder.subFoodList.setAdapter(subListViewAdapter);
+        /* sort entries in sublist */
+        Collections.sort(listItemsInThisSection,(o1, o2) -> {
+            if(o1.foods.get(0).loggedAt.equals(o2.foods.get(0).loggedAt)){
+                return 0;
+            }else{
+                return o1.foods.get(0).loggedAt.isAfter(o2.foods.get(0).loggedAt) ? -1 : 1;
+            }
+        });
+
+        StringBuilder allFoodsStringBuilder = new StringBuilder();
+        int index = 0;
+        while(index < listItemsInThisSection.size()){
+
+            GroupFoodItem item = listItemsInThisSection.get(index);
+
+            /* build content string */
+            boolean firstLoop = true;
+            for(Food f : item.foods) {
+                if (firstLoop) {
+                    firstLoop = false;
+                } else {
+                    allFoodsStringBuilder.append(", ");
+                }
+                allFoodsStringBuilder.append(f.name);
+            }
+
+            /* try to re-use textview */
+            TextView foodsTextView;
+            View child = castedHolder.subLayoutContainingFoodGroups.getChildAt(index);
+            if(child != null){
+                foodsTextView = (TextView) child;
+            }else {
+                foodsTextView = new TextView(context);
+                foodsTextView.setPadding(5,10,5, 20);
+                foodsTextView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                castedHolder.subLayoutContainingFoodGroups.addView(foodsTextView);
+            }
+
+            /* set text content & update on click listener */
+            foodsTextView.setText(allFoodsStringBuilder.toString());
+            foodsTextView.setOnClickListener(view -> {
+                Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
+                target.putExtra("groupId", item.groupId);
+                parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
+            });
+
+            /* reset string builder & continue */
+            allFoodsStringBuilder.setLength(0);
+            index++;
+        }
+
+        while(castedHolder.subLayoutContainingFoodGroups.getChildAt(index) != null){
+            castedHolder.subLayoutContainingFoodGroups.removeViewAt(index);
+        }
+
+        itemAtCurPos.dirty = false;
     }
 
     @Override
@@ -208,7 +278,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
         final TextView dateText;
         final ProgressBar energyBar;
-        final ListView subFoodList;
+        final LinearLayout subLayoutContainingFoodGroups;
         final TextView energyBarText;
 
 
@@ -217,7 +287,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             /* get relevant sub-views */
             dateText = view.findViewById(R.id.dateText);
             energyBar = view.findViewById(R.id.energyBar);
-            subFoodList = view.findViewById(R.id.list_grouped_foods);
+            subLayoutContainingFoodGroups = view.findViewById(R.id.foodGroupsLayoutTop);
             energyBarText = view.findViewById(R.id.energyBarText);
         }
     }

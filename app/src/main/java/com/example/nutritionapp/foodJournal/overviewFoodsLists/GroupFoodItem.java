@@ -12,8 +12,4 @@ public class GroupFoodItem{
             this.foods = foods;
             this.groupId = groupId;
         }
-
-        public boolean isSection() {
-            return false;
-        }
 }
