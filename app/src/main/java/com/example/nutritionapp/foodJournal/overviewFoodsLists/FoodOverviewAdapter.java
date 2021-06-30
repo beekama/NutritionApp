@@ -234,6 +234,8 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 foodsTextView = (TextView) child;
             }else {
                 foodsTextView = new TextView(context);
+                foodsTextView.setPadding(5,10,5, 20);
+                foodsTextView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                 castedHolder.subLayoutContainingFoodGroups.addView(foodsTextView);
             }
 
