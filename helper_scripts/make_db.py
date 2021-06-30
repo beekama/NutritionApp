@@ -104,17 +104,17 @@ def split():
     '''Split CSV files into usable chunks'''
 
     count = 0
-    print("Run file splitter...") 
-    with open(TMP_FILE) as f: 
-        for line in f: 
-            curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT)) 
-           
+    print("Run file splitter...")
+    with open(TMP_FILE) as f:
+        for line in f:
+            curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT))
+
             fdc_id = line.split(",")[1].strip('"')
             if fdc_id != "fdc_id":
                 if int(fdc_id) in FILTER_WORDS_FOOD_IDS:
                     continue
 
-            if os.path.isfile(curFileName) or count == 0: 
+            if os.path.isfile(curFileName) or count == 0:
                 with open(curFileName, "a") as fout:
                     fout.write(line)
             else:
@@ -155,6 +155,6 @@ if __name__ == "__main__":
         clean()
     if args.recreate_db:
         filterAndReplace()
-        getPortionSize() 
+        getPortionSize()
         count = split()
         createDB(count)
