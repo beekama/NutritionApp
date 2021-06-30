@@ -54,6 +54,8 @@ public class Database {
     final String WEIGHTS = "weightsByDate";
 
     private static SQLiteDatabase db = null;
+    private static final HashMap<Integer, ArrayList<Food>> foodGroupResult = new HashMap<>();
+    private static final HashMap<String, HashMap<String, Integer>> foodNutritionResults = new HashMap<>();
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private static final ArrayList<String> foodNutrientTableIds = new ArrayList<>();
     private final Activity srcActivity;
@@ -200,6 +202,9 @@ public class Database {
     }
 
     public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
+
+        /* flush the cache */
+        foodGroupResult.remove(groupId);
 
         String[] whereArgs = {Integer.toString(groupId)};
         db.delete(JOURNAL_TABLE, "group_id = ?", whereArgs);
@@ -468,8 +473,12 @@ public class Database {
     }
 
     public HashMap<String, Integer> getNutrientsForFood(String foodId) {
-        HashMap<String, Integer> ret = new HashMap<>();
 
+        if(foodNutritionResults.containsKey(foodId)){
+            return foodNutritionResults.get(foodId);
+        }
+
+        HashMap<String, Integer> ret = new HashMap<>();
         String table = getNutrientTableForFdcId(foodId);
 
         String[] columns = {"nutrient_id", "amount"};
@@ -490,6 +499,8 @@ public class Database {
             return null;
         }
         nutrients.close();
+
+        foodNutritionResults.put(foodId, ret);
         return ret;
     }
 
@@ -515,6 +526,12 @@ public class Database {
     }
 
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
+
+        /* check cache */
+        if(foodGroupResult.containsKey(groupId)){
+            return foodGroupResult.get(groupId);
+        }
+
         String[] whereArgs = {Integer.toString(groupId)};
         String[] columns = {"food_id", "loggedAt", "amount", "portion_type"};
         Cursor c = db.query(JOURNAL_TABLE, columns, "group_id = ?", whereArgs, null, null, null);
@@ -536,6 +553,7 @@ public class Database {
             } while (c.moveToNext());
         }
         c.close();
+        foodGroupResult.put(groupId, ret);
         return ret;
     }
 
@@ -610,6 +628,11 @@ public class Database {
         String[] whereArgs = {origFood.id};
         db.delete(FOOD_TABLE, "fdc_id = ?", whereArgs);
         createNewFood(changedFood, Integer.parseInt(changedFood.id));
+
+        /* flush relevant cache */
+        invalidateFoodIdInCache(origFood.id);
+        foodNutritionResults.remove(origFood.id);
+
         return true;
     }
 
@@ -661,6 +684,11 @@ public class Database {
         db.insert("food_nutrient_custom", null, valuesFiber);
 
         food.id = Integer.toString(currentId);
+
+        /* flush relevant cache */
+        invalidateFoodIdInCache(food.id);
+        foodNutritionResults.remove(food.id);
+
         return food;
     }
 
@@ -681,6 +709,11 @@ public class Database {
             }
             c.close();
         }
+
+        /* flush relevant cache */
+        invalidateFoodIdInCache(f.id);
+        foodNutritionResults.remove(f.id);
+
         return false;
     }
 
