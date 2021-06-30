@@ -16,6 +16,9 @@ FOOD_MAIN_SRC = "food.csv"
 FOOD_MAIN_SRC_FILTERED = "food_filtered.csv"
 FOOD_MAIN_SRC_FILTERED_DE = "food_filtered_de.csv"
 
+# food id's to remove from nutrition
+FILTER_WORDS_FOOD_IDS = dict()
+
 DB_TARGET_PATH = "food.db"
 DB_TARGET_PATH_DE = "food_de.db"
 
@@ -49,12 +52,14 @@ def filterAndReplace():
         with open(FOOD_MAIN_SRC_FILTERED, "w") as fout:
             for l in f:
                 if any([ w.strip() in FILTER_WORDS for w in l.split(" ")]):
+                    FILTER_WORDS_FOOD_IDS.update( { int(l.split(",")[0].strip('"')) : True } )
                     continue
                 else:
                     lclean = l
                     for wRemove in  REMOVE_PHRASES:
                         lclean = lclean.replace(wRemove, "")
                     fout.write(lclean)
+
 
 def getPortionSize():
     '''Assign portionsize to each food and create new csv'''
@@ -103,8 +108,15 @@ def split():
     with open(TMP_FILE) as f: 
         for line in f: 
             curFileName = PARTIAL_DB_FILE_NAME.format(int(count / MAX_LENGHT)) 
+           
+            fdc_id = line.split(",")[1].strip('"')
+            if fdc_id != "fdc_id":
+                if int(fdc_id) in FILTER_WORDS_FOOD_IDS:
+                    continue
+
             if os.path.isfile(curFileName) or count == 0: 
-                with open(curFileName, "a") as fout: fout.write(line)
+                with open(curFileName, "a") as fout:
+                    fout.write(line)
             else:
                 with open(curFileName, "w") as fout:
                     fout.write(SCHEMA)
