@@ -58,4 +58,7 @@
 
     <string name="nav_drawer_open">Navigationsleiste öffnen</string>
     <string name="nav_drawer_close">Navigationsleiste schließen</string>
+
+    <string name="sideMenuAboutSectionName">Weiteres</string>
+    <string name="about">Über die App</string>
 </resources>

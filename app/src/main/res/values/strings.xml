@@ -59,12 +59,13 @@
     <string name="popupEnergyText">Amount of Energy: </string>
     <string name="amountof"> Amount of </string>
 
+    <string name="sideMenuAboutSectionName">Other</string>
+    <string name="about">About</string>
 
+    <!-- strings without translation -->
     <string name="Impressum" translatable="false">Impressum</string>
     <string name="microgram" translatable="false">µg</string>
     <string name="kilokalorien" translatable="false">kcal</string>
     <string name="kalPer100mg" translatable="false">kcal/100mg</string>
     <string name="microPer100mg" translatable="false">µg/100mg</string>
-    <string name="sideMenuAboutSectionName">Other</string>
-    <string name="about">About</string>
 </resources>
