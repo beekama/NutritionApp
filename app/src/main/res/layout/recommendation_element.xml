@@ -26,31 +26,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5dp"/>
 
-    <Button
-        android:id="@+id/dateBackButtonWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:text="@string/backDoubleArrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/topGuidlineE" />
-
-    <Button
-        android:id="@+id/dateForewardButtonWeek"
-        android:text="@string/doubleForwardArrow"
-        android:background="@android:color/transparent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/dateBackButtonWeek"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 
     <com.github.mikephil.charting.charts.LineChart
-    android:id="@+id/lineChartNutritionElement"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintTop_toBottomOf="@+id/topGuidlineE"
-    app:layout_constraintBottom_toBottomOf="@+id/chartGuidlineE"
+        android:id="@+id/lineChartNutritionElement"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/topGuidlineE"
+        app:layout_constraintBottom_toBottomOf="@+id/chartGuidlineE"
         android:layout_marginTop="90dp"/>
 
     <androidx.constraintlayout.widget.Guideline
