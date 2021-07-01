@@ -45,7 +45,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         LocalViewHolder lvh = (LocalViewHolder) holder;
-        lvh.itemContent.setText(items.get(position).nutritionElement.toString());
+        lvh.itemContent.setText(items.get(position).nutritionElement.getString(this.context));
         lvh.itemPercentage.setText(format("%d mg", items.get(position).target));
 
         Float nutPercentage = items.get(position).percentage;

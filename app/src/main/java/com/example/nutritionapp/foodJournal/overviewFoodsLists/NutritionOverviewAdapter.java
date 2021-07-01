@@ -60,7 +60,7 @@ public class NutritionOverviewAdapter extends BaseAdapter {
         ProgressBar progressBar = convertView.findViewById(R.id.progressBar);
 
         NutritionPercentageTuple el = this.nutritionPercentageSortedFilterZero.get(position);
-        nutritionName.setText(el.nutritionElement.toString());
+        nutritionName.setText(el.nutritionElement.getString(context));
         progressBarLabel.setText(Objects.requireNonNull(nutritionActual.getElements().get(el.nutritionElement)).toString());
 
         progressBar.setMax(100);

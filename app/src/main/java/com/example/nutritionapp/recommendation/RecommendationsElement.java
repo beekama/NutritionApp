@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,8 +63,6 @@ public class RecommendationsElement extends AppCompatActivity {
         if (b != null) {
             nutritionElement = (NutritionElement) b.get("nutritionelement");
         }
-        Toast t = Toast.makeText(getApplicationContext(), nutritionElement.toString(), Toast.LENGTH_LONG);
-        t.show();
 
         //splash screen when needed:
         setTheme(R.style.AppTheme);
@@ -72,6 +71,7 @@ public class RecommendationsElement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation_nutrition);
         db = new Database(this);
+        Context context = getApplicationContext();
 
 
         /* APP TOOLBAR */
@@ -95,7 +95,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
         //set title
         tb.setTitle("");
-        tb_title.setText(nutritionElement.toString());
+        tb_title.setText(nutritionElement.getString(context));
         setSupportActionBar(tb);
 
         //recommendation:
@@ -150,8 +150,8 @@ public class RecommendationsElement extends AppCompatActivity {
 
         TextView recDesc = findViewById(R.id.recommendation_description);
         String header = getResources().getString(R.string.recommendationDesc);
-        recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.toString(),dailyReq, recommendation, microgr));
-        recDesc.setText(String.format("%s-rich food: ", nutritionElement.toString()));
+        recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.getString(context),dailyReq, recommendation, microgr));
+        recDesc.setText(String.format("%s-rich food: ", nutritionElement.getString(context)));
 
 
         recList = findViewById(R.id.RecListView);

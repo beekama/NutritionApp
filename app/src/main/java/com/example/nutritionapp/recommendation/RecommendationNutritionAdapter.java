@@ -113,7 +113,7 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
                 popupFood.setText(food.name);
                 String amountOf = context.getResources().getString(R.string.amountof);
                 popupEnText.setText(R.string.popupEnergyText);
-                popupNutText.setText(String.format("%s %s: ", amountOf, nutritionElement.toString()));
+                popupNutText.setText(String.format("%s %s: ", amountOf, nutritionElement.getString(context)));
                 popupNutrition.setText(nutAmount.toString());
                 getPopupEnergy.setText(energyAmount.toString());
 
