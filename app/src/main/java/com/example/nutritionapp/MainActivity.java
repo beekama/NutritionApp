@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switchToNightd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.wtf("doof", String.valueOf(currentNightMode),null);
                 Resources resources = getResources();
                 switch (currentNightMode){
                     case Configuration.UI_MODE_NIGHT_NO:
@@ -178,12 +177,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_analysis:
                 Intent analysis =  new Intent(this, Recommendations.class);
                 startActivity(analysis, Utils.getDefaultTransition(this));
+                break;
             case R.id.nav_about:
                 Intent about = new Intent(this, AboutPage.class);
                 startActivity(about);
+                break;
             case R.id.nav_weight_tracking:
                 Intent weight = new Intent(this, WeightTracking.class);
                 startActivity(weight);
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
