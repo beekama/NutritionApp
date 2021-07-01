@@ -25,12 +25,16 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
 
     String DBID_ENERGY = "1008";
+
+    private static final int HEADER_TYPE = 0;
+    private static final int ITEM_TYPE = 1;
 
     private Context context;
     private ArrayList<Pair<Food, Float>> recFood;
@@ -50,17 +54,34 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.recommendation_recommended_food, parent, false);
         popUpView = inflater.inflate(R.layout.recommendation_nutrition_popup, parent, false);
-        return new LocalViewHolder(view);
+        View view;
+        if (viewType == HEADER_TYPE){
+            view = inflater.inflate(R.layout.recommendation_recommended_food_header, parent, false);
+            return new HeaderViewHolder(view);
+        } else if (viewType == ITEM_TYPE){
+            view = inflater.inflate(R.layout.recommendation_recommended_food, parent, false);
+            return new LocalViewHolder(view);
+        } else {
+            throw new RuntimeException("item matches no viewType. No implementation for type : " + viewType);
+        }
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof HeaderViewHolder){
+            HeaderViewHolder hvh = (HeaderViewHolder) holder;
+            hvh.nameHeader.setText(R.string.recommendedFood);
+            hvh.amountHeader.setText(R.string.amount);
+        } else if (holder instanceof LocalViewHolder){
         LocalViewHolder lvh = (LocalViewHolder) holder;
-        Food food = recFood.get(position).first;
-        Float ratio = recFood.get(position).second;
+
+        //ignore header in positionCount
+        int relPosition = position -1;
+        Food food = recFood.get(relPosition).first;
+        Float ratio = recFood.get(relPosition).second;
+
         lvh.foodName.setText(food.name);
         lvh.amount.setText(ratio.toString());
 
@@ -107,11 +128,19 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
               //  Toast.makeText(v.getContext(),"asdffdsa", Toast.LENGTH_LONG).show();
             }
         });
+    }}
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0)
+            return HEADER_TYPE;
+        return ITEM_TYPE;
     }
 
     @Override
     public int getItemCount() {
-        return recFood.size();
+        // listItems + header
+        return recFood.size()+1;
     }
 
     private class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -130,6 +159,17 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
         @Override
         public void onClick(View v) {
 
+        }
+    }
+
+    private class HeaderViewHolder extends RecyclerView.ViewHolder{
+        final TextView nameHeader;
+        final TextView amountHeader;
+
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameHeader = itemView.findViewById(R.id.recommendedFoodText);
+            amountHeader = itemView.findViewById(R.id.recommendedFoodAmount);
         }
     }
 }

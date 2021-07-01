@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/recommendation_recommended_food">
+    android:id="@+id/recommendation_recommended_food_header">
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:maxLines="4"
+        android:textStyle="bold"
         android:id="@+id/recommendedFoodText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/recommendedFoodAmount"
@@ -21,19 +21,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:id="@+id/recommendedFoodAmount"
-        android:paddingBottom="10dp"
+        android:textAlignment="textEnd"
         android:layout_marginEnd="2dp"
-        app:layout_constraintEnd_toStartOf="@id/unity"
-        app:layout_constraintBottom_toBottomOf="@id/recommendedFoodText"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/unity"
-        android:paddingBottom="10dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/recommendedFoodText"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
