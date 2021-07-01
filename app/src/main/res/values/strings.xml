@@ -58,6 +58,8 @@
     <string name="dailyRecommendation">Your daily needs are</string>
     <string name="popupEnergyText">Amount of Energy: </string>
     <string name="amountof"> Amount of </string>
+    <string name="recommendedFood"> Recommended Food: </string>
+    <string name="amount"> Amount </string>
 
     <string name="sideMenuAboutSectionName">Other</string>
     <string name="about">About</string>

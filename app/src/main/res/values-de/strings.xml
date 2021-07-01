@@ -55,6 +55,8 @@
     <string name="dailyRecommendation">Dein Tagesbedarf beträgt</string>
     <string name="popupEnergyText">Menge an Kalorien: </string>
     <string name="amountof"> Menge an  </string>
+    <string name="recommendedFood"> Empfohlene Lebensmittel: </string>
+    <string name="amount"> Menge </string>
 
     <string name="nav_drawer_open">Navigationsleiste öffnen</string>
     <string name="nav_drawer_close">Navigationsleiste schließen</string>
