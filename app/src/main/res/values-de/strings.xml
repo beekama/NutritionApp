@@ -63,4 +63,18 @@
 
     <string name="sideMenuAboutSectionName">Weiteres</string>
     <string name="about">Über die App</string>
+
+    <!-- NutritionElements -->
+    <string name="IRON"> Eisen </string>
+    <string name="MAGNESIUM"> Magnesium </string>
+    <string name="ZINC"> Zink </string>
+    <string name="CALCIUM"> Kalzium </string>
+    <string name="POTASSIUM"> Kalium </string>
+    <string name="VITAMIN_A"> Vitamin A </string>
+    <string name="VITAMIN_C"> Vitamin C </string>
+    <string name="VITAMIN_B6"> Vitamin B6  </string>
+    <string name="VITAMIN_B12"> Vitamin B12  </string>
+    <string name="VITAMIN_D"> Vitamin D  </string>
+    <string name="VITAMIN_E"> Vitamin E  </string>
+    <string name="VITAMIN_K"> Vitamin K </string>
 </resources>

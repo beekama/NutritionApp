@@ -63,6 +63,20 @@
 
     <string name="sideMenuAboutSectionName">Other</string>
     <string name="about">About</string>
+    
+    <!-- NutritionElements -->
+    <string name="IRON"> Iron </string>
+    <string name="MAGNESIUM"> Magnesium </string>
+    <string name="ZINC"> Zinc </string>
+    <string name="CALCIUM"> Calcium </string>
+    <string name="POTASSIUM"> Potassium </string>
+    <string name="VITAMIN_A"> Vitamin A </string>
+    <string name="VITAMIN_C"> Vitamin C </string>
+    <string name="VITAMIN_B6"> Vitamin B6  </string>
+    <string name="VITAMIN_B12"> Vitamin B12  </string>
+    <string name="VITAMIN_D"> Vitamin D  </string>
+    <string name="VITAMIN_E"> Vitamin E  </string>
+    <string name="VITAMIN_K"> Vitamin K </string>
 
     <!-- strings without translation -->
     <string name="Impressum" translatable="false">Impressum</string>
