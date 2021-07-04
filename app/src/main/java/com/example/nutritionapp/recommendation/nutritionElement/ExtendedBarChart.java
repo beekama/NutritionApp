@@ -1,4 +1,4 @@
-package com.example.nutritionapp.recommendation;
+package com.example.nutritionapp.recommendation.nutritionElement;
 
 import android.content.Context;
 import android.graphics.Canvas;

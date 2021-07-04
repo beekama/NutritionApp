@@ -1,24 +1,15 @@
-package com.example.nutritionapp.recommendation;
+package com.example.nutritionapp.recommendation.nutritionElement;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.icu.text.Transliterator;
 import android.os.Bundle;
-import android.util.FloatProperty;
 import android.util.Log;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,8 +19,6 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
-import com.example.nutritionapp.other.NutritionPercentageTuple;
-import com.example.nutritionapp.other.Utils;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -45,7 +34,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedMap;
-import java.util.TreeMap;
 
 public class RecommendationsElement extends AppCompatActivity {
     private Database db;
