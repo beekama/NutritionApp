@@ -16,11 +16,17 @@ public class Food implements Comparable{
 
     public static final String DB_ID_ENERGY = "1008";
     public static final String DB_ID_FIBER = "1079";
+    public static final String DB_ID_FAT = "1004";
+    public static final String DB_ID_CARB = "1005";
+    public static final String DB_ID_PROTEIN = "1003";
 
     public String name;
     public String id;
     public int energy;
     public int fiber;
+    public int carb;
+    public int protein;
+    public int fat;
     public Nutrition nutrition;
     public LocalDateTime loggedAt;
 
@@ -103,6 +109,9 @@ public class Food implements Comparable{
         }
         clone.energy = this.energy;
         clone.fiber = this.fiber;
+        clone.carb = this.carb;
+        clone.protein = this.protein;
+        clone.fat = this.fat;
         clone.nutrition = new Nutrition(this.nutrition);
         return clone;
     }
@@ -124,12 +133,21 @@ public class Food implements Comparable{
         nutrients = db.getNutrientsForFood(this.id);
         if(nutrients != null) {
             Integer fiber = nutrients.get(DB_ID_FIBER);
+            Integer fat = nutrients.get(DB_ID_FAT);
+            Integer protein = nutrients.get(DB_ID_PROTEIN);
+            Integer carb = nutrients.get(DB_ID_CARB);
             Integer energy = nutrients.get(DB_ID_ENERGY);
             this.fiber = Utils.zeroIfNull(fiber);
+            this.fat = Utils.zeroIfNull(fat);
+            this.protein = Utils.zeroIfNull(protein);
+            this.carb = Utils.zeroIfNull(carb);
             this.energy = Utils.zeroIfNull(energy);
             this.nutrition = new Nutrition(nutrients);
         }else{
             this.fiber = 0;
+            this.fat = 0;
+            this.protein = 0;
+            this.carb = 0;
             this.energy = 0;
             this.nutrition = new Nutrition();
             Log.w("FOOD_DB", "Nutrition Information was Null");
