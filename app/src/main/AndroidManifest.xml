@@ -13,7 +13,7 @@
         android:theme="@style/SplashTheme">
         <activity android:name=".WeightTracking"></activity>
         <activity android:name=".AboutPage" />
-        <activity android:name=".recommendation.RecommendationsElement" />
+        <activity android:name=".recommendation.nutritionElement.RecommendationsElement" />
         <activity android:name=".recommendation.Recommendations" />
         <activity android:name=".configuration.PersonalInformation" />
         <activity android:name=".customFoods.CreateNewFoodItem" />
