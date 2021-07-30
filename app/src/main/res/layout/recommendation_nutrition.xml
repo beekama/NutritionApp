@@ -38,7 +38,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6" />
 
-    <com.example.nutritionapp.recommendation.ExtendedBarChart
+    <com.example.nutritionapp.recommendation.nutritionElement.ExtendedBarChart
         android:id="@+id/barChartNutrition"
         android:layout_width="match_parent"
         android:layout_height="300dp"

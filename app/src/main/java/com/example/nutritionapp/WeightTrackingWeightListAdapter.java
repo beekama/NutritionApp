@@ -20,7 +20,7 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
-import com.example.nutritionapp.recommendation.RecommendationNutritionAdapter;
+import com.example.nutritionapp.recommendation.nutritionElement.RecommendationNutritionAdapter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

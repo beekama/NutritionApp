@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.example.nutritionapp.recommendation.nutritionElement.RecommendationsElement;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;

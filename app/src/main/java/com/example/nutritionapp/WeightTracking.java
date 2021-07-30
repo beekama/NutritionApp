@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.recommendation.RecommendationNutritionAdapter;
+import com.example.nutritionapp.recommendation.nutritionElement.RecommendationNutritionAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 
 import java.time.LocalDateTime;
