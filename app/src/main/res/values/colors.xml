@@ -20,6 +20,8 @@
     <color name="greyLight">#80ffffff</color>
     <color name="greyDark">#808080</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="chartBlue">#0278ae</color>
     <color name="chartOrange">#fca652</color>
     <color name="chartBrown">#ac4b1c</color>

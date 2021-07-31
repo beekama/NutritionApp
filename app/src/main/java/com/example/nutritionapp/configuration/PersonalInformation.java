@@ -42,6 +42,11 @@ public class PersonalInformation extends AppCompatActivity {
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
+
+    public static int ENERGY_TARGET = 2000;
+    public static int PROTEIN_TARGET = 50; //50;
+    public static int CARB_TARGET = 30; //700;
+    public static int FAT_TARGET = 20; //84;
     private Database db;
 
     @SuppressLint("ResourceAsColor")

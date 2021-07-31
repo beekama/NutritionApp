@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
@@ -106,9 +108,12 @@ public class Recommendations extends AppCompatActivity {
         setProgressBar(currentDateParsed);
 
         /* PieChart */
+        Pair<PieData, List> pieAndListData = generatePieChartContent(currentDateParsed);
+
         pieChart = findViewById(R.id.piChartNutrition);
         pieChart.getDescription().setEnabled(false);
-        PieData data = generatePieChartContent(currentDateParsed);
+        PieData data = pieAndListData.first;
+        pieChart.setHoleColor(Color.TRANSPARENT);
         data.setDrawValues(false);
         pieChart.setData(data);
 
@@ -120,9 +125,10 @@ public class Recommendations extends AppCompatActivity {
 
         /* PieChartList */
         RecyclerView chartList = findViewById(R.id.chartList);
+        List<Integer> allowances = pieAndListData.second;
         LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         chartList.setLayoutManager(nutritionChartLayoutManager);
-        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data);
+        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data, allowances);
         chartList.setAdapter(adapter);
 
 
@@ -182,8 +188,8 @@ public class Recommendations extends AppCompatActivity {
         return listItems;
     }
 
-
-    PieData generatePieChartContent(LocalDate currentDateParsed) {
+    /* returns pair of PieData and allowances */
+    Pair<PieData, List> generatePieChartContent(LocalDate currentDateParsed) {
 
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();
@@ -192,17 +198,30 @@ public class Recommendations extends AppCompatActivity {
         int carbSum = 0;
         int proteinSum = 0;
         int fatSum = 0;
+        // factor with calories per gram
         for (Food f : foods){
-            carbSum += f.carb;
-            proteinSum += f.protein;
-            fatSum += f.fat;
+            carbSum += f.carb * 4;
+            proteinSum += f.protein * 4;
+            fatSum += f.fat * 9;
         }
+
+        /* calculate percentage */
+        int allowanceEnergy = PersonalInformation.ENERGY_TARGET;
+        carbSum = carbSum*100/allowanceEnergy;
+        proteinSum = proteinSum*100/allowanceEnergy;
+        fatSum = fatSum*100/allowanceEnergy;
 
         /* generate PieEntries for Carbs, Protein, Fat */
         ArrayList<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry(carbSum, "carbs"));
         entries.add(new PieEntry(proteinSum, "protein"));
         entries.add(new PieEntry(fatSum, "fat"));
+
+        /* add allowances for Carbs, Protein, Fat */
+        ArrayList<Integer> allowances = new ArrayList<>();
+        allowances.add(PersonalInformation.CARB_TARGET);
+        allowances.add(PersonalInformation.PROTEIN_TARGET);
+        allowances.add(PersonalInformation.FAT_TARGET);
 
         /* generate DataSet from PieEntries */
         PieDataSet set = new PieDataSet(entries, "");
@@ -215,7 +234,7 @@ public class Recommendations extends AppCompatActivity {
         set.setColors(colors);
 
         PieData data = new PieData(set);
-        return data;
+        return new Pair<>(data, allowances);
 
     }
 
@@ -228,7 +247,7 @@ public class Recommendations extends AppCompatActivity {
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
 
         int energyUsed = Nutrition.totalEnergy(foods);
-        int energyNeeded = 2000;
+        int energyNeeded = PersonalInformation.ENERGY_TARGET;
         int energyUsedPercentage = energyUsed*100/energyNeeded;
 
         if(energyUsedPercentage < 75){

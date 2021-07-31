@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,15 +33,18 @@ public class RecommendationProteinListAdapter extends RecyclerView.Adapter {
 
     private int[] colors;
     private List<PieEntry> pieEntries;
+    private List<Integer> allowances;
     private Context context;
+
     private static final int HEADER_TYPE = 0;
     private static final int ITEM_TYPE = 1;
 
 
-    public RecommendationProteinListAdapter(Context context, PieData data) {
+    public RecommendationProteinListAdapter(Context context, PieData data, List<Integer> allowances) {
         this.context = context;
         this.colors = data.getColors();
         this.pieEntries = data.getDataSet().getEntriesForXValue(0);
+        this.allowances = allowances;
     }
 
 
@@ -71,9 +75,10 @@ public class RecommendationProteinListAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof LocalViewHolder){
             LocalViewHolder lvh = (LocalViewHolder) holder;
             int relPosition = position - 1;
-            lvh.currentVal.setText(Float.toString(pieEntries.get(relPosition).getValue()));
+            lvh.currentVal.setText(String.format("%.0f", pieEntries.get(relPosition).getValue()));
+            lvh.targetVal.setText(Integer.toString(allowances.get(relPosition)));
             lvh.label.setText(pieEntries.get(relPosition).getLabel());
-            lvh.label.setTextColor(colors[relPosition]);
+            lvh.color.setColorFilter(colors[relPosition]);
 
     }}
 
@@ -90,12 +95,14 @@ public class RecommendationProteinListAdapter extends RecyclerView.Adapter {
         }
 
     static class LocalViewHolder extends RecyclerView.ViewHolder{
+        final ImageView color;
         final TextView label;
         final TextView currentVal;
         final TextView targetVal;
 
         LocalViewHolder(View itemView) {
             super(itemView);
+            color = itemView.findViewById(R.id.labelColor);
             label = itemView.findViewById(R.id.label);
             currentVal = itemView.findViewById(R.id.currentVal);
             targetVal = itemView.findViewById(R.id.targetVal);
