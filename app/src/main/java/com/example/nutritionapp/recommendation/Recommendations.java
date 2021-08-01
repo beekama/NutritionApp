@@ -66,6 +66,7 @@ public class Recommendations extends AppCompatActivity {
     private RecyclerView nutritionRList;
     private TextView dateView;
     private PieChart pieChart;
+    RecyclerView chartList;
     private List<Integer> colors = new ArrayList<>();
 
 
@@ -124,7 +125,7 @@ public class Recommendations extends AppCompatActivity {
         pieChart.invalidate();
 
         /* PieChartList */
-        RecyclerView chartList = findViewById(R.id.chartList);
+        chartList = findViewById(R.id.chartList);
         List<Integer> allowances = pieAndListData.second;
         LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         chartList.setLayoutManager(nutritionChartLayoutManager);
@@ -148,10 +149,18 @@ public class Recommendations extends AppCompatActivity {
     }
 
 
-    private void updateNutritionList(LocalDate localDate) {
+    private void updatePageContent(LocalDate localDate) {
+        //energy bar
+        setProgressBar(localDate);
+        //nutrition list
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(localDate);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
         nutritionRList.setAdapter(newDayAdapter);
+        //protein chart
+        Pair<PieData, List> pieAndListData = generatePieChartContent(localDate);
+        pieChart.setData(pieAndListData.first);
+        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), pieAndListData.first, pieAndListData.second);
+        chartList.setAdapter(adapter);
     }
 
 
@@ -269,8 +278,7 @@ public class Recommendations extends AppCompatActivity {
             LocalDate selected = LocalDate.of(year, month, dayOfMonth);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
             if (selected != localDate){
-                updateNutritionList(selected);
-                setProgressBar(selected);
+                updatePageContent(selected);
             }
         }, localDate.getYear(),localDate.getMonthValue(), localDate.getDayOfMonth());
         dialog.show();
