@@ -124,6 +124,8 @@ public class RecommendationsElement extends AppCompatActivity {
         barChart.getAxisLeft().addLimitLine(l1);
         barChart.getAxisLeft().addLimitLine(l2);
         barChart.getAxisLeft().setDrawGridLinesBehindData(true);
+        barChart.getLegend().setEnabled(false);
+        barChart.setScaleEnabled(false);
 
         CombinedData data = new CombinedData();
         data.setData(chartData.first);
