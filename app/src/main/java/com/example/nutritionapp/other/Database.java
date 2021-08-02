@@ -1128,22 +1128,22 @@ public class Database {
         }
     }
 
-    public void addWeightAtDate(int weightInGram, LocalDateTime date){
-        String dateString = date.format(Utils.sqliteDatetimeFormat);
+    public void addWeightAtDate(int weightInGram, LocalDate date){
+        String dateString = date.format(Utils.sqliteDateFormat);
         ContentValues values = new ContentValues();
         values.put("date", dateString);
         values.put("weight", weightInGram);
         db.insert(WEIGHTS, null, values);
     }
 
-    public void removeWeightAtDate(int weightInGram, LocalDateTime date){
-        String[] whereArgs = { date.format(Utils.sqliteDatetimeFormat) };
+    public void removeWeightAtDate(int weightInGram, LocalDate date){
+        String[] whereArgs = { date.format(Utils.sqliteDateFormat) };
         db.delete(WEIGHTS, "date = ?", whereArgs);
     }
 
-    public int getWeightAtDate(LocalDateTime date){
+    public int getWeightAtDate(LocalDate date){
         String[] columns = {"weight"};
-        String dateString = date.format(Utils.sqliteDatetimeFormat);
+        String dateString = date.format(Utils.sqliteDateFormat);
         String[] whereArgs = { dateString };
 
         Cursor c = db.query(WEIGHTS, columns, "date = ?", whereArgs, null, null, null);
@@ -1156,16 +1156,16 @@ public class Database {
         }
     }
 
-    public LinkedHashMap<LocalDateTime, Integer> getWeightAll(){
-        LinkedHashMap<LocalDateTime, Integer> weightsByDate = new LinkedHashMap<>();
+    public LinkedHashMap<LocalDate, Integer> getWeightAll(){
+        LinkedHashMap<LocalDate, Integer> weightsByDate = new LinkedHashMap<>();
         String[] columns = {"date", "weight"};
 
         Cursor c = db.query(WEIGHTS, columns, null, null, null, null, null);
         while(c.moveToNext()){
             String dateString = c.getString(0);
             int weight = c.getInt(1);
-            LocalDateTime localDateTime = LocalDateTime.parse(dateString, Utils.sqliteDatetimeFormat);
-            weightsByDate.put(localDateTime, weight);
+            LocalDate localDate = LocalDate.parse(dateString, Utils.sqliteDateFormat);
+            weightsByDate.put(localDate, weight);
         }
         c.close();
 
