@@ -93,4 +93,13 @@ public class Utils {
     public static Bundle getDefaultTransition(Activity activity) {
         return ActivityOptions.makeSceneTransitionAnimation(activity).toBundle();
     }
+
+    /* since month start with 0 in android */
+    public static int monthDefaultToAndroid(int month){
+        return month-1;
+    }
+
+    public static int monthAndroidToDefault(int month){
+        return (month + 1)%13;
+    }
 }

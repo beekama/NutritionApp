@@ -276,12 +276,12 @@ public class Recommendations extends AppCompatActivity {
 
     private void dateUpdateDialog(final LocalDate localDate) {
         DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            LocalDate selected = LocalDate.of(year, month, dayOfMonth);
+            LocalDate selected = LocalDate.of(year, Utils.monthAndroidToDefault(month), dayOfMonth);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
             if (selected != localDate){
                 updatePageContent(selected);
             }
-        }, localDate.getYear(),localDate.getMonthValue(), localDate.getDayOfMonth());
+        }, localDate.getYear(),Utils.monthDefaultToAndroid(localDate.getMonthValue()), localDate.getDayOfMonth());
         dialog.show();
     }
 

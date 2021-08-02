@@ -227,9 +227,9 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     private void dateUpdateDialog(final LocalDateTime loggedAt) {
         DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            LocalDateTime selected = LocalDateTime.of(year, month, dayOfMonth, 0, 0);
+            LocalDateTime selected = LocalDateTime.of(year, Utils.monthAndroidToDefault(month), dayOfMonth, 0, 0);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
-        }, loggedAt.getYear(), loggedAt.getMonthValue(), loggedAt.getDayOfMonth());
+        }, loggedAt.getYear(), Utils.monthDefaultToAndroid(loggedAt.getMonthValue()), loggedAt.getDayOfMonth());
         dialog.show();
     }
 
