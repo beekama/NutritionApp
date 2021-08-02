@@ -159,6 +159,7 @@ public class Recommendations extends AppCompatActivity {
         //protein chart
         Pair<PieData, List> pieAndListData = generatePieChartContent(localDate);
         pieChart.setData(pieAndListData.first);
+        pieChart.invalidate();
         RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), pieAndListData.first, pieAndListData.second);
         chartList.setAdapter(adapter);
     }
