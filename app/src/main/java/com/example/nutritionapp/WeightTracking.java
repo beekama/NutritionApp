@@ -43,7 +43,7 @@ import java.util.List;
 
 import static java.lang.Math.min;
 
-public class WeightTracking extends AppCompatActivity {
+public class WeightTracking extends AppCompatActivity implements TransferWeight{
 
     private Database db;
     //observation period in days:
@@ -99,7 +99,7 @@ public class WeightTracking extends AppCompatActivity {
         db.createWeightsTableIfNotExist();
         weightAll = db.getWeightAll();
 
-        //testing
+/*        //testing
         //weightAll = new LinkedHashMap<>();
         weightAll.put(currentDateParsed.minusDays(60), 88);
         weightAll.put(currentDateParsed.minusDays(32), 55);
@@ -108,7 +108,7 @@ public class WeightTracking extends AppCompatActivity {
         weightAll.put(currentDateParsed, 66);
         XAxis xAxis = chartWeight.getXAxis();
         xAxis.setAxisMinimum(0);
-        xAxis.setAxisMaximum(29);
+        xAxis.setAxisMaximum(29);*/
 
 
         chartWeight.setTouchEnabled(true);
@@ -124,11 +124,12 @@ public class WeightTracking extends AppCompatActivity {
         RecyclerView weights = findViewById(R.id.weightList);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
-        //RecyclerView.Adapter<?> foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll);
-//        weights.setAdapter(foodRec);
+        RecyclerView.Adapter<?> foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this);
+        weights.setAdapter(foodRec);
     }
 
     void updatePageContent(){
+        weightAll = db.getWeightAll();
         LineData lineData = generateChartContent();
         chartWeight.setData(lineData);
         chartWeight.invalidate();
@@ -156,7 +157,7 @@ public class WeightTracking extends AppCompatActivity {
         ArrayList<String> xAxisLabels = new ArrayList<>();
         LocalDate pStart = currentDateParsed.minusDays(observationPeriod);
         LocalDate start = oldestValue.compareTo(pStart) <0 ? oldestValue : pStart;
-        for (int o = 1; o< (int) ChronoUnit.DAYS.between(start, currentDateParsed); o++){
+        for (int o = 1; o<= (int) ChronoUnit.DAYS.between(start, currentDateParsed); o++){
             String date = start.plusDays(o).format(Utils.sqliteDateFormat);
             xAxisLabels.add(date);
         }
@@ -189,6 +190,14 @@ public class WeightTracking extends AppCompatActivity {
         dataSets.add(set);
         LineData data = new LineData(dataSets);
         return data;
+    }
+
+
+    @Override
+    public void removeEntry(int weight, LocalDate date) {
+        weightAll.remove(date);
+        db.removeWeightAtDate(weight, date);
+        updatePageContent();
     }
 
 }
