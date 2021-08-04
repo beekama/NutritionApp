@@ -5,13 +5,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.Spinner;
@@ -31,6 +34,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,6 +57,12 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight{
     protected LinkedHashMap<LocalDate, Integer> weightAll;
     protected LineChart chartWeight;
     protected LocalDate oldestValue;
+    private TextView dateView;
+    private EditText editWeight;
+    private ImageButton addWeight;
+    LocalDate weightAddingDate = currentDateParsed;
+    protected RecyclerView weights;
+    protected RecyclerView.Adapter<?> foodRec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,24 +132,44 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight{
         chartWeight.invalidate();
 
 
-        RecyclerView weights = findViewById(R.id.weightList);
+        weights = findViewById(R.id.weightList);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
-        RecyclerView.Adapter<?> foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this);
+
+        foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this );
         weights.setAdapter(foodRec);
+
+        /* adding weight */
+        dateView = findViewById(R.id.addingValueDate);
+        dateView.setText(currentDateParsed.format(Utils.sqliteDateFormat));
+        dateView.setOnClickListener(v -> {dateUpdateDialog(currentDateParsed);});
+
+        editWeight = findViewById(R.id.addingValueWeight);
+        //editWeight.setText();#
+
+        addWeight = findViewById(R.id.addingIcon);
+        addWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int weight = Integer.parseInt(editWeight.getText().toString());
+                if (weightAll.put(weightAddingDate, weight) == null){
+                db.addWeightAtDate(weight, weightAddingDate);}
+                updatePageContent();
+            }
+        });
     }
 
     void updatePageContent(){
-        weightAll = db.getWeightAll();
         LineData lineData = generateChartContent();
         chartWeight.setData(lineData);
         chartWeight.invalidate();
-    }
+        foodRec.notifyDataSetChanged();
 
+    }
     LineData generateChartContent(){
         LinkedList<Entry> values = new LinkedList<>();
         List<LocalDate> keyList = new ArrayList<>(weightAll.keySet());
-        Collections.reverse(keyList);
+        Collections.sort(keyList, Collections.reverseOrder());
         //for xAxis-labels
         oldestValue = currentDateParsed;
 
@@ -198,6 +229,19 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight{
         weightAll.remove(date);
         db.removeWeightAtDate(weight, date);
         updatePageContent();
+    }
+
+    private void dateUpdateDialog(final LocalDate localDate) {
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            LocalDate selected = LocalDate.of(year, Utils.monthAndroidToDefault(month), dayOfMonth);
+            this.dateView.setText(selected.format(Utils.sqliteDateFormat));
+            if (selected != localDate){
+                weightAddingDate = selected;
+                //todo: fuerge hinzu zu liste
+                updatePageContent();
+            }
+        }, localDate.getYear(),Utils.monthDefaultToAndroid(localDate.getMonthValue()), localDate.getDayOfMonth());
+        dialog.show();
     }
 
 }

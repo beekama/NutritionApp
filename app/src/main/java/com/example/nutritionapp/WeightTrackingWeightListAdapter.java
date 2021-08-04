@@ -1,4 +1,5 @@
 package com.example.nutritionapp;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.Entry;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -29,63 +31,64 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
     public WeightTrackingWeightListAdapter(Context applicationContext, LinkedHashMap<LocalDate, Integer> entries, TransferWeight tw) {
         context = applicationContext;
         this.entries = entries;
-        this.keys = new ArrayList<LocalDate>(entries.keySet());
         this.tw = tw;
     }
 
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            assert inflater != null;
-            View view = inflater.inflate(R.layout.wight_tracking_list_item, parent, false);
-            return new LocalViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            LocalViewHolder lvh = (LocalViewHolder) holder;
-            lvh.date.setText(keys.get(position).toString());
-            lvh.weight.setText(entries.get(keys.get(position)).toString());
-            lvh.itemView.setOnClickListener(v -> {
-                Log.w("ONC", "Short Click");
-            });
-            lvh.itemView.setOnLongClickListener(v -> {
-                removeEntry(keys.get(position), position);
-                return false;
-            });
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return entries.size();
-        }
-
-        void removeEntry(LocalDate entry, int position){
-            tw.removeEntry(entries.get(entry), entry);
-            entries.remove(keys.get(position));
-            keys = new ArrayList(entries.keySet());
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, entries.size());
-        }
-
-    static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-            TextView date;
-            TextView weight;
-
-            public LocalViewHolder(View itemView) {
-                super(itemView);
-                itemView.setOnClickListener(this);
-                date = itemView.findViewById(R.id.trackingDate);
-                weight = itemView.findViewById(R.id.trackingWeight);
-            }
-
-            @Override
-            public void onClick(View v) {
-            }
-        }
-
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.wight_tracking_list_item, parent, false);
+        keys = new ArrayList(entries.keySet());
+        Collections.sort(keys, Collections.reverseOrder());
+        return new LocalViewHolder(view);
 
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        LocalViewHolder lvh = (LocalViewHolder) holder;
+        lvh.date.setText(keys.get(position).toString());
+        lvh.weight.setText(entries.get(keys.get(position)).toString());
+        lvh.itemView.setOnClickListener(v -> {
+            Log.w("ONC", "Short Click");
+        });
+        lvh.itemView.setOnLongClickListener(v -> {
+            removeEntry(keys.get(position), position);
+            return false;
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return entries.size();
+    }
+
+
+    void removeEntry(LocalDate entry, int position) {
+        tw.removeEntry(entries.get(entry), entry);
+        entries.remove(keys.get(position));
+        keys = new ArrayList(entries.keySet());
+        Collections.sort(keys, Collections.reverseOrder());
+    }
+
+
+    static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView date;
+        TextView weight;
+
+        public LocalViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            date = itemView.findViewById(R.id.trackingDate);
+            weight = itemView.findViewById(R.id.trackingWeight);
+        }
+
+        @Override
+        public void onClick(View v) {
+        }
+    }
+
+}
