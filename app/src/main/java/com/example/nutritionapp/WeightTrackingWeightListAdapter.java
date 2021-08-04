@@ -1,24 +1,16 @@
 package com.example.nutritionapp;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.HeaderViewListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.os.LocaleListCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nutritionapp.other.Utils;
-import com.github.mikephil.charting.data.Entry;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -54,7 +46,7 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
             view = inflater.inflate(R.layout.weight_tracking_header_item, parent, false);
             return new HeaderViewHolder(view);
         } else if(viewType == ITEM_TYPE){
-            view = inflater.inflate(R.layout.wight_tracking_list_item, parent, false);
+            view = inflater.inflate(R.layout.weight_tracking_list_item, parent, false);
             return new LocalViewHolder(view);
         } else {
             throw new RuntimeException("item matches no viewType. No implementation for type : " + viewType);
