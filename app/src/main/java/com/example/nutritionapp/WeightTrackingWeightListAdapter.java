@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.HeaderViewListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.LocaleListCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.other.Utils;
@@ -28,6 +30,9 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
     List<LocalDate> keys;
     TransferWeight tw;
 
+    private static final int HEADER_TYPE = 0;
+    private static final int ITEM_TYPE = 1;
+
     public WeightTrackingWeightListAdapter(Context applicationContext, LinkedHashMap<LocalDate, Integer> entries, TransferWeight tw) {
         context = applicationContext;
         this.entries = entries;
@@ -39,31 +44,58 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.wight_tracking_list_item, parent, false);
+
+        //update keys after external datachange:
         keys = new ArrayList(entries.keySet());
         Collections.sort(keys, Collections.reverseOrder());
-        return new LocalViewHolder(view);
+
+        View view;
+        if (viewType == HEADER_TYPE){
+            view = inflater.inflate(R.layout.weight_tracking_header_item, parent, false);
+            return new HeaderViewHolder(view);
+        } else if(viewType == ITEM_TYPE){
+            view = inflater.inflate(R.layout.wight_tracking_list_item, parent, false);
+            return new LocalViewHolder(view);
+        } else {
+            throw new RuntimeException("item matches no viewType. No implementation for type : " + viewType);
+        }
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        LocalViewHolder lvh = (LocalViewHolder) holder;
-        lvh.date.setText(keys.get(position).toString());
-        lvh.weight.setText(entries.get(keys.get(position)).toString());
-        lvh.itemView.setOnClickListener(v -> {
-            Log.w("ONC", "Short Click");
-        });
-        lvh.itemView.setOnLongClickListener(v -> {
-            removeEntry(keys.get(position), position);
-            return false;
-        });
+        if (holder instanceof HeaderViewHolder){
+            HeaderViewHolder hvh = (HeaderViewHolder) holder;
+            hvh.date.setText("DATE"); //todo strings
+            hvh.weight.setText("WEIGHT");
+        } else if (holder instanceof LocalViewHolder){
+            LocalViewHolder lvh = (LocalViewHolder) holder;
 
+            //ignore header in positionCount
+            int relPosition = position -1;
+            lvh.date.setText(keys.get(relPosition).toString());
+            lvh.weight.setText(entries.get(keys.get(relPosition)).toString());
+            lvh.itemView.setOnClickListener(v -> {
+            Log.w("ONC", "Short Click");
+             });
+            lvh.itemView.setOnLongClickListener(v -> {
+                removeEntry(keys.get(relPosition), relPosition);
+                return false;
+            });
+
+    }}
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0)
+            return HEADER_TYPE;
+        return ITEM_TYPE;
     }
 
     @Override
     public int getItemCount() {
-        return entries.size();
+        // listItems + header
+        return entries.size() + 1;
     }
 
 
@@ -91,4 +123,15 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
         }
     }
 
+
+    private class HeaderViewHolder extends RecyclerView.ViewHolder{
+        final TextView date;
+        final TextView weight;
+
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            date = itemView.findViewById(R.id.headerDate);
+            weight = itemView.findViewById(R.id.headerWeight);
+        }
+    }
 }
