@@ -904,9 +904,7 @@ public class Database {
     }
 
     public void setPersonWeight(int weightInKg) throws IllegalArgumentException {
-        if (weightInKg < 40 || weightInKg > 600) {
-            throw new IllegalArgumentException("Weight must be between 40 and 600");
-        }
+
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("weight", weightInKg);
@@ -1129,6 +1127,9 @@ public class Database {
     }
 
     public void addWeightAtDate(int weightInGram, LocalDate date){
+        if (weightInGram < 40000 || weightInGram > 600000) {
+            throw new IllegalArgumentException("Weight must be between 40kg and 600kg");
+        }
         String dateString = date.format(Utils.sqliteDateFormat);
         ContentValues values = new ContentValues();
         values.put("date", dateString);

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutritionapp.other.Utils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,15 +60,15 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder){
             HeaderViewHolder hvh = (HeaderViewHolder) holder;
-            hvh.date.setText("DATE"); //todo strings
-            hvh.weight.setText("WEIGHT");
+            hvh.date.setText(R.string.date);
+            hvh.weight.setText(R.string.weight);
         } else if (holder instanceof LocalViewHolder){
             LocalViewHolder lvh = (LocalViewHolder) holder;
 
             //ignore header in positionCount
             int relPosition = position -1;
             lvh.date.setText(keys.get(relPosition).toString());
-            lvh.weight.setText(entries.get(keys.get(relPosition)).toString());
+            lvh.weight.setText(Float.toString(Utils.intWeightToFloat(entries.get(keys.get(relPosition)))));
             lvh.itemView.setOnClickListener(v -> {
             Log.w("ONC", "Short Click");
              });

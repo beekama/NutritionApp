@@ -9,7 +9,9 @@ import android.util.Log;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -90,6 +92,11 @@ public class Utils {
         return sortedFood;
     }
 
+    public static ArrayList<LocalDate> sortLocalDatesDesc(ArrayList<LocalDate> dates){
+        Collections.sort(dates);
+        return dates;
+    }
+
     public static Bundle getDefaultTransition(Activity activity) {
         return ActivityOptions.makeSceneTransitionAnimation(activity).toBundle();
     }
@@ -101,5 +108,15 @@ public class Utils {
 
     public static int monthAndroidToDefault(int month){
         return (month + 1)%13;
+    }
+
+    /* weight integer (gram) to float (kg) */
+    public static float intWeightToFloat(Integer weight){
+        return ((float) weight) /1000;
+    }
+
+    /* weight float (kg) to integer (gram) */
+    public static int floatWeightToInt(Float weight){
+        return (int) (weight*1000);
     }
 }
