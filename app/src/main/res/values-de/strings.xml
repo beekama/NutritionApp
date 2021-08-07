@@ -64,6 +64,9 @@
     <string name="sideMenuAboutSectionName">Weiteres</string>
     <string name="about">Über die App</string>
 
+    <string name="date">Datum:</string>
+    <string name="submit">Bestätigen:</string>
+
     <!-- NutritionElements -->
     <string name="IRON"> Eisen </string>
     <string name="MAGNESIUM"> Magnesium </string>

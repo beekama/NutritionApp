@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeightTracking">
+    tools:context=".WeightTracking"
+    android:id="@+id/weight_tracking">
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_toolbar"/>
@@ -41,8 +42,8 @@
         android:layout_height="100dp"
         app:layout_constraintTop_toBottomOf="@id/chartWeight"
         app:layout_constraintBottom_toTopOf="@id/weightList"
-        app:layout_constraintStart_toStartOf="@id/chartWeight"
-        app:layout_constraintEnd_toEndOf="@id/chartWeight"/>
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weightList"
@@ -50,6 +51,8 @@
         android:layout_height="0dp"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:divider="@android:color/background_light"
         android:dividerHeight="1dp"
         app:layout_constraintStart_toStartOf="@id/chartWeight"

@@ -34,7 +34,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/trackingWeight"
+        android:textAlignment="textEnd"
         app:layout_constraintStart_toEndOf="@id/guidline1"
+        app:layout_constraintEnd_toStartOf="@id/trackingKG"
+        app:layout_constraintBottom_toBottomOf="@id/trackingDate"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/trackingKG"
+        android:text="@string/kilogramm"
+        android:paddingLeft="2dp"
+        app:layout_constraintStart_toEndOf="@id/trackingWeight"
         app:layout_constraintEnd_toStartOf="@id/guidline2"
         app:layout_constraintBottom_toBottomOf="@id/trackingDate"/>
 

@@ -2,15 +2,18 @@ package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
@@ -48,7 +52,7 @@ import java.util.List;
 
 import static java.lang.Math.min;
 
-public class WeightTracking extends AppCompatActivity implements TransferWeight{
+public class WeightTracking extends AppCompatActivity implements TransferWeight {
 
     private Database db;
     //observation period in days:
@@ -136,50 +140,54 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight{
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
 
-        foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this );
+        foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this);
         weights.setAdapter(foodRec);
 
         /* adding weight */
         dateView = findViewById(R.id.addingValueDate);
         dateView.setText(currentDateParsed.format(Utils.sqliteDateFormat));
-        dateView.setOnClickListener(v -> {dateUpdateDialog(currentDateParsed);});
+        dateView.setOnClickListener(v -> {
+            dateUpdateDialog(currentDateParsed);
+        });
 
         editWeight = findViewById(R.id.addingValueWeight);
         //editWeight.setText();#
 
+        ConstraintLayout layout = findViewById(R.id.weight_tracking);
         addWeight = findViewById(R.id.addingIcon);
         addWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int weight = Integer.parseInt(editWeight.getText().toString());
-                if (weightAll.put(weightAddingDate, weight) == null){
-                db.addWeightAtDate(weight, weightAddingDate);}
-                updatePageContent();
+                collectData(db, editWeight, weightAll);
+                editWeight.setText("");
+                hideKeyboard();
+                layout.clearFocus();
             }
         });
     }
 
-    void updatePageContent(){
+    void updatePageContent() {
         LineData lineData = generateChartContent();
         chartWeight.setData(lineData);
         chartWeight.invalidate();
         foodRec.notifyDataSetChanged();
 
     }
-    LineData generateChartContent(){
+
+    LineData generateChartContent() {
         LinkedList<Entry> values = new LinkedList<>();
         List<LocalDate> keyList = new ArrayList<>(weightAll.keySet());
         Collections.sort(keyList, Collections.reverseOrder());
         //for xAxis-labels
         oldestValue = currentDateParsed;
 
-        for (LocalDate date : keyList){
+        for (LocalDate date : keyList) {
             long d = ChronoUnit.DAYS.between(date, currentDateParsed);
-            Entry entry = new Entry(observationPeriod-d, weightAll.get(date));
+            Entry entry = new Entry(observationPeriod - d, Utils.intWeightToFloat(weightAll.get(date)));
             values.addFirst(entry);
             oldestValue = date;
             /* If there is no value for the first day of the period, then add the last value before the period to create a complete chart */
-            if (d >= observationPeriod-1){
+            if (d >= observationPeriod - 1) {
                 break;
             }
         }
@@ -187,15 +195,15 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight{
         /*start date-label-counting on start of the period or first value (if value before period necessary for chart-completeness) */
         ArrayList<String> xAxisLabels = new ArrayList<>();
         LocalDate pStart = currentDateParsed.minusDays(observationPeriod);
-        LocalDate start = oldestValue.compareTo(pStart) <0 ? oldestValue : pStart;
-        for (int o = 1; o<= (int) ChronoUnit.DAYS.between(start, currentDateParsed); o++){
+        LocalDate start = oldestValue.compareTo(pStart) < 0 ? oldestValue : pStart;
+        for (int o = 1; o <= (int) ChronoUnit.DAYS.between(start, currentDateParsed); o++) {
             String date = start.plusDays(o).format(Utils.sqliteDateFormat);
             xAxisLabels.add(date);
         }
 
         XAxis xAxis = chartWeight.getXAxis();
         xAxis.setAxisMinimum(0);
-        xAxis.setAxisMaximum(observationPeriod-1);
+        xAxis.setAxisMaximum(observationPeriod - 1);
         xAxis.setLabelRotationAngle(-45);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -235,13 +243,37 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight{
         DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             LocalDate selected = LocalDate.of(year, Utils.monthAndroidToDefault(month), dayOfMonth);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
-            if (selected != localDate){
+            if (selected != localDate) {
                 weightAddingDate = selected;
-                //todo: fuerge hinzu zu liste
-                updatePageContent();
             }
-        }, localDate.getYear(),Utils.monthDefaultToAndroid(localDate.getMonthValue()), localDate.getDayOfMonth());
+        }, localDate.getYear(), Utils.monthDefaultToAndroid(localDate.getMonthValue()), localDate.getDayOfMonth());
         dialog.show();
+    }
+
+    private void collectData(Database db, EditText etWeight, LinkedHashMap<LocalDate, Integer> weightAll) {
+        try {
+            float newWeight = Float.parseFloat(etWeight.getText().toString());
+            int weightInGram = Utils.floatWeightToInt(newWeight);
+            weightAll.put(weightAddingDate, weightInGram);
+            db.addWeightAtDate(weightInGram, weightAddingDate);
+            updatePageContent();
+        } catch (NumberFormatException e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Need Numeric Value as Input for Weight - consider using a '.' instead of a ','", Toast.LENGTH_LONG);
+            toast.show();
+        } catch (IllegalArgumentException e){
+            Toast toast = Toast.makeText(getApplicationContext(), "Value for Weight must be between 40 and 600", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    private void hideKeyboard() {
+        View focusedView = getCurrentFocus();
+        if (focusedView == null) {
+            return;
+        }
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(focusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        focusedView.clearFocus();
     }
 
 }

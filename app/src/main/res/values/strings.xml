@@ -63,7 +63,11 @@
 
     <string name="sideMenuAboutSectionName">Other</string>
     <string name="about">About</string>
-    
+
+    <string name="date">Date:</string>
+    <string name="submit">Submit:</string>
+
+
     <!-- NutritionElements -->
     <string name="IRON"> Iron </string>
     <string name="MAGNESIUM"> Magnesium </string>
@@ -84,4 +88,5 @@
     <string name="kilokalorien" translatable="false">kcal</string>
     <string name="kalPer100mg" translatable="false">kcal/100mg</string>
     <string name="microPer100mg" translatable="false">µg/100mg</string>
+    <string name="kilogramm" translatable="false">kg</string>
 </resources>
