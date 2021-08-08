@@ -11,79 +11,68 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
 
-public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
+public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
     private final Context context;
     private final ArrayList<CreateFoodNutritionSelectorItem> items;
+    View convertView;
 
     public CreateFoodNutritionSelectorAdapter(Context context, ArrayList<CreateFoodNutritionSelectorItem> items){
         this.context = context;
         this.items   = items;
     }
 
+    @NonNull
     @Override
-    public int getCount() {
-        return items.size();
-    }
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        convertView = inflater.inflate(R.layout.create_food_nutrition_selection_item, parent, false);
+        return new LocalViewHolder(convertView);}
+
 
     @Override
-    public Object getItem(int position) {
-        return items.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        LocalViewHolder lvh = (LocalViewHolder) holder;
 
         /* item at position */
-        CreateFoodNutritionSelectorItem item = this.items.get(position);
-        /* inflate layout */
-        //if(convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.create_food_nutrition_selection_item, parent, false);
-        //}
+        CreateFoodNutritionSelectorItem item = items.get(position);
 
-        /* get relevant sub-views */
-        TextView name = convertView.findViewById(R.id.name);
-        name.setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
-        EditText value = convertView.findViewById(R.id.value);
-        value.setTextColor(ContextCompat.getColor(parent.getContext(),R.color.textColor));
         if(item.inputTypeString){
-            value.setInputType(EditText.AUTOFILL_TYPE_TEXT);
+            lvh.value.setInputType(EditText.AUTOFILL_TYPE_TEXT);
         }
 
-        name.setText(item.tag);
+        lvh.name.setText(item.tag);
+        Log.wtf("SET", item.tag);
         if(!item.inputTypeString) {
             if(item.amount > 0 ) {
-                value.setText(Integer.toString(item.amount));
+                lvh.value.setText(Integer.toString(item.amount));
             }
         }else if(item.data != null){
-            value.setText(item.data);
+            lvh.value.setText(item.data);
         }else{
-            value.setText("");
+            lvh.value.setText("");
         }
-        value.setHint(item.unit);
+        lvh.value.setHint(item.unit);
 
-        value.setOnFocusChangeListener((v, i) -> {
-            String cur = value.getText().toString();
+        lvh.value.setOnFocusChangeListener((v, i) -> {
+            String cur = lvh.value.getText().toString();
             if(cur.equals("")){
                 return;
             }
             try{
                 if(item.inputTypeString){
-                    item.data = value.getText().toString();
+                    item.data = lvh.value.getText().toString();
                 }else {
                     item.amount = Integer.parseInt(cur);
                 }
@@ -94,6 +83,33 @@ public class CreateFoodNutritionSelectorAdapter extends BaseAdapter {
             }
         });
 
-        return convertView;
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    private class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        TextView name;
+        EditText value;
+
+        public LocalViewHolder(View itemView) {
+            super(itemView);
+            // itemView.setOnClickListener(this);
+             name = convertView.findViewById(R.id.name);
+             value = convertView.findViewById(R.id.value);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
 }

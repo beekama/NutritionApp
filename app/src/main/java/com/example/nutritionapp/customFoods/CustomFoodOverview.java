@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
@@ -18,15 +20,15 @@ import java.util.ArrayList;
 public class CustomFoodOverview extends AppCompatActivity {
 
     private Database db;
-    private ListView mainLv;
+    private RecyclerView mainRv;
     final ArrayList<FoodOverviewItem> foodItems = new ArrayList<>();
-    FoodOverviewAdapter foodOverviewAdapter;
+    RecyclerView.Adapter<?> foodOverviewAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_foods);
-        mainLv = findViewById(R.id.main_lv);
+        mainRv = findViewById(R.id.createFoodOverview_rv);
 
         /* replace actionbar with custom app_toolbar */
         Toolbar tb = findViewById(R.id.toolbar);
@@ -49,34 +51,22 @@ public class CustomFoodOverview extends AppCompatActivity {
         /* display existing custom foods */
         db = new Database(this);
         updateFoodList();
-        mainLv.setOnItemClickListener((adapterView, view, i, l) -> {
-            FoodOverviewItem item = (FoodOverviewItem) adapterView.getAdapter().getItem(i);
-            Intent editCustomFood = new Intent(view.getContext(), CreateNewFoodItem.class);
-            editCustomFood.putExtra("fdc_id", item.food.id);
-            startActivity(editCustomFood);
-        });
-        mainLv.setOnItemLongClickListener((adapterView, view, i, l) -> {
-            FoodOverviewItem item = (FoodOverviewItem) adapterView.getAdapter().getItem(i);
-            db.deleteCustomFood(item.food);
-            foodItems.remove(item);
-            foodOverviewAdapter.notifyDataSetChanged();
-            return true;
-        });
     }
 
-    private void updateFoodList(){
+    private void updateFoodList() {
         ArrayList<Food> displayedFoods = db.getAllCustomFoods();
         foodItems.clear();
         for (Food f : displayedFoods) {
             foodItems.add(new FoodOverviewItem(f));
         }
-        foodOverviewAdapter = new FoodOverviewAdapter(getApplicationContext(), foodItems);
-        mainLv.setAdapter(foodOverviewAdapter);
-        mainLv.invalidate();
+        foodOverviewAdapter = new FoodOverviewAdapter(getApplicationContext(), foodItems, db);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        mainRv.setLayoutManager(linearLayoutManager);
+        mainRv.setAdapter(foodOverviewAdapter);
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         updateFoodList();
     }

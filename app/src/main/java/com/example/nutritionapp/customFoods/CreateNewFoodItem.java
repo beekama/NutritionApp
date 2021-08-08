@@ -1,6 +1,5 @@
 package com.example.nutritionapp.customFoods;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -13,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Conversions;
@@ -32,6 +33,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
     private Database db;
     private boolean editMode;
     private Food editModeOrigFood;
+    RecyclerView mainRv;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -93,8 +95,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
         }
 
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
-        ListView mainLv = findViewById(R.id.main_lv);
-        mainLv.setCacheColorHint(ContextCompat.getColor(this.getApplicationContext(),R.color.textColorHint));
+        mainRv = findViewById(R.id.createFoodNewItem_rv);
         for (NutritionElement ne : n.getElements().keySet()) {
             if(this.editMode){
                 Integer presetAmount = n.getElements().get(ne);
@@ -108,8 +109,10 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* setup adapter */
         allItems.addAll(staticSelectors);
         allItems.addAll(nutritionSelectors);
-        CreateFoodNutritionSelectorAdapter newAdapter = new CreateFoodNutritionSelectorAdapter(getApplicationContext(), allItems);
-        mainLv.setAdapter(newAdapter);
+        RecyclerView.Adapter<?> adapter = new CreateFoodNutritionSelectorAdapter(getApplicationContext(), allItems);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        mainRv.setLayoutManager(linearLayoutManager);
+        mainRv.setAdapter(adapter);
 
         /* setup buttons */
         Button cancel = findViewById(R.id.cancel);
@@ -180,7 +183,6 @@ public class CreateNewFoodItem extends AppCompatActivity {
             }
         }
         f.nutrition = n;
-        Log.wtf("TEST", n.toString());
         return f;
     }
 }
