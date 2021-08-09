@@ -8,7 +8,7 @@ import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 
-class RecommendationListItem {
+public class RecommendationListItem {
 
 
     final NutritionElement nutritionElement;

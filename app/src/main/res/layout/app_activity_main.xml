@@ -59,7 +59,7 @@
 
         <include
             android:id="@+id/food_journal"
-            layout="@layout/app_activity_main_button"
+            layout="@layout/app_activity_main_journallbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -75,7 +75,7 @@
 
         <include
             android:id="@+id/recommendations"
-            layout="@layout/app_activity_main_button"
+            layout="@layout/app_activity_main_recommendationbutton"
 
             android:layout_width="match_parent"
             android:layout_height="0dp"

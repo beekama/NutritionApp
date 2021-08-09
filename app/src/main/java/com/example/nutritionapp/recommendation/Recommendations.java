@@ -3,6 +3,8 @@ package com.example.nutritionapp.recommendation;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.res.ColorStateList;
@@ -110,6 +112,9 @@ public class Recommendations extends AppCompatActivity {
 
         /* PieChart */
         Pair<PieData, List> pieAndListData = generatePieChartContent(currentDateParsed);
+
+        ConstraintLayout proteinLayout = findViewById(R.id.pieChartView);
+        proteinLayout.setBackgroundResource(R.color.BlackWhite);
 
         pieChart = findViewById(R.id.piChartNutrition);
         pieChart.getDescription().setEnabled(false);

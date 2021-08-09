@@ -4,12 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/green_dark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/green_soft</item>
-        <item name="buttonTint">#ffffff</item>
-        <item name="cardBackgroundColor">#ffffff</item>
+        <item name="buttonTint">@color/backgroundColor</item>
+        <item name="cardBackgroundColor">@color/backgroundColor</item>
         <item name="android:textColor">@color/textColor</item>
-        <item name="background">@android:color/white</item>
+        <item name="background">@color/backgroundColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
         <!-- animation navigation-drawer -->
         <item name="android:windowAnimationStyle">@style/WindowAnimationFading</item>
     </style>

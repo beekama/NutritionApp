@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="@drawable/button_main_menu_big">
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/button_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Button_Title"/>
+
+    <!--
+    <View
+        android:id="@+id/spacerLine"
+        android:layout_height="2dp"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_title"
+        />
+        -->
+
+
+
+    <Button
+        android:id="@+id/button_recommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        style="@style/Button_Bottom"
+        android:background="@drawable/round_shape_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_title" />
+    <View
+        android:id="@+id/spacerLine"
+        android:layout_height="2dp"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_recommendation"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressbar_main"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        style="@style/theProgressBar"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/pieChartView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spacerLine"
+        app:layout_constraintBottom_toTopOf="@id/progressbar_main"
+        layout="@layout/recommendation_protein_chart"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/progressbarTV_main"
+        app:layout_constraintStart_toStartOf="@id/progressbar_main"
+        app:layout_constraintEnd_toEndOf="@id/progressbar_main"
+        app:layout_constraintTop_toTopOf="@id/progressbar_main"
+        app:layout_constraintBottom_toBottomOf="@id/progressbar_main"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="#00000000" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

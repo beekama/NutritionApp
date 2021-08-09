@@ -4,12 +4,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:id="@+id/app_activity_main_button"
-    android:background="@drawable/button_main_menu_big"
+    android:id="@+id/app_activity_main_button_journal"
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:orientation="vertical"
-    android:clickable="true">
+    android:clickable="true"
+    android:background="@drawable/button_main_menu_big">
 
 
     <TextView
@@ -30,16 +30,40 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_title"
-    />
+        />
 
-    <TextView
-        android:id="@+id/buttonDescription"
+    <!--
+    <View
+        android:id="@+id/spacerLine"
+        android:layout_height="2dp"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_title"
+        /> -->
+
+    <ImageButton
+        android:id="@+id/button_add"
+        android:background="#00000000"
+        android:src="@drawable/ic_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Button_Bottom"
         android:padding="10dp"
+        style="@style/Button_Bottom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spacerLine"/>
+        app:layout_constraintTop_toBottomOf="@id/spacerLine" />
+
+    <ImageButton
+        android:id="@+id/button_view"
+        android:background="#00000000"
+        android:src="@drawable/ic_viewlog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        style="@style/Button_Bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/button_add" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

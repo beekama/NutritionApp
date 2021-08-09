@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#88FFFFFF">
+
+    <item>
+        <shape android:shape="rectangle" >
+            <corners android:radius="20dip" />
+            <solid android:color="@color/cardBackgroundColor" />
+    <!--     <stroke android:width="2px" android:color="@color/BlackWhiteReverse" /> -->
+     </shape>
+ </item>
+
+ <!--
+ <item android:id="@android:id/mask">
+     <shape android:shape="rectangle">
+         <corners android:radius="20dip" />
+         <solid android:color="?android:colorAccent" />
+         <stroke android:width="2px" android:color="@color/colorBlack" />
+     </shape>
+ </item>
+ -->
+</ripple>
