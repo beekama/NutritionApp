@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/round_shape_bg_reverse"
     android:id="@+id/weight_tracking_list_item">
 
     <androidx.constraintlayout.widget.Guideline
@@ -25,6 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/trackingDate"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guidline1"
@@ -35,6 +37,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/trackingWeight"
         android:textAlignment="textEnd"
+        android:padding="10dp"
         app:layout_constraintStart_toEndOf="@id/guidline1"
         app:layout_constraintEnd_toStartOf="@id/trackingKG"
         app:layout_constraintBottom_toBottomOf="@id/trackingDate"/>
@@ -44,7 +47,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/trackingKG"
         android:text="@string/kilogramm"
-        android:paddingLeft="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         app:layout_constraintStart_toEndOf="@id/trackingWeight"
         app:layout_constraintEnd_toStartOf="@id/guidline2"
         app:layout_constraintBottom_toBottomOf="@id/trackingDate"/>

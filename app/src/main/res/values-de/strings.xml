@@ -13,6 +13,7 @@
     <string name="journalToolbarText">LOGBUCH</string>
     <string name="journalAddMeal">Mahlzeit hinzufügen</string>
     <string name="configurationTitle">Einstellungen</string>
+    <string name="recommendationTitle">Übersicht</string>
 
     <string name="createFoodsButton">Eigene Gerichte</string>
     <string name="createFoodsButtonLeftText">Erstelle deine eigenen Gerichte.</string>

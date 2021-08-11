@@ -13,6 +13,7 @@
     <string name="journalToolbarText">JOURNAL</string>
     <string name="journalAddMeal">Add Meal</string>
     <string name="configurationTitle">Configuration</string>
+    <string name="recommendationTitle">Analysis</string>
 
     <string name="createFoodsButton">Custom Foods</string>
     <string name="createFoodsButtonLeftText">Create your own customized Foods.</string>

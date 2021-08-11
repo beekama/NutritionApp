@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutritionapp.DividerItemDecorator;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
@@ -38,7 +40,6 @@ import java.util.SortedMap;
 public class RecommendationsElement extends AppCompatActivity {
     private Database db;
     private NutritionElement nutritionElement;
-    private HashMap<Integer, ArrayList<Food>> foodList;
     private ArrayList<Food> allFood;
     private LocalDate currentDateParsed = LocalDate.now();
     private int recommendation;
@@ -138,17 +139,23 @@ public class RecommendationsElement extends AppCompatActivity {
         TextView dailyR = findViewById(R.id.dailyReq);
         dailyR.setText(String.format("%s %d %s ", dailyReq, recommendation, microgr));
 
+/*
         TextView recDesc = findViewById(R.id.recommendation_description);
         String header = getResources().getString(R.string.recommendationDesc);
         recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.getString(context),dailyReq, recommendation, microgr));
         recDesc.setText(String.format("%s-rich food: ", nutritionElement.getString(context)));
+*/
 
 
         recList = findViewById(R.id.RecListView);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recList.setLayoutManager(nutritionReportLayoutManager);
+
+        DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        recList.addItemDecoration(dividerItemDecoratior);
+
         ArrayList<Pair<Food, Float>> listItems = generateAdapterContent(db.getRecommendationMap(nutritionElement));
-        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(getApplicationContext(), listItems, nutritionElement, db);
+        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(RecommendationsElement.this, listItems, nutritionElement, db);  //!! Activityname.this instead of getapplicationcontext() necessarry for recognizing day/nightmode changes
         recList.setAdapter(foodRec);
     }
 

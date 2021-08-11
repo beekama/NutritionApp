@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/round_shape_grey"
+    android:background="@drawable/round_shape_bg_reverse"
     android:id="@+id/weight_tracking_add">
 
     <androidx.constraintlayout.widget.Guideline

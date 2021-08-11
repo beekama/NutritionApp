@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pieChart.getDescription().setEnabled(false);
         PieData data = pieAndListData.first;
         pieChart.setHoleColor(Color.TRANSPARENT);
+        pieChart.setTouchEnabled(false);
         data.setDrawValues(false);
         pieChart.setData(data);
 
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pieChart.setDrawEntryLabels(false);
 
         pieChart.invalidate();
+
 
         /* PieChartList */
         chartList = findViewById(R.id.chartList);

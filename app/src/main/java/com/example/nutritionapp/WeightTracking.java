@@ -3,6 +3,8 @@ package com.example.nutritionapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -139,6 +141,9 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         weights = findViewById(R.id.weightList);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
+
+        DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        weights.addItemDecoration(dividerItemDecoratior);
 
         foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this);
         weights.setAdapter(foodRec);

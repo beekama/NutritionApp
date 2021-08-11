@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="test">#722f37</color>
     <color name="colorPrimary">#993333</color>
     <color name="colorPrimaryDark">#60282e</color>
     <color name="colorAccent">#a84551</color>
@@ -87,6 +86,8 @@
 
     <!-- settings -->
     <color name="backgroundColor">#e2e2e2</color>
+    <color name="backgroundColorReverse">#595959</color>
+    <color name="backgroundThird">#d8d8d8</color>
     <color name="cardBackgroundColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
     <color name="textColorHint">@color/greyDark</color>

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.res.ColorStateList;
@@ -26,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutritionapp.DividerItemDecorator;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.other.Database;
@@ -92,6 +94,11 @@ public class Recommendations extends AppCompatActivity {
         ImageButton tb_back = findViewById(R.id.toolbar_back);
         ImageButton tb_forward = findViewById(R.id.toolbar_forward);
 
+        //set title
+        tb.setTitle("");
+        tb_title.setText(R.string.recommendationTitle);
+        setSupportActionBar(tb);
+
         //visible title:
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
@@ -112,9 +119,6 @@ public class Recommendations extends AppCompatActivity {
 
         /* PieChart */
         Pair<PieData, List> pieAndListData = generatePieChartContent(currentDateParsed);
-
-        ConstraintLayout proteinLayout = findViewById(R.id.pieChartView);
-        proteinLayout.setBackgroundResource(R.color.BlackWhite);
 
         pieChart = findViewById(R.id.piChartNutrition);
         pieChart.getDescription().setEnabled(false);
@@ -145,6 +149,9 @@ public class Recommendations extends AppCompatActivity {
         nutritionRList.setLayoutManager(nutritionReportLayoutManager);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed);
 
+        DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), false);
+        nutritionRList.addItemDecoration(dividerItemDecoratior);
+
         RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(getApplicationContext(), listItems);
         nutritionRList.setAdapter(nutritionReport);
 
@@ -159,13 +166,14 @@ public class Recommendations extends AppCompatActivity {
         setProgressBar(localDate);
         //nutrition list
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(localDate);
-        RecommendationAdapter newDayAdapter = new RecommendationAdapter(getApplicationContext(), listItems);
+        RecommendationAdapter newDayAdapter = new RecommendationAdapter(Recommendations.this, listItems);   //!! Activityname.this instead of getapplicationcontext() necessarry for recognizing day/nightmode changes
         nutritionRList.setAdapter(newDayAdapter);
         //protein chart
         Pair<PieData, List> pieAndListData = generatePieChartContent(localDate);
         pieChart.setData(pieAndListData.first);
+        pieChart.setTouchEnabled(false);
         pieChart.invalidate();
-        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), pieAndListData.first, pieAndListData.second);
+        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(Recommendations.this, pieAndListData.first, pieAndListData.second);
         chartList.setAdapter(adapter);
     }
 

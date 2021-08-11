@@ -78,6 +78,7 @@
     </array>
 
     <color name="backgroundColor">#595959</color>
+    <color name="backgroundColorReverse">#e2e2e2</color>
     <color name="cardBackgroundColor">#bbbbbb</color>
     <color name="textColor">#FFFFFF</color>
     <color name="textColorHint">@color/greyDark</color>

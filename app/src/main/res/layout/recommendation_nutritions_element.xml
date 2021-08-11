@@ -3,13 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/round_shape_bg_reverse"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recommendation_nutritions_element">
     
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:id="@+id/nutrition_textview"
         app:layout_constraintStart_toStartOf="@id/nutProgressBar"
         tools:ignore="MissingConstraints" />
@@ -18,6 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nutrition_target"
+        android:paddingBottom="5dp"
+        android:paddingEnd="10dp"
         app:layout_constraintEnd_toEndOf="@id/nutProgressBar"
         app:layout_constraintBottom_toBottomOf="@id/nutrition_textview"/>
 
