@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,28 +11,23 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.Spinner;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.NutritionElement;
 import com.example.nutritionapp.other.Utils;
-import com.example.nutritionapp.recommendation.nutritionElement.RecommendationNutritionAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -41,10 +35,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import org.w3c.dom.Text;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,6 +60,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
     LocalDate weightAddingDate = currentDateParsed;
     protected RecyclerView weights;
     protected RecyclerView.Adapter<?> foodRec;
+    private Button period;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +81,20 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
 
 
         /* drop-down chart for setting period: */
-        Spinner period = findViewById(R.id.spinnerPeriod);
+        period = findViewById(R.id.popupButton);
+        period.setText("asdf");
+        period.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu();
+            }
+        });
 
-        //setting items and values:
+/*        //setting items and values:
         String[] items = new String[]{"1 Month", "6 Month", "1 Week", "1 Year"};
         Integer[] itemTodDays = new Integer[]{31, 138, 7, 365};
-        ArrayAdapter<String> pAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> pAdapter = new ArrayAdapter<>(this, R.layout.weight_tracking_period_spinner_dropdown, items);
+        pAdapter.setDropDownViewResource(R.layout.weight_tracking_period_spinner_dropdown);
         period.setAdapter(pAdapter);
 
         period.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -108,7 +108,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
             public void onNothingSelected(AdapterView<?> parent) {
                 observationPeriod = itemTodDays[0];
             }
-        });
+        });*/
 
 
         /* chart */
@@ -177,6 +177,26 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         chartWeight.invalidate();
         foodRec.notifyDataSetChanged();
 
+    }
+
+    private void popupMenu(){
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.weight_tracking_popup, null), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        pop.showAtLocation(this.findViewById(R.id.popupButton), Gravity.CENTER, 0, 0);
+        RecyclerView recyclerView = findViewById(R.id.periodItem);
+
+        //PERIODS - LIST
+        ArrayList<Pair<String, Integer>> periods = new ArrayList<>();
+        periods.add(new Pair<>( "1 Week", 7));  //todo string to string.xml
+        periods.add(new Pair<>("1 Month", 31));
+        periods.add(new Pair<>("6 Month", 138));
+        periods.add(new Pair<>("1 Year", 365));
+
+        WeightTrackingPopupAdapter adapter = new WeightTrackingPopupAdapter(getApplicationContext(), periods);
+        LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(periodLayoutManager);
+        recyclerView.setAdapter(adapter);
+        //todo adapter
     }
 
     LineData generateChartContent() {
