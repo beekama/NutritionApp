@@ -1,6 +1,7 @@
 package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -20,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,10 +85,29 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         /* drop-down chart for setting period: */
         period = findViewById(R.id.popupButton);
         period.setText("asdf");
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.weight_tracking_dropdown, null), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+
         period.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupMenu();
+                pop.showAtLocation(v, Gravity.CENTER, 0, 0);
+                pop.update(50,50,300,80);
+                RecyclerView recyclerView = findViewById(R.id.periodItem);
+
+                //PERIODS - LIST
+                ArrayList<Pair<String, Integer>> periods = new ArrayList<>();
+                periods.add(new Pair<>( "1 Week", 7));  //todo string to string.xml
+                periods.add(new Pair<>("1 Month", 31));
+                periods.add(new Pair<>("6 Month", 138));
+                periods.add(new Pair<>("1 Year", 365));
+
+                WeightTrackingDropdownAdapter adapter = new WeightTrackingDropdownAdapter(getApplicationContext(), periods);
+                LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(periodLayoutManager);
+                recyclerView.setAdapter(adapter);
+             //   popupMenu();
             }
         });
 
@@ -180,9 +201,14 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
     }
 
     private void popupMenu(){
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.weight_tracking_popup, null), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        pop.showAtLocation(this.findViewById(R.id.popupButton), Gravity.CENTER, 0, 0);
+        PopupWindow popupWindow = new PopupWindow(this);
+        LinearLayout layout = new LinearLayout(this);
+        LinearLayout mainLayout = new LinearLayout(this);
+
+
+        //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.weight_tracking_dropdown, null), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        //pop.showAtLocation(this.findViewById(R.id.popupButton), Gravity.CENTER, 0, 0);
         RecyclerView recyclerView = findViewById(R.id.periodItem);
 
         //PERIODS - LIST
@@ -192,7 +218,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         periods.add(new Pair<>("6 Month", 138));
         periods.add(new Pair<>("1 Year", 365));
 
-        WeightTrackingPopupAdapter adapter = new WeightTrackingPopupAdapter(getApplicationContext(), periods);
+        WeightTrackingDropdownAdapter adapter = new WeightTrackingDropdownAdapter(getApplicationContext(), periods);
         LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(periodLayoutManager);
         recyclerView.setAdapter(adapter);
