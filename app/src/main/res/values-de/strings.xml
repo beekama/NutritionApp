@@ -68,6 +68,12 @@
     <string name="date">Datum:</string>
     <string name="submit">Bestätigen:</string>
 
+    <!-- Weight Tracking -->
+    <string name="oneWeek">1 Woche</string>
+    <string name="oneMonth">1 Monat</string>
+    <string name="oneYear">1 Jahr</string>
+    <string name="sixMonth">6 Monate</string>
+
     <!-- NutritionElements -->
     <string name="IRON"> Eisen </string>
     <string name="MAGNESIUM"> Magnesium </string>

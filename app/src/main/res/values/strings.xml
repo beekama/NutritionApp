@@ -68,6 +68,11 @@
     <string name="date">Date:</string>
     <string name="submit">Submit:</string>
 
+    <!-- Weight Tracking -->
+    <string name="oneWeek">1 Week</string>
+    <string name="oneMonth">1 Month</string>
+    <string name="oneYear">1 Year</string>
+    <string name="sixMonth">6 Month</string>
 
     <!-- NutritionElements -->
     <string name="IRON"> Iron </string>

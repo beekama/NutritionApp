@@ -1,7 +1,6 @@
 package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -11,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -47,11 +49,11 @@ import java.util.List;
 
 import static java.lang.Math.min;
 
-public class WeightTracking extends AppCompatActivity implements TransferWeight {
+public class WeightTracking extends AppCompatActivity implements TransferWeight,  UpdatePeriod{
 
     private Database db;
     //observation period in days:
-    private int observationPeriod = 30;
+    private Pair<String, Integer> observationPeriod;
     private LocalDate currentDateParsed = LocalDate.now();
     protected LinkedHashMap<LocalDate, Integer> weightAll;
     protected LineChart chartWeight;
@@ -63,6 +65,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
     protected RecyclerView weights;
     protected RecyclerView.Adapter<?> foodRec;
     private Button period;
+    protected ArrayList<Pair<String, Integer>> periods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,33 +84,25 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         toolbarBack.setOnClickListener((v -> finish()));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
+        observationPeriod = new Pair<>(getString(R.string.oneWeek), 7);
+        //PERIODS - LIST
+        periods = new ArrayList<>();
+        periods.add(new Pair<>(getString(R.string.oneWeek), 7));
+        periods.add(new Pair<>(getString(R.string.oneMonth), 31));
+        periods.add(new Pair<>(getString(R.string.sixMonth), 138));
+        periods.add(new Pair<>(getString(R.string.oneYear), 365));
 
         /* drop-down chart for setting period: */
         period = findViewById(R.id.popupButton);
-        period.setText("asdf");
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.weight_tracking_dropdown, null), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        period.setBackgroundResource(R.drawable.spinner_outline);
+        period.setText(observationPeriod.first);
 
 
         period.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pop.showAtLocation(v, Gravity.CENTER, 0, 0);
-                pop.update(50,50,300,80);
-                RecyclerView recyclerView = findViewById(R.id.periodItem);
 
-                //PERIODS - LIST
-                ArrayList<Pair<String, Integer>> periods = new ArrayList<>();
-                periods.add(new Pair<>( "1 Week", 7));  //todo string to string.xml
-                periods.add(new Pair<>("1 Month", 31));
-                periods.add(new Pair<>("6 Month", 138));
-                periods.add(new Pair<>("1 Year", 365));
-
-                WeightTrackingDropdownAdapter adapter = new WeightTrackingDropdownAdapter(getApplicationContext(), periods);
-                LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(periodLayoutManager);
-                recyclerView.setAdapter(adapter);
-             //   popupMenu();
+                popupMenu();
             }
         });
 
@@ -197,32 +192,24 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         chartWeight.setData(lineData);
         chartWeight.invalidate();
         foodRec.notifyDataSetChanged();
-
     }
 
     private void popupMenu(){
-        PopupWindow popupWindow = new PopupWindow(this);
-        LinearLayout layout = new LinearLayout(this);
-        LinearLayout mainLayout = new LinearLayout(this);
+        final View popupview = LayoutInflater.from(this).inflate(R.layout.weight_tracking_dropdown, null);
+        final PopupWindow popupWindow = new PopupWindow(popupview, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
+        RecyclerView recyclerView = (RecyclerView) popupview.findViewById(R.id.periodItem);
 
-        //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //PopupWindow pop = new PopupWindow(inflater.inflate(R.layout.weight_tracking_dropdown, null), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        //pop.showAtLocation(this.findViewById(R.id.popupButton), Gravity.CENTER, 0, 0);
-        RecyclerView recyclerView = findViewById(R.id.periodItem);
-
-        //PERIODS - LIST
-        ArrayList<Pair<String, Integer>> periods = new ArrayList<>();
-        periods.add(new Pair<>( "1 Week", 7));  //todo string to string.xml
-        periods.add(new Pair<>("1 Month", 31));
-        periods.add(new Pair<>("6 Month", 138));
-        periods.add(new Pair<>("1 Year", 365));
-
-        WeightTrackingDropdownAdapter adapter = new WeightTrackingDropdownAdapter(getApplicationContext(), periods);
-        LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        WeightTrackingDropdownRVAdapter adapter = new WeightTrackingDropdownRVAdapter(getApplicationContext(), periods, this);
+        LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(periodLayoutManager);
         recyclerView.setAdapter(adapter);
         //todo adapter
+
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.showAsDropDown(period);
+       // popupWindow.showAtLocation(popupview, Gravity.TOP | Gravity.RIGHT, 0, 0);
     }
 
     LineData generateChartContent() {
@@ -234,18 +221,18 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
 
         for (LocalDate date : keyList) {
             long d = ChronoUnit.DAYS.between(date, currentDateParsed);
-            Entry entry = new Entry(observationPeriod - d, Utils.intWeightToFloat(weightAll.get(date)));
+            Entry entry = new Entry(observationPeriod.second - d, Utils.intWeightToFloat(weightAll.get(date)));
             values.addFirst(entry);
             oldestValue = date;
             /* If there is no value for the first day of the period, then add the last value before the period to create a complete chart */
-            if (d >= observationPeriod - 1) {
+            if (d >= observationPeriod.second - 1) {
                 break;
             }
         }
 
         /*start date-label-counting on start of the period or first value (if value before period necessary for chart-completeness) */
         ArrayList<String> xAxisLabels = new ArrayList<>();
-        LocalDate pStart = currentDateParsed.minusDays(observationPeriod);
+        LocalDate pStart = currentDateParsed.minusDays(observationPeriod.second);
         LocalDate start = oldestValue.compareTo(pStart) < 0 ? oldestValue : pStart;
         for (int o = 1; o <= (int) ChronoUnit.DAYS.between(start, currentDateParsed); o++) {
             String date = start.plusDays(o).format(Utils.sqliteDateFormat);
@@ -254,7 +241,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
 
         XAxis xAxis = chartWeight.getXAxis();
         xAxis.setAxisMinimum(0);
-        xAxis.setAxisMaximum(observationPeriod - 1);
+        xAxis.setAxisMaximum(observationPeriod.second - 1);
         xAxis.setLabelRotationAngle(-45);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -327,4 +314,10 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight 
         focusedView.clearFocus();
     }
 
+    @Override
+    public void setPeriod(Pair<String, Integer> period) {
+        observationPeriod = period;
+        updatePageContent();
+        this.period.setText(observationPeriod.first);
+    }
 }
