@@ -145,14 +145,14 @@ public class Recommendations extends AppCompatActivity {
         /* NUTRITION LIST */
         // add nutrition items:
         nutritionRList = findViewById(R.id.listView);
-        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(Recommendations.this, LinearLayoutManager.VERTICAL, false);
         nutritionRList.setLayoutManager(nutritionReportLayoutManager);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed);
 
         DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), false);
         nutritionRList.addItemDecoration(dividerItemDecoratior);
 
-        RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(getApplicationContext(), listItems);
+        RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(Recommendations.this, listItems);
         nutritionRList.setAdapter(nutritionReport);
 
         dateView = findViewById(R.id.date);

@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
 
         android:nestedScrollingEnabled="false"
-
+        android:paddingTop="20dp"
         android:divider="@color/colorPrimaryDark"
         android:dividerHeight="1dp"
         android:layout_margin="25dp"
