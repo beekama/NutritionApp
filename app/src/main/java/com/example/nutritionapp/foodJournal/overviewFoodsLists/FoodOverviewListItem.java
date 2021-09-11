@@ -35,11 +35,11 @@ public class FoodOverviewListItem{
                 throw new AssertionError("Got null when querying for group id.");
             }
 
-            /* set nutrition and energy */
+            /* set nutrition and energy                     //todo @sheppy kann das weg?
             for (Food foodToBeSet : foodsInGroup) {
                 foodToBeSet.setPreferedPortionFromDb(db);
                 foodToBeSet.setNutritionFromDb(db);
-            }
+            }   */
 
             /* append foods */
             foods.addAll(foodsInGroup);
