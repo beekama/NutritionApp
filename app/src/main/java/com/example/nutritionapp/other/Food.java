@@ -1,8 +1,6 @@
 package com.example.nutritionapp.other;
 
-import android.util.JsonReader;
 import android.util.Log;
-import android.util.Pair;
 
 import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
 
@@ -32,7 +30,7 @@ public class Food implements Comparable{
 
     public float associatedAmount = -1;
     public PortionTypes associatedPortionType = null;
-    public float associatedPortionTypeAmount = -1;
+    public float portionTypeInGram = -1;
 
     public Food(String name, String id){
         this.id = id;
@@ -86,15 +84,15 @@ public class Food implements Comparable{
         return associatedPortionType;
     }
 
-    public void setAssociatedPortionTypeAmount(Float associatedPortionTypeAmount) {
-        this.associatedPortionTypeAmount = associatedPortionTypeAmount;
+    public void setPortionTypeInGram(Float portionTypeInGram) {
+        this.portionTypeInGram = portionTypeInGram;
     }
 
-    public Float getAssociatedPortionTypeAmount() {
-        if(this.associatedPortionTypeAmount == -1){
+    public Float getPortionTypeInGram() {
+        if(this.portionTypeInGram == -1){
             throw new AssertionError("Food for Database must have set associatedPortionTypeAmount in gram");
         }
-        return associatedPortionTypeAmount;
+        return portionTypeInGram;
     }
 
     public Food deepclone() {
@@ -125,6 +123,7 @@ public class Food implements Comparable{
         ret.put("id", id);
         ret.put("name", name);
         ret.put("amount", associatedAmount);
+        ret.put("portionType", associatedPortionType);
         return ret;
     }
 
@@ -156,7 +155,7 @@ public class Food implements Comparable{
 
     public void setPreferedPortionFromDb(Database db){
         this.associatedPortionType = db.getPreferedPortionType(this);
-        this.associatedPortionTypeAmount = db.getPortionAmountForPortionType(this,this.associatedPortionType);
+        this.portionTypeInGram = db.getPortionAmountForPortionType(this,this.associatedPortionType);
     }
 
     public void setAmountByAssociatedPortionType(){     //todo rethink amounts in gereral

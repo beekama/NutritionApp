@@ -1,7 +1,5 @@
 package com.example.nutritionapp.other;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,7 +24,7 @@ public class NutritionAnalysis {
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
         ArrayList<Nutrition> nutritionCalculatedFrom = new ArrayList<>();
         for (Food f : calculatedFrom) {
-                Float amountGram = f.getAssociatedAmount() * f.getAssociatedPortionTypeAmount();
+                Float amountGram = f.getAssociatedAmount() * f.getPortionTypeInGram();
                 nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(amountGram));
         }
         return Nutrition.sum(nutritionCalculatedFrom);

@@ -1,6 +1,5 @@
 package com.example.nutritionapp.other;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -156,7 +155,7 @@ public class Nutrition {
         int total = 0;
         for(Food f : calculatedFrom){
             if(f.associatedAmount > 0) {
-                total += f.energy * ((f.associatedAmount*f.associatedPortionTypeAmount)/100f);
+                total += f.energy * ((f.associatedAmount*f.portionTypeInGram)/100f);
             }else{
                 total += f.energy;
             }

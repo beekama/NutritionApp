@@ -33,7 +33,6 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -362,7 +361,7 @@ public class Database {
                     if (f != null) {
                         f.setAssociatedAmount(amount);
                         f.setAssociatedPortionType(portionType);
-                        f.setAssociatedPortionTypeAmount(getPortionAmountForPortionType(f, portionType));
+                        f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
                         group.add(f);
                     }
                 } else {
@@ -371,7 +370,7 @@ public class Database {
                     if (f != null) {
                         f.setAssociatedAmount(amount);
                         f.setAssociatedPortionType(portionType);
-                        f.setAssociatedPortionTypeAmount(getPortionAmountForPortionType(f,portionType));
+                        f.setPortionTypeInGram(getPortionAmountForPortionType(f,portionType));
                         group.add(f);
                     }
                     ret.put(groupID, group);
@@ -547,7 +546,7 @@ public class Database {
                 if (f != null) {
                     f.associatedAmount = amount;
                     f.associatedPortionType = portionType;
-                    f.associatedPortionTypeAmount = this.getPortionAmountForPortionType(f,portionType);
+                    f.portionTypeInGram = this.getPortionAmountForPortionType(f,portionType);
                     ret.add(f);
                 }
             } while (c.moveToNext());
@@ -850,10 +849,10 @@ public class Database {
                 for (int k = 0; k < foods.length(); k++) {
                     JSONObject jsonFood = foods.getJSONObject(k);
                     Food f = new Food(jsonFood.getString("name"), jsonFood.getString("id"), null, dateTime);
-                    f.setAssociatedAmount(jsonFood.getInt("amount"));                                           //todo: PortionType in json im-/export                   //todo fix for import export
-                    PortionTypes portionType = PortionTypes.valueOf(jsonFood.getString("portion_type"));
+                    f.setAssociatedAmount(jsonFood.getInt("amount"));
+                    PortionTypes portionType = PortionTypes.valueOf(jsonFood.getString("portionType"));
                     f.setAssociatedPortionType(portionType);
-                    f.setAssociatedPortionTypeAmount(getPortionAmountForPortionType(f, portionType));
+                    f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
                     foodsArrayList.add(f);
                 }
 
