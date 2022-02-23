@@ -206,7 +206,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             float amountSelected = castedDialog.amountSelected;
             PortionTypes typeSelected = castedDialog.typeSelected;
 
-            /* abort if bad selection */
+            /* abort if bad selection */    // currently impossible -> pre selection
             if (amountSelected == 0 || typeSelected == null) {
                 return;
             }

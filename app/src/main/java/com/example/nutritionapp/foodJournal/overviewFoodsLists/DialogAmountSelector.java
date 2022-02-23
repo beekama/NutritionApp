@@ -132,6 +132,12 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
     }
 
+    @Override
+    public void onBackPressed() {
+        amountSelected = 0f;
+        this.cancel();
+    }
+
     private void updateNutritionOverview(float amount, PortionTypes portionType) {
         selectedFood.setAssociatedAmount(amount);
         selectedFood.setAssociatedPortionType(portionType);
