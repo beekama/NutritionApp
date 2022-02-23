@@ -20,6 +20,7 @@
     <color name="red">#ff0000</color>
     <color name="greyLight">#80ffffff</color>
     <color name="greyDark">#808080</color>
+    <color name="buttonMain">#bbbbbb</color>
 
     <color name="chartBlue">#0278ae</color>
     <color name="chartOrange">#fca652</color>
