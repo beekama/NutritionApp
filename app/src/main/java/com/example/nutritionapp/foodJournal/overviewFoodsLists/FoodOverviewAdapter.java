@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,21 +19,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.customFoods.FoodOverviewItem;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
-import com.example.nutritionapp.other.NutritionPercentageTuple;
 import com.example.nutritionapp.other.Utils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.SortedMap;
 
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
@@ -77,7 +70,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
                 layoutItemCount = parentLLM.getItemCount();
                 lastVisibleItem = parentLLM.findLastVisibleItemPosition();
-                if(!isLoading && layoutItemCount < (lastVisibleItem + visibleThreshold)){
+                if(!isLoading && layoutItemCount > (lastVisibleItem + visibleThreshold)){
                     loadMoreItems();
                 }
             }
