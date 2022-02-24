@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.customFoods.FoodOverviewItem;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
@@ -34,6 +35,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.SortedMap;
 
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
@@ -75,11 +77,9 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
                 layoutItemCount = parentLLM.getItemCount();
                 lastVisibleItem = parentLLM.findLastVisibleItemPosition();
-
                 if(!isLoading && layoutItemCount < (lastVisibleItem + visibleThreshold)){
                     loadMoreItems();
                 }
-
             }
         });
     }
@@ -91,7 +91,6 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         this.items.clear();
         loadMoreItems();
     }
-
 
     private void loadMoreItems() {
 
@@ -131,7 +130,6 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
 
@@ -246,7 +244,23 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 target.putExtra("groupId", item.groupId);
                 parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
             });
+            foodsTextView.setOnLongClickListener(
+                    new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            for (Food food : item.foods){
+                                db.deleteLoggedFood(food, food.loggedAt);
+                            }
+                            /* also delete locally */
+                            FoodOverviewListItem selectedDayEntry = items.get(position);
 
+                            if (selectedDayEntry.foodGroups.size() > 1) selectedDayEntry.foodGroups.values().remove(item.foods);
+                            else items.remove(itemAtCurPos);
+
+                            notifyDataSetChanged();
+                            return false;
+                        }
+                    });
             /* reset string builder & continue */
             allFoodsStringBuilder.setLength(0);
             index++;
