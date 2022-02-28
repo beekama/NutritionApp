@@ -4,7 +4,7 @@ import os
 import sqlite3
 import subprocess
 import argparse
-from csv import DictReader, writer
+from csv import reader, DictReader, writer
 
 SRC_FILE = "food_nutrient.csv"
 TMP_FILE = "food_nutrient_cut.csv"
@@ -125,6 +125,21 @@ def split():
             count += 1
     return count
 
+def sortCSV(csvFile):
+    # Read and sort file
+    header = ""
+    sortedlist = ""
+    with open(csvFile, 'r') as f:
+        r = list(reader(f))
+        header = r[0]
+        sortedlist = sorted(r[1:], key=lambda row: (row[0], row[1]), reverse=False)
+    with open(csvFile, 'w') as f:
+        w = writer(f)
+        w.writerow(header)
+        for line in sortedlist:
+            w.writerow(line)
+
+
 def createDB(count):
     '''Generate Init file and recreate database'''
 
@@ -132,7 +147,6 @@ def createDB(count):
     with open(DB_INIT_FILE) as f:
         with open(DB_INIT_FILE_NEW, "w") as fout:
             fout.write(f.read())
-            # TODO: Sort CSV by fdc_id #
             for x in range(0, int(count / MAX_LENGHT) + 1):
                 fout.write(".import food_nutrient_{0:02d}.csv food_nutrient_{0:02d}\n".format(x))
 
@@ -155,6 +169,8 @@ if __name__ == "__main__":
         clean()
     if args.recreate_db:
         filterAndReplace()
+        sortCSV(SRC_FILE)
+        sortCSV(FOOD_MAIN_SRC_FILTERED)
         getPortionSize()
         count = split()
         createDB(count)
