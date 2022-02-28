@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
@@ -762,7 +763,7 @@ public class Database {
         return ret;
     }
 
-    public JSONObject exportDatabase(boolean exportLog, boolean exportCustomFoods) throws JSONException {
+    public JSONObject exportDatabase(boolean exportLog, boolean exportCustomFoods, boolean exportPersonalInfo) throws JSONException {
         JSONObject ret = new JSONObject();
 
         if (exportLog) {
@@ -816,12 +817,35 @@ public class Database {
 
             ret.put("custom", customFoods);
         }
+
+        if (exportPersonalInfo) {
+            JSONObject personalInfo = new JSONObject();
+
+            personalInfo.put("age", getPersonAge());
+            personalInfo.put("height", getPersonHeight());
+            personalInfo.put("gender", getPersonGender());
+
+            LinkedHashMap dbWeights = getWeightAll();
+            JSONArray weights = new JSONArray();
+            if (dbWeights != null){
+                List<LocalDate> keyList = new ArrayList<>(dbWeights.keySet());
+                for (LocalDate date : keyList){
+                    JSONObject weight = new JSONObject();
+                    weight.put("date", date);
+                    weight.put("weight", dbWeights.get(date));
+                    weights.put(weight);
+                }
+            }
+            personalInfo.put("weights", weights);
+            ret.put("personInfo", personalInfo);
+        }
         return ret;
     }
 
     public void importDatabaseBackup(JSONObject in) throws JSONException {
         JSONArray journal = null;
         JSONArray custom = null;
+        JSONObject person = null;
 
         try {
             journal = in.getJSONArray("journal");
@@ -833,6 +857,12 @@ public class Database {
             custom = in.getJSONArray("custom");
         } catch (JSONException e) {
             Log.wtf("INFO", "No Custom Food Info in Import");
+        }
+
+        try {
+            person = in.getJSONObject("personInfo");
+        } catch (JSONException e){
+            Log.wtf("INFO", "No Person Info in Import");
         }
 
         if (journal != null) {
@@ -885,6 +915,27 @@ public class Database {
 
                 /* add food to db */
                 createNewFood(f, Integer.parseInt(id));
+            }
+        }
+
+        if (person != null) {
+
+            /* parse json object and save to db */
+            int age = person.getInt("age");
+            setPersonAge(age);
+            int height = person.getInt("height");
+            setPersonHeight(height);
+            String gender = person.getString("gender");
+            setPersonGender(gender);
+
+            /* get documented weights */
+            JSONArray weights = person.getJSONArray("weights");
+            for (int i = 0; i < weights.length(); i++){
+                JSONObject weightObj = weights.getJSONObject(i);
+                String strDate = weightObj.getString("date");
+                LocalDate date = LocalDate.parse(strDate, Utils.sqliteDateFormat);
+                int weight = weightObj.getInt("weight");
+                addWeightAtDate(weight, date);
             }
         }
     }
@@ -1135,6 +1186,7 @@ public class Database {
         values.put("weight", weightInGram);
         db.insert(WEIGHTS, null, values);
     }
+
 
     public void removeWeightAtDate(int weightInGram, LocalDate date){
         String[] whereArgs = { date.format(Utils.sqliteDateFormat) };

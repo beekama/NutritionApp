@@ -140,7 +140,7 @@ public class PersonalInformation extends AppCompatActivity {
                         try {
                             outputStream = getContentResolver().openOutputStream(data.getData());
                             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
-                            JSONObject json = db.exportDatabase(true, true);
+                            JSONObject json = db.exportDatabase(true, true, true);
                             bw.write(json.toString(JSON_INDENT));
                             bw.flush();
                             bw.close();
