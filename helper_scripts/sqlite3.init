@@ -20,7 +20,13 @@ CREATE TABLE food_nutrient_custom(
     "fdc_id" TEXT,
     "nutrient_id" TEXT,
     "amount" TEXT
- );
+);
+
+CREATE TABLE weightByDate(
+    "date" TEXT,
+    "weight" INTEGER,
+    CONSTRAINT weight_pk PRIMARY KEY (date)
+);
 
 .mode csv
 .import food_filtered.csv food

@@ -108,16 +108,13 @@
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
-        android:id="@+id/et_meConfig_weight"
+    <Button
+        android:id="@+id/bt_meConfig_weight"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="@string/searchHintWeight"
-        android:singleLine="true"
         app:layout_constraintTop_toTopOf="@+id/tv_meConfig_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        android:inputType="number"
         />
 
     <EditText

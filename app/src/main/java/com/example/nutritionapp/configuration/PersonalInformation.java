@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.example.nutritionapp.WeightTracking;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 
@@ -72,7 +73,7 @@ public class PersonalInformation extends AppCompatActivity {
 
         final EditText etGender = findViewById(R.id.et_meConfig_gender);
         final EditText etAge    = findViewById(R.id.et_meConfig_age);
-        final EditText etWeight = findViewById(R.id.et_meConfig_weight);
+        final Button btWeight = findViewById(R.id.bt_meConfig_weight);
         final EditText etHeight = findViewById(R.id.et_meConfig_height);
         final EditText etCalories = findViewById(R.id.et_meConfig_calories);
         final TextView bmiDisplay = findViewById(R.id.tv_meConfig_BMI);
@@ -82,13 +83,18 @@ public class PersonalInformation extends AppCompatActivity {
         ConstraintLayout layout = findViewById(R.id.meConfigLayout);
         loadAndSetGender(db, etGender);
         loadAndSetAge(db, etAge);
-        loadAndSetWeight(db, etWeight);
+        loadAndSetWeight(db, btWeight);
         loadAndSetHeight(db, etHeight);
         loadAndSetEnergyReq(db, etCalories);
         setBmi(db, bmiDisplay);
 
+        btWeight.setOnClickListener(v-> {
+            Intent weightActivity = new Intent(getApplicationContext(), WeightTracking.class);
+            startActivity(weightActivity);
+        });
+
         submit.setOnClickListener(v -> {
-            collectData(db, etGender, etAge, etWeight, etHeight);
+            collectData(db, etGender, etAge, etHeight);
             setBmi(db, bmiDisplay);
             hideKeyboard();
             layout.clearFocus();
@@ -206,15 +212,13 @@ public class PersonalInformation extends AppCompatActivity {
         }
     }
 
-    private void collectData(Database db, EditText etGender, EditText etAge, EditText etWeight, EditText etHeight) {
+    private void collectData(Database db, EditText etGender, EditText etAge, EditText etHeight) {
         try {
             int newAge = Integer.parseInt(etAge.getText().toString());
             String newGender = etGender.getText().toString();
-            int newWeight = Integer.parseInt(etWeight.getText().toString());
             int newHeight = Integer.parseInt(etHeight.getText().toString());
             db.setPersonGender(newGender);
             db.setPersonAge(newAge);
-            db.setPersonWeight(newWeight);
             db.setPersonHeight(newHeight);
         } catch (NumberFormatException e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Need Numeric Value as Input for Age, Weight and Height", Toast.LENGTH_LONG);
@@ -226,10 +230,11 @@ public class PersonalInformation extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void loadAndSetWeight(Database db, EditText etWeight) {
+    private void loadAndSetWeight(Database db, Button btWeight) {
         int weight = db.getPersonWeight();
         if (weight != -1) {
-            etWeight.setText(Integer.toString(weight));
+            float fweight = weight/1000.0f;
+            btWeight.setText(String.format("%.2f", fweight));
         }
     }
 

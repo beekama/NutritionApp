@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
+import com.github.mikephil.charting.data.Entry;
 
 import org.apache.commons.io.IOUtil;
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -308,12 +310,12 @@ public class Database {
     public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsBeforeDate(LocalDate end, int limit) {
         LinkedHashMap<Integer, ArrayList<Food>> mainResults = getLoggedFoodsByDate(LocalDate.MIN, LocalDate.from(end), Integer.toString(limit));
         int lastGroupId = -1;
-        for(int key : mainResults.keySet()) {
+        for (int key : mainResults.keySet()) {
             lastGroupId = key;
         }
-        if(lastGroupId < 0){
+        if (lastGroupId < 0) {
             return mainResults;
-        }else {
+        } else {
             mainResults.put(lastGroupId, getLoggedFoodByGroupId(lastGroupId));
             return mainResults;
         }
@@ -334,7 +336,7 @@ public class Database {
         String startISO = start.format(Utils.sqliteDateZeroPaddedFormat);
         String endISO = end.format(Utils.sqliteDateZeroPaddedFormat);
 
-        if(start.equals(LocalDate.MIN)){
+        if (start.equals(LocalDate.MIN)) {
             startISO = "0000-01-01 00:00:00";
         }
 
@@ -371,7 +373,7 @@ public class Database {
                     if (f != null) {
                         f.setAssociatedAmount(amount);
                         f.setAssociatedPortionType(portionType);
-                        f.setPortionTypeInGram(getPortionAmountForPortionType(f,portionType));
+                        f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
                         group.add(f);
                     }
                     ret.put(groupID, group);
@@ -474,7 +476,7 @@ public class Database {
 
     public HashMap<String, Integer> getNutrientsForFood(String foodId) {
 
-        if(foodNutritionResults.containsKey(foodId)){
+        if (foodNutritionResults.containsKey(foodId)) {
             return foodNutritionResults.get(foodId);
         }
 
@@ -528,7 +530,7 @@ public class Database {
     public ArrayList<Food> getLoggedFoodByGroupId(int groupId) {
 
         /* check cache */
-        if(foodGroupResult.containsKey(groupId)){
+        if (foodGroupResult.containsKey(groupId)) {
             return foodGroupResult.get(groupId);
         }
 
@@ -547,7 +549,7 @@ public class Database {
                 if (f != null) {
                     f.associatedAmount = amount;
                     f.associatedPortionType = portionType;
-                    f.portionTypeInGram = this.getPortionAmountForPortionType(f,portionType);
+                    f.portionTypeInGram = this.getPortionAmountForPortionType(f, portionType);
                     ret.add(f);
                 }
             } while (c.moveToNext());
@@ -827,9 +829,9 @@ public class Database {
 
             LinkedHashMap dbWeights = getWeightAll();
             JSONArray weights = new JSONArray();
-            if (dbWeights != null){
+            if (dbWeights != null) {
                 List<LocalDate> keyList = new ArrayList<>(dbWeights.keySet());
-                for (LocalDate date : keyList){
+                for (LocalDate date : keyList) {
                     JSONObject weight = new JSONObject();
                     weight.put("date", date);
                     weight.put("weight", dbWeights.get(date));
@@ -861,7 +863,7 @@ public class Database {
 
         try {
             person = in.getJSONObject("personInfo");
-        } catch (JSONException e){
+        } catch (JSONException e) {
             Log.wtf("INFO", "No Person Info in Import");
         }
 
@@ -930,7 +932,7 @@ public class Database {
 
             /* get documented weights */
             JSONArray weights = person.getJSONArray("weights");
-            for (int i = 0; i < weights.length(); i++){
+            for (int i = 0; i < weights.length(); i++) {
                 JSONObject weightObj = weights.getJSONObject(i);
                 String strDate = weightObj.getString("date");
                 LocalDate date = LocalDate.parse(strDate, Utils.sqliteDateFormat);
@@ -1033,7 +1035,7 @@ public class Database {
     public double getPersonBmi() {
         int height = this.getPersonHeight();
         int weight = this.getPersonWeight();
-        double bmi = weight / ((height * height) / 10000.0);
+        double bmi = (weight/1000.f) / ((height * height) / 10000.0);
         return Math.round(bmi * 100.0) / 100.0;
     }
 
@@ -1116,7 +1118,7 @@ public class Database {
 
     public Float getPortionAmountForPortionType(Food food, PortionTypes portionType) {
         String table = "assigned_portion";
-        if (portionType==PortionTypes.GRAM) return 1f;
+        if (portionType == PortionTypes.GRAM) return 1f;
         String[] columns = {portionType.toString()};
         String[] whereArgs = {food.id};
         Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
@@ -1129,7 +1131,7 @@ public class Database {
     }
 
     //returns TreeMap of food-name and amount, which contains highest nutrient values:
-    public SortedMap<Food, Float> getRecommendationMap(NutritionElement nutritionElement){
+    public SortedMap<Food, Float> getRecommendationMap(NutritionElement nutritionElement) {
         /* look for food with highest amount of dedicated NutritionElement in all food_nutrient_ -tables */
 
         String idNutritionElement = Integer.toString(Nutrition.databaseIdFromEnum(nutritionElement));
@@ -1137,15 +1139,15 @@ public class Database {
 
         // search all tables for high nutrient values:
         TreeMap<Food, Float> resultMap = new TreeMap<>();
-        for (String tableId : foodNutrientTableIds){
+        for (String tableId : foodNutrientTableIds) {
             String[] columnNow = {"nut.fdc_id", "(round((nut.amount / en.amount), 4)) as ratio"};
             String table = tableId + " as nut, " + tableId + " as en";
             float minAm = 0f;
             String where = "nut.fdc_id = en.fdc_id AND nut.nutrient_id=? AND en.nutrient_id=1008 AND ratio>=" + minAm;
             String[] whereArgs = {idNutritionElement};
-            Cursor cc = db.query(table, columnNow, where , whereArgs,  null, null, "ratio DESC", "5");
+            Cursor cc = db.query(table, columnNow, where, whereArgs, null, null, "ratio DESC", "5");
 
-            while (cc.moveToNext()){
+            while (cc.moveToNext()) {
                 String foodID = cc.getString(0);
                 float amount = Float.parseFloat(cc.getString(1));
 
@@ -1154,7 +1156,7 @@ public class Database {
                 Food f = (getFoodById(foodID));
 
                 // todo: workaround of (not fixed by now) bug - there are more foodIds in nutrient-table than in the table used by 'getFoodById'
-                if (f!=null){
+                if (f != null) {
                     resultMap.put(f, amount);
                 }
             }
@@ -1167,16 +1169,16 @@ public class Database {
 
     /* weights table interactions */
 
-    public void createWeightsTableIfNotExist(){
+    public void createWeightsTableIfNotExist() {
         final String CREATE_TABLE_WEIGHT = "CREATE TABLE weightsByDate (date TEXT PRIMARY KEY, weight INTEGER)";
         try {
             db.execSQL(CREATE_TABLE_WEIGHT);
-        }catch (android.database.SQLException e){
+        } catch (android.database.SQLException e) {
             Log.w("DB", "Table already Exists");
         }
     }
 
-    public void addWeightAtDate(int weightInGram, LocalDate date){
+    public void addWeightAtDate(int weightInGram, LocalDate date) {
         if (weightInGram < 40000 || weightInGram > 600000) {
             throw new IllegalArgumentException("Weight must be between 40kg and 600kg");
         }
@@ -1185,35 +1187,52 @@ public class Database {
         values.put("date", dateString);
         values.put("weight", weightInGram);
         db.insert(WEIGHTS, null, values);
+
+        /* set as current weight if current Day or most recent Log */
+        if (date.equals(LocalDate.now())) {
+            Log.wtf("DATE", "NOW");
+            setPersonWeight(weightInGram);
+            return;
+        }
+
+        Log.wtf("DATE", "notNOW");
+        ArrayList<LocalDate> weightKeys = new ArrayList<>(getWeightAll().keySet());
+        Collections.sort(weightKeys);
+        if (date.isAfter(weightKeys.get(0))) {
+            setPersonWeight(weightInGram);
+
+            Log.wtf("DATE", "MOSTRECENT");
+        }
+
     }
 
 
-    public void removeWeightAtDate(int weightInGram, LocalDate date){
-        String[] whereArgs = { date.format(Utils.sqliteDateFormat) };
+    public void removeWeightAtDate(int weightInGram, LocalDate date) {
+        String[] whereArgs = {date.format(Utils.sqliteDateFormat)};
         db.delete(WEIGHTS, "date = ?", whereArgs);
     }
 
-    public int getWeightAtDate(LocalDate date){
+    public int getWeightAtDate(LocalDate date) {
         String[] columns = {"weight"};
         String dateString = date.format(Utils.sqliteDateFormat);
-        String[] whereArgs = { dateString };
+        String[] whereArgs = {dateString};
 
         Cursor c = db.query(WEIGHTS, columns, "date = ?", whereArgs, null, null, null);
-        if(c.moveToNext()){
+        if (c.moveToNext()) {
             int weight = c.getInt(0);
             c.close();
             return weight;
-        }else {
+        } else {
             throw new AssertionError("Tried to access a weight with a date that doesn't exist.");
         }
     }
 
-    public LinkedHashMap<LocalDate, Integer> getWeightAll(){
+    public LinkedHashMap<LocalDate, Integer> getWeightAll() {
         LinkedHashMap<LocalDate, Integer> weightsByDate = new LinkedHashMap<>();
         String[] columns = {"date", "weight"};
 
         Cursor c = db.query(WEIGHTS, columns, null, null, null, null, null);
-        while(c.moveToNext()){
+        while (c.moveToNext()) {
             String dateString = c.getString(0);
             int weight = c.getInt(1);
             LocalDate localDate = LocalDate.parse(dateString, Utils.sqliteDateFormat);
