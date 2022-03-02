@@ -136,6 +136,18 @@ public class PersonalInformation extends AppCompatActivity {
         });
     }
 
+    /* is Called after resume from Weight-View */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // update everything affected by weight
+        final Button btWeight = findViewById(R.id.bt_meConfig_weight);
+        final TextView bmiDisplay = findViewById(R.id.tv_meConfig_BMI);
+        loadAndSetWeight(db, btWeight);
+        setBmi(db, bmiDisplay);
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
