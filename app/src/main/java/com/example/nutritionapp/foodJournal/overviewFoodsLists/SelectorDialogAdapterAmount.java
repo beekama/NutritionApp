@@ -1,10 +1,13 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,9 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.PortionTypes;
 
+import java.io.PipedOutputStream;
 import java.util.ArrayList;
 
 public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
+
+    int VIEW_TYPE_INPUT = 0;
+    int VIEW_TYPE_ITEM = 1;
 
     DataTransfer dt;
     public static Float amountSelected = null;
@@ -37,45 +44,86 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.selector_portion_amount_element, parent, false);
-        return new LocalViewHolder(view);
+
+        if (viewType == VIEW_TYPE_INPUT) {
+            Log.wtf("LOOOL", "wtf");
+            View view = inflater.inflate(R.layout.selector_portion_amount_inputelement, parent, false);
+            return new LocalViewHolder_edit(view);
+        } else if (viewType == VIEW_TYPE_ITEM) {
+            Log.wtf("NEEE", "wtf");
+            View view = inflater.inflate(R.layout.selector_portion_amount_element, parent, false);
+            return new LocalViewHolder(view);
+        }
+        throw new AssertionError("Bad ViewType in Amount Selection");
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        LocalViewHolder lvh = (LocalViewHolder) holder;
-        lvh.itemContent.setText(items.get(position).toString());
-        if (items.get(position).equals(amountSelected)) {
-            lvh.itemContent.setSelected(true);
-            lastSelected = lvh.itemContent;
-        } else lvh.itemContent.setSelected(false);
-        if (position == 0 && lvh.itemContent.isSelected()) {
-            lastSelected = lvh.itemContent;
-            lastCheckPos = 0;
-        }
-        lvh.itemContent.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.wtf("GIVEN POSITION", Integer.toString(position));
-                        Log.wtf("CALCULATED POSITION", Integer.toString(lvh.getLayoutPosition()));
-                        TextView t = (TextView) v;
-                        int clickPos = lvh.getAdapterPosition();
 
-                        if ((lastSelected != null) && (lastSelected != t)) {
-                            lastSelected.setSelected(false);
-                        }
-                        lastSelected = t;
-                        lastCheckPos = clickPos;
+        /* EDIT-TEXT: allow numeric input */
+        if (holder instanceof LocalViewHolder_edit){
+            LocalViewHolder_edit editHolder = (LocalViewHolder_edit) holder;
+            editHolder.itemContent.addTextChangedListener(new TextWatcher() {
 
-                        t.setSelected(true);
-                        isSelected = clickPos;
-                        amountSelected = items.get(position);
-                        dt.setValues(amountSelected);
-                    }
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
                 }
 
-        );
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (lastSelected != null) {
+                        lastSelected.setSelected(false);
+                    }
+                    int clickPos = holder.getAdapterPosition();
+
+                    lastCheckPos = clickPos;
+                    amountSelected = Float.valueOf(s.toString());
+                    dt.setValues(amountSelected);
+                }
+            });
+        }
+        /* TEXTVIEW: get currently selected */
+        else {
+            LocalViewHolder lvh = (LocalViewHolder) holder;
+            lvh.itemContent.setText(items.get(position).toString());
+            if (items.get(position).equals(amountSelected)) {
+                lvh.itemContent.setSelected(true);
+                lastSelected = lvh.itemContent;
+            } else lvh.itemContent.setSelected(false);
+            if (position == 0 && lvh.itemContent.isSelected()) {
+                lastSelected = lvh.itemContent;
+                lastCheckPos = 0;
+            }
+            lvh.itemContent.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.wtf("GIVEN POSITION", Integer.toString(position));
+                            Log.wtf("CALCULATED POSITION", Integer.toString(lvh.getLayoutPosition()));
+                            TextView t = (TextView) v;
+                            int clickPos = lvh.getAdapterPosition();
+
+                            if ((lastSelected != null) && (lastSelected != t)) {
+                                lastSelected.setSelected(false);
+                            }
+                            lastSelected = t;
+                            lastCheckPos = clickPos;
+
+                            t.setSelected(true);
+                            isSelected = clickPos;
+                            amountSelected = items.get(position);
+                            dt.setValues(amountSelected);
+                        }
+                    }
+
+            );
+        }
     }
 
     public void selectedItem() {
@@ -92,12 +140,31 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
         return items.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return items.get(position) == -99.f ? VIEW_TYPE_INPUT : VIEW_TYPE_ITEM;
+    }
+
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView itemContent;
 
         LocalViewHolder(View itemView) {
             super(itemView);
             itemContent = itemView.findViewById(R.id.selector_textview);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+        }
+    }
+
+    static class LocalViewHolder_edit extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final EditText itemContent;
+
+        public LocalViewHolder_edit(View itemView) {
+            super(itemView);
+            itemContent = itemView.findViewById(R.id.selector_edittext);
             itemView.setOnClickListener(this);
         }
 

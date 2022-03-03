@@ -78,6 +78,7 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
 
 
         ArrayList<Float> amountOptions = new ArrayList<>();
+        amountOptions.add(-99.f);
         amountOptions.add(0.125f);
         amountOptions.add(0.25f);
         amountOptions.add(0.5f);
