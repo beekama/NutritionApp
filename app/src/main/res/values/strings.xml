@@ -80,8 +80,13 @@
     <string name="ZINC"> Zinc </string>
     <string name="CALCIUM"> Calcium </string>
     <string name="POTASSIUM"> Potassium </string>
+    <string name="SELENIUM"> Selenium </string>
+    <string name="FOLIC_ACID"> Folacin </string>
     <string name="VITAMIN_A"> Vitamin A </string>
     <string name="VITAMIN_C"> Vitamin C </string>
+    <string name="VITAMIN_B1"> Vitamin B1  </string>
+    <string name="VITAMIN_B2"> Vitamin B2  </string>
+    <string name="VITAMIN_B3"> Vitamin B3  </string>
     <string name="VITAMIN_B6"> Vitamin B6  </string>
     <string name="VITAMIN_B12"> Vitamin B12  </string>
     <string name="VITAMIN_D"> Vitamin D  </string>

@@ -14,12 +14,18 @@ public class Nutrition {
     public static final String DB_ID_ZINC = "1095";
     public static final String DB_ID_CALCIUM = "1087";
     public static final String DB_ID_POTASSIUM = "1092";
+    public static final String DB_ID_SELENIUM = "1103";
+    public static final String DB_ID_FOLIC_ACID = "1186";
 
     public static final String DB_ID_VITAMIN_A = "1106";
     public static final String DB_ID_VITAMIN_C = "1162";
     public static final String DB_ID_VITAMIN_D = "1114";
     public static final String DB_ID_VITAMIN_E = "1158";
     public static final String DB_ID_VITAMIN_K = "1183";
+    public static final String DB_ID_VITAMIN_B1 = "1165";
+    public static final String DB_ID_VITAMIN_B2 = "1166";
+    public static final String DB_ID_VITAMIN_B3 = "1167";
+    public static final String DB_ID_VITAMIN_B6 = "1175";
     public static final String DB_ID_VITAMIN_B12 = "1178";
 
     public final static HashMap<NutritionElement, String> nutritionElementToDatabaseId = new HashMap<>();
@@ -29,8 +35,14 @@ public class Nutrition {
         nutritionElementToDatabaseId.put(NutritionElement.ZINC, DB_ID_ZINC);
         nutritionElementToDatabaseId.put(NutritionElement.CALCIUM, DB_ID_CALCIUM);
         nutritionElementToDatabaseId.put(NutritionElement.POTASSIUM, DB_ID_POTASSIUM);
+        nutritionElementToDatabaseId.put(NutritionElement.SELENIUM, DB_ID_SELENIUM);
+        nutritionElementToDatabaseId.put(NutritionElement.FOLIC_ACID, DB_ID_FOLIC_ACID);
 
         nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_A, DB_ID_VITAMIN_A);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B1, DB_ID_VITAMIN_B1);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B2, DB_ID_VITAMIN_B2);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B3, DB_ID_VITAMIN_B3);
+        nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B6, DB_ID_VITAMIN_B6);
         nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_B12, DB_ID_VITAMIN_B12);
         nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_C, DB_ID_VITAMIN_C);
         nutritionElementToDatabaseId.put(NutritionElement.VITAMIN_D, DB_ID_VITAMIN_D);
@@ -47,9 +59,15 @@ public class Nutrition {
         elements.put(NutritionElement.ZINC, Utils.zeroIfNull(nutrients.get(DB_ID_ZINC)));
         elements.put(NutritionElement.CALCIUM, Utils.zeroIfNull(nutrients.get(DB_ID_CALCIUM)));
         elements.put(NutritionElement.POTASSIUM, Utils.zeroIfNull(nutrients.get(DB_ID_POTASSIUM)));
+        elements.put(NutritionElement.SELENIUM, Utils.zeroIfNull(nutrients.get(DB_ID_SELENIUM)));
+        elements.put(NutritionElement.FOLIC_ACID, Utils.zeroIfNull(nutrients.get(DB_ID_FOLIC_ACID)));
 
         /* Vitamins */
         elements.put(NutritionElement.VITAMIN_A, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_A)));
+        elements.put(NutritionElement.VITAMIN_B1, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_B1)));
+        elements.put(NutritionElement.VITAMIN_B2, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_B2)));
+        elements.put(NutritionElement.VITAMIN_B3, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_B3)));
+        elements.put(NutritionElement.VITAMIN_B6, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_B6)));
         elements.put(NutritionElement.VITAMIN_B12, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_B12)));
         elements.put(NutritionElement.VITAMIN_C, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_C)));
         elements.put(NutritionElement.VITAMIN_D, Utils.zeroIfNull(nutrients.get(DB_ID_VITAMIN_D)));
@@ -124,7 +142,13 @@ public class Nutrition {
         allowance.elements.put(NutritionElement.MAGNESIUM, 420);
         allowance.elements.put(NutritionElement.POTASSIUM, 4700);
         allowance.elements.put(NutritionElement.ZINC, 11);
+        allowance.elements.put(NutritionElement.SELENIUM, 55);
+        allowance.elements.put(NutritionElement.FOLIC_ACID, 400);
         allowance.elements.put(NutritionElement.VITAMIN_A, 900);
+        allowance.elements.put(NutritionElement.VITAMIN_B1, 1100);
+        allowance.elements.put(NutritionElement.VITAMIN_B2, 1300);
+        allowance.elements.put(NutritionElement.VITAMIN_B3, 16000);
+        allowance.elements.put(NutritionElement.VITAMIN_B6, 1300);
         allowance.elements.put(NutritionElement.VITAMIN_B12, 3);
         allowance.elements.put(NutritionElement.VITAMIN_C, 90000);
         allowance.elements.put(NutritionElement.VITAMIN_D, 15);

@@ -9,9 +9,14 @@ public enum NutritionElement {
     ZINC,
     CALCIUM,
     POTASSIUM,
-    VITAMIN_A,
+    SELENIUM,
+    FOLIC_ACID,                     // Folacin
+    VITAMIN_A,                      // Vitamin A + BetaCarotine
     VITAMIN_C,
-    //VITAMIN_B6,
+    VITAMIN_B1,                     // Thiamin
+    VITAMIN_B2,                     // Riboflavin
+    VITAMIN_B3,                     // Niacin
+    VITAMIN_B6,
     VITAMIN_B12,
     VITAMIN_D,
     VITAMIN_E,
