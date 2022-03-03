@@ -7,6 +7,9 @@ import java.util.HashMap;
 
 public class Nutrition {
 
+    private static int personAge = -1;
+    private static String personGender = "";
+
     private HashMap<NutritionElement,Integer> elements = new HashMap<>();
 
     public static final String DB_ID_IRON = "1089";
@@ -27,6 +30,9 @@ public class Nutrition {
     public static final String DB_ID_VITAMIN_B3 = "1167";
     public static final String DB_ID_VITAMIN_B6 = "1175";
     public static final String DB_ID_VITAMIN_B12 = "1178";
+
+    public static void  setPersonAge(int age) {personAge = age;}
+    public static void  setPersonGender(String gender) {personGender = gender;}
 
     public final static HashMap<NutritionElement, String> nutritionElementToDatabaseId = new HashMap<>();
     static{
@@ -137,24 +143,90 @@ public class Nutrition {
         Nutrition allowance = new Nutrition();
 
         /* all units in microgram */
-        allowance.elements.put(NutritionElement.CALCIUM, 1200);
-        allowance.elements.put(NutritionElement.IRON, 18);
-        allowance.elements.put(NutritionElement.MAGNESIUM, 420);
-        allowance.elements.put(NutritionElement.POTASSIUM, 4700);
-        allowance.elements.put(NutritionElement.ZINC, 11);
-        allowance.elements.put(NutritionElement.SELENIUM, 55);
-        allowance.elements.put(NutritionElement.FOLIC_ACID, 400);
-        allowance.elements.put(NutritionElement.VITAMIN_A, 900);
-        allowance.elements.put(NutritionElement.VITAMIN_B1, 1100);
-        allowance.elements.put(NutritionElement.VITAMIN_B2, 1300);
-        allowance.elements.put(NutritionElement.VITAMIN_B3, 16000);
-        allowance.elements.put(NutritionElement.VITAMIN_B6, 1300);
-        allowance.elements.put(NutritionElement.VITAMIN_B12, 3);
-        allowance.elements.put(NutritionElement.VITAMIN_C, 90000);
-        allowance.elements.put(NutritionElement.VITAMIN_D, 15);
-        allowance.elements.put(NutritionElement.VITAMIN_E, 15000);
-        allowance.elements.put(NutritionElement.VITAMIN_K, 110);
-
+        if (personGender.equals("male")){
+            allowance.elements.put(NutritionElement.SELENIUM, 55);
+            allowance.elements.put(NutritionElement.ZINC, 11000);
+            allowance.elements.put(NutritionElement.FOLIC_ACID, 400);
+            allowance.elements.put(NutritionElement.VITAMIN_A, 900);
+            allowance.elements.put(NutritionElement.VITAMIN_B1, 1100);
+            allowance.elements.put(NutritionElement.VITAMIN_B2, 1300);
+            allowance.elements.put(NutritionElement.VITAMIN_B6, 1300);
+            allowance.elements.put(NutritionElement.VITAMIN_B3, 16000);
+            allowance.elements.put(NutritionElement.VITAMIN_B12, 3);
+            allowance.elements.put(NutritionElement.VITAMIN_D, 15);
+            allowance.elements.put(NutritionElement.VITAMIN_E, 15000);
+            if (personAge < 18){
+                allowance.elements.put(NutritionElement.IRON, 11000);
+                allowance.elements.put(NutritionElement.MAGNESIUM, 410000);
+                allowance.elements.put(NutritionElement.POTASSIUM, 3000000);
+                allowance.elements.put(NutritionElement.CALCIUM, 1300000);
+                allowance.elements.put(NutritionElement.VITAMIN_C, 75000);
+                allowance.elements.put(NutritionElement.VITAMIN_K, 75);
+            } else {
+                allowance.elements.put(NutritionElement.IRON, 8000);
+                allowance.elements.put(NutritionElement.MAGNESIUM, 420000);
+                allowance.elements.put(NutritionElement.POTASSIUM, 3400000);
+                allowance.elements.put(NutritionElement.CALCIUM, 1000000);
+                allowance.elements.put(NutritionElement.VITAMIN_C, 90000);
+                allowance.elements.put(NutritionElement.VITAMIN_K, 120);
+                if (personAge > 70){
+                    allowance.elements.put(NutritionElement.CALCIUM, 1200000);
+                    allowance.elements.put(NutritionElement.VITAMIN_D, 20);
+                    allowance.elements.put(NutritionElement.VITAMIN_B6, 1500);
+                }
+            }
+        } else if (personGender.equals("female")){
+            allowance.elements.put(NutritionElement.SELENIUM, 55);
+            allowance.elements.put(NutritionElement.ZINC, 11000);
+            allowance.elements.put(NutritionElement.FOLIC_ACID, 400);
+            allowance.elements.put(NutritionElement.VITAMIN_A, 700);
+            allowance.elements.put(NutritionElement.VITAMIN_B1, 1100);
+            allowance.elements.put(NutritionElement.VITAMIN_B2, 1100);
+            allowance.elements.put(NutritionElement.VITAMIN_B6, 1300);
+            allowance.elements.put(NutritionElement.VITAMIN_B3, 14000);
+            allowance.elements.put(NutritionElement.VITAMIN_B12, 3);
+            allowance.elements.put(NutritionElement.VITAMIN_D, 15);
+            allowance.elements.put(NutritionElement.VITAMIN_E, 15000);
+            if (personAge < 18){
+                allowance.elements.put(NutritionElement.IRON, 15000);
+                allowance.elements.put(NutritionElement.MAGNESIUM, 360000);
+                allowance.elements.put(NutritionElement.POTASSIUM, 2300000);
+                allowance.elements.put(NutritionElement.CALCIUM, 1300000);
+                allowance.elements.put(NutritionElement.VITAMIN_C, 65000);
+                allowance.elements.put(NutritionElement.VITAMIN_K, 75);
+            } else {
+                allowance.elements.put(NutritionElement.IRON, 18000);
+                allowance.elements.put(NutritionElement.MAGNESIUM, 320000);
+                allowance.elements.put(NutritionElement.POTASSIUM, 2600000);
+                allowance.elements.put(NutritionElement.CALCIUM, 1000000);
+                allowance.elements.put(NutritionElement.VITAMIN_C, 75000);
+                allowance.elements.put(NutritionElement.VITAMIN_K, 90);
+                if (personAge > 50){
+                    allowance.elements.put(NutritionElement.CALCIUM, 1200000);
+                    allowance.elements.put(NutritionElement.VITAMIN_D, 20);
+                    allowance.elements.put(NutritionElement.VITAMIN_B6, 1500);
+                }
+            }
+        }
+        else {
+            allowance.elements.put(NutritionElement.CALCIUM, 1200);
+            allowance.elements.put(NutritionElement.IRON, 18);
+            allowance.elements.put(NutritionElement.MAGNESIUM, 420);
+            allowance.elements.put(NutritionElement.POTASSIUM, 4700);
+            allowance.elements.put(NutritionElement.ZINC, 11);
+            allowance.elements.put(NutritionElement.SELENIUM, 55);
+            allowance.elements.put(NutritionElement.FOLIC_ACID, 400);
+            allowance.elements.put(NutritionElement.VITAMIN_A, 900);
+            allowance.elements.put(NutritionElement.VITAMIN_B1, 1100);
+            allowance.elements.put(NutritionElement.VITAMIN_B2, 1300);
+            allowance.elements.put(NutritionElement.VITAMIN_B3, 16000);
+            allowance.elements.put(NutritionElement.VITAMIN_B6, 1300);
+            allowance.elements.put(NutritionElement.VITAMIN_B12, 3);
+            allowance.elements.put(NutritionElement.VITAMIN_C, 90000);
+            allowance.elements.put(NutritionElement.VITAMIN_D, 15);
+            allowance.elements.put(NutritionElement.VITAMIN_E, 15000);
+            allowance.elements.put(NutritionElement.VITAMIN_K, 110);
+        }
         /* convert to native units of db */
         for(NutritionElement el : allowance.elements.keySet()){
             String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));

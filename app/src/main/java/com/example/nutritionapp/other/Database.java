@@ -971,6 +971,8 @@ public class Database {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("age", age);
         editor.apply();
+        /* set age in nutrition for recommendation */
+        Nutrition.setPersonAge(age);
     }
 
     public void setPersonEnergyReq(int energyReq) throws IllegalArgumentException {
@@ -1001,6 +1003,9 @@ public class Database {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("gender", gender);
         editor.apply();
+        /* set gender in nutrition for recommendation */
+        Nutrition.setPersonGender(gender);
+        Log.wtf("PERSONGENDER", gender);
     }
 
     public int getPersonWeight() {
