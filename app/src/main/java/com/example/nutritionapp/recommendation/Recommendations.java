@@ -193,10 +193,12 @@ public class Recommendations extends AppCompatActivity {
         /* display sorted non-zero percentages */
         NutritionAnalysis dayNutritionAnalysis = new NutritionAnalysis(foods);
         Nutrition target = Nutrition.getRecommendation();
+        Nutrition upperLimit = Nutrition.getUpperIntakeLimit();
         ArrayList<NutritionPercentageTuple> nutritionPercentages = dayNutritionAnalysis.getNutritionPercentageSortedFilterZero();
         for (NutritionPercentageTuple net : nutritionPercentages) {
             Integer nutTarget = target.getElements().get(net.nutritionElement);
-            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage, nutTarget));
+            Integer nutLimit = upperLimit.getElements().get(net.nutritionElement);
+            listItems.add(new RecommendationListItem(net.nutritionElement, net.percentage, nutTarget, nutLimit));
             nonZero.put(net.nutritionElement, true);
         }
 
@@ -204,7 +206,8 @@ public class Recommendations extends AppCompatActivity {
         for(NutritionElement ne : nonZero.keySet()){
             if(!nonZero.get(ne)){
                 Integer nutTarget = target.getElements().get(ne);
-                listItems.add(new RecommendationListItem(ne, 0f, nutTarget));
+                Integer nutLimit = target.getElements().get(ne);
+                listItems.add(new RecommendationListItem(ne, 0f, nutTarget, nutLimit));
             }
         }
 

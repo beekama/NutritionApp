@@ -209,11 +209,11 @@ public class Nutrition {
             }
         }
         else {
-            allowance.elements.put(NutritionElement.CALCIUM, 1200);
-            allowance.elements.put(NutritionElement.IRON, 18);
-            allowance.elements.put(NutritionElement.MAGNESIUM, 420);
-            allowance.elements.put(NutritionElement.POTASSIUM, 4700);
-            allowance.elements.put(NutritionElement.ZINC, 11);
+            allowance.elements.put(NutritionElement.CALCIUM, 1200000);
+            allowance.elements.put(NutritionElement.IRON, 18000);
+            allowance.elements.put(NutritionElement.MAGNESIUM, 420000);
+            allowance.elements.put(NutritionElement.POTASSIUM, 4700000);
+            allowance.elements.put(NutritionElement.ZINC, 11000);
             allowance.elements.put(NutritionElement.SELENIUM, 55);
             allowance.elements.put(NutritionElement.FOLIC_ACID, 400);
             allowance.elements.put(NutritionElement.VITAMIN_A, 900);
@@ -245,6 +245,38 @@ public class Nutrition {
             allowanceMultipleDays.elements.put(ne, allowanceMultipleDays.elements.get(ne)*days);
         }
         return allowanceMultipleDays;
+    }
+
+    public static Nutrition getUpperIntakeLimit(){
+        /* Returns the correct recommendation (USDA Values)*/
+        Nutrition upperLimit = new Nutrition();
+        /* all units in microgram */
+        upperLimit.elements.put(NutritionElement.CALCIUM, 1200);
+        upperLimit.elements.put(NutritionElement.IRON, 18);
+        upperLimit.elements.put(NutritionElement.MAGNESIUM, 420);
+        upperLimit.elements.put(NutritionElement.POTASSIUM, 4700);
+        upperLimit.elements.put(NutritionElement.ZINC, 11);
+        upperLimit.elements.put(NutritionElement.SELENIUM, 55);
+        upperLimit.elements.put(NutritionElement.FOLIC_ACID, 400);
+        upperLimit.elements.put(NutritionElement.VITAMIN_A, 900);
+        upperLimit.elements.put(NutritionElement.VITAMIN_B1, 1100);
+        upperLimit.elements.put(NutritionElement.VITAMIN_B2, 1300);
+        upperLimit.elements.put(NutritionElement.VITAMIN_B3, 16000);
+        upperLimit.elements.put(NutritionElement.VITAMIN_B6, 1300);
+        upperLimit.elements.put(NutritionElement.VITAMIN_B12, 3);
+        upperLimit.elements.put(NutritionElement.VITAMIN_C, 90000);
+        upperLimit.elements.put(NutritionElement.VITAMIN_D, 15);
+        upperLimit.elements.put(NutritionElement.VITAMIN_E, 15000);
+        upperLimit.elements.put(NutritionElement.VITAMIN_K, 110);
+        /* convert to native units of db */
+        for(NutritionElement el : upperLimit.elements.keySet()){
+            String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
+            Log.wtf("TAG",  nutrientNativeUnit + " " + el);
+            int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, upperLimit.elements.get(el));
+            upperLimit.elements.put(el, converted);
+        }
+
+        return upperLimit;
     }
 
     public static int totalEnergy(ArrayList<Food> calculatedFrom) {

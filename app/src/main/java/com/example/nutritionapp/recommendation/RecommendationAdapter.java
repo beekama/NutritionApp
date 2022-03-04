@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +47,14 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         LocalViewHolder lvh = (LocalViewHolder) holder;
-        lvh.itemContent.setText(items.get(position).nutritionElement.getString(this.context));
+        RecommendationListItem curItem = items.get(position);
+        lvh.itemContent.setText(curItem.nutritionElement.getString(this.context));
 
         int amount = items.get(position).target;
         if (amount >= 1000) lvh.itemPercentage.setText(format("%.2f mg", amount/1000.f));
         else lvh.itemPercentage.setText(format("%d µg", amount));
 
-        Float nutPercentage = items.get(position).percentage;
+        Float nutPercentage = curItem.percentage;
         if (nutPercentage < 50) {
             lvh.progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
         } else if (nutPercentage < 75) {
@@ -63,15 +65,20 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
 
         lvh.progressBar.setProgress(Math.min(Math.round(nutPercentage), 100));
 
+        /* alarm if upper intakeLimit is exceeded */
+        if (curItem.target != 0) {
+            int limitPercentage = curItem.upperLimit * 100 / curItem.target;
+            if (curItem.percentage > limitPercentage)
+                lvh.background.setBackgroundColor(context.getResources().getColor(R.color.chartRed));
+        }
+
         lvh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), RecommendationsElement.class);
-                myIntent.putExtra("nutritionelement", (NutritionElement) items.get(position).nutritionElement);
+                myIntent.putExtra("nutritionelement", (NutritionElement) curItem.nutritionElement);
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 v.getContext().startActivity(myIntent);
-
-
             }
         });
 
@@ -86,9 +93,11 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
         final TextView itemContent;
         final ProgressBar progressBar;
         final TextView itemPercentage;
+        final View background;
 
         LocalViewHolder(View itemView) {
             super(itemView);
+            background = itemView;
             itemContent = itemView.findViewById(R.id.nutrition_textview);
             itemView.setOnClickListener(this);
             progressBar = itemView.findViewById(R.id.nutProgressBar);
