@@ -1,23 +1,21 @@
 package com.example.nutritionapp.recommendation;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.recommendation.nutritionElement.RecommendationsElement;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.NutritionElement;
 
@@ -51,8 +49,9 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
         lvh.itemContent.setText(curItem.nutritionElement.getString(this.context));
 
         int amount = items.get(position).target;
-        if (amount >= 1000) lvh.itemPercentage.setText(format("%.2f mg", amount/1000.f));
-        else lvh.itemPercentage.setText(format("%d µg", amount));
+        String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(curItem.nutritionElement)));
+        if (nutrientNativeUnit.equals("UG")) lvh.itemPercentage.setText(format("%d µg", amount));
+        else lvh.itemPercentage.setText(format("%d mg", amount));
 
         Float nutPercentage = curItem.percentage;
         if (nutPercentage < 50) {
@@ -66,7 +65,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
         lvh.progressBar.setProgress(Math.min(Math.round(nutPercentage), 100));
 
         /* alarm if upper intakeLimit is exceeded */
-        if (curItem.target != 0) {
+        if (curItem.target != 0 && curItem.upperLimit != -99) {
             int limitPercentage = curItem.upperLimit * 100 / curItem.target;
             if (curItem.percentage > limitPercentage)
                 lvh.background.setBackgroundColor(context.getResources().getColor(R.color.chartRed));

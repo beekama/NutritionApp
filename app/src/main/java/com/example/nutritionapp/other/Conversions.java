@@ -1,5 +1,6 @@
 package com.example.nutritionapp.other;
 
+
 public class Conversions {
 
     public static final int G_TO_UG = 1_000_000;
@@ -16,12 +17,13 @@ public class Conversions {
         /* normalize unitValues to their base values (microgram or joule) */
         switch (unitName){
             case "UG":
-                return (int)(inputAmount * UG_TO_MG);
+                return  inputAmount;
             case "JOULE":
                 return inputAmount;
             case "G":
                 return inputAmount * G_TO_UG;
             case "MG":
+                return (int)(inputAmount * UG_TO_MG);
             case "MG_ATE":
                 return inputAmount * MG_TO_UG;
             case "KCAL":
@@ -55,7 +57,7 @@ public class Conversions {
                 if(isWeightUnit) {
                     return normalized / G_TO_UG;
                 }
-            case "MG": return normalized;
+            case "MG": return (int)(normalized * UG_TO_MG);
             case "MG_ATE":
                 if(isWeightUnit) {
                     return normalized / MG_TO_UG;
