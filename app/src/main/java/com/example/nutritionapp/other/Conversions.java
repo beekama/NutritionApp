@@ -4,6 +4,7 @@ public class Conversions {
 
     public static final int G_TO_UG = 1_000_000;
     public static final int MG_TO_UG = 1_000;
+    public static final double UG_TO_MG = 0.001;
     public static final int KCAL_TO_JOULE = 4184;
 
     public static final String JOULE = "JOULE";
@@ -15,6 +16,7 @@ public class Conversions {
         /* normalize unitValues to their base values (microgram or joule) */
         switch (unitName){
             case "UG":
+                return (int)(inputAmount * UG_TO_MG);
             case "JOULE":
                 return inputAmount;
             case "G":
