@@ -67,20 +67,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/addingValueWeight"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toStartOf="@id/guidlinev1"
         app:layout_constraintEnd_toEndOf="@id/guidlinev2"
         app:layout_constraintTop_toTopOf="@id/guidlineh1"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-    <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/addingIcon"
-        android:src="@drawable/ic_done_black_24dp"
-        app:layout_constraintStart_toStartOf="@id/guidlinev2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidlineh1" />
 
     <TextView
         android:layout_width="0dp"
@@ -109,16 +100,6 @@
         app:layout_constraintTop_toTopOf="@id/guidlineh1"
         app:layout_constraintBottom_toBottomOf="@id/guidlineh2"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:id="@+id/addingIconHeader"
-        android:text="@string/submit"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/guidlinev2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidlineh1"
-        app:layout_constraintBottom_toBottomOf="@id/guidlineh2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

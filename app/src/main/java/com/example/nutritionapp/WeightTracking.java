@@ -13,12 +13,15 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -172,19 +175,21 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         });
 
         editWeight = findViewById(R.id.addingValueWeight);
-        //editWeight.setText();#
-
-        ConstraintLayout layout = findViewById(R.id.weight_tracking);
-        addWeight = findViewById(R.id.addingIcon);
-        addWeight.setOnClickListener(new View.OnClickListener() {
+        editWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editWeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-                collectData(db, editWeight, weightAll);
-                editWeight.setText("");
-                hideKeyboard();
-                layout.clearFocus();
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    collectData(db, editWeight, weightAll);
+                    editWeight.setText("");
+                    hideKeyboard();
+                    return true;
+                }
+                return false;
             }
         });
+
+        ConstraintLayout layout = findViewById(R.id.weight_tracking);
     }
 
     void updatePageContent() {
