@@ -10,242 +10,39 @@
         android:id="@+id/toolbar"
         layout="@layout/app_toolbar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/nonToolbarLayout">
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="right"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/centerGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <TextView
-        android:id="@+id/tv_meConfig_age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/age"
-        android:textSize="18sp"
-
-        app:layout_constraintEnd_toStartOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintVertical_bias="0.1" />
-
-    <TextView
-        android:id="@+id/tv_meConfig_gender"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-
-        android:text="@string/gender"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_meConfig_age"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/centerGuideline"/>
-
-    <TextView
-        android:id="@+id/tv_meConfig_weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-
-        android:text="@string/weight"
-        android:textSize="18sp"
-
-        app:layout_constraintEnd_toStartOf="@+id/barrier"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_gender" />
-
-    <TextView
-        android:id="@+id/tv_meConfig_height"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-
-        android:text="@string/height"
-        android:textSize="18sp"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_weight" />
-
-    <EditText
-        android:id="@+id/et_meConfig_age"
-        android:layout_width="0dp"
-        android:layout_height="39dp"
-        android:hint="@string/age_in_years"
-        android:singleLine="true"
-        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_age"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/barrier"
-        android:inputType="number"
-        />
-
-    <EditText
-        android:id="@+id/et_meConfig_gender"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:hint="@string/male_or_female"
-        android:singleLine="true"
-        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_gender"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Button
-        android:id="@+id/bt_meConfig_weight"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_weight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        />
-
-    <EditText
-        android:id="@+id/et_meConfig_height"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:hint="@string/searchHintHeight"
-        android:singleLine="true"
-        app:layout_constraintTop_toTopOf="@+id/tv_meConfig_height"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/centerGuideline"
-        android:inputType="number"
-        />
-
-
-    <!-- derived metrics -->
-        <TextView
-            android:id="@+id/meConfig_headerDM"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/derived_metrics"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/centerGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/et_meConfig_height"/>
-
-        <TextView
-            android:id="@+id/tv_meConfig_BMI_tag"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:text="@string/bmi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/centerGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/meConfig_headerDM"/>
-
-        <TextView
-            android:id="@+id/tv_meConfig_BMI"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintStart_toStartOf="@id/centerGuideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_meConfig_BMI_tag"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_BMI_tag"/>
 
-        <TextView
-            android:id="@+id/tvOut_meConfig_bmi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_BMI"/>
-
-        <TextView
-            android:id="@+id/tv_meConfig_calories"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:text="@string/calories"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/centerGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_meConfig_BMI"/>
-
-        <EditText
-            android:id="@+id/et_meConfig_calories"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:singleLine="true"
-            app:layout_constraintStart_toStartOf="@id/centerGuideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_meConfig_calories"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_meConfig_calories"
-            android:inputType="number"
-            android:importantForAutofill="no"
-            />
-
-        <Button
-            android:id="@+id/meConfig_submit"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/green_light"
-            android:text="@string/submitChangesButtonConfig"
-            app:layout_constraintTop_toBottomOf="@+id/et_meConfig_calories"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/languageSelectionTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/languageSectionHeader"
-            app:layout_constraintTop_toBottomOf="@+id/meConfig_submit"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
-            />
-
-        <CheckBox
-            android:id="@+id/languageSelectionDE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/localization_de"
-            app:layout_constraintTop_toBottomOf="@+id/languageSelectionTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
-        <Button
-            android:id="@+id/exportDatabase"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
             android:layout_marginBottom="30dp"
-            android:text="@string/export_data_button"
-            android:background="@color/green_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/importDatabase"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:divider="@android:color/transparent"
+            android:dividerHeight="20dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <Button
-            android:id="@+id/importDatabase"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginBottom="30dp"
-            android:background="@color/green_light"
-            android:text="@string/import_backup_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/exportDatabase"/>
+<!--        <Button-->
+<!--            android:id="@+id/exportDatabase"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            android:text="@string/export_data_button"-->
+<!--            android:background="@color/green_light"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/importDatabase"-->
+<!--            app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/importDatabase"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            android:background="@color/green_light"-->
+<!--            android:text="@string/import_backup_button"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/exportDatabase"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>

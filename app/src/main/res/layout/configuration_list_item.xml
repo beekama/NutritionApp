@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundThird"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/configuration_list_item">
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:maxLines="4"
+        android:id="@+id/configuration_item_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/endofdescription"
+        android:textAlignment="textStart"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/configuration_item_input"
+        android:paddingBottom="10dp"
+        android:textAlignment="viewStart"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@id/configuration_slider"
+        app:layout_constraintBottom_toBottomOf="@id/configuration_item_text"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/configuration_slider"
+        android:paddingBottom="10dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/configuration_item_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endofdescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
