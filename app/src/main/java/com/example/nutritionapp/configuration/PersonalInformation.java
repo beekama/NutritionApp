@@ -166,8 +166,8 @@ public class PersonalInformation extends AppCompatActivity {
         result.add(new ConfigurationListItem(DataType.HEADER, "Personal Data", "")); // todo stringtostrings
         result.add(new ConfigurationListItem(DataType.AGE, "Age", String.valueOf(db.getPersonAge())));
         result.add(new ConfigurationListItem(DataType.GENDER, "Gender", db.getPersonGender()));
-        result.add(new ConfigurationListItem(DataType.HEIGHT, "Height", String.valueOf(db.getPersonHeight())));
-        result.add(new ConfigurationListItem(DataType.WEIGHT, "Weight", String.valueOf(db.getPersonWeight())));
+        result.add(new ConfigurationListItem(DataType.HEIGHT, "Height in cm", String.valueOf(db.getPersonHeight())));
+        result.add(new ConfigurationListItem(DataType.WEIGHT, "Weight in kg", String.valueOf(db.getPersonWeight())));
 
         result.add(new ConfigurationListItem(DataType.HEADER, "Calculated Results", ""));
         result.add(new ConfigurationListItem(DataType.BMI, "BMI", String.valueOf(db.getPersonBmi())));

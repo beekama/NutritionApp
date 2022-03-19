@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/configuration_item_input"
         android:paddingBottom="10dp"
-        android:textAlignment="viewStart"
+        android:textAlignment="viewEnd"
         android:layout_marginEnd="2dp"
         app:layout_constraintEnd_toStartOf="@id/configuration_slider"
         app:layout_constraintBottom_toBottomOf="@id/configuration_item_text"/>

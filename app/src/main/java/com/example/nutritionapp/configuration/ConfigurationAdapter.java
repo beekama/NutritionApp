@@ -126,39 +126,18 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                 case GENDER: // todo replace by toggle
                     if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(new View.OnClickListener()
-                    {
+                    itemViewHolder.background.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v)
-                        {
-
-                            // custom dialog
-                            final Dialog dialog = new Dialog(context);
-                            dialog.setContentView(R.layout.configuration_popup);
-
-                            EditText etGender = (EditText) dialog.findViewById(R.id.input);
-                            etGender.setHint("Input Gender");
-                            etGender.setInputType(InputType.TYPE_CLASS_TEXT);
-
-                            etGender.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                @Override
-                                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                        try{
-                                            String gender = etGender.getText().toString();
-                                            itemViewHolder.value.setText(gender);
-                                            db.setPersonGender(gender);
-                                            dialog.dismiss();}
-                                        catch (IllegalArgumentException e) {
-                                            Toast toast = Toast.makeText(context, "Only 'male' or 'female' are supported", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        }
-                                        return true;
-                                    }
-                                    return false;
-                                }
-                            });
-                            dialog.show();
+                        public void onClick(View v) {
+                            if(itemAtCurPos.sValue.equals("male")){
+                                itemAtCurPos.sValue = "female";
+                                itemViewHolder.value.setText("female");
+                                db.setPersonGender("female");
+                            } else {
+                                itemAtCurPos.sValue = "male";
+                                itemViewHolder.value.setText("male");
+                                db.setPersonGender("male");
+                            }
                         }
                     });
                     break;
