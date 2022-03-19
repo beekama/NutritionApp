@@ -41,10 +41,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PersonalInformation extends AppCompatActivity {
+public class PersonalInformation extends AppCompatActivity implements UpdateBMI {
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
@@ -55,6 +56,11 @@ public class PersonalInformation extends AppCompatActivity {
     public static int CARB_TARGET = 30; //700;
     public static int FAT_TARGET = 20; //84;
     private Database db;
+
+    @Override
+    public void updateBMI() {
+        setRecyclerView();
+    }
 
     public enum DataType {
         HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT
@@ -81,14 +87,7 @@ public class PersonalInformation extends AppCompatActivity {
         backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         setSupportActionBar(toolbar);
 
-        personalView = findViewById(R.id.mainList);
-        personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
-        ArrayList<ConfigurationListItem> items = generateData();
-        adapter = new ConfigurationAdapter(this, items, db);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        personalView.setLayoutManager(layoutManager);
-        personalView.setAdapter(adapter);
-
+        setRecyclerView();
     }
 
 
@@ -116,17 +115,26 @@ public class PersonalInformation extends AppCompatActivity {
         return result;
     }
 
+
+
     /* is Called after resume from Weight-View */
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        // update everything affected by weight
-//        final Button btWeight = findViewById(R.id.bt_meConfig_weight);
-//        final TextView bmiDisplay = findViewById(R.id.tv_meConfig_BMI);
-//        loadAndSetWeight(db, btWeight);
-//        setBmi(db, bmiDisplay);
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // update everything affected by weight - update Data
+        setRecyclerView();
+    }
+
+    void setRecyclerView(){
+        personalView = findViewById(R.id.mainList);
+        personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
+        ArrayList<ConfigurationListItem> items = generateData();
+        adapter = new ConfigurationAdapter(this, items, db, this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        personalView.setLayoutManager(layoutManager);
+        personalView.setAdapter(adapter);
+    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -194,4 +202,8 @@ public class PersonalInformation extends AppCompatActivity {
     }
 
 
+}
+
+interface UpdateBMI {
+    void updateBMI();
 }

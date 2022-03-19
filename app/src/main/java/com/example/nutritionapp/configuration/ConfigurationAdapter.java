@@ -36,15 +36,17 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     Database db;
+    UpdateBMI bmiInterface;
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
 
-    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db) {
+    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, UpdateBMI bmiInterface) {
         this.context = context;
         this.items = items;
         this.db = db;
+        this.bmiInterface = bmiInterface;
     }
 
     @NonNull
@@ -167,6 +169,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                                             int newHeight = Integer.parseInt(sHeight);
                                             itemViewHolder.value.setText(sHeight);
                                             db.setPersonHeight(newHeight);
+                                            bmiInterface.updateBMI();
                                             dialog.dismiss();}
                                         catch (NumberFormatException e) {
                                             Toast toast = Toast.makeText(context, "Need Numeric Value as Input", Toast.LENGTH_LONG);
