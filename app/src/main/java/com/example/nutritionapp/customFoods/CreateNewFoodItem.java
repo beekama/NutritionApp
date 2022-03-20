@@ -1,5 +1,6 @@
 package com.example.nutritionapp.customFoods;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,12 +48,14 @@ public class CreateNewFoodItem extends AppCompatActivity {
         Toolbar tb = findViewById(R.id.toolbar);
         TextView tb_title = findViewById(R.id.toolbar_title);
         ImageButton tb_back = findViewById(R.id.toolbar_back);
+        ImageButton submit = findViewById(R.id.toolbar_forward);
 
         /* return  button */
         tb_back.setOnClickListener((v -> finish()));
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         tb.setTitle("");
         tb_title.setText("Create Item");
+        submit.setImageResource(R.drawable.ic_done_black_24dp);
         setSupportActionBar(tb);
 
         Nutrition n;
@@ -72,36 +76,40 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
+        staticSelectors.add(new CreateFoodNutritionSelectorItem("General Food Information", true));
         if(this.editMode){
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true));
-            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, "Serving Size", 100, false);
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true, false));
+            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, "Serving Size", 100, false, false);
             servingSize.unit = "G";
             staticSelectors.add(servingSize);
-            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, "Energy", editFood.energy, false);
-            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, "Fiber", editFood.fiber, false);
+            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, "Energy", editFood.energy, false, false);
+            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, "Fiber", editFood.fiber, false, false);
             energyItemEdit.unit = "KCAL";
             fiberItemEdit.unit = "MG";
             staticSelectors.add(energyItemEdit);
             staticSelectors.add(fiberItemEdit);
         }else {
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false));
-            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem("Energy", false);
-            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem("Fiber", false);
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true, false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false, false));
+            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem("Energy", false, false);
+            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem("Fiber", false, false);
             energyItem.unit = "KCAL";
             fiberItem.unit = "MG";
             staticSelectors.add(energyItem);
             staticSelectors.add(fiberItem);
         }
 
+        staticSelectors.add(new CreateFoodNutritionSelectorItem("Nutrients", true));
+
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
         mainRv = findViewById(R.id.createFoodNewItem_rv);
+        mainRv.addItemDecoration(new DividerItemDecoration(mainRv.getContext(), DividerItemDecoration.VERTICAL));
         for (NutritionElement ne : n.getElements().keySet()) {
             if(this.editMode){
                 Integer presetAmount = n.getElements().get(ne);
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, Utils.zeroIfNull(presetAmount), false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, Utils.zeroIfNull(presetAmount), false, false));
             }else{
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, 0, false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, 0, false, false));
             }
         }
         Collections.sort(nutritionSelectors);
@@ -109,16 +117,13 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* setup adapter */
         allItems.addAll(staticSelectors);
         allItems.addAll(nutritionSelectors);
-        RecyclerView.Adapter<?> adapter = new CreateFoodNutritionSelectorAdapter(getApplicationContext(), allItems);
+        RecyclerView.Adapter<?> adapter = new CreateFoodNutritionSelectorAdapter(this, allItems);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mainRv.setLayoutManager(linearLayoutManager);
         mainRv.setAdapter(adapter);
 
         /* setup buttons */
-        Button cancel = findViewById(R.id.cancel);
-        Button confirm = findViewById(R.id.confirm);
-        cancel.setOnClickListener(v -> finish());
-        confirm.setOnClickListener(v -> {
+        submit.setOnClickListener(v -> {
             Food f = collectData();
             if (f == null) {
                 return;

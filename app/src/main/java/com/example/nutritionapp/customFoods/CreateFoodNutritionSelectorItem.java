@@ -11,6 +11,7 @@ import com.example.nutritionapp.other.NutritionElement;
 
 
 public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNutritionSelectorItem> {
+    public final boolean header;
     public final String tag;
     public String unit;
     public NutritionElement ne = null;
@@ -18,13 +19,21 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
     public final boolean inputTypeString;
     public String data = null;
 
-    public CreateFoodNutritionSelectorItem(String name, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(String name, boolean header) {
+        this.header = header;
+        this.tag = name;
+        this.inputTypeString = false;
+    }
+
+    public CreateFoodNutritionSelectorItem(String name, boolean inputTypeString, boolean header) {
+        this.header = header;
         this.tag = name;
         this.unit = "N/A";
         this.inputTypeString = inputTypeString;
     }
 
-    public CreateFoodNutritionSelectorItem(Database db, String name, int presetAmount, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(Database db, String name, int presetAmount, boolean inputTypeString, boolean header) {
+        this.header = header;
         this.tag = name;
         if(name.equals("Energy")){
             this.unit = "KCAL";
@@ -38,14 +47,16 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
         this.inputTypeString = inputTypeString;
     }
 
-    public CreateFoodNutritionSelectorItem(String name, String presetData, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(String name, String presetData, boolean inputTypeString, boolean header) {
+        this.header = header;
         this.tag = name;
         this.unit = "N/A";
         this.inputTypeString = inputTypeString;
         this.data = presetData;
     }
 
-    public CreateFoodNutritionSelectorItem(Database db, NutritionElement ne, int presetAmount, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(Database db, NutritionElement ne, int presetAmount, boolean inputTypeString, boolean header) {
+        this.header = header;
         this.ne = ne;
         this.unit = db.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
         //Log.wtf("LOL", ne.toString() + " " + presetAmount + " " + this.unit + " " + Conversions.convert("UG", this.unit, presetAmount));
@@ -55,7 +66,8 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
         //this.amount = Conversions.convert("UG", this.unit, presetAmount);
     }
 
-    public CreateFoodNutritionSelectorItem(NutritionElement ne, String presetData, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(NutritionElement ne, String presetData, boolean inputTypeString, boolean header) {
+        this.header = header;
         this.ne = ne;
         this.tag = ne.toString();
         this.unit = "N/A";
@@ -63,7 +75,8 @@ public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNut
         this.data = presetData;
     }
 
-    public CreateFoodNutritionSelectorItem(NutritionElement ne, boolean inputTypeString) {
+    public CreateFoodNutritionSelectorItem(NutritionElement ne, boolean inputTypeString, boolean header) {
+        this.header = header;
         this.ne = ne;
         this.tag = ne.toString();
         this.unit = "N/A";
