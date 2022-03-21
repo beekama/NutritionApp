@@ -2,6 +2,7 @@ package com.example.nutritionapp.other;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -119,4 +120,10 @@ public class Utils {
     public static int floatWeightToInt(Float weight){
         return (int) (weight*1000);
     }
+
+    /* get String of NutritionElements */
+    public static int getStringIdentifier(Context context, String name) {
+        return context.getResources().getIdentifier(name, "string", context.getPackageName());
+    }
+
 }

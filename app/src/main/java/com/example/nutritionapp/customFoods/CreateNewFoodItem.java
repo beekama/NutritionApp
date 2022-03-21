@@ -1,7 +1,12 @@
 package com.example.nutritionapp.customFoods;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,6 +32,8 @@ import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static com.example.nutritionapp.other.Utils.getStringIdentifier;
 
 public class CreateNewFoodItem extends AppCompatActivity {
     private static final int CREATE_NEW_ID = -1;
@@ -76,40 +83,57 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("General Food Information", true));
+        staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString("General Food Information"), true));
+
+        /* Spannables */
+        String servString = "Serving Size in gram";
+        Spannable servSpan = new SpannableString(servString);
+        servSpan.setSpan(new RelativeSizeSpan(0.8f), 13, 20, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        String enString = "Energy in kcal";
+        SpannableString enSpan = new SpannableString(enString);
+        enSpan.setSpan(new RelativeSizeSpan(0.8f), 7, 14, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        String fibString = "Fiber in gram";
+        SpannableString fibSpan = new SpannableString(fibString);
+        fibSpan.setSpan(new RelativeSizeSpan(0.8f), 6, 13, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         if(this.editMode){
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", editFood.name, true, false));
-            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, "Serving Size", 100, false, false);
-            servingSize.unit = "G";
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString("Name"), editFood.name, true, false));
+            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, servSpan, 100, false, false);
             staticSelectors.add(servingSize);
-            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, "Energy", editFood.energy, false, false);
-            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, "Fiber", editFood.fiber, false, false);
-            energyItemEdit.unit = "KCAL";
-            fiberItemEdit.unit = "MG";
+            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, enSpan, editFood.energy, false, false);
+            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, fibSpan, editFood.fiber, false, false);
             staticSelectors.add(energyItemEdit);
             staticSelectors.add(fiberItemEdit);
         }else {
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Name", true, false));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem("Serving Size", false, false));
-            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem("Energy", false, false);
-            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem("Fiber", false, false);
-            energyItem.unit = "KCAL";
-            fiberItem.unit = "MG";
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString("Name"), true, false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(servSpan, false, false));
+            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem(enSpan, false, false);
+            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem(fibSpan, false, false);
             staticSelectors.add(energyItem);
             staticSelectors.add(fiberItem);
         }
 
-        staticSelectors.add(new CreateFoodNutritionSelectorItem("Nutrients", true));
+        staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString("Nutrients"), true));
 
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
         mainRv = findViewById(R.id.createFoodNewItem_rv);
         mainRv.addItemDecoration(new DividerItemDecoration(mainRv.getContext(), DividerItemDecoration.VERTICAL));
         for (NutritionElement ne : n.getElements().keySet()) {
+            String neString = getResources().getString(getStringIdentifier(this, ne.toString()));
+            String noStrPortiontype = db.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
+            String portionType =  getResources().getString(getStringIdentifier(this, noStrPortiontype));
+            int startPtString = neString.length() + 1;
+            int endPtString = startPtString + 4 + portionType.length() - 1;
+            Spannable neSpan = new SpannableString(neString + " in " + portionType);
+            neSpan.setSpan(new RelativeSizeSpan(0.8f), startPtString, endPtString, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
             if(this.editMode){
                 Integer presetAmount = n.getElements().get(ne);
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, Utils.zeroIfNull(presetAmount), false, false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, neSpan, Utils.zeroIfNull(presetAmount), false, false));
             }else{
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, ne, 0, false, false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, neSpan, 0, false, false));
             }
         }
         Collections.sort(nutritionSelectors);
@@ -161,12 +185,12 @@ public class CreateNewFoodItem extends AppCompatActivity {
                 if(item.amount == -1){
                     item.amount = 0;
                 }
-                switch (item.tag) {
+                switch (item.tag.toString()) {
                     case "Service Size":
                         this.servingSize = item.amount;  /* next level hack */
                         break;
                     case "Energy":
-                        f.energy = Conversions.convert(item.unit, "KCAL", item.amount);
+                        f.energy = item.amount;
                         break;
                     case "Fiber":
                         f.fiber = item.amount;

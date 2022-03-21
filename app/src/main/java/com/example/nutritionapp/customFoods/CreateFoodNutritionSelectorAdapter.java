@@ -84,7 +84,7 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
                 lvh.value.setText("");
             }
             lvh.name.setText(item.tag);
-            Log.wtf("SET", item.tag);
+            //Log.wtf("SET", item.tag);
             lvh.background.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

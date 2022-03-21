@@ -100,4 +100,7 @@
     <string name="kalPer100mg" translatable="false">kcal/100mg</string>
     <string name="microPer100mg" translatable="false">µg/100mg</string>
     <string name="kilogramm" translatable="false">kg</string>
+    <string name="MG" translatable="false">mg</string>
+    <string name="MG_ATE" translatable="false">mg</string>
+    <string name="UG" translatable="false">µg</string>
 </resources>
