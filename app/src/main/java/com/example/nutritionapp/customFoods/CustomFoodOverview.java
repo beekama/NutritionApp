@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +29,9 @@ public class CustomFoodOverview extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_foods);
+
         mainRv = findViewById(R.id.createFoodOverview_rv);
+        mainRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         /* replace actionbar with custom app_toolbar */
         Toolbar tb = findViewById(R.id.toolbar);
@@ -56,6 +59,7 @@ public class CustomFoodOverview extends AppCompatActivity {
     private void updateFoodList() {
         ArrayList<Food> displayedFoods = db.getAllCustomFoods();
         foodItems.clear();
+        foodItems.add(new FoodOverviewItem(new Food("header", "header")));
         for (Food f : displayedFoods) {
             foodItems.add(new FoodOverviewItem(f));
         }

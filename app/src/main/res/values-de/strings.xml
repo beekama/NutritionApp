@@ -68,6 +68,10 @@
     <string name="date">Datum:</string>
     <string name="submit">Bestätigen:</string>
 
+    <!-- Custom Foods -->
+    <string name="customFoodHeader">Erstellte Essen:</string>
+    <string name="customFoodHeaderEmpty">Bisher wurden noch keine Essen erstellt!</string>
+
     <!-- Weight Tracking -->
     <string name="oneWeek">1 Woche</string>
     <string name="oneMonth">1 Monat</string>

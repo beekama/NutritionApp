@@ -68,6 +68,10 @@
     <string name="date">Date:</string>
     <string name="submit">Submit:</string>
 
+    <!-- Custom Foods -->
+    <string name="customFoodHeader">Foods created so far:</string>
+    <string name="customFoodHeaderEmpty">No Foods created so far!</string>
+
     <!-- Weight Tracking -->
     <string name="oneWeek">1 Week</string>
     <string name="oneMonth">1 Month</string>
