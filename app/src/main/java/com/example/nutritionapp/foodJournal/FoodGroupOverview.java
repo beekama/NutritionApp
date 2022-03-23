@@ -33,9 +33,12 @@ import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverview
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
+import com.example.nutritionapp.other.NutritionElement;
+import com.example.nutritionapp.other.NutritionPercentageTuple;
 import com.example.nutritionapp.other.PortionTypes;
 import com.example.nutritionapp.other.Utils;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     private static final int DEFAULT_AMOUNT = 100;
     private static final int NO_UPDATE_EXISTING = -1;
+    private static boolean FIRST_ADD = true;
     final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
     private boolean editMode = false;
 
@@ -56,6 +60,9 @@ public class FoodGroupOverview extends AppCompatActivity {
     ListView suggestions;
     ListView nutOverviewList;
     Database db;
+    View nutritionOverviewHeader;
+    View selectedItemsHeader;
+
 
     SelectedFoodAdapter selectedAdapter;
     int groupId;
@@ -69,24 +76,26 @@ public class FoodGroupOverview extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
+        ImageButton addButton = findViewById(R.id.toolbar_forward);
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.toolbarStringGroupDetails);
         setSupportActionBar(toolbar);
 
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        addButton.setImageResource(R.drawable.add_circle_filled);
 
         selectedListView = findViewById(R.id.selected_items);
-        selectedAdapter = new SelectedFoodAdapter(getApplicationContext(), new ArrayList<>());
+        selectedAdapter = new SelectedFoodAdapter(this, new ArrayList<>());
         selectedListView.setAdapter(selectedAdapter);
+
+        FIRST_ADD = true;
 
         dateView = findViewById(R.id.date);
         timeView = findViewById(R.id.time);
 
         nutOverviewList = findViewById(R.id.nutritionOverview);
-        Button addNewButton = findViewById(R.id.addButton);
-        addNewButton.setText(R.string.addSingleFood);
 
-        addNewButton.setOnClickListener(v -> {
+        addButton.setOnClickListener(v -> {
             runFoodSelectionPipeline(null, NO_UPDATE_EXISTING);
         });
 
@@ -242,8 +251,14 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
+        /* HEADER */
+        if (FIRST_ADD){
+            selectedItemsHeader = findViewById(R.id.selected_items_header);
+            TextView noHeader = selectedItemsHeader.findViewById(R.id.headerText);
+            noHeader.setText("Group Items");
+        }
         ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
-        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getApplicationContext(), sfi);
+        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(this, sfi);
         selectedListView.setAdapter(newAdapter);
         selectedListView.invalidate();
 
@@ -260,16 +275,28 @@ public class FoodGroupOverview extends AppCompatActivity {
         }
 
         suggestions.invalidate();
-        SelectableFoodListAdapter adapter = new SelectableFoodListAdapter(getApplicationContext(), suggestionsPrevSelected);
+        SelectableFoodListAdapter adapter = new SelectableFoodListAdapter(this, suggestionsPrevSelected);
         suggestions.setAdapter(adapter);
     }
 
     private void updateNutritionOverview() {
+        if (FIRST_ADD){
+            FIRST_ADD = false;
+
+            nutritionOverviewHeader = findViewById(R.id.nutritionOverview_header);
+            TextView noHeader = nutritionOverviewHeader.findViewById(R.id.headerText);
+            noHeader.setText("Nutrition Overview");
+        }
         ArrayList<Food> analysis = new ArrayList<>();
         for (SelectedFoodItem sfi : selected) {
             analysis.add(sfi.food);
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
+        /* ArrayList with Header */
+        ArrayList<NutritionPercentageTuple> npt = new ArrayList<>();
+        npt.add(new NutritionPercentageTuple(NutritionElement.CALCIUM, 0.f));                                   // todo refractor this ugly temporoary solution
+        npt.addAll(na.getNutritionPercentageSortedFilterZero());
+
         ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }

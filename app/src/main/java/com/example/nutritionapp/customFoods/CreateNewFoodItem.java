@@ -61,7 +61,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
         tb_back.setOnClickListener((v -> finish()));
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         tb.setTitle("");
-        tb_title.setText("Create Item");
+        tb_title.setText(R.string.customItemCreate);
         submit.setImageResource(R.drawable.ic_done_black_24dp);
         setSupportActionBar(tb);
 

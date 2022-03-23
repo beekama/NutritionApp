@@ -40,7 +40,7 @@ public class CustomFoodOverview extends AppCompatActivity {
         ImageButton tb_forward = findViewById(R.id.toolbar_forward);
         tb_forward.setImageResource(R.drawable.add_circle_filled);
         tb.setTitle("");
-        tb_title.setText("ITEMS");
+        tb_title.setText(R.string.customItems);
         setSupportActionBar(tb);
         tb_back.setOnClickListener((v -> finish()));
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);

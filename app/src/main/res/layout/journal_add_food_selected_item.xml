@@ -6,7 +6,9 @@
 
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/backgroundThird"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -20,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.82" />
 
     <TextView
         android:id="@+id/item_name"
@@ -28,14 +30,14 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/amount_selector"/>
+        app:layout_constraintBottom_toBottomOf="@id/amount_selector"
+        android:paddingStart="10dp"/>
 
-    <EditText
+    <TextView
         android:id="@+id/amount_selector"
         android:inputType="number"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toEndOf="@id/guideline1"
         app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
     <TextView
@@ -43,7 +45,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/amount_selector"/>
+        app:layout_constraintBottom_toBottomOf="@id/amount_selector"
+        android:paddingEnd="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

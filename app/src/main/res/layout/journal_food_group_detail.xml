@@ -21,15 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:padding="10dp"
-            android:background="@color/buttonColor">
+            android:background="@color/transparent">
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="25sp"
                 android:layout_marginTop="20dp"
 
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +40,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="25sp"
                 android:layout_marginTop="20dp"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,26 +47,25 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
+            <include
+                android:id="@+id/selected_items_header"
+                layout="@layout/header_line"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintBottom_toTopOf="@id/selected_items"
+                android:layout_width="match_parent" />
+
             <com.example.nutritionapp.other.NestableList
                 android:id="@+id/selected_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date">
+                app:layout_constraintTop_toBottomOf="@id/selected_items_header">
             </com.example.nutritionapp.other.NestableList>
-
-            <Button
-                android:id="@+id/addButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/selected_items"
-                android:layout_marginTop="10dp"
-                />
 
             <com.example.nutritionapp.other.NestableList
                 android:id="@+id/suggestions"
@@ -78,22 +74,29 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addButton"
+                app:layout_constraintTop_toBottomOf="@id/selected_items"
                 android:layout_marginTop="20dp"
                 />
 
+            <include
+                android:id="@+id/nutritionOverview_header"
+                layout="@layout/header_line"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/selected_items"
+                app:layout_constraintBottom_toTopOf="@id/nutritionOverview"
+                android:layout_width="match_parent" />
 
             <com.example.nutritionapp.other.NestableList
                 android:id="@+id/nutritionOverview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:maxHeight="250dp"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/suggestions"
+                app:layout_constraintTop_toBottomOf="@+id/nutritionOverview_header"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="20dp"
                 android:paddingBottom="60dp"
                 />
 
