@@ -7,13 +7,15 @@
     <string name="textConfirm">Bestätigen</string>
     <string name="textCancel">Abbrechen</string>
     <string name="searchHint">Suchbegriff</string>
-    <string name="toolbarStringGroupDetails">DETAILS</string>
+    <string name="toolbarStringGroupDetails">Mahlzeit hinzufügen</string>
     <string name="addSingleFood">Hinzufügen..</string>
     <string name="placeholder">PLATZHALTER PLATZHALTER PLATZHALTER</string>
     <string name="journalToolbarText">LOGBUCH</string>
     <string name="journalAddMeal">Mahlzeit hinzufügen</string>
     <string name="configurationTitle">Einstellungen</string>
     <string name="recommendationTitle">Übersicht</string>
+    <string name="customItems">Erstellte Essen</string>
+    <string name="customItemCreate">Neues Essen</string>
 
     <string name="createFoodsButton">Eigene Gerichte</string>
     <string name="createFoodsButtonLeftText">Erstelle deine eigenen Gerichte.</string>
@@ -96,4 +98,10 @@
     <string name="VITAMIN_D"> Vitamin D  </string>
     <string name="VITAMIN_E"> Vitamin E  </string>
     <string name="VITAMIN_K"> Vitamin K </string>
+
+    <!-- portion types -->
+    <string name="SMALL">klein</string>
+    <string name="MEDIUM">mittel</string>
+    <string name="LARGE">groß</string>
+    <string name="GRAM">gramm</string>
 </resources>

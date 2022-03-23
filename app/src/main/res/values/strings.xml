@@ -7,13 +7,15 @@
     <string name="textConfirm">Confirm</string>
     <string name="textCancel">Cancel</string>
     <string name="searchHint">searchHint</string>
-    <string name="toolbarStringGroupDetails">DETAILS</string>
+    <string name="toolbarStringGroupDetails">New Foodgroup</string>
     <string name="addSingleFood">Add..</string>
     <string name="placeholder">PLACEHOLDER PLACEHOLDER PLACEHOLDER</string>
-    <string name="journalToolbarText">JOURNAL</string>
+    <string name="journalToolbarText">Journal</string>
     <string name="journalAddMeal">Add Meal</string>
     <string name="configurationTitle">Configuration</string>
     <string name="recommendationTitle">Analysis</string>
+    <string name="customItems">Custom Foods</string>
+    <string name="customItemCreate">Create Food</string>
 
     <string name="createFoodsButton">Custom Foods</string>
     <string name="createFoodsButtonLeftText">Create your own customized Foods.</string>
@@ -97,6 +99,12 @@
     <string name="VITAMIN_E"> Vitamin E  </string>
     <string name="VITAMIN_K"> Vitamin K </string>
 
+    <!-- portion types -->
+    <string name="SMALL">small</string>
+    <string name="MEDIUM">medium</string>
+    <string name="LARGE">large</string>
+    <string name="GRAM">gram</string>
+
     <!-- strings without translation -->
     <string name="Impressum" translatable="false">Impressum</string>
     <string name="microgram" translatable="false">µg</string>
@@ -107,4 +115,11 @@
     <string name="MG" translatable="false">mg</string>
     <string name="MG_ATE" translatable="false">mg</string>
     <string name="UG" translatable="false">µg</string>
+    <string name="CUP" translatable="false">cup</string>
+    <string name="FLUID_OUNZE" translatable="false">fl oz</string>
+    <string name="ML" translatable="false">ml</string>
+    <string name="PACKET" translatable="false">pkt</string>
+    <string name="TABLESPOON" translatable="false">tbsp</string>
+    <string name="TEASPOON" translatable="false">tsp</string>
+    <string name="SCOOP" translatable="false">scoop</string>
 </resources>
