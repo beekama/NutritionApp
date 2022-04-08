@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 
 
@@ -124,6 +127,19 @@ public class Utils {
     /* get String of NutritionElements */
     public static int getStringIdentifier(Context context, String name) {
         return context.getResources().getIdentifier(name, "string", context.getPackageName());
+    }
+
+    /* get Date in Format "DAY_OF_WEEK, MMM DAY_OF_MONTH" as Spannable */
+    public static Spannable getDateFormattedHeader(Context context, LocalDate logDate){
+        String dayOfWeek_caps = (logDate == LocalDate.now()) ? "TODAY" : logDate.getDayOfWeek().toString();
+        String dayOfWeek = context.getString(getStringIdentifier(context, dayOfWeek_caps));
+        String month_caps = logDate.getMonth().toString();
+        String month = context.getString(getStringIdentifier(context, month_caps)).substring(0,3);
+        String dayOfMonth = Integer.toString(logDate.getDayOfMonth());
+
+        Spannable dateHeader = new SpannableString(dayOfWeek + ", " + month + " " + dayOfMonth);
+        dateHeader.setSpan(new RelativeSizeSpan(0.8f), dayOfWeek.length(), dateHeader.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return  dateHeader;
     }
 
 }

@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.icu.lang.UCharacter;
 import android.media.Image;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,7 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -160,7 +164,9 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         LocalViewHolder castedHolder = (LocalViewHolder) holder;
 
         /* set the correct date */
-        castedHolder.dateText.setText(items.get(position).date.format(Utils.sqliteDateFormat));
+        LocalDate logDate = items.get(position).date;
+        Spannable dateHeader = Utils.getDateFormattedHeader(context, logDate);
+        castedHolder.dateText.setText(dateHeader);
 
         castedHolder.dateText.setOnClickListener(view -> {
             /* TODO reactivate this when it's fixed

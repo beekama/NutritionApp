@@ -104,4 +104,28 @@
     <string name="MEDIUM">mittel</string>
     <string name="LARGE">groß</string>
     <string name="GRAM">gramm</string>
+
+    <!-- Days of Week -->
+    <string name="MONDAY">Montag</string>
+    <string name="THUESDAY">Dienstag</string>
+    <string name="WEDNESDAY">Mitwoch</string>
+    <string name="THURSDAY">Donnerstag</string>
+    <string name="FRIDAY">Freitag</string>
+    <string name="SATURDAY">Samstag</string>
+    <string name="SUNDAY">Sonntag</string>
+    <string name="TODAY">Heute</string>
+
+    <!-- Month of Year -->
+    <string name="JANUARY">Januar</string>
+    <string name="FEBRUARY">Februar</string>
+    <string name="MARCH">März</string>
+    <string name="APRIL">April</string>
+    <string name="MAY">Mai</string>
+    <string name="JUNI">Juni</string>
+    <string name="JULY">Juli</string>
+    <string name="AUGUST">August</string>
+    <string name="SEPTEMBER">September</string>
+    <string name="OCOTOBER">Oktober</string>
+    <string name="NOVEMBER">November</string>
+    <string name="DECEMBER">December</string>
 </resources>

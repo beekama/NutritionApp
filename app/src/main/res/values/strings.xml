@@ -105,6 +105,30 @@
     <string name="LARGE">large</string>
     <string name="GRAM">gram</string>
 
+    <!-- Days of Week -->
+    <string name="MONDAY">Monday</string>
+    <string name="THUESDAY">Thuesday</string>
+    <string name="WEDNESDAY">Wednesday</string>
+    <string name="THURSDAY">Thursday</string>
+    <string name="FRIDAY">Friday</string>
+    <string name="SATURDAY">Saturday</string>
+    <string name="SUNDAY">Sunday</string>
+    <string name="TODAY">Today</string>
+
+    <!-- Month of Year -->
+    <string name="JANUARY">January</string>
+    <string name="FEBRUARY">February</string>
+    <string name="MARCH">March</string>
+    <string name="APRIL">April</string>
+    <string name="MAY">May</string>
+    <string name="JUNI">Juni</string>
+    <string name="JULY">July</string>
+    <string name="AUGUST">August</string>
+    <string name="SEPTEMBER">September</string>
+    <string name="OCOTOBER">October</string>
+    <string name="NOVEMBER">November</string>
+    <string name="DECEMBER">December</string>
+
     <!-- strings without translation -->
     <string name="Impressum" translatable="false">Impressum</string>
     <string name="microgram" translatable="false">µg</string>
