@@ -32,6 +32,7 @@
 
     <style name="target_overview_dateText" >
         <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="button_text_toRec">

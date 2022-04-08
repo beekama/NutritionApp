@@ -5,19 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.icu.lang.UCharacter;
+import android.media.Image;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutritionapp.DividerItemDecorator;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
@@ -30,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.SortedMap;
+import java.util.zip.CheckedInputStream;
 
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
@@ -219,15 +225,48 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             }
 
             /* try to re-use textview */
+            LinearLayout foodGroup;
             TextView foodsTextView;
-            View child = castedHolder.subLayoutContainingFoodGroups.getChildAt(index);
+            View childLayout = castedHolder.subLayoutContainingFoodGroups.getChildAt(index);
+            View child = (childLayout == null) ? null : childLayout.findViewById(R.id.textField);
             if(child != null){
                 foodsTextView = (TextView) child;
             }else {
+                foodGroup = new LinearLayout(context);
+                LinearLayout.LayoutParams lps = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                //lps.setMargins(0,40,0,40);
+                //foodGroup.setPadding(0,40,0,40);
+                foodGroup.setLayoutParams(lps);
+                foodGroup.setOrientation(LinearLayout.VERTICAL);
+
+
                 foodsTextView = new TextView(context);
-                foodsTextView.setPadding(5,10,5, 20);
-                foodsTextView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-                castedHolder.subLayoutContainingFoodGroups.addView(foodsTextView);
+                foodsTextView.setPadding(40,30,40, 35);
+                foodsTextView.setMaxLines(1);
+                foodsTextView.setId(R.id.textField);
+
+                // todo: generate global style-scheme
+                ImageView dividerBottom = new ImageView(context);
+                LinearLayout.LayoutParams lpB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lpB.height = 2;
+//                lp.setMarginEnd(25);
+//                lp.setMarginStart(25);
+                dividerBottom.setLayoutParams(lpB);
+                dividerBottom.setBackgroundColor(context.getColor(R.color.greyDark));
+
+                ImageView dividerTop = new ImageView(context);
+                LinearLayout.LayoutParams slT = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                slT.height = 2;
+//                lp.setMarginEnd(25);
+//                lp.setMarginStart(25);
+                dividerTop.setLayoutParams(slT);
+                dividerTop.setBackgroundColor(context.getColor(R.color.greyDark));
+
+                if (index == 0) foodGroup.addView(dividerTop);
+                foodGroup.addView(foodsTextView);
+                foodGroup.addView(dividerBottom);
+
+                castedHolder.subLayoutContainingFoodGroups.addView(foodGroup);
             }
 
             /* set text content & update on click listener */

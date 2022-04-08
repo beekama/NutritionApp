@@ -61,11 +61,13 @@ public class FoodJournalOverview extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
+        ImageButton addStuff = findViewById(R.id.toolbar_forward);
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.journalToolbarText);
         setSupportActionBar(toolbar);
         toolbarBack.setOnClickListener((v -> finish()));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        addStuff.setImageResource(R.drawable.add_circle_filled);
 
         /* set adapter */
         /* this is a list of layout of type journal_day_header, which contains the day-header and
@@ -77,7 +79,6 @@ public class FoodJournalOverview extends AppCompatActivity {
         mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
 
-        final Button addStuff = findViewById(R.id.add_food);
         Intent foodGroupDetails = new Intent(addStuff.getContext(), FoodGroupOverview.class);
         addStuff.setOnClickListener(v -> startActivityForResult(foodGroupDetails, Utils.FOOD_GROUP_DETAILS_ID));
     }

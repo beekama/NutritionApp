@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/round_bg_light"
-    android:padding="10dp"
+    android:background="@color/transparent"
     >
 
     <!-- DATE OF DAY-->
@@ -13,8 +12,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/subLayoutTop"
-        android:background="@drawable/round_bg_header"
-        android:padding="15dp"
+        android:layout_margin="2dp"
+        android:padding="10dp"
 
         android:layout_marginEnd="50dp"
         >
@@ -23,14 +22,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:textSize="25sp"
+        style="@style/target_overview_dateText"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintGuide_percent="0.8"
+            android:orientation="vertical"
+            android:id="@+id/guideline"/>
 
     <!-- ENERGY ON THIS DAY -->
     <ProgressBar
         android:id="@+id/energyBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="30dp"
 
         style="@android:style/Widget.ProgressBar.Horizontal"
@@ -38,6 +44,8 @@
         android:textColor="@android:color/holo_orange_light"
         android:textSize="32sp"
         app:layout_constraintTop_toBottomOf="@id/dateText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
         android:progress="0"
         android:layout_marginTop="10dp"
         />
@@ -64,6 +72,9 @@
         android:focusable="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundThird"
+        android:divider="@android:color/holo_red_dark"
+        android:dividerHeight="1dp"
 
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
