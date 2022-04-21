@@ -38,6 +38,8 @@ import com.example.nutritionapp.other.NutritionPercentageTuple;
 import com.example.nutritionapp.other.PortionTypes;
 import com.example.nutritionapp.other.Utils;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -62,6 +64,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     Database db;
     View nutritionOverviewHeader;
     View selectedItemsHeader;
+    View suggestedItemsHeader;
 
 
     SelectedFoodAdapter selectedAdapter;
@@ -255,7 +258,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         if (FIRST_ADD){
             selectedItemsHeader = findViewById(R.id.selected_items_header);
             TextView noHeader = selectedItemsHeader.findViewById(R.id.headerText);
-            noHeader.setText("Group Items");
+            noHeader.setText(R.string.addFoodsGroupItemHeader);
         }
         ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
         SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(this, sfi);
@@ -267,6 +270,13 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
         suggestionsPrevSelected.clear();
+
+        /* HEADER */
+        if (suggestionsPrevSelected.isEmpty()){
+            suggestedItemsHeader = findViewById(R.id.suggested_items_header);
+            TextView noHeader = suggestedItemsHeader.findViewById(R.id.headerText);
+            noHeader.setText(R.string.addFoodsSuggestionHeader);
+        }
         for (Food f : foods) {
             if (suggestionsPrevSelected.contains(new ListFoodItem(f))) {
                 continue;
@@ -285,7 +295,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
             nutritionOverviewHeader = findViewById(R.id.nutritionOverview_header);
             TextView noHeader = nutritionOverviewHeader.findViewById(R.id.headerText);
-            noHeader.setText("Nutrition Overview");
+            noHeader.setText(R.string.addFoodsNutritionOverviewHeader);
         }
         ArrayList<Food> analysis = new ArrayList<>();
         for (SelectedFoodItem sfi : selected) {

@@ -74,6 +74,11 @@
     <string name="customFoodHeader">Foods created so far:</string>
     <string name="customFoodHeaderEmpty">No Foods created so far!</string>
 
+    <!-- Add Foods -->
+    <string name="addFoodsSuggestionHeader">Suggestions</string>
+    <string name="addFoodsNutritionOverviewHeader">Nutrition Overview</string>
+    <string name="addFoodsGroupItemHeader">Group Items</string>
+
     <!-- Weight Tracking -->
     <string name="oneWeek">1 Week</string>
     <string name="oneMonth">1 Month</string>

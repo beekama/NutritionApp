@@ -74,6 +74,12 @@
     <string name="customFoodHeader">Erstellte Essen:</string>
     <string name="customFoodHeaderEmpty">Bisher wurden noch keine Essen erstellt!</string>
 
+
+    <!-- Add Foods -->
+    <string name="addFoodsSuggestionHeader">Vorschläge</string>
+    <string name="addFoodsNutritionOverviewHeader">Nährwerte</string>
+    <string name="addFoodsGroupItemHeader">Elemente</string>
+
     <!-- Weight Tracking -->
     <string name="oneWeek">1 Woche</string>
     <string name="oneMonth">1 Monat</string>
