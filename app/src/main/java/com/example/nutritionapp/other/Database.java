@@ -1214,7 +1214,7 @@ public class Database {
         ContentValues values = new ContentValues();
         values.put("date", dateString);
         values.put("weight", weightInGram);
-        db.insert(WEIGHTS, null, values);
+        db.insertWithOnConflict(WEIGHTS, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 
         /* set as current weight if current Day or most recent Log */
         if (date.equals(LocalDate.now())) {
