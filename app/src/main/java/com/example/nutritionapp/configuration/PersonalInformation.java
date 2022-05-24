@@ -81,7 +81,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
         final TextView toolbarTitle = findViewById(R.id.toolbar_title);
         final ImageButton backHome = findViewById(R.id.toolbar_back);
 
-        backHome.setOnClickListener((v -> finish()));
+        backHome.setOnClickListener((v -> finishAfterTransition()));
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.configurationTitle);
         backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);

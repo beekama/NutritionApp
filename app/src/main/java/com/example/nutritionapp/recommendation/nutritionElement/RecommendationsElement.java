@@ -79,7 +79,7 @@ public class RecommendationsElement extends AppCompatActivity {
         tb_back.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finishAfterTransition();
             }
         }));
 

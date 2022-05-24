@@ -65,7 +65,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.journalToolbarText);
         setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener((v -> finish()));
+        toolbarBack.setOnClickListener(v -> finishAfterTransition());
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         addStuff.setImageResource(R.drawable.add_circle_filled);
 

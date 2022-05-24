@@ -43,7 +43,7 @@ public class CustomFoodOverview extends AppCompatActivity {
         tb.setTitle("");
         tb_title.setText(R.string.customItems);
         setSupportActionBar(tb);
-        tb_back.setOnClickListener((v -> finish()));
+        tb_back.setOnClickListener((v -> finishAfterTransition()));
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         /* add new food item */

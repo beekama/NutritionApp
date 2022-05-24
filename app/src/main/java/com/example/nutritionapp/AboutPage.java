@@ -29,7 +29,7 @@ public class AboutPage extends AppCompatActivity {
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.about);
         setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener((v -> finish()));
+        toolbarBack.setOnClickListener((v -> finishAfterTransition()));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         LinearLayout layout = findViewById(R.id.aboutScrollViewLinearLayout);

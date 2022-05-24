@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     default:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 }
-                //finish();
+                //finishAfterTransition();
                 //startActivity(getIntent());
             }
         });

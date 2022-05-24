@@ -58,7 +58,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
         ImageButton submit = findViewById(R.id.toolbar_forward);
 
         /* return  button */
-        tb_back.setOnClickListener((v -> finish()));
+        tb_back.setOnClickListener((v -> finishAfterTransition()));
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         tb.setTitle("");
         tb_title.setText(R.string.customItemCreate);
@@ -158,7 +158,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
             }else {
                 db.createNewFood(f, CREATE_NEW_ID);
             }
-            finish();
+            finishAfterTransition();
         });
 
 

@@ -85,7 +85,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         toolbar.setTitle("");
         toolbarTitle.setText("Weight Tracking");
         setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener((v -> finish()));
+        toolbarBack.setOnClickListener((v -> finishAfterTransition()));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         observationPeriod = new Pair<>(getString(R.string.oneWeek), 7);

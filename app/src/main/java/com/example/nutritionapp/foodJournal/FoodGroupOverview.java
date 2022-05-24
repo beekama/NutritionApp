@@ -339,7 +339,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         resultIntent.putExtra("groupId", groupId);
         setResult(Activity.RESULT_OK, resultIntent);
 
-        finish();
+        finishAfterTransition();
     }
 
     private void save(LocalDateTime computedLoggedAt, boolean asTemplate){
