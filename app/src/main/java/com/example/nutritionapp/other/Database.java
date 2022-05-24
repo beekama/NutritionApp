@@ -850,7 +850,7 @@ public class Database {
             personalInfo.put("height", getPersonHeight());
             personalInfo.put("gender", getPersonGender());
 
-            LinkedHashMap dbWeights = getWeightAll();
+            TreeMap<LocalDate, Integer> dbWeights = getWeightAll();
             JSONArray weights = new JSONArray();
             if (dbWeights != null) {
                 List<LocalDate> keyList = new ArrayList<>(dbWeights.keySet());
@@ -1255,8 +1255,8 @@ public class Database {
         }
     }
 
-    public LinkedHashMap<LocalDate, Integer> getWeightAll() {
-        LinkedHashMap<LocalDate, Integer> weightsByDate = new LinkedHashMap<>();
+    public TreeMap<LocalDate, Integer> getWeightAll() {
+        TreeMap<LocalDate, Integer> weightsByDate = new TreeMap<>();
         String[] columns = {"date", "weight"};
 
         Cursor c = db.query(WEIGHTS, columns, null, null, null, null, null);

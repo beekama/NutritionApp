@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
 
 import static java.lang.Math.min;
 
@@ -58,7 +59,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
     //observation period in days:
     private Pair<String, Integer> observationPeriod;
     private LocalDate currentDateParsed = LocalDate.now();
-    protected LinkedHashMap<LocalDate, Integer> weightAll;
+    protected TreeMap<LocalDate, Integer> weightAll;
     protected LineChart chartWeight;
     protected LocalDate oldestValue;
     private TextView dateView;
@@ -293,7 +294,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         dialog.show();
     }
 
-    private void collectData(Database db, EditText etWeight, LinkedHashMap<LocalDate, Integer> weightAll) {
+    private void collectData(Database db, EditText etWeight, TreeMap<LocalDate, Integer> weightAll) {
         try {
             float newWeight = Float.parseFloat(etWeight.getText().toString());
             int weightInGram = Utils.floatWeightToInt(newWeight);
