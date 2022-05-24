@@ -124,7 +124,7 @@ public class Utils {
         return (int) (weight*1000);
     }
 
-    /* get String of NutritionElements */
+    /* load string resource for dynamic string */
     public static int getStringIdentifier(Context context, String name) {
         return context.getResources().getIdentifier(name, "string", context.getPackageName());
     }
