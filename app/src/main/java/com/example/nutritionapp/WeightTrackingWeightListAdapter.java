@@ -21,7 +21,7 @@ import java.util.List;
 public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
     Context context;
     LinkedHashMap<LocalDate, Integer> entries;
-    List<LocalDate> keys;
+    List<LocalDate> entryKeys;
     TransferWeight tw;
 
     private static final int HEADER_TYPE = 0;
@@ -39,16 +39,15 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
 
-        //update keys after external datachange:
-        keys = new ArrayList(entries.keySet());
-        Collections.sort(keys, Collections.reverseOrder());
+        /* update entryKeys after external data change */
+        entryKeys = new ArrayList<>(entries.keySet());
+        entryKeys.sort(Collections.reverseOrder());
 
-        View view;
         if (viewType == HEADER_TYPE){
-            view = inflater.inflate(R.layout.weight_tracking_header_item, parent, false);
+            View view = inflater.inflate(R.layout.weight_tracking_header_item, parent, false);
             return new HeaderViewHolder(view);
         } else if(viewType == ITEM_TYPE){
-            view = inflater.inflate(R.layout.weight_tracking_list_item, parent, false);
+            View view = inflater.inflate(R.layout.weight_tracking_list_item, parent, false);
             return new LocalViewHolder(view);
         } else {
             throw new RuntimeException("item matches no viewType. No implementation for type : " + viewType);
@@ -67,13 +66,13 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
 
             //ignore header in positionCount
             int relPosition = position -1;
-            lvh.date.setText(keys.get(relPosition).toString());
-            lvh.weight.setText(Float.toString(Utils.intWeightToFloat(entries.get(keys.get(relPosition)))));
+            lvh.date.setText(entryKeys.get(relPosition).toString());
+            lvh.weight.setText(Float.toString(Utils.intWeightToFloat(entries.get(entryKeys.get(relPosition)))));
             lvh.itemView.setOnClickListener(v -> {
-            Log.w("ONC", "Short Click");
-             });
+                Log.w("ONC", "Short Click");
+            });
             lvh.itemView.setOnLongClickListener(v -> {
-                removeEntry(keys.get(relPosition), relPosition);
+                removeEntry(entryKeys.get(relPosition), relPosition);
                 return false;
             });
 
@@ -95,9 +94,9 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
 
     void removeEntry(LocalDate entry, int position) {
         tw.removeEntry(entries.get(entry), entry);
-        entries.remove(keys.get(position));
-        keys = new ArrayList(entries.keySet());
-        Collections.sort(keys, Collections.reverseOrder());
+        entries.remove(entryKeys.get(position));
+        entryKeys = new ArrayList(entries.keySet());
+        Collections.sort(entryKeys, Collections.reverseOrder());
     }
 
 
