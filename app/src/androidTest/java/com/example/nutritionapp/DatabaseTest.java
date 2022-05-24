@@ -57,7 +57,7 @@ public class DatabaseTest {
     public void test02_checkLoggingFood() {
         ActivityScenario.launch(MainActivity.class).onActivity( activity -> {
                     Database db = new Database(activity);
-                    db.logExistingFoods(JournalFoodSampleGenerator.generateSampleFoodGroup(db), null);
+                    db.logExistingFoods(JournalFoodSampleGenerator.generateSampleFoodGroup(db), null, false);
                     HashMap<Integer, ArrayList<Food>> ret = db.getLoggedFoodsByDate(LocalDate.MIN, LocalDate.MAX, null);
                     assertNotNull(ret);
                     assert(!ret.keySet().isEmpty());
@@ -216,7 +216,7 @@ public class DatabaseTest {
                     f1.setAssociatedAmount(100);
                     ArrayList<Food> foods = new ArrayList<>();
                     foods.add(f1);
-                    db.logExistingFoods(foods, LocalDateTime.now());
+                    db.logExistingFoods(foods, LocalDateTime.now(), false);
                     db.deleteCustomFood(f1);
                     foods = db.getFoodsByPartialName("FOOD_A_ABCDFGH");
                     assertEquals("Food should be deactivated by deletion but was still found", 0, foods.size());

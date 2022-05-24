@@ -42,7 +42,7 @@ public class JournalTest {
         ActivityScenario.launch(MainActivity.class).onActivity(activity -> {
             Database db = new Database(activity);
             ArrayList<Food> foods = JournalFoodSampleGenerator.generateSampleFoodGroup(db);
-            db.logExistingFoods(foods, LocalDateTime.now());
+            db.logExistingFoods(foods, LocalDateTime.now(), false);
         });
     }
 
@@ -58,7 +58,7 @@ public class JournalTest {
             prev.minus(1, ChronoUnit.DAYS);
             post.plus(1, ChronoUnit.DAYS);
 
-            db.logExistingFoods(foods, logDate);
+            db.logExistingFoods(foods, logDate, false);
             HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(prev, post);
 
             assertEquals("Exactly one food group should be found", 1, foodGroups.keySet().size());
@@ -86,9 +86,9 @@ public class JournalTest {
             prev.minus(1, ChronoUnit.DAYS);
             post.plus(1, ChronoUnit.DAYS);
 
-            db.logExistingFoods(foods, day1);
-            db.logExistingFoods(foods, day2);
-            db.logExistingFoods(foods, day3);
+            db.logExistingFoods(foods, day1, false);
+            db.logExistingFoods(foods, day2, false);
+            db.logExistingFoods(foods, day3, false);
 
             HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(prev, post);
             if(foodGroups.keySet().size() != 3){
@@ -123,9 +123,9 @@ public class JournalTest {
             prev.minus(1, ChronoUnit.DAYS);
             post.plus(1, ChronoUnit.DAYS);
 
-            db.logExistingFoods(foods, day1);
-            db.logExistingFoods(foods, day2);
-            db.logExistingFoods(foods, day3);
+            db.logExistingFoods(foods, day1, false);
+            db.logExistingFoods(foods, day2, false);
+            db.logExistingFoods(foods, day3, false);
 
             HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(prev, post);
 
@@ -162,7 +162,7 @@ public class JournalTest {
 
             ArrayList<Food> foods = JournalFoodSampleGenerator.generateSampleFoodGroup(db);
             LocalDateTime logDate = LocalDateTime.of(2020, 9, 10, 20, 10);
-            db.logExistingFoods(foods, logDate);
+            db.logExistingFoods(foods, logDate, false);
 
             ArrayList<SelectedFoodItem> selected = new ArrayList<>();
             selected.add(new SelectedFoodItem(foods.get(0), 100.0f, PortionTypes.GRAM));

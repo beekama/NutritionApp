@@ -6,8 +6,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,9 +36,6 @@ import com.example.nutritionapp.other.NutritionPercentageTuple;
 import com.example.nutritionapp.other.PortionTypes;
 import com.example.nutritionapp.other.Utils;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -51,7 +46,10 @@ public class FoodGroupOverview extends AppCompatActivity {
     private static final int NO_UPDATE_EXISTING = -1;
     private static boolean FIRST_ADD = true;
     final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
+
+    /* information from caller */
     private boolean editMode = false;
+    boolean isTemplateMode;
 
     private TextView dateView;
     private TextView timeView;
@@ -80,6 +78,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
         ImageButton addButton = findViewById(R.id.toolbar_forward);
+        Button saveAsTemplate = findViewById(R.id.saveAsTemplate);
         toolbar.setTitle("");
         toolbarTitle.setText(R.string.toolbarStringGroupDetails);
         setSupportActionBar(toolbar);
@@ -108,6 +107,9 @@ public class FoodGroupOverview extends AppCompatActivity {
         /* set existing items if edit mode */
         groupId = this.getIntent().getIntExtra("groupId", -1);
 
+        /* see if we are creating or editing a pure template */
+        isTemplateMode = this.getIntent().getBooleanExtra("isTemplateMode", false);
+
         if (groupId >= 0) {
             this.editMode = true;
             ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
@@ -124,11 +126,14 @@ public class FoodGroupOverview extends AppCompatActivity {
         } else {
             loggedAt = LocalDateTime.now();
         }
-
-        dateView.setText(loggedAt.format(Utils.sqliteDateFormat));
-        timeView.setText(loggedAt.format(Utils.sqliteTimeFormat));
-        dateView.setOnClickListener(v -> dateUpdateDialog(loggedAt));
-        timeView.setOnClickListener(v -> timeUpdateDialog(loggedAt));
+        if(isTemplateMode){
+            saveAsTemplate.setText("Save");
+        }else {
+            dateView.setText(loggedAt.format(Utils.sqliteDateFormat));
+            timeView.setText(loggedAt.format(Utils.sqliteTimeFormat));
+            dateView.setOnClickListener(v -> dateUpdateDialog(loggedAt));
+            timeView.setOnClickListener(v -> timeUpdateDialog(loggedAt));
+        }
 
         selectedListView.setOnItemLongClickListener((parent, view, position, id) -> {
             final SelectedFoodItem item = (SelectedFoodItem) parent.getItemAtPosition(position);
@@ -151,6 +156,10 @@ public class FoodGroupOverview extends AppCompatActivity {
             runFoodSelectionPipeline(item, NO_UPDATE_EXISTING);
         });
 
+        saveAsTemplate.setOnClickListener(view -> {
+            save(null,true);
+            Toast.makeText(this.getApplicationContext(), "Saved Template", Toast.LENGTH_LONG).show();
+        });
 
         toolbarBack.setOnClickListener(v -> onBackPressed());
     }
@@ -313,16 +322,16 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
-        LocalDateTime computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
-        for (int i = 0; i < selectedAdapter.getCount(); i++) {
-            SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
+        LocalDateTime computedLoggedAt;
+        if(isTemplateMode){
+            computedLoggedAt = LocalDateTime.now();
+        }else{
+            computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
         }
-        if (this.editMode) {
-            db.updateFoodGroup(selected, groupId, computedLoggedAt);
-        } else {
-            groupId = db.logExistingFoods(selected, computedLoggedAt, null);
-        }
+
+        save(computedLoggedAt, isTemplateMode);
 
         /* report back a dirty date if necessary */
         Intent resultIntent = new Intent();
@@ -331,5 +340,16 @@ public class FoodGroupOverview extends AppCompatActivity {
         setResult(Activity.RESULT_OK, resultIntent);
 
         finish();
+    }
+
+    private void save(LocalDateTime computedLoggedAt, boolean asTemplate){
+        for (int i = 0; i < selectedAdapter.getCount(); i++) {
+            SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
+        }
+        if (this.editMode) {
+            db.updateFoodGroup(selected, groupId, computedLoggedAt, asTemplate);
+        } else {
+            groupId = db.logExistingFoods(selected, computedLoggedAt, null, asTemplate);
+        }
     }
 }

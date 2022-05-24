@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.configuration.ConfigurationAdapter;
 import com.example.nutritionapp.configuration.PersonalInformation;
+import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
 
 import java.util.ArrayList;
 
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
-    private Context context;
+    private final Context context;
     public ArrayList<FoodOverviewItem> items;
-    View convertView;
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     Database db;
@@ -69,9 +69,18 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     FoodOverviewItem item = items.get(position);
-                    Intent editCustomFood = new Intent(convertView.getContext(), CreateNewFoodItem.class);
-                    editCustomFood.putExtra("fdc_id", item.food.id);
-                    context.startActivity(editCustomFood);
+                    if(item.isGroup) {
+                        /* open indent from journal to edit a group of goods */
+                        Intent editCustomFoodGroup = new Intent(context, FoodGroupOverview.class);
+                        editCustomFoodGroup.putExtra("groupId", Integer.parseInt(item.food.id));
+                        editCustomFoodGroup.putExtra("isTemplateMode", true);
+                        context.startActivity(editCustomFoodGroup);
+                    }else {
+                        /* open indent for editing a single food */
+                        Intent editCustomFood = new Intent(context, CreateNewFoodItem.class);
+                        editCustomFood.putExtra("fdc_id", item.food.id);
+                        context.startActivity(editCustomFood);
+                    }
                 }
             });
             lvh.itemView.setOnLongClickListener(new View.OnLongClickListener() {

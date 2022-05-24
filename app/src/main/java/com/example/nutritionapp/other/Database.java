@@ -12,7 +12,6 @@ import android.util.Log;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
-import com.github.mikephil.charting.data.Entry;
 
 import org.apache.commons.io.IOUtil;
 import org.json.JSONArray;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -51,6 +49,8 @@ public class Database {
     private static final String JOURNAL_TABLE = "foodlog";
     private static final String FOOD_TABLE = "food";
     private static final String DEFAULT_NUTRIENT_DB = "food_nutrient_00";
+
+    final int IS_TEMPLATE_MINUS_ONE = -1;
 
     final String FILE_KEY = "DEFAULT";
     final String WEIGHTS = "weightsByDate";
@@ -168,7 +168,7 @@ public class Database {
     }
 
     /* ################ FOOD LOGGING ############## */
-    public synchronized int logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack) {
+    public synchronized int logExistingFoods(ArrayList<SelectedFoodItem> selectedSoFarItems, LocalDateTime d, Object hackyHack, boolean isTemplate) {
         /* This functions add a list of create_foods to the journal at a given date */
         if (hackyHack != null) {
             Log.w("WARN", "HackyHack parameter should always be null");
@@ -177,10 +177,10 @@ public class Database {
         for (SelectedFoodItem item : selectedSoFarItems) {
             selectedSoFar.add(item.food);
         }
-        return logExistingFoods(selectedSoFar, d);
+        return logExistingFoods(selectedSoFar, d, isTemplate);
     }
 
-    public synchronized int logExistingFoods(ArrayList<Food> foods, LocalDateTime d) {
+    public synchronized int logExistingFoods(ArrayList<Food> foods, LocalDateTime d, boolean isTemplate) {
         /* This functions add a list of create_foods to the journal at a given date */
 
         if (d == null) {
@@ -195,7 +195,12 @@ public class Database {
             values.put("food_id", f.id);
             values.put("date", d.toString());
             values.put("group_id", groupID);
-            values.put("loggedAt", d.format(Utils.sqliteDatetimeFormat));
+            if(isTemplate) {
+                values.put("loggedAt", IS_TEMPLATE_MINUS_ONE);
+                Log.wtf("Template", "Logging new Food-Template");
+            }else{
+                values.put("loggedAt", d.format(Utils.sqliteDatetimeFormat));
+            }
             values.put("amount", f.getAssociatedAmount());
             values.put("portion_type", f.getAssociatedPortionType().toString());
             db.insert(JOURNAL_TABLE, null, values);
@@ -203,7 +208,7 @@ public class Database {
         return groupID;
     }
 
-    public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt) {
+    public synchronized void updateFoodGroup(ArrayList<SelectedFoodItem> updatedListWithAmounts, int groupId, LocalDateTime loggedAt, boolean isTemplate) {
 
         /* flush the cache */
         foodGroupResult.remove(groupId);
@@ -215,11 +220,19 @@ public class Database {
             Food f = fItem.food;
             ContentValues values = new ContentValues();
             values.put("food_id", f.id);
-            values.put("date", loggedAt.toString());
+
+            if(isTemplate){
+                values.put("date", IS_TEMPLATE_MINUS_ONE);
+                values.put("loggedAt", Integer.toString(IS_TEMPLATE_MINUS_ONE));
+            }else {
+                values.put("date", loggedAt.toString());
+                values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
+            }
+
             values.put("group_id", groupId);
-            values.put("loggedAt", loggedAt.format(Utils.sqliteDatetimeFormat));
             values.put("amount", f.getAssociatedAmount());
             values.put("portion_type", f.getAssociatedPortionType().toString());
+
             db.insert(JOURNAL_TABLE, null, values);
         }
     }
@@ -259,7 +272,7 @@ public class Database {
         String altDescription = getLocalizedDescriptionForId(foodId);
 
         final LocalDateTime loggedAt;
-        if (loggedAtIso != null) {
+        if (loggedAtIso != null && !loggedAtIso.equals(Integer.toString(IS_TEMPLATE_MINUS_ONE))) {
             loggedAt = LocalDateTime.parse(loggedAtIso, Utils.sqliteDatetimeFormat);
         } else {
             loggedAt = null;
@@ -325,30 +338,40 @@ public class Database {
         return getLoggedFoodsByDate(LocalDate.from(start), LocalDate.from(end), null);
     }
 
+    public LinkedHashMap<Integer, ArrayList<Food>> getTemplateFoodGroups() {
+        return getLoggedFoodsByDate(null, null, null);
+    }
+
     public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDate start, LocalDate end, String limit) {
         /* Return create_foods logged by dates */
 
         LinkedHashMap<Integer, ArrayList<Food>> ret = new LinkedHashMap<>();
 
-        if (end == null) {
+        boolean getTemplatedFoodGroups = (start == null && end == null);
+        if (end == null && !getTemplatedFoodGroups) {
             end = start.plusDays(1);
         }
-        String startISO = start.format(Utils.sqliteDateZeroPaddedFormat);
-        String endISO = end.format(Utils.sqliteDateZeroPaddedFormat);
 
-        if (start.equals(LocalDate.MIN)) {
-            startISO = "0000-01-01 00:00:00";
-        }
-
-        String table = JOURNAL_TABLE;
+        String startISO = null;
+        String endISO = null;
+        String whereStm = null;
         String[] columns = {"food_id", "group_id", "loggedAt", "amount", "portion_type"};
-        String whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")", startISO, endISO);
 
-        if (start.equals(LocalDate.MIN) && end.equals(LocalDate.MAX)) {
-            whereStm = "date(loggedAt)";
+        if(!getTemplatedFoodGroups){
+            startISO = start.format(Utils.sqliteDateZeroPaddedFormat);
+            endISO = end.format(Utils.sqliteDateZeroPaddedFormat);
+            if (start.equals(LocalDate.MIN)) {
+                startISO = "0000-01-01 00:00:00";
+            }
+            whereStm = String.format("date(loggedAt) between date(\"%s\") and date(\"%s\")", startISO, endISO);
+            if (start.equals(LocalDate.MIN) && end.equals(LocalDate.MAX)) {
+                whereStm = "date(loggedAt)";
+            }
+        }else{
+            whereStm = "loggedAt == -1";
         }
 
-        Cursor c = db.query(table, columns, whereStm, null, null, null, "date(loggedAt) DESC", limit);
+        Cursor c = db.query(JOURNAL_TABLE, columns, whereStm, null, null, null, "date(loggedAt) DESC", limit);
 
         if (c.moveToFirst()) {
             do {
@@ -889,7 +912,7 @@ public class Database {
                 }
 
                 /* add foods to database */
-                logExistingFoods(foodsArrayList, dateTime);
+                logExistingFoods(foodsArrayList, dateTime, false);
             }
         }
 

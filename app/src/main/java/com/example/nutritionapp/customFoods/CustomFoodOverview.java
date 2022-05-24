@@ -17,6 +17,7 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class CustomFoodOverview extends AppCompatActivity {
 
@@ -57,14 +58,25 @@ public class CustomFoodOverview extends AppCompatActivity {
     }
 
     private void updateFoodList() {
-        ArrayList<Food> displayedFoods = db.getAllCustomFoods();
+
         foodItems.clear();
+
+        /* get custom defined foods */
+        ArrayList<Food> displayedFoods = db.getAllCustomFoods();
         foodItems.add(new FoodOverviewItem(new Food("header", "header")));
         for (Food f : displayedFoods) {
             foodItems.add(new FoodOverviewItem(f));
         }
-        foodOverviewAdapter = new FoodOverviewAdapter(getApplicationContext(), foodItems, db);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+
+        /* get food group templates */
+        LinkedHashMap<Integer, ArrayList<Food>> foodGroupTemplates = db.getTemplateFoodGroups();
+        for (Integer key : foodGroupTemplates.keySet()) {
+            ArrayList<Food> fl = foodGroupTemplates.get(key);
+            foodItems.add(new FoodOverviewItem(fl, key));
+        }
+
+        foodOverviewAdapter = new FoodOverviewAdapter(this, foodItems, db);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mainRv.setLayoutManager(linearLayoutManager);
         mainRv.setAdapter(foodOverviewAdapter);
     }
