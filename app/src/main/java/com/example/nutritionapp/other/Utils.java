@@ -71,7 +71,6 @@ public class Utils {
                     ArrayList<Food> foodListForGroupOnDay = foodGroupsAtDay.get(groupID);
                     if (foodListForGroupOnDay != null) {
                         foodListForGroupOnDay.add(f);
-                        Log.wtf("Missing ID", "We seem to be missing a group id here..?");
                     }
                 } else {
                     ArrayList<Food> tmpList = new ArrayList<>();
