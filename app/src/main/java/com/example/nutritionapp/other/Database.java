@@ -1063,6 +1063,10 @@ public class Database {
     public double getPersonBmi() {
         int height = this.getPersonHeight();
         int weight = this.getPersonWeight();
+
+        if(height <= 0 || weight <= 0){
+            return Double.NaN;
+        }
         double bmi = (weight/1000.f) / ((height * height) / 10000.0);
         return Math.round(bmi * 100.0) / 100.0;
     }
