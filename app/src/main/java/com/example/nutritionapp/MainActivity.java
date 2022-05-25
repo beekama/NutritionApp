@@ -5,27 +5,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -37,7 +32,6 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
-import com.example.nutritionapp.recommendation.RecommendationListItem;
 import com.example.nutritionapp.recommendation.RecommendationProteinListAdapter;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.github.mikephil.charting.charts.PieChart;
@@ -51,10 +45,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private List<Integer> colors = new ArrayList<>();
+    private final List<Integer> colors = new ArrayList<>();
     private Database db;
     private LocalDateTime currentDateParsed;
     private LocalDate currentDateParsedLD;
@@ -78,13 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-
         setSupportActionBar(toolbar);
-
-        /* set title on actionBar - default "Nutrition App" (App-Name):
-        //toolbar.setTitle("");
-        //setTitle("lalala");
 
         /* drawer (navigation sidebar) */
         drawer = findViewById(R.id.drawer_layout);
@@ -95,55 +84,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         /* Night Mode */
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         View navHeader = navigationView.getHeaderView(0);
-        ImageButton switchToNightd = navHeader.findViewById(R.id.switchToNight);
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES)
-            switchToNightd.setImageResource(R.mipmap.ic_sun_foreground);
-        switchToNightd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Resources resources = getResources();
-                switch (currentNightMode) {
-                    case Configuration.UI_MODE_NIGHT_NO:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        //change background to ic_day:
-                        switchToNightd.setImageResource(R.mipmap.ic_night_foreground);
-                        break;
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        //change background to ic_night:
-                        switchToNightd.setImageResource(R.mipmap.ic_night_foreground);
-                        break;
-                    //case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    default:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                }
-                //finishAfterTransition();
-                //startActivity(getIntent());
+        ImageButton switchToNight = navHeader.findViewById(R.id.switchToNight);
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            switchToNight.setImageResource(R.mipmap.ic_sun_foreground);
+        }
+        switchToNight.setOnClickListener(v -> {
+            switch (currentNightMode) {
+                case Configuration.UI_MODE_NIGHT_NO:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    /* FIXME: why is this line the same in both cases? bug? comment in next line contradictory */
+                    //change background to ic_day:
+                    switchToNight.setImageResource(R.mipmap.ic_night_foreground);
+                    break;
+                case Configuration.UI_MODE_NIGHT_YES:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    switchToNight.setImageResource(R.mipmap.ic_night_foreground);
+                    break;
+                //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                default:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
         });
 
 
-        /* ---- JOURNAL -------------------------------------------------------------------------------------- */
+        /* ---- JOURNAL ------*/
         View foodJournalButtonView = findViewById(R.id.food_journal);
-        //    foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
+        /* FIXME: Click Animation for TILE */
+        // foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
 
         TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.button_title);
         ImageButton foodJournalButtonAdd = foodJournalButtonView.findViewById(R.id.button_add);
         ImageButton foodJournalButtonViewJournal = foodJournalButtonView.findViewById(R.id.button_view);
-        //    TextView foodJournalButtonLeftTag = foodJournalButtonView.findViewById(R.id.buttonDescription);
 
         foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
-        //   foodJournalButtonLeftTag.setText(R.string.foodJournalButtonLeftTag);
-
-/*        foodJournalButtonView.setOnClickListener(v -> {
-            Intent journal = new Intent(v.getContext(), FoodJournalOverview.class);
-            startActivity(journal, Utils.getDefaultTransition(this));
-        });*/
 
         foodJournalButtonAdd.setOnClickListener(v -> {
             Intent add = new Intent(v.getContext(), FoodGroupOverview.class);
@@ -156,9 +133,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        /* ---- CONFIGURATION -------------------------------------------------------------------------------------- */
+        /* ---- CONFIGURATION ----- */
         View configButtonView = findViewById(R.id.config);
-        //  configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
+        /* FIXME: Click Animation for TILE */
+        // configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
         TextView configButtonTitle = configButtonView.findViewById(R.id.button_title);
         TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
@@ -171,9 +149,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(configuration, Utils.getDefaultTransition(this));
         });
 
-        /* ---- CUSTOM FOOD CREATION -------------------------------------------------------------------------------------- */
+        /* ---- CUSTOM FOOD CREATION ---- */
         View createCustomFoodsView = findViewById(R.id.create_foods);
-        //   createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
+        /* FIXME: Click Animation for TILE */
+        // createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
         TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.button_title);
         TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
@@ -186,31 +165,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(createCustomFood, Utils.getDefaultTransition(this));
         });
 
-        /* ---- RECOMMENDATION -------------------------------------------------------------------------------------- */
+        /* ---- RECOMMENDATION ---- */
         View recommendationTileView = findViewById(R.id.recommendations);
-        //  showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
-
         TextView analysisButtonTitle = recommendationTileView.findViewById(R.id.button_title);
         Button showAnalysisButton = recommendationTileView.findViewById(R.id.button_recommendation);
+
         energyBar = recommendationTileView.findViewById(R.id.progressbar_main);
         energyBarText = recommendationTileView.findViewById(R.id.progressbarTV_main);
-        // TextView analysisButtonDescription = showAnalysisButtonView.findViewById(R.id.buttonDescription);
 
         analysisButtonTitle.setText(R.string.analysisButtonTitle);
-        showAnalysisButton.setText("show Analysis");
-        //  analysisButtonDescription.setText(R.string.analysisButtonLeftTag);
+        showAnalysisButton.setText(R.string.showAnalysis);
 
-        //get logged foods of day:
-        setEngergyBar();
+        /* get logged foods of day */
+        setEnergyBar();
 
         recommendationTileView.setOnClickListener(v -> {
             Intent analysis = new Intent(v.getContext(), Recommendations.class);
-            Log.wtf("Analysis Button", "Analysis button pressed");
             startActivity(analysis, Utils.getDefaultTransition(this));
         });
 
+        showAnalysisButton.setOnClickListener(v -> {
+            /* FIXME ShowAnalysisButton Action */
+        });
+
         /* PieChart */
-        Pair<PieData, List> pieAndListData = generatePieChartContent(currentDateParsedLD);        //todo: fix or change needed from localdate to localdatetime
+        /* FIXME: fix or change needed from LocalDate to LocalDateTime */
+        Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(currentDateParsedLD);
 
         pieChart = findViewById(R.id.piChartNutrition);
         pieChart.getDescription().setEnabled(false);
@@ -222,14 +202,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Legend legend = pieChart.getLegend();
         legend.setEnabled(false);
+
         pieChart.setDrawEntryLabels(false);
-
         pieChart.invalidate();
-
 
         /* PieChartList */
         chartList = findViewById(R.id.chartList);
-        List<Integer> allowances = pieAndListData.second;
+        ArrayList<Integer> allowances = pieAndListData.second;
         LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         chartList.setLayoutManager(nutritionChartLayoutManager);
         RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data, allowances);
@@ -239,10 +218,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected void onResume() {
         super.onResume();
-        //engergyBar
-        setEngergyBar();
-        //protein chart
-        Pair<PieData, List> pieAndListData = generatePieChartContent(currentDateParsedLD);
+        setEnergyBar();
+        Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(currentDateParsedLD);
         pieAndListData.first.setDrawValues(false);
         pieChart.setData(pieAndListData.first);
         pieChart.invalidate();
@@ -296,38 +273,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void setEngergyBar() {
+    public void setEnergyBar() {
         ArrayList<Food> foodsOfDay = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
 
         NutritionAnalysis nutAnalysis = new NutritionAnalysis(foodsOfDay);
         int energyNeeded = 2000;
         int energyUsedPercentage = nutAnalysis.getTotalEnergy() * 100 / energyNeeded;
 
-
         if (energyUsedPercentage < 75) {
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         } else if (energyUsedPercentage < 125) {
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
         } else {
-            energyBar.setProgressTintList(ColorStateList.valueOf(0xFFCC282e));      //todo choose color
+            /* FIXME: Choose color / Extract Color to Resources */
+            energyBar.setProgressTintList(ColorStateList.valueOf(0xFFCC282e));
         }
 
         energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format("Energy %d/%d", nutAnalysis.getTotalEnergy(), energyNeeded);
+        String energyBarContent = String.format(Locale.getDefault(), getString(R.string.energyBarFormatString),
+                                                    nutAnalysis.getTotalEnergy(), energyNeeded);
         energyBarText.setText(energyBarContent);
     }
 
     /* returns pair of PieData and allowances */
-    Pair<PieData, List> generatePieChartContent(LocalDate currentDateParsed) {
+    private Pair<PieData, ArrayList<Integer>> generatePieChartContent(LocalDate currentDateParsed) {
 
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
-        ArrayList<RecommendationListItem> listItems = new ArrayList<>();
 
         /* loop foods and accumulate foodData */
         int carbSum = 0;
         int proteinSum = 0;
         int fatSum = 0;
-        // factor with calories per gram
+
+        /* factor with calories per gram */
         for (Food f : foods){
             carbSum += f.carb * 4;
             proteinSum += f.protein * 4;
@@ -342,9 +320,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* generate PieEntries for Carbs, Protein, Fat */
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(carbSum, "carbs"));
-        entries.add(new PieEntry(proteinSum, "protein"));
-        entries.add(new PieEntry(fatSum, "fat"));
+        entries.add(new PieEntry(carbSum, getString(R.string.chartLegendCarbs)));
+        entries.add(new PieEntry(proteinSum, getString(R.string.chartLegendProtein)));
+        entries.add(new PieEntry(fatSum, getString(R.string.chartLegendFat)));
 
         /* add allowances for Carbs, Protein, Fat */
         ArrayList<Integer> allowances = new ArrayList<>();
@@ -355,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* generate DataSet from PieEntries */
         PieDataSet set = new PieDataSet(entries, "");
 
-        // add some colors
+        /* add colors */
         colors.add(Color.BLUE);
         colors.add(Color.MAGENTA);
         colors.add(Color.YELLOW);
@@ -364,7 +342,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         PieData data = new PieData(set);
         return new Pair<>(data, allowances);
-
     }
 
 }
