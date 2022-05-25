@@ -32,10 +32,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
@@ -257,6 +259,11 @@ public class Database {
 
     public void invalidateFoodIdInCache(String foodID) {
         foodCache.remove(foodID);
+        foodNutritionResults.remove(foodID);
+
+        /* find groups that need to be invalidated */
+        Food searchHelper = new Food(foodID, foodID);
+        foodGroupResult.entrySet().removeIf(e -> e.getValue().contains(searchHelper));
     }
 
     public Food getFoodById(String foodId) {
@@ -280,6 +287,15 @@ public class Database {
 
         if (foodCache.containsKey(foodId)) {
             Food f = foodCache.get(foodId).deepclone();
+
+            /* check for bad cache states (the Issue#20 Situation) */
+            boolean allNutritionValuesZero = f.nutrition.getElements().values().stream().noneMatch(i -> i != 0);
+            if(f.energy == 0 && f.fiber == 0 && allNutritionValuesZero){
+                Log.wtf("NutritionCache", "Found potentially broken cache entry, retrying nutrition update for: " + f.id);
+                invalidateFoodIdInCache(f.id);
+                f = getFoodById(f.id);
+            }
+
             f.loggedAt = loggedAt;
             return f;
         } else {
@@ -554,7 +570,8 @@ public class Database {
 
         /* check cache */
         if (foodGroupResult.containsKey(groupId)) {
-            return foodGroupResult.get(groupId);
+            ArrayList<Food> logged = foodGroupResult.get(groupId);
+            return logged;
         }
 
         String[] whereArgs = {Integer.toString(groupId)};
