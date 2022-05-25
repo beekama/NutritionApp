@@ -187,13 +187,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         /* ---- RECOMMENDATION -------------------------------------------------------------------------------------- */
-        View showAnalysisButtonView = findViewById(R.id.recommendations);
+        View recommendationTileView = findViewById(R.id.recommendations);
         //  showAnalysisButtonView.setBackgroundResource(R.drawable.button_ripple_animation_red);
 
-        TextView analysisButtonTitle = showAnalysisButtonView.findViewById(R.id.button_title);
-        Button showAnalysisButton = showAnalysisButtonView.findViewById(R.id.button_recommendation);
-        energyBar = showAnalysisButtonView.findViewById(R.id.progressbar_main);
-        energyBarText = showAnalysisButtonView.findViewById(R.id.progressbarTV_main);
+        TextView analysisButtonTitle = recommendationTileView.findViewById(R.id.button_title);
+        Button showAnalysisButton = recommendationTileView.findViewById(R.id.button_recommendation);
+        energyBar = recommendationTileView.findViewById(R.id.progressbar_main);
+        energyBarText = recommendationTileView.findViewById(R.id.progressbarTV_main);
         // TextView analysisButtonDescription = showAnalysisButtonView.findViewById(R.id.buttonDescription);
 
         analysisButtonTitle.setText(R.string.analysisButtonTitle);
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //get logged foods of day:
         setEngergyBar();
 
-        showAnalysisButtonView.setOnClickListener(v -> {
+        recommendationTileView.setOnClickListener(v -> {
             Intent analysis = new Intent(v.getContext(), Recommendations.class);
             Log.wtf("Analysis Button", "Analysis button pressed");
             startActivity(analysis, Utils.getDefaultTransition(this));
