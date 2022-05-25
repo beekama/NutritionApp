@@ -230,7 +230,7 @@ public class Nutrition {
         /* convert to native units of db */
         for(NutritionElement el : allowance.elements.keySet()){
             String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
-            Log.wtf("TAG",  nutrientNativeUnit + " " + el);
+            Log.d("TAG",  nutrientNativeUnit + " " + el);
             int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, allowance.elements.get(el));
            allowance.elements.put(el, converted);
         }
@@ -271,7 +271,7 @@ public class Nutrition {
         /* convert to native units of db */
         for(NutritionElement el : upperLimit.elements.keySet()){
             String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
-            Log.wtf("TAG",  nutrientNativeUnit + " " + el);
+            Log.d("TAG",  nutrientNativeUnit + " " + el);
             int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, upperLimit.elements.get(el));
             upperLimit.elements.put(el, converted);
         }

@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         showAnalysisButtonView.setOnClickListener(v -> {
             Intent analysis = new Intent(v.getContext(), Recommendations.class);
+            Log.wtf("Analysis Button", "Analysis button pressed");
             startActivity(analysis, Utils.getDefaultTransition(this));
         });
 
@@ -277,6 +278,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent weight = new Intent(this, WeightTracking.class);
                 startActivity(weight);
                 break;
+            default:
+                Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
         }
 
         drawer.closeDrawer(GravityCompat.START);

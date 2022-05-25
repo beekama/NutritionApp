@@ -73,7 +73,6 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
         } else {
             CreateFoodNutritionSelectorAdapter.LocalViewHolder lvh = (CreateFoodNutritionSelectorAdapter.LocalViewHolder) holder;
 //            lvh.name.setText(item.tag);
-//            Log.wtf("SET", item.tag);
             if (!item.inputTypeString) {
                 if (item.amount > 0) {
                     lvh.value.setText(Integer.toString(item.amount));
@@ -84,7 +83,6 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
                 lvh.value.setText("");
             }
             lvh.name.setText(item.tag);
-            //Log.wtf("SET", item.tag);
             lvh.background.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
