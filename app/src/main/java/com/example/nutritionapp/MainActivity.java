@@ -230,33 +230,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /* goto selected item in navigation sidebar */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_foodJournal:
-                Intent journal = new Intent(this, FoodJournalOverview.class);
-                startActivity(journal, Utils.getDefaultTransition(this));
-                break;
-            case R.id.nav_configuration:
-                Intent configuration = new Intent(this, PersonalInformation.class);
-                startActivity(configuration, Utils.getDefaultTransition(this));
-                break;
-            case R.id.nav_customFoods:
-                Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
-                startActivity(createCustomFood, Utils.getDefaultTransition(this));
-                break;
-            case R.id.nav_analysis:
-                Intent analysis = new Intent(this, Recommendations.class);
-                startActivity(analysis, Utils.getDefaultTransition(this));
-                break;
-            case R.id.nav_about:
-                Intent about = new Intent(this, AboutPage.class);
-                startActivity(about);
-                break;
-            case R.id.nav_weight_tracking:
-                Intent weight = new Intent(this, WeightTracking.class);
-                startActivity(weight);
-                break;
-            default:
-                Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
+        int itemId = item.getItemId();
+        if (itemId == R.id.nav_foodJournal) {
+            Intent journal = new Intent(this, FoodJournalOverview.class);
+            startActivity(journal, Utils.getDefaultTransition(this));
+        } else if (itemId == R.id.nav_configuration) {
+            Intent configuration = new Intent(this, PersonalInformation.class);
+            startActivity(configuration, Utils.getDefaultTransition(this));
+        } else if (itemId == R.id.nav_customFoods) {
+            Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
+            startActivity(createCustomFood, Utils.getDefaultTransition(this));
+        } else if (itemId == R.id.nav_analysis) {
+            Intent analysis = new Intent(this, Recommendations.class);
+            startActivity(analysis, Utils.getDefaultTransition(this));
+        } else if (itemId == R.id.nav_about) {
+            Intent about = new Intent(this, AboutPage.class);
+            startActivity(about);
+        } else if (itemId == R.id.nav_weight_tracking) {
+            Intent weight = new Intent(this, WeightTracking.class);
+            startActivity(weight);
+        } else {
+            Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
         }
 
         drawer.closeDrawer(GravityCompat.START);
