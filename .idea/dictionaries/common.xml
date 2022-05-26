@@ -1,14 +1,13 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Sheppy">
     <words>
-      <w>darkmode</w>
-      <w>dbid</w>
-      <w>nightmode</w>
       <w>abcdfgh</w>
       <w>acidophilus</w>
       <w>affero</w>
       <w>argparse</w>
       <w>cached/</w>
+      <w>darkmode</w>
+      <w>dbid</w>
       <w>deepclone</w>
       <w>eierschalenfarbe</w>
       <w>fndds</w>
@@ -27,10 +26,12 @@
       <w>microgram</w>
       <w>monterey</w>
       <w>nesquik</w>
+      <w>nightmode</w>
       <w>noncommercially</w>
       <w>nutritionapp</w>
       <w>philipp</w>
       <w>relicensing</w>
+      <w>sqlite</w>
       <w>stackoverflow</w>
       <w>sublicenses</w>
       <w>sublicensing</w>
@@ -38,7 +39,6 @@
       <w>unfocus</w>
       <w>wipo</w>
       <w>yannik</w>
-      <w>sqlite</w>
     </words>
   </dictionary>
 </component>
