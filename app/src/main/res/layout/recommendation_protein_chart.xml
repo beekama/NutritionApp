@@ -11,7 +11,7 @@
         android:id="@+id/recommendation_protein_chart">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidline"
+        android:id="@+id/guideLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -23,7 +23,7 @@
         android:id="@+id/piChartNutrition"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toStartOf="@id/guidline"
+        app:layout_constraintEnd_toStartOf="@id/guideLine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/chartList" />
@@ -32,7 +32,7 @@
         android:id="@+id/chartList"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="@id/guidline"
+        app:layout_constraintStart_toStartOf="@id/guideLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/piChartNutrition"/>
 

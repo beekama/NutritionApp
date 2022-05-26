@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidline"
+        android:id="@+id/guideLine"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:orientation="vertical"
@@ -32,7 +32,7 @@
         android:text="Amount of Energy: "
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guidline"
+        app:layout_constraintEnd_toEndOf="@id/guideLine"
         app:layout_constraintTop_toBottomOf="@id/popup_header"/>
 
     <TextView
@@ -42,14 +42,14 @@
         android:maxLines="1"
         android:text="Amount of "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guidline"
+        app:layout_constraintEnd_toEndOf="@id/guideLine"
         app:layout_constraintTop_toBottomOf="@id/popup_energyAmountText"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/popup_energyAmount"
-        app:layout_constraintStart_toEndOf="@id/guidline"
+        app:layout_constraintStart_toEndOf="@id/guideLine"
         app:layout_constraintEnd_toStartOf="@id/popup_energyUnit"
         app:layout_constraintTop_toBottomOf="@id/popup_header"/>
 
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/popup_nutritionAmount"
-        app:layout_constraintStart_toEndOf="@id/guidline"
+        app:layout_constraintStart_toEndOf="@id/guideLine"
         app:layout_constraintEnd_toStartOf="@id/popup_nutritionUnity"
         app:layout_constraintTop_toBottomOf="@id/popup_energyAmountText"/>
 

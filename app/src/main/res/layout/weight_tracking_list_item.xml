@@ -10,14 +10,14 @@
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guidline1"
+        android:id="@+id/guideLineVerticalLeftWeightTrackingHeaderItem"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guidline2"
+        android:id="@+id/guideLineVerticalRightHeaderItem"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8"/>
 
@@ -29,7 +29,7 @@
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guidline1"
+        app:layout_constraintEnd_toStartOf="@id/guideLineVerticalLeftWeightTrackingHeaderItem"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:id="@+id/trackingWeight"
         android:textAlignment="textEnd"
         android:padding="10dp"
-        app:layout_constraintStart_toEndOf="@id/guidline1"
+        app:layout_constraintStart_toEndOf="@id/guideLineVerticalLeftWeightTrackingHeaderItem"
         app:layout_constraintEnd_toStartOf="@id/trackingKG"
         app:layout_constraintBottom_toBottomOf="@id/trackingDate"/>
 
@@ -52,7 +52,7 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         app:layout_constraintStart_toEndOf="@id/trackingWeight"
-        app:layout_constraintEnd_toStartOf="@id/guidline2"
+        app:layout_constraintEnd_toStartOf="@id/guideLineVerticalRightHeaderItem"
         app:layout_constraintBottom_toBottomOf="@id/trackingDate"/>
 
 

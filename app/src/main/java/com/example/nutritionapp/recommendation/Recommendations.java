@@ -125,8 +125,8 @@ public class Recommendations extends AppCompatActivity {
         nutritionRList.setLayoutManager(nutritionReportLayoutManager);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed);
 
-        DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), false);
-        nutritionRList.addItemDecoration(dividerItemDecoratior);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), false);
+        nutritionRList.addItemDecoration(dividerItemDecorator);
 
         RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(Recommendations.this, listItems);
         nutritionRList.setAdapter(nutritionReport);
@@ -142,7 +142,7 @@ public class Recommendations extends AppCompatActivity {
         setProgressBar(localDate);
         //nutrition list
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(localDate);
-        RecommendationAdapter newDayAdapter = new RecommendationAdapter(Recommendations.this, listItems);   //!! Activityname.this instead of getapplicationcontext() necessarry for recognizing day/nightmode changes
+        RecommendationAdapter newDayAdapter = new RecommendationAdapter(Recommendations.this, listItems);
         nutritionRList.setAdapter(newDayAdapter);
         //protein chart
         Pair<PieData, List> pieAndListData = generatePieChartContent(localDate);

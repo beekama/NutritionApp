@@ -147,8 +147,8 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
 
-        DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
-        weights.addItemDecoration(dividerItemDecoratior);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        weights.addItemDecoration(dividerItemDecorator);
 
         foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this);
         weights.setAdapter(foodRec);

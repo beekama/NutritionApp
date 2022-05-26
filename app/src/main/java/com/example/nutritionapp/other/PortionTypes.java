@@ -2,7 +2,7 @@ package com.example.nutritionapp.other;
 
 public enum PortionTypes {
     CUP,
-    FLUID_OUNZE,
+    FLUID_OUNCE,
     ML,
     SMALL,
     MEDIUM,

@@ -101,7 +101,7 @@ public class RecommendationsElement extends AppCompatActivity {
                 try {
                     return chartData.second.get((int) value);
                 } catch (IndexOutOfBoundsException ie){
-                    Log.wtf("labelentry not found", Float.toString(value)); //todo: why do we get here
+                    Log.wtf("Label entry not found", Float.toString(value)); //todo: why do we get here
                     return Float.toString(value);
                 }
             }
@@ -145,11 +145,11 @@ public class RecommendationsElement extends AppCompatActivity {
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
         recList.setLayoutManager(nutritionReportLayoutManager);
 
-        DividerItemDecorator dividerItemDecoratior = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
-        recList.addItemDecoration(dividerItemDecoratior);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        recList.addItemDecoration(dividerItemDecorator);
 
         ArrayList<Pair<Food, Float>> listItems = generateAdapterContent(db.getRecommendationMap(nutritionElement));
-        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(RecommendationsElement.this, listItems, nutritionElement, db);  //!! Activityname.this instead of getapplicationcontext() necessarry for recognizing day/nightmode changes
+        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(RecommendationsElement.this, listItems, nutritionElement, db);
         recList.setAdapter(foodRec);
     }
 
@@ -168,8 +168,8 @@ public class RecommendationsElement extends AppCompatActivity {
         for (int day = 6; day >= 0; day--) {
             xAxisLabels.add(currentDateParsed.minusDays(day).getDayOfWeek().toString());
             Integer amount = 0;
-            HashMap<Integer, ArrayList<Food>> foodgroups = db.getLoggedFoodsByDate(currentDateParsed.minusDays(day), currentDateParsed.minusDays(day), null);
-            ArrayList<Food> foods = (foodgroups.isEmpty()) ? null : db.getFoodsFromHashMap(foodgroups);
+            HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(currentDateParsed.minusDays(day), currentDateParsed.minusDays(day), null);
+            ArrayList<Food> foods = (foodGroups.isEmpty()) ? null : db.getFoodsFromHashMap(foodGroups);
             if (foods != null) {
                 NutritionAnalysis nutritionAnalysis = new NutritionAnalysis(foods);
                 Nutrition nutrition = nutritionAnalysis.getNutritionActual();

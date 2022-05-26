@@ -159,7 +159,7 @@ public class Food implements Comparable{
     }
 
     public void setAmountByAssociatedPortionType(){
-        if (this.associatedPortionType.equals(PortionTypes.FLUID_OUNZE) || this.associatedPortionType.equals(PortionTypes.ML) || this.associatedPortionType.equals(PortionTypes.GRAM)){
+        if (this.associatedPortionType.equals(PortionTypes.FLUID_OUNCE) || this.associatedPortionType.equals(PortionTypes.ML) || this.associatedPortionType.equals(PortionTypes.GRAM)){
             this.associatedAmount = 100f;
         } else{
             this.associatedAmount = 1f;

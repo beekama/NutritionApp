@@ -46,11 +46,9 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
         assert inflater != null;
 
         if (viewType == VIEW_TYPE_INPUT) {
-            Log.wtf("LOOOL", "wtf");
             View view = inflater.inflate(R.layout.selector_portion_amount_inputelement, parent, false);
             return new LocalViewHolder_edit(view);
         } else if (viewType == VIEW_TYPE_ITEM) {
-            Log.wtf("NEEE", "wtf");
             View view = inflater.inflate(R.layout.selector_portion_amount_element, parent, false);
             return new LocalViewHolder(view);
         }

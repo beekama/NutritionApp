@@ -6,7 +6,7 @@
     android:background="@drawable/round_shape_bg_reverse"
     android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/recommendation_nutritions_element">
+    android:id="@+id/recommendation_nutrition_element">
     
     <TextView
         android:layout_width="wrap_content"

@@ -7,7 +7,7 @@
     <string name="textConfirm">Confirm</string>
     <string name="textCancel">Cancel</string>
     <string name="searchHint">searchHint</string>
-    <string name="toolbarStringGroupDetails">New Foodgroup</string>
+    <string name="toolbarStringGroupDetails">New Food Group</string>
     <string name="addSingleFood">Add..</string>
     <string name="placeholder">PLACEHOLDER PLACEHOLDER PLACEHOLDER</string>
     <string name="journalToolbarText">Journal</string>
@@ -126,7 +126,7 @@
     <string name="MARCH">March</string>
     <string name="APRIL">April</string>
     <string name="MAY">May</string>
-    <string name="JUNE">Juni</string>
+    <string name="JUNE">June</string>
     <string name="JULY">July</string>
     <string name="AUGUST">August</string>
     <string name="SEPTEMBER">September</string>
@@ -144,7 +144,7 @@
     <string name="MG_ATE" translatable="false">mg</string>
     <string name="UG" translatable="false">µg</string>
     <string name="CUP" translatable="false">cup</string>
-    <string name="FLUID_OUNZE" translatable="false">fl oz</string>
+    <string name="FLUID_OUNCE" translatable="false">fl oz</string>
     <string name="ML" translatable="false">ml</string>
     <string name="PACKET" translatable="false">pkt</string>
     <string name="TABLESPOON" translatable="false">tbsp</string>

@@ -75,6 +75,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
 
         lvh.itemView.setOnClickListener(v -> {
             Intent myIntent = new Intent(v.getContext(), RecommendationsElement.class);
+            /* FIXME: arbitrary name/naming scheme for extra */
             myIntent.putExtra("nutritionelement", curItem.nutritionElement);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             v.getContext().startActivity(myIntent);

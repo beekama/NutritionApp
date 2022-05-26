@@ -1,6 +1,9 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Sheppy">
     <words>
+      <w>darkmode</w>
+      <w>dbid</w>
+      <w>nightmode</w>
       <w>abcdfgh</w>
       <w>acidophilus</w>
       <w>affero</w>
@@ -35,6 +38,7 @@
       <w>unfocus</w>
       <w>wipo</w>
       <w>yannik</w>
+      <w>sqlite</w>
     </words>
   </dictionary>
 </component>
