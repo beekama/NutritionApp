@@ -5,12 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.icu.lang.UCharacter;
-import android.media.Image;
 import android.os.Handler;
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nutritionapp.DividerItemDecorator;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
@@ -33,13 +27,12 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.SortedMap;
-import java.util.zip.CheckedInputStream;
 
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
@@ -53,12 +46,12 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     private final int visibleThreshold = 5;
     int layoutItemCount = 0;
     int lastVisibleItem = -1;
-    Activity parentActivity;
-    HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap;
-    HashMap<Integer, NutritionAnalysis> nutAnalysisCache = new HashMap<>();
+    final Activity parentActivity;
+    final HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap;
+    final HashMap<Integer, NutritionAnalysis> nutAnalysisCache = new HashMap<>();
 
     LocalDate firstDate;
-    Database db;
+    final Database db;
 
     public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewListItem> items, RecyclerView parentRV, Database db,
                                         Activity parentActivity, HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap){
@@ -194,7 +187,8 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         }
 
         castedHolder.energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format("Energy %d/%d", analysis.getTotalEnergy(), energyNeeded);
+        String energyBarContent = String.format(Locale.getDefault(), context.getString(R.string.energyBarFormatString),
+                                                    analysis.getTotalEnergy(), energyNeeded);
         castedHolder.energyBarText.setText(energyBarContent);
 
 
@@ -205,10 +199,10 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         }
 
         /* sort entries in sublist */
-        Collections.sort(listItemsInThisSection,(o1, o2) -> {
-            if(o1.foods.get(0).loggedAt.equals(o2.foods.get(0).loggedAt)){
+        listItemsInThisSection.sort((o1, o2) -> {
+            if (o1.foods.get(0).loggedAt.equals(o2.foods.get(0).loggedAt)) {
                 return 0;
-            }else{
+            } else {
                 return o1.foods.get(0).loggedAt.isAfter(o2.foods.get(0).loggedAt) ? -1 : 1;
             }
         });
@@ -283,21 +277,18 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
             });
             foodsTextView.setOnLongClickListener(
-                    new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            for (Food food : item.foods){
-                                db.deleteLoggedFood(food, food.loggedAt);
-                            }
-                            /* also delete locally */
-                            FoodOverviewListItem selectedDayEntry = items.get(position);
-
-                            if (selectedDayEntry.foodGroups.size() > 1) selectedDayEntry.foodGroups.values().remove(item.foods);
-                            else items.remove(itemAtCurPos);
-
-                            notifyDataSetChanged();
-                            return false;
+                    v -> {
+                        for (Food food : item.foods){
+                            db.deleteLoggedFood(food, food.loggedAt);
                         }
+                        /* also delete locally */
+                        FoodOverviewListItem selectedDayEntry = items.get(position);
+
+                        if (selectedDayEntry.foodGroups.size() > 1) selectedDayEntry.foodGroups.values().remove(item.foods);
+                        else items.remove(itemAtCurPos);
+
+                        notifyDataSetChanged();
+                        return false;
                     });
             /* reset string builder & continue */
             allFoodsStringBuilder.setLength(0);
@@ -326,7 +317,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         return items.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    private class LocalViewHolder extends RecyclerView.ViewHolder {
+    private static class LocalViewHolder extends RecyclerView.ViewHolder {
 
         final TextView dateText;
         final ProgressBar energyBar;
@@ -344,7 +335,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class LocalCurrentlyLoadingViewHolder extends RecyclerView.ViewHolder {
+    private static class LocalCurrentlyLoadingViewHolder extends RecyclerView.ViewHolder {
 
         final ProgressBar loadingIndicator;
 

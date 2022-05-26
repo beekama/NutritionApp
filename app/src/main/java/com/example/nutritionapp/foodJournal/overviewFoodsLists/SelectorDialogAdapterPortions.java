@@ -1,33 +1,28 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
-import android.app.VoiceInteractor;
 import android.content.Context;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.PortionTypes;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<SelectorDialogAdapterPortions.LocalViewHolder> {
-    DataTransfer dt;
+    final DataTransfer dt;
+    /* FIXME: why is this variable static */
     public static PortionTypes typeSelected ;
     private final Context context;
     private final ArrayList<PortionTypes> items;
     private static int isSelected = -1;
     private static int lastCheckPos = 0;
-    private static TextView lastSelected = null;
+    private TextView lastSelected = null;
 
 
     public SelectorDialogAdapterPortions(Context context, ArrayList<PortionTypes> items, DataTransfer dataTransfer, PortionTypes defaultType) {
@@ -49,40 +44,33 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
 
     @Override
     public void onBindViewHolder(@NonNull LocalViewHolder holder, int position) {
-        LocalViewHolder lvh = (LocalViewHolder) holder;
-        lvh.itemContent.setText(items.get(position).toString());
+        holder.itemContent.setText(items.get(position).toString());
         if (items.get(position).equals(typeSelected)){
-            lvh.itemContent.setSelected(true);
-            lastSelected = lvh.itemContent;
-        } else lvh.itemContent.setSelected(false);
-        if (position == 0 && lvh.itemContent.isSelected()) {
-            lastSelected = lvh.itemContent;
+            holder.itemContent.setSelected(true);
+            lastSelected = holder.itemContent;
+        } else holder.itemContent.setSelected(false);
+        if (position == 0 && holder.itemContent.isSelected()) {
+            lastSelected = holder.itemContent;
             lastCheckPos = 0;
         }
 
-        lvh.itemContent.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TextView t = (TextView) v;
-                        int clickPos = lvh.getAdapterPosition();
+        holder.itemContent.setOnClickListener(v -> {
+            TextView t = (TextView) v;
+            int clickPos = holder.getAdapterPosition();
 
-                        if ((lastSelected != null) && (lastSelected != t)) {
-                            SelectorDialogAdapterPortions.lastSelected.setSelected(false);
-                            lastSelected.setSelected(false);
-                            lastSelected.setSelected(false);
-                        }
-                        lastSelected = t;
-                        lastCheckPos = clickPos;
+            if ((lastSelected != null) && (lastSelected != t)) {
+                lastSelected.setSelected(false);
+                lastSelected.setSelected(false);
+                lastSelected.setSelected(false);
+            }
+            lastSelected = t;
+            lastCheckPos = clickPos;
 
-                        t.setSelected(true);
-                        isSelected = clickPos;
-                        typeSelected = items.get(position);
-                        dt.setValues(typeSelected);
-                    }
-                }
-
-        );
+            t.setSelected(true);
+            isSelected = clickPos;
+            typeSelected = items.get(position);
+            dt.setValues(typeSelected);
+        });
     }
 
 

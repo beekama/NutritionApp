@@ -1,7 +1,6 @@
 package com.example.nutritionapp.other;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 public enum NutritionElement {
     IRON,

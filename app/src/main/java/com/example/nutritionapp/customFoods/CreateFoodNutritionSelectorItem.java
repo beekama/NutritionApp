@@ -3,12 +3,8 @@ package com.example.nutritionapp.customFoods;
 
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 
-import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
 
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 
 
 import java.time.LocalDate;
@@ -15,8 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -60,12 +57,7 @@ public class Utils {
             for (Food f : foods) {
 
                 LocalDate day = LocalDate.from(f.loggedAt);
-                HashMap<Integer, ArrayList<Food>> foodGroupsAtDay = foodByDate.get(day);
-
-                if (foodGroupsAtDay == null) {
-                    foodGroupsAtDay = new HashMap<>();
-                    foodByDate.put(day, foodGroupsAtDay);
-                }
+                HashMap<Integer, ArrayList<Food>> foodGroupsAtDay = foodByDate.computeIfAbsent(day, k -> new HashMap<>());
 
                 if (foodGroupsAtDay.containsKey(groupID)) {
                     ArrayList<Food> foodListForGroupOnDay = foodGroupsAtDay.get(groupID);
@@ -84,14 +76,17 @@ public class Utils {
     }
 
     public static SortedMap<Food, Float> sortRecommendedTreeMap(TreeMap<Food, Float> treeMap) {
-        SortedMap<Food, Float> sortedFood = new TreeMap<Food, Float>( (k1,k2) -> {
+        SortedMap<Food, Float> sortedFood = new TreeMap<>((k1, k2) -> {
             float v1 = treeMap.get(k1);
             float v2 = treeMap.get(k2);
-            if (v1 == v2) return 0;
-            else return (v1<v2) ? 1 : -1;
+            if (v1 == v2){
+                return 0;
+            }else {
+                return (v1 < v2) ? 1 : -1;
+            }
         });
 
-        sortedFood.putAll((Map<Food, Float>)treeMap);
+        sortedFood.putAll(treeMap);
         return sortedFood;
     }
 

@@ -14,7 +14,7 @@
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
-        android:id="@+id/button_title"
+        android:id="@+id/recommendation_button_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         style="@style/Button_Bottom"
         android:background="@drawable/round_shape_bg_reverse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button_title" />
+        app:layout_constraintTop_toTopOf="@+id/recommendation_button_title" />
     <View
         android:id="@+id/spacerLine"
         android:layout_height="2dp"

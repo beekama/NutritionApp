@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class NutritionAnalysis {
-    private final ArrayList<Food> calculatedFrom;
-    final private Nutrition nutritionTarget = Nutrition.getRecommendation();
 
     private final Nutrition nutritionActual;
     private final Nutrition nutritionMissing;
@@ -14,7 +12,7 @@ public class NutritionAnalysis {
     private final HashMap<NutritionElement, Float> nutritionPercentage;
 
     public NutritionAnalysis(ArrayList<Food> calculatedFrom) {
-        this.calculatedFrom = calculatedFrom;
+        Nutrition nutritionTarget = Nutrition.getRecommendation();
         this.nutritionActual = calculateTotalNutrition(calculatedFrom);
         this.nutritionMissing = Nutrition.subtract(nutritionTarget, nutritionActual);
         this.nutritionPercentage = Nutrition.percentages(nutritionActual, nutritionTarget);
@@ -24,7 +22,7 @@ public class NutritionAnalysis {
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
         ArrayList<Nutrition> nutritionCalculatedFrom = new ArrayList<>();
         for (Food f : calculatedFrom) {
-                Float amountGram = f.getAssociatedAmount() * f.getPortionTypeInGram();
+                float amountGram = f.getAssociatedAmount() * f.getPortionTypeInGram();
                 nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(amountGram));
         }
         return Nutrition.sum(nutritionCalculatedFrom);

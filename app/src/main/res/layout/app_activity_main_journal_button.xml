@@ -15,7 +15,7 @@
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
-        android:id="@+id/button_title"
+        android:id="@+id/recommendation_button_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_title"
+        app:layout_constraintTop_toBottomOf="@id/recommendation_button_title"
         />
 
     <!--
@@ -52,10 +52,11 @@
         android:padding="10dp"
         style="@style/Button_Bottom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spacerLine" />
+        app:layout_constraintTop_toBottomOf="@id/spacerLine"
+        android:contentDescription="@string/add_food_to_journal_button_description" />
 
     <ImageButton
-        android:id="@+id/button_view"
+        android:id="@+id/button_view_journal"
         android:background="#00000000"
         android:src="@drawable/ic_viewlog"
         android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
         android:padding="10dp"
         style="@style/Button_Bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/button_add" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_add"
+        android:contentDescription="@string/view_journal_button_description" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

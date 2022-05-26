@@ -10,7 +10,7 @@
         layout="@layout/app_toolbar" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topGuidlineE"
+        android:id="@+id/topGuideLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/target_overview_dateText"
-        app:layout_constraintTop_toTopOf="@+id/topGuidlineE"
+        app:layout_constraintTop_toTopOf="@+id/topGuideLine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5dp"/>
@@ -31,12 +31,12 @@
         android:id="@+id/lineChartNutritionElement"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/topGuidlineE"
-        app:layout_constraintBottom_toBottomOf="@+id/chartGuidlineE"
+        app:layout_constraintTop_toBottomOf="@+id/topGuideLine"
+        app:layout_constraintBottom_toBottomOf="@+id/chartGuideLine"
         android:layout_marginTop="90dp"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/chartGuidlineE"
+        android:id="@+id/chartGuideLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

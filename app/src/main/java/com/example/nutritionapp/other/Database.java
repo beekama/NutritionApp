@@ -32,12 +32,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
@@ -342,12 +340,10 @@ public class Database {
         for (int key : mainResults.keySet()) {
             lastGroupId = key;
         }
-        if (lastGroupId < 0) {
-            return mainResults;
-        } else {
+        if (lastGroupId >= 0) {
             mainResults.put(lastGroupId, getLoggedFoodByGroupId(lastGroupId));
-            return mainResults;
         }
+        return mainResults;
     }
 
     public LinkedHashMap<Integer, ArrayList<Food>> getLoggedFoodsByDate(LocalDateTime start, LocalDateTime end) {
@@ -368,9 +364,9 @@ public class Database {
             end = start.plusDays(1);
         }
 
-        String startISO = null;
-        String endISO = null;
-        String whereStm = null;
+        String startISO;
+        String endISO;
+        String whereStm;
         String[] columns = {"food_id", "group_id", "loggedAt", "amount", "portion_type"};
 
         if(!getTemplatedFoodGroups){
@@ -570,8 +566,7 @@ public class Database {
 
         /* check cache */
         if (foodGroupResult.containsKey(groupId)) {
-            ArrayList<Food> logged = foodGroupResult.get(groupId);
-            return logged;
+            return foodGroupResult.get(groupId);
         }
 
         String[] whereArgs = {Integer.toString(groupId)};
@@ -845,7 +840,7 @@ public class Database {
 
                     /* filter out zero values for nutrients/energy/fiber */
                     HashMap<String, Integer> nutrientsForFood = getNutrientsForFood(f.id);
-                    ArrayList<String> keyList = new ArrayList<String>(nutrientsForFood.keySet());
+                    ArrayList<String> keyList = new ArrayList<>(nutrientsForFood.keySet());
                     for (String key : keyList) {
                         if (nutrientsForFood.get(key) == 0) {
                             nutrientsForFood.remove(key);
@@ -1149,7 +1144,7 @@ public class Database {
     }
 
 
-    public PortionTypes getPreferedPortionType(Food food) {
+    public PortionTypes getPreferredPortionType(Food food) {
 
         String table = "assigned_portion";
         String[] columns = {"prefered"};
@@ -1171,7 +1166,7 @@ public class Database {
         String[] columns = {portionType.toString()};
         String[] whereArgs = {food.id};
         Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
-        Float amount = 0f;
+        float amount = 0f;
         if (c.moveToFirst()) {
             amount = c.getFloat(0);
         }

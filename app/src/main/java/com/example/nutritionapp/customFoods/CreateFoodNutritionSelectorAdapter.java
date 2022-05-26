@@ -2,35 +2,24 @@ package com.example.nutritionapp.customFoods;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.text.InputType;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.configuration.ConfigurationAdapter;
-import com.example.nutritionapp.configuration.PersonalInformation;
 
 import java.util.ArrayList;
 
 public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
-    private Context context;
+    private final Context context;
     private final ArrayList<CreateFoodNutritionSelectorItem> items;
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
@@ -65,7 +54,7 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
         /* item at position */
         CreateFoodNutritionSelectorItem item = items.get(position);
 
-        /* distinquish header-item and item */
+        /* distinguish header-item and item */
         if (holder instanceof CreateFoodNutritionSelectorAdapter.LocalHeaderViewHolder) {
             CreateFoodNutritionSelectorAdapter.LocalHeaderViewHolder headerViewHolder = (CreateFoodNutritionSelectorAdapter.LocalHeaderViewHolder) holder;
             headerViewHolder.textView.setText(item.tag);
@@ -75,7 +64,7 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
 //            lvh.name.setText(item.tag);
             if (!item.inputTypeString) {
                 if (item.amount > 0) {
-                    lvh.value.setText(Integer.toString(item.amount));
+                    lvh.value.setText(String.valueOf(item.amount));
                 }
             } else if (item.data != null) {
                 lvh.value.setText(item.data);
@@ -83,43 +72,37 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
                 lvh.value.setText("");
             }
             lvh.name.setText(item.tag);
-            lvh.background.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // custom dialog
-                    final Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.create_food_popup);
+            lvh.background.setOnClickListener(v -> {
+                // custom dialog
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.create_food_popup);
 
-                    EditText et = (EditText) dialog.findViewById(R.id.input);
-                    et.setHint("Input");
+                EditText et = dialog.findViewById(R.id.input);
+                et.setHint("Input");
 
-                    if (!item.inputTypeString) et.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    else et.setInputType(InputType.TYPE_CLASS_TEXT);
+                if (!item.inputTypeString) et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                else et.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                    et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                        @Override
-                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                try {
-                                    String etString = et.getText().toString();
-                                    lvh.value.setText(etString);
-                                    if(item.inputTypeString){
-                                        item.data = etString;
-                                    }else {
-                                        item.amount = Integer.parseInt(etString);
-                                    }
-                                    dialog.dismiss();
-                                } catch (IllegalArgumentException e) { //todo
-                                    Toast toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
-                                    toast.show();
-                                }
-                                return true;
+                et.setOnEditorActionListener((v1, actionId, event) -> {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        try {
+                            String etString = et.getText().toString();
+                            lvh.value.setText(etString);
+                            if (item.inputTypeString) {
+                                item.data = etString;
+                            } else {
+                                item.amount = Integer.parseInt(etString);
                             }
-                            return false;
+                            dialog.dismiss();
+                        } catch (IllegalArgumentException e) { //todo
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
+                            toast.show();
                         }
-                    });
-                    dialog.show();
-                }
+                        return true;
+                    }
+                    return false;
+                });
+                dialog.show();
             });
         }
     }

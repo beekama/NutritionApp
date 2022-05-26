@@ -62,6 +62,7 @@ public class ExtendedBarChart extends CombinedChart {
         LimitLine ll1 = limitLineList.get(0);
         LimitLine ll2 = limitLineList.get(1);
 
+        /* FIXME: I don't understand what this is doing - Sheppy 05/2022 */
         float pts[] = new float[4];
         pts[1] = ll1.getLimit();
         pts[3] = ll2.getLimit();

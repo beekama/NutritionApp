@@ -1,7 +1,5 @@
 package com.example.nutritionapp.foodJournal.addFoodsLists;
 
-import android.util.Pair;
-
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.PortionTypes;
 

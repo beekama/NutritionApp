@@ -7,13 +7,4 @@
     <path
         android:fillColor="#FF000000"
         android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM17,13h-4v4h-2v-4L7,13v-2h4L11,7h2v4h4v2z"/>
-
-<selector>
-<item android:state_pressed="true"
-    android:drawable="@drawable/add_circle_filled" tools:ignore="ResourceCycle"
-    />
-<item android:state_focused="true"
-    android:drawable="@drawable/add_circle_filled" tools:ignore="ResourceCycle" />
-<item android:drawable="@drawable/add_circle_filled" tools:ignore="ResourceCycle" />
-</selector>
 </vector>

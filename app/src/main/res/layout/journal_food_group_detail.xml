@@ -30,7 +30,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Save As Template" />
+                android:text="@string/save_as_template" />
 
             <TextView
                 android:id="@+id/date"

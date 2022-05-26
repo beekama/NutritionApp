@@ -127,7 +127,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             loggedAt = LocalDateTime.now();
         }
         if(isTemplateMode){
-            saveAsTemplate.setText("Save");
+            saveAsTemplate.setText(R.string.save);
         }else {
             dateView.setText(loggedAt.format(Utils.sqliteDateFormat));
             timeView.setText(loggedAt.format(Utils.sqliteTimeFormat));
@@ -217,7 +217,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         if (selectedFood == null) {
             return;
         }
-        selectedFood.setPreferedPortionFromDb(this.db);
+        selectedFood.setPreferredPortionFromDb(this.db);
         selectedFood.setAmountByAssociatedPortionType();
         DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
@@ -311,9 +311,10 @@ public class FoodGroupOverview extends AppCompatActivity {
             analysis.add(sfi.food);
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
-        /* ArrayList with Header */
+
+        /* FIXME: wtf are those next lines doing here? are they even ever used? */
         ArrayList<NutritionPercentageTuple> npt = new ArrayList<>();
-        npt.add(new NutritionPercentageTuple(NutritionElement.CALCIUM, 0.f));                                   // todo refractor this ugly temporoary solution
+        npt.add(new NutritionPercentageTuple(NutritionElement.CALCIUM, 0.f));
         npt.addAll(na.getNutritionPercentageSortedFilterZero());
 
         ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());

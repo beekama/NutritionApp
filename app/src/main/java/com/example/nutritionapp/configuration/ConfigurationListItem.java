@@ -1,7 +1,5 @@
 package com.example.nutritionapp.configuration;
 
-import com.example.nutritionapp.other.NutritionElement;
-
 public class ConfigurationListItem {
     final PersonalInformation.DataType type;
     final String text;

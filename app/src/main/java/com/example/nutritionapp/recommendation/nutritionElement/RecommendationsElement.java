@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,7 +20,6 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
-import com.example.nutritionapp.recommendation.Recommendations;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,13 +34,14 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.SortedMap;
 
 public class RecommendationsElement extends AppCompatActivity {
     private Database db;
     private NutritionElement nutritionElement;
     private ArrayList<Food> allFood;
-    private LocalDate currentDateParsed = LocalDate.now();
+    private final LocalDate currentDateParsed = LocalDate.now();
     private int recommendation;
     private RecyclerView recList;
 
@@ -76,12 +75,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
 
         //back home button:
-        tb_back.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishAfterTransition();
-            }
-        }));
+        tb_back.setOnClickListener((v -> finishAfterTransition()));
 
         //set title
         tb.setTitle("");
@@ -136,17 +130,16 @@ public class RecommendationsElement extends AppCompatActivity {
 
         /* food-recommendation */
         String dailyReq = getResources().getString(R.string.dailyRecommendation);
-        String microgr = getResources().getString(R.string.microgram);
+        String microGram = getResources().getString(R.string.microgram);
         TextView dailyR = findViewById(R.id.dailyReq);
-        dailyR.setText(String.format("%s %d %s ", dailyReq, recommendation, microgr));
+        dailyR.setText(String.format(Locale.getDefault(), "%s %d %s ", dailyReq, recommendation, microGram));
 
-/*
+        /* FIXME: can this be removed?
         TextView recDesc = findViewById(R.id.recommendation_description);
         String header = getResources().getString(R.string.recommendationDesc);
-        recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.getString(context),dailyReq, recommendation, microgr));
+        recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.getString(context),dailyReq, recommendation, microGram));
         recDesc.setText(String.format("%s-rich food: ", nutritionElement.getString(context)));
-*/
-
+        */
 
         recList = findViewById(R.id.RecListView);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
@@ -164,7 +157,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
         ArrayList<Pair<Food, Float>> listItems = new ArrayList<>();
         for (Food food : map.keySet()){
-            listItems.add(new Pair<Food, Float>(food, map.get(food)));
+            listItems.add(new Pair<>(food, map.get(food)));
         }
         return listItems;
     }

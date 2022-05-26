@@ -4,10 +4,7 @@ package com.example.nutritionapp.foodJournal;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,17 +16,13 @@ import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapt
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Utils;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.SortedMap;
 
 public class FoodJournalOverview extends AppCompatActivity {
 
@@ -45,8 +38,6 @@ public class FoodJournalOverview extends AppCompatActivity {
     final private HashMap<LocalDate, FoodOverviewListItem> dataInvalidationMap = new HashMap<>();
 
     private FoodOverviewAdapter adapter;
-    private Database db;
-    private RecyclerView mainListOfFoodsWithDayHeaders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +46,7 @@ public class FoodJournalOverview extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal);
-        db = new Database(this);
+        Database db = new Database(this);
 
         /* retrieve items */
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -73,7 +64,7 @@ public class FoodJournalOverview extends AppCompatActivity {
         /* this is a list of layout of type journal_day_header, which contains the day-header and
         a nested sublist of the foods (food groups) on this */
 
-        mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
+        RecyclerView mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
         adapter = new FoodOverviewAdapter(this, foodDataList, mainListOfFoodsWithDayHeaders, db,this, dataInvalidationMap);
         LinearLayoutManager mainListLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);

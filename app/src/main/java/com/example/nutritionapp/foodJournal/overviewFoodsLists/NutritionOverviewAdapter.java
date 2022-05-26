@@ -2,7 +2,6 @@ package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 public class NutritionOverviewAdapter extends BaseAdapter {
 
@@ -63,7 +60,7 @@ public class NutritionOverviewAdapter extends BaseAdapter {
 
             NutritionPercentageTuple el = this.nutritionPercentageSortedFilterZero.get(position);
             nutritionName.setText(el.nutritionElement.getString(context));
-            progressBarLabel.setText(Objects.requireNonNull(nutritionActual.getElements().get(el.nutritionElement)).toString());
+            progressBarLabel.setText(String.valueOf(nutritionActual.getElements().get(el.nutritionElement)));
 
             progressBar.setMax(100);
             progressBar.setMin(0);

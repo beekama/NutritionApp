@@ -20,13 +20,14 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.NutritionElement;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static java.lang.String.*;
 
 public class RecommendationAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private ArrayList<RecommendationListItem> items;
+    private final Context context;
+    private final ArrayList<RecommendationListItem> items;
 
     public RecommendationAdapter(Context context, ArrayList<RecommendationListItem> items) {
         this.context = context;
@@ -50,8 +51,9 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
 
         int amount = items.get(position).target;
         String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(curItem.nutritionElement)));
-        if (nutrientNativeUnit.equals("UG")) lvh.itemPercentage.setText(format("%d µg", amount));
-        else lvh.itemPercentage.setText(format("%d mg", amount));
+        /* FIXME: don't write units into hardcoded strings */
+        if (nutrientNativeUnit.equals("UG")) lvh.itemPercentage.setText(format(Locale.getDefault(), "%d µg", amount));
+        else lvh.itemPercentage.setText(format(Locale.getDefault(), "%d mg", amount));
 
         Float nutPercentage = curItem.percentage;
         if (nutPercentage < 50) {
@@ -68,17 +70,14 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
         if (curItem.target != 0 && curItem.upperLimit != -99) {
             int limitPercentage = curItem.upperLimit * 100 / curItem.target;
             if (curItem.percentage > limitPercentage)
-                lvh.background.setBackgroundColor(context.getResources().getColor(R.color.chartRed));
+                lvh.background.setBackgroundColor(context.getColor(R.color.chartRed));
         }
 
-        lvh.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), RecommendationsElement.class);
-                myIntent.putExtra("nutritionelement", (NutritionElement) curItem.nutritionElement);
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                v.getContext().startActivity(myIntent);
-            }
+        lvh.itemView.setOnClickListener(v -> {
+            Intent myIntent = new Intent(v.getContext(), RecommendationsElement.class);
+            myIntent.putExtra("nutritionelement", curItem.nutritionElement);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            v.getContext().startActivity(myIntent);
         });
 
     }

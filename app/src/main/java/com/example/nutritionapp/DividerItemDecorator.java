@@ -4,12 +4,12 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DividerItemDecorator extends RecyclerView.ItemDecoration {
-    private Drawable divider;
-    private Boolean header;
+    private final Drawable divider;
+    private final Boolean header;
 
     public DividerItemDecorator(Drawable divider, Boolean header){
         this.divider = divider;
@@ -17,7 +17,7 @@ public class DividerItemDecorator extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NonNull Canvas canvas, RecyclerView parent, @NonNull RecyclerView.State state) {
         int dividerLeft = parent.getPaddingLeft() + 25;
         int dividerRight = parent.getWidth() - parent.getPaddingRight() - 25;
 

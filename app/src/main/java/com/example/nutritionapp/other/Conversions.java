@@ -17,7 +17,6 @@ public class Conversions {
         /* normalize unitValues to their base values (microgram or joule) */
         switch (unitName){
             case "UG":
-                return  inputAmount;
             case "JOULE":
                 return inputAmount;
             case "G":

@@ -1,10 +1,7 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
-import android.util.Log;
-
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.Utils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

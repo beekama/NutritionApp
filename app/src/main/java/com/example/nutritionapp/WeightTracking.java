@@ -10,15 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Pair;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -26,7 +21,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,19 +40,16 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
-
-import static java.lang.Math.min;
 
 public class WeightTracking extends AppCompatActivity implements TransferWeight,  UpdatePeriod{
 
     private Database db;
     //observation period in days:
     private Pair<String, Integer> observationPeriod;
-    private LocalDate currentDateParsed = LocalDate.now();
+    private final LocalDate currentDateParsed = LocalDate.now();
     protected TreeMap<LocalDate, Integer> weightAll;
     protected LineChart chartWeight;
     protected LocalDate oldestValue;
@@ -83,7 +74,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = findViewById(R.id.toolbar_back);
         toolbar.setTitle("");
-        toolbarTitle.setText("Weight Tracking");
+        toolbarTitle.setText(R.string.weightTracking);
         setSupportActionBar(toolbar);
         toolbarBack.setOnClickListener((v -> finishAfterTransition()));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
@@ -102,13 +93,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         period.setText(observationPeriod.first);
 
 
-        period.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                popupMenu();
-            }
-        });
+        period.setOnClickListener(v -> popupMenu());
 
 /*        //setting items and values:
         String[] items = new String[]{"1 Month", "6 Month", "1 Week", "1 Year"};
@@ -177,17 +162,14 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
 
         editWeight = findViewById(R.id.addingValueWeight);
         editWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
-        editWeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    collectData(db, editWeight, weightAll);
-                    editWeight.setText("");
-                    hideKeyboard();
-                    return true;
-                }
-                return false;
+        editWeight.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                collectData(db, editWeight, weightAll);
+                editWeight.setText("");
+                hideKeyboard();
+                return true;
             }
+            return false;
         });
 
         ConstraintLayout layout = findViewById(R.id.weight_tracking);
@@ -201,10 +183,12 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
     }
 
     private void popupMenu(){
-        final View popupview = LayoutInflater.from(this).inflate(R.layout.weight_tracking_dropdown, null);
-        final PopupWindow popupWindow = new PopupWindow(popupview, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
-        RecyclerView recyclerView = (RecyclerView) popupview.findViewById(R.id.periodItem);
+        /*  FIXME: what is this null parameter pass here?? */
+        final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_dropdown, null);
+        final PopupWindow popupWindow = new PopupWindow(popupMenuView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        RecyclerView recyclerView = popupMenuView.findViewById(R.id.periodItem);
 
         WeightTrackingDropdownRVAdapter adapter = new WeightTrackingDropdownRVAdapter(getApplicationContext(), periods, this);
         LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -215,13 +199,13 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
         popupWindow.showAsDropDown(period);
-       // popupWindow.showAtLocation(popupview, Gravity.TOP | Gravity.RIGHT, 0, 0);
+       // popupWindow.showAtLocation(popupMenuView, Gravity.TOP | Gravity.RIGHT, 0, 0);
     }
 
     LineData generateChartContent() {
         LinkedList<Entry> values = new LinkedList<>();
         List<LocalDate> keyList = new ArrayList<>(weightAll.keySet());
-        Collections.sort(keyList, Collections.reverseOrder());
+        keyList.sort(Collections.reverseOrder());
         //for xAxis-labels
         oldestValue = currentDateParsed;
 
@@ -271,8 +255,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set);
-        LineData data = new LineData(dataSets);
-        return data;
+        return new LineData(dataSets);
     }
 
 

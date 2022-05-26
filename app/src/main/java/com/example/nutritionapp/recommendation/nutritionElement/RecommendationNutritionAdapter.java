@@ -1,9 +1,7 @@
 package com.example.nutritionapp.recommendation.nutritionElement;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
@@ -25,22 +21,21 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
 
-    String DBID_ENERGY = "1008";
+    final String DBID_ENERGY = "1008";
 
     private static final int HEADER_TYPE = 0;
     private static final int ITEM_TYPE = 1;
 
-    private Context context;
-    private ArrayList<Pair<Food, Float>> recFood;
+    private final Context context;
+    private final ArrayList<Pair<Food, Float>> recFood;
     View popUpView;
-    NutritionElement nutritionElement;
-    Database db;
+    final NutritionElement nutritionElement;
+    final Database db;
 
     public RecommendationNutritionAdapter(Context context, ArrayList<Pair<Food, Float>> list, NutritionElement nutritionElement, Database db){
         this.context = context;
@@ -83,50 +78,53 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
         Float ratio = recFood.get(relPosition).second;
 
         lvh.foodName.setText(food.name);
-        lvh.amount.setText(ratio.toString());
+        lvh.amount.setText(String.valueOf(ratio));
 
-        String microgr = context.getResources().getString(R.string.microgram);
-        String kilocal = context.getResources().getString(R.string.kilokalorien);
-        lvh.unity.setText(String.format("%s/%s", microgr, kilocal));
+        String microGramUnitName = context.getResources().getString(R.string.microgram);
+        String kCal = context.getResources().getString(R.string.kiloCalories);
+        lvh.unity.setText(String.format("%s/%s", microGramUnitName, kCal));
 
-        lvh.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupWindow p = new PopupWindow(popUpView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-                if (popUpView.getParent() != null){
-                    ((ViewGroup) popUpView.getParent()).removeView(popUpView);
-                }
-                p.showAtLocation(v,Gravity.BOTTOM, 10, 10);
-
-                // get extra data from db:
-                HashMap<String, Integer> nutrients = db.getNutrientsForFood(food.id);
-                Integer energyAmount = nutrients.get(DBID_ENERGY);
-                Integer dbIdNut = Nutrition.databaseIdFromEnum(nutritionElement);
-                Integer nutAmount = nutrients.get(dbIdNut.toString());
-
-                final TextView popupFood = popUpView.findViewById(R.id.popup_header);
-                final TextView popupNutrition = popUpView.findViewById(R.id.popup_nutritionAmount);
-                final TextView getPopupEnergy = popUpView.findViewById(R.id.popup_energyAmount) ;
-                final TextView popupNutText  = popUpView.findViewById(R.id.popup_nutritionAmountText);
-                final TextView popupEnText= popUpView.findViewById(R.id.popup_energyAmountText);
-
-                popupFood.setText(food.name);
-                String amountOf = context.getResources().getString(R.string.amountof);
-                popupEnText.setText(R.string.popupEnergyText);
-                popupNutText.setText(String.format("%s %s: ", amountOf, nutritionElement.getString(context)));
-                popupNutrition.setText(nutAmount.toString());
-                getPopupEnergy.setText(energyAmount.toString());
-
-              //  p.setOutsideTouchable(true);
-                p.setBackgroundDrawable(new ColorDrawable());
-                p.setTouchInterceptor(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        p.dismiss(); return true;
-                    }
-                });
-              //  Toast.makeText(v.getContext(),"asdffdsa", Toast.LENGTH_LONG).show();
+        lvh.itemView.setOnClickListener(v -> {
+            PopupWindow p = new PopupWindow(popUpView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+            if (popUpView.getParent() != null){
+                ((ViewGroup) popUpView.getParent()).removeView(popUpView);
             }
+            p.showAtLocation(v,Gravity.BOTTOM, 10, 10);
+
+            /* get extra data from db */
+            HashMap<String, Integer> nutrients = db.getNutrientsForFood(food.id);
+            Integer energyAmount = nutrients.get(DBID_ENERGY);
+            int dbIdNut = Nutrition.databaseIdFromEnum(nutritionElement);
+            Integer nutAmount = nutrients.get(Integer.toString(dbIdNut));
+
+            final TextView popupFood = popUpView.findViewById(R.id.popup_header);
+            final TextView popupNutrition = popUpView.findViewById(R.id.popup_nutritionAmount);
+            final TextView getPopupEnergy = popUpView.findViewById(R.id.popup_energyAmount) ;
+            final TextView popupNutText  = popUpView.findViewById(R.id.popup_nutritionAmountText);
+            final TextView popupEnText= popUpView.findViewById(R.id.popup_energyAmountText);
+
+            popupFood.setText(food.name);
+            String amountOf = context.getResources().getString(R.string.amountOf);
+            popupEnText.setText(R.string.popupEnergyText);
+            popupNutText.setText(String.format("%s %s: ", amountOf, nutritionElement.getString(context)));
+            popupNutrition.setText(String.valueOf(nutAmount));
+            getPopupEnergy.setText(String.valueOf(energyAmount));
+
+            /* FIXME: is this needed? p.setOutsideTouchable(true); */
+            p.setBackgroundDrawable(new ColorDrawable());
+            p.setTouchInterceptor((v1, event) -> {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        p.dismiss();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.performClick();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            });
         });
     }}
 
@@ -143,7 +141,7 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
         return recFood.size()+1;
     }
 
-    private class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         final TextView foodName;
         final TextView amount;
         final TextView unity;
@@ -162,7 +160,7 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
         }
     }
 
-    private class HeaderViewHolder extends RecyclerView.ViewHolder{
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder{
         final TextView nameHeader;
         final TextView amountHeader;
 

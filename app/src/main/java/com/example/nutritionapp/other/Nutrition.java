@@ -241,9 +241,7 @@ public class Nutrition {
 
     public static Nutrition getRecommendationMultipleDays(Integer days){
         Nutrition allowanceMultipleDays = getRecommendation();
-        for(NutritionElement ne : allowanceMultipleDays.elements.keySet()){
-            allowanceMultipleDays.elements.put(ne, allowanceMultipleDays.elements.get(ne)*days);
-        }
+        allowanceMultipleDays.elements.replaceAll((n, v) -> allowanceMultipleDays.elements.get(n) * days);
         return allowanceMultipleDays;
     }
 

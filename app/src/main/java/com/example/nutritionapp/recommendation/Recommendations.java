@@ -1,24 +1,14 @@
 package com.example.nutritionapp.recommendation;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CpuUsageInfo;
-import android.util.Log;
 import android.util.Pair;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -37,27 +27,18 @@ import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
 import com.example.nutritionapp.other.Utils;
-import com.example.nutritionapp.recommendation.nutritionElement.RecommendationNutritionAdapter;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class Recommendations extends AppCompatActivity {
@@ -71,10 +52,10 @@ public class Recommendations extends AppCompatActivity {
     private TextView dateView;
     private PieChart pieChart;
     RecyclerView chartList;
-    private List<Integer> colors = new ArrayList<>();
+    private final List<Integer> colors = new ArrayList<>();
 
 
-    private LocalDate currentDateParsed = LocalDate.now();
+    private final LocalDate currentDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -103,12 +84,7 @@ public class Recommendations extends AppCompatActivity {
         tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         //back home button:
-        tb_back.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishAfterTransition();
-            }
-        }));
+        tb_back.setOnClickListener((v -> finishAfterTransition()));
 
 
 
@@ -135,7 +111,7 @@ public class Recommendations extends AppCompatActivity {
 
         /* PieChartList */
         chartList = findViewById(R.id.chartList);
-        List<Integer> allowances = pieAndListData.second;
+        List allowances = pieAndListData.second;
         LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         chartList.setLayoutManager(nutritionChartLayoutManager);
         RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data, allowances);
@@ -285,7 +261,7 @@ public class Recommendations extends AppCompatActivity {
         }
 
         energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format("Energy %d/%d", energyUsed, energyNeeded);
+        String energyBarContent = String.format(Locale.getDefault(), getString(R.string.energyBarFormatString), energyUsed, energyNeeded);
         energyBarText.setText(energyBarContent);
     }
 

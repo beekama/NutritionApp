@@ -60,7 +60,7 @@
     <string name="recommendationDesc">Recommended food for lack of </string>
     <string name="dailyRecommendation">Your daily needs are</string>
     <string name="popupEnergyText">Amount of Energy: </string>
-    <string name="amountof"> Amount of </string>
+    <string name="amountOf"> Amount of </string>
     <string name="recommendedFood"> Recommended Food: </string>
     <string name="amount"> Amount </string>
 
@@ -86,23 +86,23 @@
     <string name="sixMonth">6 Month</string>
 
     <!-- NutritionElements -->
-    <string name="IRON"> Iron </string>
-    <string name="MAGNESIUM"> Magnesium </string>
-    <string name="ZINC"> Zinc </string>
-    <string name="CALCIUM"> Calcium </string>
-    <string name="POTASSIUM"> Potassium </string>
-    <string name="SELENIUM"> Selenium </string>
-    <string name="FOLIC_ACID"> Folacin </string>
-    <string name="VITAMIN_A"> Vitamin A </string>
-    <string name="VITAMIN_C"> Vitamin C </string>
-    <string name="VITAMIN_B1"> Vitamin B1  </string>
-    <string name="VITAMIN_B2"> Vitamin B2  </string>
-    <string name="VITAMIN_B3"> Vitamin B3  </string>
-    <string name="VITAMIN_B6"> Vitamin B6  </string>
-    <string name="VITAMIN_B12"> Vitamin B12  </string>
-    <string name="VITAMIN_D"> Vitamin D  </string>
-    <string name="VITAMIN_E"> Vitamin E  </string>
-    <string name="VITAMIN_K"> Vitamin K </string>
+    <string name="IRON">Iron</string>
+    <string name="MAGNESIUM">Magnesium</string>
+    <string name="ZINC">Zinc</string>
+    <string name="CALCIUM">Calcium</string>
+    <string name="POTASSIUM">Potassium</string>
+    <string name="SELENIUM">Selenium</string>
+    <string name="FOLIC_ACID">Folic Acid</string>
+    <string name="VITAMIN_A">Vitamin A</string>
+    <string name="VITAMIN_C">Vitamin C</string>
+    <string name="VITAMIN_B1">Vitamin B1</string>
+    <string name="VITAMIN_B2">Vitamin B2</string>
+    <string name="VITAMIN_B3">Vitamin B3</string>
+    <string name="VITAMIN_B6">Vitamin B6</string>
+    <string name="VITAMIN_B12">Vitamin B12</string>
+    <string name="VITAMIN_D">Vitamin D</string>
+    <string name="VITAMIN_E">Vitamin E</string>
+    <string name="VITAMIN_K">Vitamin K</string>
 
     <!-- portion types -->
     <string name="SMALL">small</string>
@@ -112,7 +112,7 @@
 
     <!-- Days of Week -->
     <string name="MONDAY">Monday</string>
-    <string name="TUESDAY">Thuesday</string>
+    <string name="TUESDAY">Tuesday</string>
     <string name="WEDNESDAY">Wednesday</string>
     <string name="THURSDAY">Thursday</string>
     <string name="FRIDAY">Friday</string>
@@ -126,21 +126,20 @@
     <string name="MARCH">March</string>
     <string name="APRIL">April</string>
     <string name="MAY">May</string>
-    <string name="JUNI">Juni</string>
+    <string name="JUNE">Juni</string>
     <string name="JULY">July</string>
     <string name="AUGUST">August</string>
     <string name="SEPTEMBER">September</string>
-    <string name="OCOTOBER">October</string>
+    <string name="OCTOBER">October</string>
     <string name="NOVEMBER">November</string>
     <string name="DECEMBER">December</string>
 
     <!-- strings without translation -->
-    <string name="Impressum" translatable="false">Impressum</string>
     <string name="microgram" translatable="false">µg</string>
-    <string name="kilokalorien" translatable="false">kcal</string>
+    <string name="kiloCalories" translatable="false">kcal</string>
     <string name="kalPer100mg" translatable="false">kcal/100mg</string>
     <string name="microPer100mg" translatable="false">µg/100mg</string>
-    <string name="kilogramm" translatable="false">kg</string>
+    <string name="kilogram" translatable="false">kg</string>
     <string name="MG" translatable="false">mg</string>
     <string name="MG_ATE" translatable="false">mg</string>
     <string name="UG" translatable="false">µg</string>
@@ -151,4 +150,26 @@
     <string name="TABLESPOON" translatable="false">tbsp</string>
     <string name="TEASPOON" translatable="false">tsp</string>
     <string name="SCOOP" translatable="false">scoop</string>
+    <string name="showAnalysis">Show Analysis</string>
+    <string name="energyBarFormatString">Energy %d/%d</string>
+    <string name="chartLegendCarbs">carbs</string>
+    <string name="chartLegendProtein">protein</string>
+    <string name="chartLegendFat">fat</string>
+    <string name="current">Current</string>
+    <string name="target">Target</string>
+    <string name="legal">Legal</string>
+    <string name="save_as_template">Save As Template</string>
+    <string name="appName" translatable="false">Nutrition App</string>
+    <string name="percentSign" translatable="false">%</string>
+    <string name="adding_new_weight">Adding new weight:</string>
+    <string name="female">female</string>
+    <string name="male">male</string>
+    <string name="save">Save</string>
+    <string name="weightTracking">Weight Tracking</string>
+    <string name="night_mode_icon_description">Night Mode Icon</string>
+    <string name="add_food_to_journal_button_description">Add food to journal</string>
+    <string name="view_journal_button_description">View journal</string>
+    <string name="back_arrow_description">back</string>
+    <string name="toolbar_forward_button_description">toolbar forward</string>
+    <string name="open_navbar_button_description">Open navbar</string>
 </resources>

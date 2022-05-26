@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class WeightTrackingDropdownRVAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private ArrayList<Pair<String, Integer>> items;
-    private UpdatePeriod period;
+    private final Context context;
+    private final ArrayList<Pair<String, Integer>> items;
+    private final UpdatePeriod period;
 
     public WeightTrackingDropdownRVAdapter(Context context, ArrayList<Pair<String, Integer>> items, UpdatePeriod period) {
         this.context = context;
@@ -39,13 +39,10 @@ public class WeightTrackingDropdownRVAdapter extends RecyclerView.Adapter {
         LocalViewHolder lvh = (LocalViewHolder) holder;
         lvh.text.setText(items.get(position).first);
 
-        lvh.text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, items.get(position).first, Toast.LENGTH_SHORT).show();
-                period.setPeriod(items.get(position));
-                //todo set new item
-            }
+        lvh.text.setOnClickListener(v -> {
+            Toast.makeText(context, items.get(position).first, Toast.LENGTH_SHORT).show();
+            period.setPeriod(items.get(position));
+            //todo set new item
         });
 
     }

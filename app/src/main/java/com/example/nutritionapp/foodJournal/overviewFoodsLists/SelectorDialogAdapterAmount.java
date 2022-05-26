@@ -14,23 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.PortionTypes;
 
-import java.io.PipedOutputStream;
 import java.util.ArrayList;
 
 public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
 
-    int VIEW_TYPE_INPUT = 0;
-    int VIEW_TYPE_ITEM = 1;
+    final int VIEW_TYPE_INPUT = 0;
+    final int VIEW_TYPE_ITEM = 1;
 
-    DataTransfer dt;
+    final DataTransfer dt;
+
+    /* FIXME: why is amountSelected static and why is it not double and why is capital F-Float and why is it's default value null and not NaN? */
     public static Float amountSelected = null;
     private final Context context;
     private final ArrayList<Float> items;
     private static int isSelected = -1;
     private static int lastCheckPos = 0;
-    private static TextView lastSelected = null;
+    private TextView lastSelected = null;
 
     public SelectorDialogAdapterAmount(Context context, ArrayList<Float> items, DataTransfer dataTransfer, Float defaultAmount) {
         this.context = context;
@@ -80,9 +80,8 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
                     if (lastSelected != null) {
                         lastSelected.setSelected(false);
                     }
-                    int clickPos = holder.getAdapterPosition();
 
-                    lastCheckPos = clickPos;
+                    lastCheckPos = holder.getAdapterPosition();
                     amountSelected = Float.valueOf(s.toString());
                     dt.setValues(amountSelected);
                 }
@@ -91,7 +90,7 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
         /* TEXTVIEW: get currently selected */
         else {
             LocalViewHolder lvh = (LocalViewHolder) holder;
-            lvh.itemContent.setText(items.get(position).toString());
+            lvh.itemContent.setText(String.valueOf(items.get(position)));
             if (items.get(position).equals(amountSelected)) {
                 lvh.itemContent.setSelected(true);
                 lastSelected = lvh.itemContent;
@@ -101,25 +100,22 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
                 lastCheckPos = 0;
             }
             lvh.itemContent.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Log.wtf("GIVEN POSITION", Integer.toString(position));
-                            Log.wtf("CALCULATED POSITION", Integer.toString(lvh.getLayoutPosition()));
-                            TextView t = (TextView) v;
-                            int clickPos = lvh.getAdapterPosition();
+                    v -> {
+                        Log.wtf("GIVEN POSITION", Integer.toString(position));
+                        Log.wtf("CALCULATED POSITION", Integer.toString(lvh.getLayoutPosition()));
+                        TextView t = (TextView) v;
+                        int clickPos = lvh.getAdapterPosition();
 
-                            if ((lastSelected != null) && (lastSelected != t)) {
-                                lastSelected.setSelected(false);
-                            }
-                            lastSelected = t;
-                            lastCheckPos = clickPos;
-
-                            t.setSelected(true);
-                            isSelected = clickPos;
-                            amountSelected = items.get(position);
-                            dt.setValues(amountSelected);
+                        if ((lastSelected != null) && (lastSelected != t)) {
+                            lastSelected.setSelected(false);
                         }
+                        lastSelected = t;
+                        lastCheckPos = clickPos;
+
+                        t.setSelected(true);
+                        isSelected = clickPos;
+                        amountSelected = items.get(position);
+                        dt.setValues(amountSelected);
                     }
 
             );

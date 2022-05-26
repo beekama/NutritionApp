@@ -24,6 +24,7 @@
         android:id="@+id/nutrition_target"
         android:paddingBottom="5dp"
         android:paddingEnd="10dp"
+        android:paddingStart="0dp"
         app:layout_constraintEnd_toEndOf="@id/nutProgressBar"
         app:layout_constraintBottom_toBottomOf="@id/nutrition_textview"/>
 

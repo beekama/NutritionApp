@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +24,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
-import java.util.zip.CheckedInputStream;
-
-import static androidx.core.app.ActivityCompat.startActivityForResult;
+import java.util.Locale;
 
 public class ConfigurationAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private ArrayList<ConfigurationListItem> items;
+    private final Context context;
+    private final ArrayList<ConfigurationListItem> items;
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
-    Database db;
-    UpdateBMI bmiInterface;
+    final Database db;
+    final UpdateBMI bmiInterface;
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
@@ -73,7 +70,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
         /* item at position */
         ConfigurationListItem itemAtCurPos = this.items.get(position);
 
-        /* distinquish header-item and item */
+        /* distinguish header-item and item */
         if(holder instanceof ConfigurationAdapter.LocalHeaderViewHolder){
             ConfigurationAdapter.LocalHeaderViewHolder headerViewHolder = (ConfigurationAdapter.LocalHeaderViewHolder) holder;
             headerViewHolder.textView.setText(itemAtCurPos.text);
@@ -85,112 +82,94 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                 case AGE:
                     if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
+                    itemViewHolder.background.setOnClickListener(v -> {
 
-                            // custom dialog
-                            final Dialog dialog = new Dialog(context);
-                            dialog.setContentView(R.layout.configuration_popup);
+                        // custom dialog
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.configuration_popup);
 
-                            EditText etAge = (EditText) dialog.findViewById(R.id.input);
-                            etAge.setHint("Input Age");
-                            etAge.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        EditText etAge = dialog.findViewById(R.id.input);
+                        etAge.setHint("Input Age");
+                        etAge.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-                            etAge.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                @Override
-                                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                        try{
-                                            String sAge = etAge.getText().toString();
-                                            int newAge = Integer.parseInt(sAge);
-                                            itemViewHolder.value.setText(sAge);
-                                            db.setPersonAge(newAge);
-                                            dialog.dismiss();}
-                                        catch (NumberFormatException e) {
-                                            Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Age, Weight and Height", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        } catch (IllegalArgumentException e) {
-                                            Toast toast = Toast.makeText(context, "Age must be between '18' and '150'", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        }
-                                        return true;
-                                    }
-                                    return false;
+                        etAge.setOnEditorActionListener((v13, actionId, event) -> {
+                            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                                try {
+                                    String sAge = etAge.getText().toString();
+                                    int newAge = Integer.parseInt(sAge);
+                                    itemViewHolder.value.setText(sAge);
+                                    db.setPersonAge(newAge);
+                                    dialog.dismiss();
+                                } catch (NumberFormatException e) {
+                                    Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Age, Weight and Height", Toast.LENGTH_LONG);
+                                    toast.show();
+                                } catch (IllegalArgumentException e) {
+                                    Toast toast = Toast.makeText(context, "Age must be between '18' and '150'", Toast.LENGTH_LONG);
+                                    toast.show();
                                 }
-                            });
-                            dialog.show();
-                        }
+                                return true;
+                            }
+                            return false;
+                        });
+                        dialog.show();
                     });
                     break;
                 case GENDER: // todo replace by toggle
                     if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(itemAtCurPos.sValue.equals("male")){
-                                itemAtCurPos.sValue = "female";
-                                itemViewHolder.value.setText("female");
-                                db.setPersonGender("female");
-                            } else {
-                                itemAtCurPos.sValue = "male";
-                                itemViewHolder.value.setText("male");
-                                db.setPersonGender("male");
-                            }
+                    itemViewHolder.background.setOnClickListener(v -> {
+                        if(itemAtCurPos.sValue.equals("male")){
+                            itemAtCurPos.sValue = "female";
+                            itemViewHolder.value.setText(R.string.female);
+                            db.setPersonGender("female");
+                        } else {
+                            itemAtCurPos.sValue = "male";
+                            itemViewHolder.value.setText(R.string.male);
+                            db.setPersonGender("male");
                         }
                     });
                     break;
                 case HEIGHT:
                     if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
+                    itemViewHolder.background.setOnClickListener(v -> {
 
-                            // custom dialog
-                            final Dialog dialog = new Dialog(context);
-                            dialog.setContentView(R.layout.configuration_popup);
+                        // custom dialog
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.configuration_popup);
 
-                            EditText etHeight = (EditText) dialog.findViewById(R.id.input);
-                            etHeight.setHint("Input Height in cm");
-                            etHeight .setInputType(InputType.TYPE_CLASS_NUMBER);
+                        EditText etHeight = dialog.findViewById(R.id.input);
+                        etHeight.setHint("Input Height in cm");
+                        etHeight .setInputType(InputType.TYPE_CLASS_NUMBER);
 
-                            etHeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                @Override
-                                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                        try{
-                                            String sHeight = etHeight.getText().toString();
-                                            int newHeight = Integer.parseInt(sHeight);
-                                            itemViewHolder.value.setText(sHeight);
-                                            db.setPersonHeight(newHeight);
-                                            bmiInterface.updateBMI();
-                                            dialog.dismiss();}
-                                        catch (NumberFormatException e) {
-                                            Toast toast = Toast.makeText(context, "Need Numeric Value as Input", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        } catch (IllegalArgumentException e) {
-                                            Toast toast = Toast.makeText(context, "Height must be between 0 and 300 cm", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        }
-                                        return true;
-                                    }
-                                    return false;
+                        etHeight.setOnEditorActionListener((v12, actionId, event) -> {
+                            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                                try {
+                                    String sHeight = etHeight.getText().toString();
+                                    int newHeight = Integer.parseInt(sHeight);
+                                    itemViewHolder.value.setText(sHeight);
+                                    db.setPersonHeight(newHeight);
+                                    bmiInterface.updateBMI();
+                                    dialog.dismiss();
+                                } catch (NumberFormatException e) {
+                                    Toast toast = Toast.makeText(context, "Need Numeric Value as Input", Toast.LENGTH_LONG);
+                                    toast.show();
+                                } catch (IllegalArgumentException e) {
+                                    Toast toast = Toast.makeText(context, "Height must be between 0 and 300 cm", Toast.LENGTH_LONG);
+                                    toast.show();
                                 }
-                            });
-                            dialog.show();
-                        }
+                                return true;
+                            }
+                            return false;
+                        });
+                        dialog.show();
                     });
                     break;
                 case WEIGHT:
                     if (!itemAtCurPos.sValue.equals("-1")){
-                        float fweight = Integer.parseInt(itemAtCurPos.sValue)/1000.0f;
-                        itemViewHolder.value.setText(String.format("%.2f", fweight));
+                        /* FIXME: clarify variable name fWeight */
+                        float fWeight = Integer.parseInt(itemAtCurPos.sValue)/1000.0f;
+                        itemViewHolder.value.setText(String.format(Locale.getDefault(), "%.2f", fWeight));
                     }
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
                     itemViewHolder.background.setOnClickListener(v-> {
@@ -201,44 +180,36 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                 case CALORIES:
                     if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
+                    itemViewHolder.background.setOnClickListener(v -> {
 
-                            // custom dialog
-                            final Dialog dialog = new Dialog(context);
-                            dialog.setContentView(R.layout.configuration_popup);
+                        // custom dialog
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.configuration_popup);
 
-                            EditText etCal = (EditText) dialog.findViewById(R.id.input);
-                            etCal.setHint("Input Calorie need");
-                            etCal.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        EditText etCal = dialog.findViewById(R.id.input);
+                        etCal.setHint("Input Calorie need");
+                        etCal.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-                            etCal.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                @Override
-                                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                        try{
-                                            String sCal = etCal.getText().toString();
-                                            int newCal = Integer.parseInt(sCal);
-                                            itemViewHolder.value.setText(sCal);
-                                            db.setPersonEnergyReq(newCal);
-                                            dialog.dismiss();}
-                                        catch (NumberFormatException e) {
-                                            Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Energyrequirement", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        } catch (IllegalArgumentException e) {
-                                            Toast toast = Toast.makeText(context, "Value must be over 1000.", Toast.LENGTH_LONG);
-                                            toast.show();
-                                        }
-                                        return true;
-                                    }
-                                    return false;
+                        etCal.setOnEditorActionListener((v1, actionId, event) -> {
+                            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                                try {
+                                    String sCal = etCal.getText().toString();
+                                    int newCal = Integer.parseInt(sCal);
+                                    itemViewHolder.value.setText(sCal);
+                                    db.setPersonEnergyReq(newCal);
+                                    dialog.dismiss();
+                                } catch (NumberFormatException e) {
+                                    Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Energyrequirement", Toast.LENGTH_LONG);
+                                    toast.show();
+                                } catch (IllegalArgumentException e) {
+                                    Toast toast = Toast.makeText(context, "Value must be over 1000.", Toast.LENGTH_LONG);
+                                    toast.show();
                                 }
-                            });
-                            dialog.show();
-                        }
+                                return true;
+                            }
+                            return false;
+                        });
+                        dialog.show();
                     });
                     break;
                 case BMI:

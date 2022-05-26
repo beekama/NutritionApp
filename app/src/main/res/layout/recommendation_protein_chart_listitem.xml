@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -36,7 +35,7 @@
         android:id="@+id/currentPercent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="%"
+        android:text="@string/percentSign"
         app:layout_constraintStart_toEndOf="@id/currentVal"
         app:layout_constraintEnd_toStartOf="@id/guideline2"
         app:layout_constraintBottom_toBottomOf="@id/label"/>
@@ -54,7 +53,7 @@
         android:id="@+id/targetPercent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="%"
+        android:text="@string/percentSign"
         app:layout_constraintStart_toEndOf="@id/targetVal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/label"/>

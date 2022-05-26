@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.configuration.ConfigurationAdapter;
-import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Database;
 
@@ -22,10 +19,10 @@ import java.util.ArrayList;
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
     private final Context context;
-    public ArrayList<FoodOverviewItem> items;
+    public final ArrayList<FoodOverviewItem> items;
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
-    Database db;
+    final Database db;
 
     public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewItem> items, Database db) {
         this.context = context;
@@ -41,7 +38,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
         if(viewType == VIEW_TYPE_ITEM) {
             View view = inflater.inflate(R.layout.food_overview_item, parent, false);
-            return new FoodOverviewAdapter.LocalViewHolder(view);
+            return new LocalViewHolder(view);
         }else if(viewType == VIEW_TYPE_HEADER){
             View view = inflater.inflate(R.layout.food_overview_header, parent, false);
             return new FoodOverviewAdapter.LocalHeaderViewHolder(view);
@@ -53,7 +50,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FoodOverviewItem item = items.get(position);
 
-        /* distinquish header-item and item */
+        /* distinguish header-item and item */
         if(holder instanceof FoodOverviewAdapter.LocalHeaderViewHolder){
             FoodOverviewAdapter.LocalHeaderViewHolder headerViewHolder = (FoodOverviewAdapter.LocalHeaderViewHolder) holder;
             if (getItemCount() == 1){
@@ -65,33 +62,27 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         } else {
             FoodOverviewAdapter.LocalViewHolder lvh = (FoodOverviewAdapter.LocalViewHolder) holder;
             lvh.nameView.setText(item.food.name);
-            lvh.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FoodOverviewItem item = items.get(position);
-                    if(item.isGroup) {
-                        /* open indent from journal to edit a group of goods */
-                        Intent editCustomFoodGroup = new Intent(context, FoodGroupOverview.class);
-                        editCustomFoodGroup.putExtra("groupId", Integer.parseInt(item.food.id));
-                        editCustomFoodGroup.putExtra("isTemplateMode", true);
-                        context.startActivity(editCustomFoodGroup);
-                    }else {
-                        /* open indent for editing a single food */
-                        Intent editCustomFood = new Intent(context, CreateNewFoodItem.class);
-                        editCustomFood.putExtra("fdc_id", item.food.id);
-                        context.startActivity(editCustomFood);
-                    }
+            lvh.itemView.setOnClickListener(v -> {
+                FoodOverviewItem item12 = items.get(position);
+                if(item12.isGroup) {
+                    /* open indent from journal to edit a group of goods */
+                    Intent editCustomFoodGroup = new Intent(context, FoodGroupOverview.class);
+                    editCustomFoodGroup.putExtra("groupId", Integer.parseInt(item12.food.id));
+                    editCustomFoodGroup.putExtra("isTemplateMode", true);
+                    context.startActivity(editCustomFoodGroup);
+                }else {
+                    /* open indent for editing a single food */
+                    Intent editCustomFood = new Intent(context, CreateNewFoodItem.class);
+                    editCustomFood.putExtra("fdc_id", item12.food.id);
+                    context.startActivity(editCustomFood);
                 }
             });
-            lvh.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    FoodOverviewItem item = items.get(position);
-                    db.deleteCustomFood(item.food);
-                    items.remove(item);
-                    notifyDataSetChanged();
-                    return true;
-                }
+            lvh.itemView.setOnLongClickListener(v -> {
+                FoodOverviewItem item1 = items.get(position);
+                db.deleteCustomFood(item1.food);
+                items.remove(item1);
+                notifyDataSetChanged();
+                return true;
             });
         }
     }
@@ -113,8 +104,8 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
     }
 
 
-    private class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView nameView;
+    private static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final TextView nameView;
         public LocalViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);

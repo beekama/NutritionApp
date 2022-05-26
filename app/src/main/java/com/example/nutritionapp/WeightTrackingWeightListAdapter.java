@@ -15,17 +15,15 @@ import com.example.nutritionapp.other.Utils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 
 public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
-    Context context;
-    TreeMap<LocalDate, Integer> entries;
+    final Context context;
+    final TreeMap<LocalDate, Integer> entries;
     List<LocalDate> entryKeys;
-    TransferWeight tw;
+    final TransferWeight tw;
 
     private static final int HEADER_TYPE = 0;
     private static final int ITEM_TYPE = 1;
@@ -67,12 +65,12 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
         } else if (holder.getItemViewType() == ITEM_TYPE){
             LocalViewHolder lvh = (LocalViewHolder) holder;
 
-            //ignore header in positionCount
+            /* ignore header in positionCount */
             int relPosition = position - 1;
             Map.Entry<LocalDate, Integer> itemAtPosition = entries.entrySet().stream().skip(relPosition).findFirst().get();
 
             lvh.date.setText(itemAtPosition.getKey().toString());
-            lvh.weight.setText(Float.toString(Utils.intWeightToFloat(itemAtPosition.getValue())));
+            lvh.weight.setText(String.valueOf(Utils.intWeightToFloat(itemAtPosition.getValue())));
             lvh.itemView.setOnClickListener(v -> {
                 Log.w("ONC", "Short Click");
             });
@@ -104,8 +102,8 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
 
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView date;
-        TextView weight;
+        final TextView date;
+        final TextView weight;
         final int viewType = ITEM_TYPE;
 
 

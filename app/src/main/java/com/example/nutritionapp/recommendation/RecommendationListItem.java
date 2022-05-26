@@ -1,12 +1,6 @@
 package com.example.nutritionapp.recommendation;
 
-import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionElement;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-
-import java.util.ArrayList;
 
 public class RecommendationListItem {
 

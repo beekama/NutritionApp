@@ -57,7 +57,7 @@
     <string name="recommendationDesc">Empfohlene Nahrungsmittel bei einem Mangel an </string>
     <string name="dailyRecommendation">Dein Tagesbedarf beträgt</string>
     <string name="popupEnergyText">Menge an Kalorien: </string>
-    <string name="amountof"> Menge an  </string>
+    <string name="amountOf"> Menge an  </string>
     <string name="recommendedFood"> Empfohlene Lebensmittel: </string>
     <string name="amount"> Menge </string>
 
@@ -113,7 +113,7 @@
 
     <!-- Days of Week -->
     <string name="MONDAY">Montag</string>
-    <string name="THUESDAY">Dienstag</string>
+    <string name="TUESDAY">Dienstag</string>
     <string name="WEDNESDAY">Mitwoch</string>
     <string name="THURSDAY">Donnerstag</string>
     <string name="FRIDAY">Freitag</string>
@@ -127,11 +127,26 @@
     <string name="MARCH">März</string>
     <string name="APRIL">April</string>
     <string name="MAY">Mai</string>
-    <string name="JUNI">Juni</string>
+    <string name="JUNE">Juni</string>
     <string name="JULY">Juli</string>
     <string name="AUGUST">August</string>
     <string name="SEPTEMBER">September</string>
-    <string name="OCOTOBER">Oktober</string>
+    <string name="OCTOBER">Oktober</string>
     <string name="NOVEMBER">November</string>
     <string name="DECEMBER">December</string>
+    <string name="legal">Impressum</string>
+    <string name="showAnalysis">Zeige Analyse</string>
+    <string name="energyBarFormatString">Energie %d/%d</string>
+    <string name="chartLegendCarbs">Kohlenhydrate</string>
+    <string name="chartLegendProtein">Protein</string>
+    <string name="chartLegendFat">Fett</string>
+    <string name="current">Aktuell</string>
+    <string name="target">Ziel</string>
+    <string name="save_as_template">Als Vorlage speichern</string>
+    <string name="adding_new_weight">Neues Gewicht hinzufügen</string>
+    <string name="female">Frau</string>
+    <string name="male">Mann</string>
+    <string name="save">Speichern</string>
+    <string name="weightTracking">Gewichtshistorie</string>
+    <string name="night_mode_icon_description">Nachtmodus Icon</string>
 </resources>

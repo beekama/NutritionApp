@@ -16,7 +16,7 @@
         android:layout_height="match_parent" >
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/navBarGuidline"
+            android:id="@+id/navBarGuideLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -28,10 +28,10 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_night_foreground"
         android:background="#00000000"
-        app:layout_constraintStart_toEndOf="@id/navBarGuidline"
+        app:layout_constraintStart_toEndOf="@id/navBarGuideLine"
         app:layout_constraintBottom_toBottomOf="@id/navBarLauncher"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:contentDescription="@string/night_mode_icon_description" />
 
     <ImageView
         android:id="@+id/navBarLauncher"
@@ -40,14 +40,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/navBarText"
         android:paddingBottom="8dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher_round"
+        android:contentDescription="@string/open_navbar_button_description" />
 
     <TextView
         android:id="@+id/navBarText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Nutrition App"
+        android:text="@string/appName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>

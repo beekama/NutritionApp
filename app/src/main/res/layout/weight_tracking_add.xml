@@ -10,28 +10,28 @@
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guidlinev1"
+        android:id="@+id/guideLineVerticalLeft"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guidlinev2"
+        android:id="@+id/guideLineVerticalRight"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guidlineh1"
+        android:id="@+id/guideLineHorizontalUpper"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guidlineh2"
+        android:id="@+id/guideLineHorizontalLower"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5"/>
 
@@ -41,13 +41,13 @@
 
         android:layout_height="0dp"
         android:id="@+id/addingHeader"
-        android:text="Adding new weight:"
+        android:text="@string/adding_new_weight"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guidlineh1"
+        app:layout_constraintBottom_toBottomOf="@id/guideLineHorizontalUpper"
         tools:ignore="MissingConstraints" />
 
 
@@ -59,7 +59,7 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/addingValueWeight"
-        app:layout_constraintEnd_toStartOf="@id/guidlinev1"
+        app:layout_constraintEnd_toStartOf="@id/guideLineVerticalLeft"
          />
 
     <EditText
@@ -68,10 +68,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/addingValueWeight"
         android:imeOptions="actionDone"
-        app:layout_constraintStart_toStartOf="@id/guidlinev1"
-        app:layout_constraintEnd_toEndOf="@id/guidlinev2"
-        app:layout_constraintTop_toTopOf="@id/guidlineh1"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/guideLineVerticalLeft"
+        app:layout_constraintEnd_toEndOf="@id/guideLineVerticalRight"
+        app:layout_constraintTop_toTopOf="@id/guideLineHorizontalUpper"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="number"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="0dp"
@@ -82,9 +84,9 @@
         android:text="@string/date"
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidlineh1"
-        app:layout_constraintBottom_toBottomOf="@id/guidlineh2"
-        app:layout_constraintEnd_toStartOf="@id/guidlinev1"
+        app:layout_constraintTop_toTopOf="@id/guideLineHorizontalUpper"
+        app:layout_constraintBottom_toBottomOf="@id/guideLineHorizontalLower"
+        app:layout_constraintEnd_toStartOf="@id/guideLineVerticalLeft"
         />
 
     <TextView
@@ -95,10 +97,10 @@
         android:text="@string/weight"
         android:id="@+id/addingValueWeightHeader"
         android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="@id/guidlinev1"
-        app:layout_constraintEnd_toEndOf="@id/guidlinev2"
-        app:layout_constraintTop_toTopOf="@id/guidlineh1"
-        app:layout_constraintBottom_toBottomOf="@id/guidlineh2"/>
+        app:layout_constraintStart_toStartOf="@id/guideLineVerticalLeft"
+        app:layout_constraintEnd_toEndOf="@id/guideLineVerticalRight"
+        app:layout_constraintTop_toTopOf="@id/guideLineHorizontalUpper"
+        app:layout_constraintBottom_toBottomOf="@id/guideLineHorizontalLower"/>
 
 
 

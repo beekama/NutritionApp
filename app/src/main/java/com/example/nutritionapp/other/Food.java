@@ -42,7 +42,7 @@ public class Food implements Comparable{
         this.id = foodId;
         if(db != null) {
             setNutritionFromDb(db);
-            setPreferedPortionFromDb(db);
+            setPreferredPortionFromDb(db);
             setAmountByAssociatedPortionType();
         }
         this.loggedAt = null;
@@ -153,12 +153,12 @@ public class Food implements Comparable{
         }
     }
 
-    public void setPreferedPortionFromDb(Database db){
-        this.associatedPortionType = db.getPreferedPortionType(this);
+    public void setPreferredPortionFromDb(Database db){
+        this.associatedPortionType = db.getPreferredPortionType(this);
         this.portionTypeInGram = db.getPortionAmountForPortionType(this,this.associatedPortionType);
     }
 
-    public void setAmountByAssociatedPortionType(){     //todo rethink amounts in gereral
+    public void setAmountByAssociatedPortionType(){
         if (this.associatedPortionType.equals(PortionTypes.FLUID_OUNZE) || this.associatedPortionType.equals(PortionTypes.ML) || this.associatedPortionType.equals(PortionTypes.GRAM)){
             this.associatedAmount = 100f;
         } else{

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class AboutPage extends AppCompatActivity {
@@ -57,8 +56,8 @@ public class AboutPage extends AppCompatActivity {
 
             TextView tmpTitle = new TextView(this);
             TextView tmpText = new TextView(this);
-            View hline = new View(this);
-            hline.setBackgroundColor(this.getColor(R.color.hlineSilver));
+            View hLine = new View(this);
+            hLine.setBackgroundColor(this.getColor(R.color.hlineSilver));
 
             tmpTitle.setText(sectionTitles[i]);
             tmpTitle.setTextAppearance(R.style.TextAppearance_MaterialComponents_Body1);
@@ -85,12 +84,12 @@ public class AboutPage extends AppCompatActivity {
 
             tmpTitle.setLayoutParams(titleParams);
             tmpText.setLayoutParams(textParams);
-            hline.setLayoutParams(hlineParams);
+            hLine.setLayoutParams(hlineParams);
 
             layout.addView(tmpTitle);
             layout.addView(tmpText);
             if(i != sectionTitles.length - 1){
-                layout.addView(hline);
+                layout.addView(hLine);
             }
         }
 

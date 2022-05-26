@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
 
-        TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.button_title);
+        TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.recommendation_button_title);
         ImageButton foodJournalButtonAdd = foodJournalButtonView.findViewById(R.id.button_add);
-        ImageButton foodJournalButtonViewJournal = foodJournalButtonView.findViewById(R.id.button_view);
+        ImageButton foodJournalButtonViewJournal = foodJournalButtonView.findViewById(R.id.button_view_journal);
 
         foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* FIXME: Click Animation for TILE */
         // configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
-        TextView configButtonTitle = configButtonView.findViewById(R.id.button_title);
+        TextView configButtonTitle = configButtonView.findViewById(R.id.recommendation_button_title);
         TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
 
         configButtonTitle.setText(R.string.configButtonTitle);
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* FIXME: Click Animation for TILE */
         // createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
-        TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.button_title);
+        TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.recommendation_button_title);
         TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
 
         createCustomFoodButtonTitle.setText(R.string.createFoodsButton);
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* ---- RECOMMENDATION ---- */
         View recommendationTileView = findViewById(R.id.recommendations);
-        TextView analysisButtonTitle = recommendationTileView.findViewById(R.id.button_title);
+        TextView analysisButtonTitle = recommendationTileView.findViewById(R.id.recommendation_button_title);
         Button showAnalysisButton = recommendationTileView.findViewById(R.id.button_recommendation);
 
         energyBar = recommendationTileView.findViewById(R.id.progressbar_main);

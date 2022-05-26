@@ -2,30 +2,18 @@ package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nutritionapp.WeightTracking;
-import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 
@@ -40,10 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class PersonalInformation extends AppCompatActivity implements UpdateBMI {
 
@@ -51,10 +36,10 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
 
-    public static int ENERGY_TARGET = 2000;
-    public static int PROTEIN_TARGET = 50; //50;
-    public static int CARB_TARGET = 30; //700;
-    public static int FAT_TARGET = 20; //84;
+    public static final int ENERGY_TARGET = 2000;
+    public static final int PROTEIN_TARGET = 50; //50;
+    public static final int CARB_TARGET = 30; //700;
+    public static final int FAT_TARGET = 20; //84;
     private Database db;
 
     @Override
@@ -65,9 +50,6 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     public enum DataType {
         HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT
     }
-
-    private RecyclerView personalView;
-    private  ConfigurationAdapter adapter;
 
     @SuppressLint("ResourceAsColor")
     public void onCreate(final Bundle savedInstanceState) {
@@ -94,6 +76,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     ArrayList<ConfigurationListItem> generateData(){
         ArrayList<ConfigurationListItem> result = new ArrayList<>();
 
+        /* FIXME: unclear todo in next line */
         result.add(new ConfigurationListItem(DataType.HEADER, "Personal Data", "")); // todo stringtostrings
         result.add(new ConfigurationListItem(DataType.AGE, "Age", String.valueOf(db.getPersonAge())));
         result.add(new ConfigurationListItem(DataType.GENDER, "Gender", db.getPersonGender()));
@@ -127,10 +110,10 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     }
 
     void setRecyclerView(){
-        personalView = findViewById(R.id.mainList);
+        RecyclerView personalView = findViewById(R.id.mainList);
         personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
         ArrayList<ConfigurationListItem> items = generateData();
-        adapter = new ConfigurationAdapter(this, items, db, this);
+        ConfigurationAdapter adapter = new ConfigurationAdapter(this, items, db, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         personalView.setLayoutManager(layoutManager);
         personalView.setAdapter(adapter);

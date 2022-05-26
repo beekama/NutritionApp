@@ -1,29 +1,21 @@
 package com.example.nutritionapp.customFoods;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
@@ -122,8 +114,8 @@ public class CreateNewFoodItem extends AppCompatActivity {
         mainRv.addItemDecoration(new DividerItemDecoration(mainRv.getContext(), DividerItemDecoration.VERTICAL));
         for (NutritionElement ne : n.getElements().keySet()) {
             String neString = getResources().getString(getStringIdentifier(this, ne.toString()));
-            String noStrPortiontype = db.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
-            String portionType =  getResources().getString(getStringIdentifier(this, noStrPortiontype));
+            String noStrPortionType = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
+            String portionType =  getResources().getString(getStringIdentifier(this, noStrPortionType));
             int startPtString = neString.length() + 1;
             int endPtString = startPtString + 4 + portionType.length() - 1;
             Spannable neSpan = new SpannableString(neString + " in " + portionType);

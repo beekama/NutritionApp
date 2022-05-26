@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".WeightTracking"></activity>
+        <activity android:name=".WeightTracking" />
         <activity android:name=".AboutPage" />
         <activity android:name=".recommendation.nutritionElement.RecommendationsElement" />
         <activity android:name=".recommendation.Recommendations" />
@@ -22,7 +22,8 @@
         <activity android:name=".foodJournal.FoodGroupOverview" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

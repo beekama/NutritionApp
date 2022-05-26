@@ -105,7 +105,7 @@ public class JournalTest {
 
     @Test
     public void journal_04_testAddAndRemoveFoodSameDay(){
-
+        /* FIXME: implement missing test */
     }
 
     @Test
