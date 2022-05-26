@@ -9,19 +9,18 @@ public enum NutritionElement {
     CALCIUM,
     POTASSIUM,
     SELENIUM,
-    FOLIC_ACID,                     // Folacin
-    VITAMIN_A,                      // Vitamin A + BetaCarotine
+    FOLIC_ACID,
+    VITAMIN_A,
     VITAMIN_C,
-    VITAMIN_B1,                     // Thiamin
-    VITAMIN_B2,                     // Riboflavin
-    VITAMIN_B3,                     // Niacin
+    VITAMIN_B1,
+    VITAMIN_B2,
+    VITAMIN_B3,
     VITAMIN_B6,
     VITAMIN_B12,
     VITAMIN_D,
     VITAMIN_E,
     VITAMIN_K;
-
-
+    
     /* get colloquial Name of NutritionElement */
     public String getString(Context context){
         int resId = context.getResources().getIdentifier(this.name(), "string", context.getPackageName());
