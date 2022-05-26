@@ -44,7 +44,7 @@ repositories{
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //dependency for navigationview:
+    /* dependency for navigation view */
     implementation "androidx.navigation:navigation-fragment:2.4.2"
     implementation "androidx.navigation:navigation-ui:2.4.2"
     implementation 'com.google.android.material:material:1.6.0'
