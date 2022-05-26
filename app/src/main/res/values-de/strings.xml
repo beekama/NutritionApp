@@ -149,4 +149,9 @@
     <string name="save">Speichern</string>
     <string name="weightTracking">Gewichtshistorie</string>
     <string name="night_mode_icon_description">Nachtmodus Icon</string>
+    <string name="add_food_to_journal_button_description">Mahlzeit hinzufügen</string>
+    <string name="view_journal_button_description">Tagebuch anzeigen</string>
+    <string name="back_arrow_description">Zurück</string>
+    <string name="toolbar_forward_button_description">Toolbar forwärts</string>
+    <string name="open_navbar_button_description">Öffne Navigationsbar</string>
 </resources>
