@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.recommendation.nutritionElement.RecommendationsElement;
@@ -51,9 +52,11 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
 
         int amount = items.get(position).target;
         String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(curItem.nutritionElement)));
-        /* FIXME: don't write units into hardcoded strings */
-        if (nutrientNativeUnit.equals("UG")) lvh.itemPercentage.setText(format(Locale.getDefault(), "%d µg", amount));
-        else lvh.itemPercentage.setText(format(Locale.getDefault(), "%d mg", amount));
+        if (nutrientNativeUnit.equals(Conversions.MICROGRAM)){
+            lvh.itemPercentage.setText(format(Locale.getDefault(), "%d µg", amount));
+        }else{
+            lvh.itemPercentage.setText(format(Locale.getDefault(), "%d mg", amount));
+        }
 
         Float nutPercentage = curItem.percentage;
         if (nutPercentage < 50) {
