@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<Food> foodsOfDay = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
 
         NutritionAnalysis nutAnalysis = new NutritionAnalysis(foodsOfDay);
-        int energyNeeded = 2000;
+        int energyNeeded = db.getPersonEnergyReq();
         int energyUsedPercentage = nutAnalysis.getTotalEnergy() * 100 / energyNeeded;
 
         if (energyUsedPercentage < 75) {
