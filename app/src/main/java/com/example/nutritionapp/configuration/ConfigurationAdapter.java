@@ -114,7 +114,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                         dialog.show();
                     });
                     break;
-                case GENDER: // todo replace by toggle
+                case GENDER:
                     if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
                     itemViewHolder.background.setOnClickListener(v -> {
