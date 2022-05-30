@@ -247,6 +247,17 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                         }
                     });
                     break;
+                case CURATED_FOODS:
+                    itemViewHolder.lSwitch.setChecked(itemAtCurPos.bValue);
+                    itemViewHolder.value.setVisibility(View.GONE);
+                    itemViewHolder.lSwitch.setOnCheckedChangeListener((button, isChecked) -> {
+                        if(isChecked){
+                            db.setCuratedFoodsPreference(1);
+                        }else{
+                            db.setCuratedFoodsPreference(0);
+                        }
+                    });
+                    break;
             }
         }
 

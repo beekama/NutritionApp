@@ -1010,6 +1010,13 @@ public class Database {
         Nutrition.setPersonAge(age);
     }
 
+    public void setCuratedFoodsPreference(int state) {
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("curate_foods", state);
+        editor.apply();
+    }
+
     public void setPersonEnergyReq(int energyReq) throws IllegalArgumentException {
         if (energyReq < 1000) {
             throw new IllegalArgumentException("Energy target must be above 1000kcal");
@@ -1056,6 +1063,11 @@ public class Database {
     public int getPersonAge() {
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         return pref.getInt("age", -1);
+    }
+
+    public int getCuratedFoodsPreference() {
+        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+        return pref.getInt("curated_foods", -1);
     }
 
     public int getPersonEnergyReq() {

@@ -48,7 +48,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     }
 
     public enum DataType {
-        HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT
+        HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
     }
 
     @SuppressLint("ResourceAsColor")
@@ -93,6 +93,8 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
 
         result.add(new ConfigurationListItem(DataType.HEADER, "Language Settings", ""));
         result.add(new ConfigurationListItem(DataType.LANGUAGE_DE, "Deutsch", db.getLanguagePref() != null && db.getLanguagePref().equals("de")));
+
+        result.add(new ConfigurationListItem(DataType.CURATED_FOODS, "Curated Foods", db.getCuratedFoodsPreference() > 0));
 
 
         return result;
