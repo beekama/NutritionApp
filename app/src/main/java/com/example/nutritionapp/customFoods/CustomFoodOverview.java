@@ -22,7 +22,7 @@ public class CustomFoodOverview extends AppCompatActivity {
 
     private Database db;
     private RecyclerView mainRv;
-    final ArrayList<FoodOverviewItem> foodItems = new ArrayList<>();
+    final ArrayList<CustomOverviewItem> foodItems = new ArrayList<>();
     RecyclerView.Adapter<?> foodOverviewAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -62,16 +62,16 @@ public class CustomFoodOverview extends AppCompatActivity {
 
         /* get custom defined foods */
         ArrayList<Food> displayedFoods = db.getAllCustomFoods();
-        foodItems.add(new FoodOverviewItem(new Food("header", "header")));
+        foodItems.add(new CustomFoodOverviewItem(new Food("header", "header")));
         for (Food f : displayedFoods) {
-            foodItems.add(new FoodOverviewItem(f));
+            foodItems.add(new CustomFoodOverviewItem(f));
         }
 
         /* get food group templates */
         LinkedHashMap<Integer, ArrayList<Food>> foodGroupTemplates = db.getTemplateFoodGroups();
         for (Integer key : foodGroupTemplates.keySet()) {
             ArrayList<Food> fl = foodGroupTemplates.get(key);
-            foodItems.add(new FoodOverviewItem(fl, key));
+            foodItems.add(new CustomGroupOverviewItem(fl, key));
         }
 
         foodOverviewAdapter = new FoodOverviewAdapter(this, foodItems, db);

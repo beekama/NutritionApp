@@ -1287,6 +1287,12 @@ public class Database {
         return weightsByDate;
     }
 
+    public void deleteCustomFoodGroup(int groupId) {
+        String[] whereArgs = {Integer.toString(groupId)};
+        int rowsDeleted = db.delete(JOURNAL_TABLE, "group_id = ?", whereArgs);
+        Log.d("Rows deleted for food custom food group:", rowsDeleted + " " + groupId);
+    }
+
 
     private static class SuggestionHelper implements Comparable<SuggestionHelper> {
         public int counter;

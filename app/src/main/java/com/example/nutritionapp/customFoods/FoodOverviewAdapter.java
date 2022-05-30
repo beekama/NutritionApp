@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
     private final Context context;
-    public final ArrayList<FoodOverviewItem> items;
+    public final ArrayList<CustomOverviewItem> items;
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     final Database db;
 
-    public FoodOverviewAdapter(Context context, ArrayList<FoodOverviewItem> items, Database db) {
+    public FoodOverviewAdapter(Context context, ArrayList<CustomOverviewItem> items, Database db) {
         this.context = context;
         this.items = items;
         this.db = db;
@@ -48,7 +48,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        FoodOverviewItem item = items.get(position);
+        CustomOverviewItem item = items.get(position);
 
         /* distinguish header-item and item */
         if(holder instanceof FoodOverviewAdapter.LocalHeaderViewHolder){
@@ -58,30 +58,35 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             } else {
                 headerViewHolder.textView.setText(R.string.customFoodHeader);
             }
-            return;
         } else {
             FoodOverviewAdapter.LocalViewHolder lvh = (FoodOverviewAdapter.LocalViewHolder) holder;
-            lvh.nameView.setText(item.food.name);
+            lvh.nameView.setText(item.displayName);
             lvh.itemView.setOnClickListener(v -> {
-                FoodOverviewItem item12 = items.get(position);
-                if(item12.isGroup) {
+                if(item.isGroup) {
                     /* open indent from journal to edit a group of goods */
+                    CustomGroupOverviewItem groupItem = (CustomGroupOverviewItem) item;
                     Intent editCustomFoodGroup = new Intent(context, FoodGroupOverview.class);
-                    editCustomFoodGroup.putExtra("groupId", Integer.parseInt(item12.food.id));
+                    editCustomFoodGroup.putExtra("groupId", groupItem.groupId);
                     editCustomFoodGroup.putExtra("isTemplateMode", true);
                     context.startActivity(editCustomFoodGroup);
                 }else {
                     /* open indent for editing a single food */
+                    CustomFoodOverviewItem foodItem = (CustomFoodOverviewItem) item;
                     Intent editCustomFood = new Intent(context, CreateNewFoodItem.class);
-                    editCustomFood.putExtra("fdc_id", item12.food.id);
+                    editCustomFood.putExtra("fdc_id", foodItem.food.id);
                     context.startActivity(editCustomFood);
                 }
             });
             lvh.itemView.setOnLongClickListener(v -> {
-                FoodOverviewItem item1 = items.get(position);
-                db.deleteCustomFood(item1.food);
-                items.remove(item1);
-                notifyDataSetChanged();
+                if(item.isGroup){
+                    CustomGroupOverviewItem groupItem = (CustomGroupOverviewItem) item;
+                    db.deleteCustomFoodGroup(groupItem.groupId);
+                }else{
+                    CustomFoodOverviewItem foodItem = (CustomFoodOverviewItem) item;
+                    db.deleteCustomFood(foodItem.food);
+                }
+                items.remove(item);
+                notifyItemRemoved(position);
                 return true;
             });
         }
