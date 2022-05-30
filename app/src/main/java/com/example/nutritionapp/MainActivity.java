@@ -185,7 +185,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         showAnalysisButton.setOnClickListener(v -> {
-            /* FIXME ShowAnalysisButton Action */
+            Intent analysis = new Intent(v.getContext(), Recommendations.class);
+            startActivity(analysis, Utils.getDefaultTransition(this));
         });
 
         /* PieChart */
