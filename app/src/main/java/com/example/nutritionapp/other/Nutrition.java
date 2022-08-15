@@ -268,10 +268,13 @@ public class Nutrition {
         upperLimit.elements.put(NutritionElement.VITAMIN_K, -99);
         /* convert to native units of db */
         for(NutritionElement el : upperLimit.elements.keySet()){
-            String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
-            Log.d("TAG",  nutrientNativeUnit + " " + el);
-            int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, upperLimit.elements.get(el));
-            upperLimit.elements.put(el, converted);
+            int limit = upperLimit.elements.get(el);
+            if (limit != -99) {
+                String nutrientNativeUnit = Database.getNutrientNativeUnit(Integer.toString(databaseIdFromEnum(el)));
+                Log.d("TAG", nutrientNativeUnit + " " + el);
+                int converted = Conversions.convert(Conversions.MICROGRAM, nutrientNativeUnit, limit);
+                upperLimit.elements.put(el, converted);
+            }
         }
 
         return upperLimit;
