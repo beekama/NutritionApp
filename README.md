@@ -1,4 +1,9 @@
-# Screen Shots
-<img src="https://images.athq.de/media/nutrition-app/MainPage.png" width="288" height="512">&nbsp;
-<img src="https://images.athq.de/media/nutrition-app/Analysis_1.png" width="288" height="512">   
-<img src="https://images.athq.de/media/nutrition-app/Analysis_2.png" width="288" height="512">&nbsp;
+# Screenshots
+
+
+<img src="https://images.atlantishq.de/m/nutrition-app/photo_2022-08-18_11-05-13.jpg?encoding=webp&x=260">&nbsp;
+<img src="https://images.atlantishq.de/m/nutrition-app/photo_2022-08-18_11-05-38.jpg?encoding=webp&x=260">&nbsp;
+<img src="https://images.atlantishq.de/m/nutrition-app/photo_2022-08-18_11-05-26.jpg?encoding=webp&x=260">
+<img src="https://images.atlantishq.de/m/nutrition-app/photo_2022-08-18_11-05-40.jpg?encoding=webp&x=260">&nbsp;
+<img src="https://images.atlantishq.de/m/nutrition-app/photo_2022-08-18_11-05-21.jpg?encoding=webp&x=260">&nbsp;
+<img src="https://images.atlantishq.de/m/nutrition-app/photo_2022-08-18_11-05-24.jpg?encoding=webp&x=260">
