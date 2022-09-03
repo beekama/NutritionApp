@@ -27,29 +27,34 @@
     <TextView
         android:id="@+id/item_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toStartOf="@id/guideline2"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/amount_selector"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"/>
 
-    <EditText
+    <Button
         android:id="@+id/amount_selector"
-        android:inputType="number"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
-    <TextView
+    <Button
         android:id="@+id/portion_type_selector"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/amount_selector"
+        app:layout_constraintStart_toEndOf="@id/amount_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:paddingEnd="10dp"
-        android:paddingStart="0dp"/>
+        android:paddingStart="10dp"
+        android:layout_marginEnd="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
