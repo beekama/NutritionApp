@@ -234,8 +234,6 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             }else {
                 foodGroup = new LinearLayout(context);
                 LinearLayout.LayoutParams lps = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                //lps.setMargins(0,40,0,40);
-                //foodGroup.setPadding(0,40,0,40);
                 foodGroup.setLayoutParams(lps);
                 foodGroup.setOrientation(LinearLayout.VERTICAL);
 
@@ -249,16 +247,12 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 ImageView dividerBottom = new ImageView(context);
                 LinearLayout.LayoutParams lpB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 lpB.height = 2;
-//                lp.setMarginEnd(25);
-//                lp.setMarginStart(25);
                 dividerBottom.setLayoutParams(lpB);
                 dividerBottom.setBackgroundColor(context.getColor(R.color.greyDark));
 
                 ImageView dividerTop = new ImageView(context);
                 LinearLayout.LayoutParams slT = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 slT.height = 2;
-//                lp.setMarginEnd(25);
-//                lp.setMarginStart(25);
                 dividerTop.setLayoutParams(slT);
                 dividerTop.setBackgroundColor(context.getColor(R.color.greyDark));
 
