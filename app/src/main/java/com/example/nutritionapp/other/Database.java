@@ -53,7 +53,7 @@ public class Database {
     final int IS_TEMPLATE_MINUS_ONE = -1;
 
     final String FILE_KEY = "DEFAULT";
-    final String WEIGHTS = "weightsByDate";
+    final String WEIGHTS = "weightByDate";
 
     private static SQLiteDatabase db = null;
     private static final HashMap<Integer, ArrayList<Food>> foodGroupResult = new HashMap<>();
