@@ -6,6 +6,7 @@ import graphviz
 RE_FIND_CLASS = r'\w+\.class'
 RE_FIND_ADAPTER = r'new \w+\('
 RE_FIND_INFLATED = r'R\.\w+\.\w+,'
+RE_FIND_MAIN_LAYOUT = r'R\.\w+\.\w+\)'
 
 layout_dir = "./app/src/main/res/layout/"
 java_dir = "./app/src/main/java/com/example/nutritionapp/"
@@ -60,6 +61,20 @@ NODES = []
 def rec(current):
     with open(current.filename) as f:   
         for line in f:
+        
+            # layout #
+            if "setContentView" in line:
+                match = re.search(RE_FIND_MAIN_LAYOUT, line)
+                if match:
+                    xml = match.group().split('.')[-1].strip(')') + ".xml"
+                    if xml in LIST_XML:
+                        node = LIST_XML[xml]
+                        current.LAYOUT = node
+                        if not VISITED.get(xml):
+                            VISITED.update({ xml : True })
+                            node.parents.append(current)
+                            rec(node)
+                            print(xml)
         
             # CONTAINS_ADAPTER #
             if "new" in line and "Adapter" in line:
@@ -121,7 +136,10 @@ def rec_dot(current, dot):
 
     for el in current.OPENS:
         if not isParentOfParent(current, el):
-            dot.node(el.name, el.jclass, color="green")
+            layout = ""
+            if el.LAYOUT:
+                layout = " \\n({})".format(el.LAYOUT.name)
+            dot.node(el.name, el.jclass + layout, color="green")
             dot.edge(current.name, el.name, label="OPENS")
             rec_dot(el, dot)
 
