@@ -28,9 +28,9 @@ public class Food implements Comparable{
     public Nutrition nutrition;
     public LocalDateTime loggedAt;
 
-    public double associatedAmount = -1;
+    public double associatedAmount = Double.NaN;
     public PortionType associatedPortionType = null;
-    public float portionTypeInGram = -1;
+    public double portionTypeInGram = Double.NaN;
 
     public Food(String name, String id){
         this.id = id;
@@ -84,11 +84,11 @@ public class Food implements Comparable{
         return associatedPortionType;
     }
 
-    public void setPortionTypeInGram(Float portionTypeInGram) {
+    public void setPortionTypeInGram(double portionTypeInGram) {
         this.portionTypeInGram = portionTypeInGram;
     }
 
-    public Float getPortionTypeInGram() {
+    public double getPortionTypeInGram() {
         if(this.portionTypeInGram == -1){
             throw new AssertionError("Food for Database must have set associatedPortionTypeAmount in gram");
         }
@@ -155,7 +155,7 @@ public class Food implements Comparable{
 
     public void setPreferredPortionFromDb(Database db){
         this.associatedPortionType = db.getPreferredPortionType(this);
-        this.portionTypeInGram = db.getPortionAmountForPortionType(this,this.associatedPortionType);
+        this.portionTypeInGram = db.getPortionAmountForPortionType(this, this.associatedPortionType);
     }
 
     public void setAmountByAssociatedPortionType(){

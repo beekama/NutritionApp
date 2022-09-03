@@ -24,11 +24,11 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
     private TextView lastSelected = null;
 
 
-    public SelectorDialogAdapterPortions(Context context, ArrayList<PortionType> items, DataTransfer dataTransfer, PortionType defaultType) {
+    public SelectorDialogAdapterPortions(Context context, ArrayList<PortionType> items, DataTransfer dataTransfer, PortionType type) {
         this.context = context;
         this.items = items;
         this.dt = dataTransfer;
-        this.typeSelected = defaultType;
+        this.typeSelected = type;
     }
 
     @NonNull
@@ -43,13 +43,18 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
 
     @Override
     public void onBindViewHolder(@NonNull LocalViewHolder holder, int position) {
+
         // TODO: make type string lowercase/only first letter upper case
         String typeString = items.get(position).toString();
         holder.itemContent.setText(typeString);
-        if (items.get(position).equals(typeSelected)){
+
+        if (items.get(position) == typeSelected){
             holder.itemContent.setSelected(true);
             lastSelected = holder.itemContent;
-        } else holder.itemContent.setSelected(false);
+        } else{
+            holder.itemContent.setSelected(false);
+        }
+
         if (position == 0 && holder.itemContent.isSelected()) {
             lastSelected = holder.itemContent;
             lastCheckPos = 0;

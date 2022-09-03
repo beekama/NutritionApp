@@ -1162,28 +1162,25 @@ public class Database {
 
 
     public PortionType getPreferredPortionType(Food food) {
-
-        String table = "assigned_portion";
-        String[] columns = {"prefered"};
-        String[] whereArgs = {food.id};
-        Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
-        PortionType prefType = null;
-        if (c.moveToFirst()) {
-            if (!c.getString(0).equals(""))
-                prefType = PortionType.valueOf(c.getString(0));
-            c.close();
+        ArrayList<PortionType> portionTypes = portionsForFood(food);
+        if(portionTypes.contains(PortionType.ML)){
+            return PortionType.ML;
+        }else if(portionTypes.contains(PortionType.GRAM)){
+            return PortionType.GRAM;
+        }else{
+            return portionTypes.get(0);
         }
-        return prefType;
-
     }
 
-    public Float getPortionAmountForPortionType(Food food, PortionType portionType) {
+    public double getPortionAmountForPortionType(Food food, PortionType portionType) {
         String table = "assigned_portion";
-        if (portionType == PortionType.GRAM) return 1f;
-        String[] columns = {portionType.toString()};
-        String[] whereArgs = {food.id};
-        Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
-        float amount = 0f;
+        if (portionType == PortionType.GRAM){
+            return 1.0;
+        }
+        String[] columns = { portionType.toString() };
+        String[] whereArgs = { food.id };
+        Cursor c = db.query(table, columns, "fdc_id = ?", whereArgs, null, null, null);
+        double amount = Double.NaN;
         if (c.moveToFirst()) {
             amount = c.getFloat(0);
         }

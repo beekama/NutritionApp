@@ -66,6 +66,9 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        /* handle initial selected state */
+
+
         /* EDIT-TEXT: allow numeric input */
         if (holder instanceof LocalViewHolderCustomAmount){
             LocalViewHolderCustomAmount editHolder = (LocalViewHolderCustomAmount) holder;
