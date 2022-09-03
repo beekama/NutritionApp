@@ -60,8 +60,9 @@ public class Database {
     private static final HashMap<String, HashMap<String, Integer>> foodNutritionResults = new HashMap<>();
     private static final ArrayList<Integer> fdcIdToDbNumber = new ArrayList<>();
     private static final ArrayList<String> foodNutrientTableIds = new ArrayList<>();
-    private final Activity srcActivity;
     private final HashMap<String, Food> foodCache = new HashMap<>();
+    private final Activity srcActivity;
+    private static final HashMap<String, String> nutritionNativeUnitMap = new HashMap<>();
     String targetPath;
 
     public Database(Activity srcActivity) {
@@ -391,7 +392,7 @@ public class Database {
                 int groupID = c.getInt(1);
                 String loggedAtISO = c.getString(2);
                 float amount = c.getFloat(3);
-                PortionTypes portionType = PortionTypes.valueOf(c.getString(4));
+                PortionType portionType = PortionType.valueOf(c.getString(4));
 
                 ArrayList<Food> group = ret.get(groupID);
                 if (group != null) {
@@ -542,6 +543,9 @@ public class Database {
     }
 
     public static String getNutrientNativeUnit(String nutrientID) throws IllegalStateException {
+        if(nutritionNativeUnitMap.containsKey(nutrientID)){
+            return nutritionNativeUnitMap.get(nutrientID);
+        }
         if (db == null) {
             throw new IllegalStateException("Database was not initialized before use of static member.");
         }
@@ -559,6 +563,7 @@ public class Database {
 
         String unitName = nutrientConversion.getString(0);
         nutrientConversion.close();
+        nutritionNativeUnitMap.put(nutrientID, unitName);
         return unitName;
     }
 
@@ -579,7 +584,7 @@ public class Database {
                 String foodId = c.getString(0);
                 String date = c.getString(1);
                 float amount = c.getFloat(2);
-                PortionTypes portionType = PortionTypes.valueOf(c.getString(3));
+                PortionType portionType = PortionType.valueOf(c.getString(3));
                 Food f = this.getFoodById(foodId, date);
                 if (f != null) {
                     f.associatedAmount = amount;
@@ -917,7 +922,7 @@ public class Database {
                     JSONObject jsonFood = foods.getJSONObject(k);
                     Food f = new Food(jsonFood.getString("name"), jsonFood.getString("id"), null, dateTime);
                     f.setAssociatedAmount(jsonFood.getInt("amount"));
-                    PortionTypes portionType = PortionTypes.valueOf(jsonFood.getString("portionType"));
+                    PortionType portionType = PortionType.valueOf(jsonFood.getString("portionType"));
                     f.setAssociatedPortionType(portionType);
                     f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
                     foodsArrayList.add(f);
@@ -1111,44 +1116,44 @@ public class Database {
         db.close();
     }
 
-    public ArrayList<PortionTypes> portionsForFood(Food food) {
+    public ArrayList<PortionType> portionsForFood(Food food) {
 
         String table = "assigned_portion";
         String[] columns = {"cup ", "small", "medium", "large", "packet", "scoop", "tablespoon", "teaspoon", "ml"};
         String[] whereArgs = {food.id};
         Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
-        ArrayList<PortionTypes> ret = new ArrayList<>();
+        ArrayList<PortionType> ret = new ArrayList<>();
         String prefType;
         if (c.moveToFirst()) {
             if (!c.getString(0).equals("")) {
-                ret.add(PortionTypes.CUP);
+                ret.add(PortionType.CUP);
             }
             if (!c.getString(1).equals("")) {
-                ret.add(PortionTypes.SMALL);
+                ret.add(PortionType.SMALL);
             }
             if (!c.getString(2).equals("")) {
-                ret.add(PortionTypes.MEDIUM);
+                ret.add(PortionType.MEDIUM);
             }
             if (!c.getString(3).equals("")) {
-                ret.add(PortionTypes.LARGE);
+                ret.add(PortionType.LARGE);
             }
             if (!c.getString(4).equals("")) {
-                ret.add(PortionTypes.PACKET);
+                ret.add(PortionType.PACKET);
             }
             if (!c.getString(5).equals("")) {
-                ret.add(PortionTypes.SCOOP);
+                ret.add(PortionType.SCOOP);
             }
             if (!c.getString(6).equals("")) {
-                ret.add(PortionTypes.TABLESPOON);
+                ret.add(PortionType.TABLESPOON);
             }
             if (!c.getString(7).equals("")) {
-                ret.add(PortionTypes.TEASPOON);
+                ret.add(PortionType.TEASPOON);
             }
             if (!c.getString(8).equals("")) {
-                ret.add(PortionTypes.ML);
+                ret.add(PortionType.ML);
             }
-            if (!ret.contains(PortionTypes.ML)) {
-                ret.add(PortionTypes.GRAM);
+            if (!ret.contains(PortionType.ML)) {
+                ret.add(PortionType.GRAM);
             }
             c.close();
         }
@@ -1156,25 +1161,25 @@ public class Database {
     }
 
 
-    public PortionTypes getPreferredPortionType(Food food) {
+    public PortionType getPreferredPortionType(Food food) {
 
         String table = "assigned_portion";
         String[] columns = {"prefered"};
         String[] whereArgs = {food.id};
         Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
-        PortionTypes prefType = null;
+        PortionType prefType = null;
         if (c.moveToFirst()) {
             if (!c.getString(0).equals(""))
-                prefType = PortionTypes.valueOf(c.getString(0));
+                prefType = PortionType.valueOf(c.getString(0));
             c.close();
         }
         return prefType;
 
     }
 
-    public Float getPortionAmountForPortionType(Food food, PortionTypes portionType) {
+    public Float getPortionAmountForPortionType(Food food, PortionType portionType) {
         String table = "assigned_portion";
-        if (portionType == PortionTypes.GRAM) return 1f;
+        if (portionType == PortionType.GRAM) return 1f;
         String[] columns = {portionType.toString()};
         String[] whereArgs = {food.id};
         Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);

@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.PortionTypes;
+import com.example.nutritionapp.other.PortionType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -165,7 +165,7 @@ public class JournalTest {
             db.logExistingFoods(foods, logDate, false);
 
             ArrayList<SelectedFoodItem> selected = new ArrayList<>();
-            selected.add(new SelectedFoodItem(foods.get(0), 100.0f, PortionTypes.GRAM));
+            selected.add(new SelectedFoodItem(foods.get(0), 100.0f, PortionType.GRAM));
             ArrayList<Food> suggested = db.getSuggestionsForCombination(selected);
 
             assertNotEquals("food search produced empty result", 0, suggested.size());

@@ -28,8 +28,8 @@ public class Food implements Comparable{
     public Nutrition nutrition;
     public LocalDateTime loggedAt;
 
-    public float associatedAmount = -1;
-    public PortionTypes associatedPortionType = null;
+    public double associatedAmount = -1;
+    public PortionType associatedPortionType = null;
     public float portionTypeInGram = -1;
 
     public Food(String name, String id){
@@ -62,22 +62,22 @@ public class Food implements Comparable{
         }
     }
 
-    public void setAssociatedAmount(float associatedAmount) {
-        this.associatedAmount = associatedAmount;
+    public void setAssociatedAmount(double associatedAmount) {
+        this.associatedAmount = (float) associatedAmount;
     }
 
-    public float getAssociatedAmount() {
+    public double getAssociatedAmount() {
         if(associatedAmount == -1){
             throw new AssertionError("Food for Database must have set associatedAmount in gram");
         }
         return associatedAmount;
     }
 
-    public void setAssociatedPortionType(PortionTypes associatedPortionType) {
+    public void setAssociatedPortionType(PortionType associatedPortionType) {
         this.associatedPortionType = associatedPortionType;
     }
 
-    public PortionTypes getAssociatedPortionType() {
+    public PortionType getAssociatedPortionType() {
         if(associatedPortionType == null){
             throw new AssertionError("Food for Database must have set legal associatedPortionType");
         }
@@ -159,7 +159,7 @@ public class Food implements Comparable{
     }
 
     public void setAmountByAssociatedPortionType(){
-        if (this.associatedPortionType.equals(PortionTypes.FLUID_OUNCE) || this.associatedPortionType.equals(PortionTypes.ML) || this.associatedPortionType.equals(PortionTypes.GRAM)){
+        if (this.associatedPortionType.equals(PortionType.FLUID_OUNCE) || this.associatedPortionType.equals(PortionType.ML) || this.associatedPortionType.equals(PortionType.GRAM)){
             this.associatedAmount = 100f;
         } else{
             this.associatedAmount = 1f;

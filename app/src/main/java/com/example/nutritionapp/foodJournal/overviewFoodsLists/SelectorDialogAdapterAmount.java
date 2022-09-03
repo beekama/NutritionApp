@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 
@@ -22,21 +23,28 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     final int VIEW_TYPE_INPUT = 0;
     final int VIEW_TYPE_ITEM = 1;
 
-    final DataTransfer dt;
+    final DataTransfer parent;
 
-    /* FIXME: why is amountSelected static and why is it not double and why is capital F-Float and why is it's default value null and not NaN? */
-    public static Float amountSelected = null;
+    public double amountSelected = Double.NaN;
     private final Context context;
-    private final ArrayList<Float> items;
+    private ArrayList<Double> items;
     private static int isSelected = -1;
     private static int lastCheckPos = 0;
     private TextView lastSelected = null;
 
-    public SelectorDialogAdapterAmount(Context context, ArrayList<Float> items, DataTransfer dataTransfer, Float defaultAmount) {
+    public SelectorDialogAdapterAmount(Context context, ArrayList<Double> items, DataTransfer dataTransfer, double defaultAmount) {
         this.context = context;
         this.items = items;
-        this.dt = dataTransfer;
+        this.parent = dataTransfer;
         this.amountSelected = defaultAmount;
+    }
+
+    public int findValuePositionInItems(double d){
+        return Math.max(items.indexOf(d), 0);
+    }
+
+    public void setItems(ArrayList<Double> items){
+        this.items = items;
     }
 
     @NonNull
@@ -46,10 +54,10 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
         assert inflater != null;
 
         if (viewType == VIEW_TYPE_INPUT) {
-            View view = inflater.inflate(R.layout.selector_portion_amount_inputelement, parent, false);
-            return new LocalViewHolder_edit(view);
+            View view = inflater.inflate(R.layout.selector_portion_amount_custom_element, parent, false);
+            return new LocalViewHolderCustomAmount(view);
         } else if (viewType == VIEW_TYPE_ITEM) {
-            View view = inflater.inflate(R.layout.selector_portion_amount_element, parent, false);
+            View view = inflater.inflate(R.layout.selector_amount_element, parent, false);
             return new LocalViewHolder(view);
         }
         throw new AssertionError("Bad ViewType in Amount Selection");
@@ -59,8 +67,8 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         /* EDIT-TEXT: allow numeric input */
-        if (holder instanceof LocalViewHolder_edit){
-            LocalViewHolder_edit editHolder = (LocalViewHolder_edit) holder;
+        if (holder instanceof LocalViewHolderCustomAmount){
+            LocalViewHolderCustomAmount editHolder = (LocalViewHolderCustomAmount) holder;
             editHolder.itemContent.addTextChangedListener(new TextWatcher() {
 
                 @Override
@@ -81,18 +89,18 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
 
                     lastCheckPos = holder.getAdapterPosition();
                     try {
-                        amountSelected = Float.valueOf(s.toString());
+                        amountSelected = Utils.parseVisualizedDouble(s.toString());
                     }catch(NumberFormatException e){
-                        amountSelected = 0f;
+                        amountSelected = 0;
                     }
-                    dt.setValues(amountSelected);
+                    parent.setAmountSelected(amountSelected);
                 }
             });
         }
         /* TEXTVIEW: get currently selected */
         else {
             LocalViewHolder lvh = (LocalViewHolder) holder;
-            lvh.itemContent.setText(String.valueOf(items.get(position)));
+            lvh.itemContent.setText(Utils.visualizedDouble(items.get(position)));
             if (items.get(position).equals(amountSelected)) {
                 lvh.itemContent.setSelected(true);
                 lastSelected = lvh.itemContent;
@@ -117,7 +125,7 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
                         t.setSelected(true);
                         isSelected = clickPos;
                         amountSelected = items.get(position);
-                        dt.setValues(amountSelected);
+                        parent.setAmountSelected(amountSelected);
                     }
 
             );
@@ -140,7 +148,7 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position) == -99.f ? VIEW_TYPE_INPUT : VIEW_TYPE_ITEM;
+        return items.get(position) <= 0 ? VIEW_TYPE_INPUT : VIEW_TYPE_ITEM;
     }
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -157,10 +165,10 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
         }
     }
 
-    static class LocalViewHolder_edit extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class LocalViewHolderCustomAmount extends RecyclerView.ViewHolder implements View.OnClickListener {
         final EditText itemContent;
 
-        public LocalViewHolder_edit(View itemView) {
+        public LocalViewHolderCustomAmount(View itemView) {
             super(itemView);
             itemContent = itemView.findViewById(R.id.selector_edittext);
             itemView.setOnClickListener(this);

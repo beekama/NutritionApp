@@ -1,11 +1,11 @@
 package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 
-import com.example.nutritionapp.other.PortionTypes;
+import com.example.nutritionapp.other.PortionType;
 
 public interface DataTransfer {
-    PortionTypes p = null;
+    PortionType p = null;
     Float a = null;
-    void setValues(PortionTypes p);
+    void setPortionType(PortionType p);
     void getValues();
-    void setValues(Float a);
+    void setAmountSelected(double a);
 }

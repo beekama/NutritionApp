@@ -86,15 +86,13 @@ public class Recommendations extends AppCompatActivity {
         //back home button:
         tb_back.setOnClickListener((v -> finishAfterTransition()));
 
-
-
         /* PROGRESS BAR */
         energyBar = findViewById(R.id.energyBar);
         energyBarText = findViewById(R.id.energyBarTextAnalysis);
         setProgressBar(currentDateParsed);
 
         /* PieChart */
-        Pair<PieData, List> pieAndListData = generatePieChartContent(currentDateParsed);
+        Pair<PieData, List<Integer>> pieAndListData = generatePieChartContent(currentDateParsed);
 
         pieChart = findViewById(R.id.piChartNutrition);
         pieChart.getDescription().setEnabled(false);
@@ -111,7 +109,7 @@ public class Recommendations extends AppCompatActivity {
 
         /* PieChartList */
         chartList = findViewById(R.id.chartList);
-        List allowances = pieAndListData.second;
+        List<Integer> allowances = pieAndListData.second;
         LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         chartList.setLayoutManager(nutritionChartLayoutManager);
         RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data, allowances);
@@ -145,7 +143,7 @@ public class Recommendations extends AppCompatActivity {
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(Recommendations.this, listItems);
         nutritionRList.setAdapter(newDayAdapter);
         //protein chart
-        Pair<PieData, List> pieAndListData = generatePieChartContent(localDate);
+        Pair<PieData, List<Integer>> pieAndListData = generatePieChartContent(localDate);
         pieChart.setData(pieAndListData.first);
         pieChart.setTouchEnabled(false);
         pieChart.invalidate();
@@ -191,7 +189,7 @@ public class Recommendations extends AppCompatActivity {
     }
 
     /* returns pair of PieData and allowances */
-    Pair<PieData, List> generatePieChartContent(LocalDate currentDateParsed) {
+    Pair<PieData, List<Integer>> generatePieChartContent(LocalDate currentDateParsed) {
 
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
         ArrayList<RecommendationListItem> listItems = new ArrayList<>();

@@ -22,7 +22,7 @@ public class NutritionAnalysis {
     private static Nutrition calculateTotalNutrition(ArrayList<Food> calculatedFrom) {
         ArrayList<Nutrition> nutritionCalculatedFrom = new ArrayList<>();
         for (Food f : calculatedFrom) {
-                float amountGram = f.getAssociatedAmount() * f.getPortionTypeInGram();
+                double amountGram = f.getAssociatedAmount() * f.getPortionTypeInGram();
                 nutritionCalculatedFrom.add(f.nutrition.getNutritionForAmount(amountGram));
         }
         return Nutrition.sum(nutritionCalculatedFrom);

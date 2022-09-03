@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
 
@@ -60,7 +61,12 @@ public class NutritionOverviewAdapter extends BaseAdapter {
 
             NutritionPercentageTuple el = this.nutritionPercentageSortedFilterZero.get(position);
             nutritionName.setText(el.nutritionElement.getString(context));
-            progressBarLabel.setText(String.valueOf(nutritionActual.getElements().get(el.nutritionElement)));
+
+
+            String pgContentValue = String.valueOf(nutritionActual.getElements().get(el.nutritionElement));
+            String pgContentUnit = Conversions.getNativeUnitForNutritionElementUnsafe(el.nutritionElement);
+            /* FIXME: idk make 2 text views or string-builder or something */
+            progressBarLabel.setText(pgContentValue + pgContentUnit);
 
             progressBar.setMax(100);
             progressBar.setMin(0);

@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.PortionTypes;
+import com.example.nutritionapp.other.PortionType;
 
 import java.util.ArrayList;
 
 public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<SelectorDialogAdapterPortions.LocalViewHolder> {
     final DataTransfer dt;
-    public PortionTypes typeSelected ;
+    public PortionType typeSelected ;
     private final Context context;
-    private final ArrayList<PortionTypes> items;
+    private final ArrayList<PortionType> items;
     private static int isSelected = -1;
     private static int lastCheckPos = 0;
     private TextView lastSelected = null;
 
 
-    public SelectorDialogAdapterPortions(Context context, ArrayList<PortionTypes> items, DataTransfer dataTransfer, PortionTypes defaultType) {
+    public SelectorDialogAdapterPortions(Context context, ArrayList<PortionType> items, DataTransfer dataTransfer, PortionType defaultType) {
         this.context = context;
         this.items = items;
         this.dt = dataTransfer;
@@ -36,7 +36,7 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
     public LocalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.selector_portion_amount_element, parent, false);
+        View view = inflater.inflate(R.layout.selector_portion_element, parent, false);
         return new LocalViewHolder(view);
 
     }
@@ -68,7 +68,7 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
             t.setSelected(true);
             isSelected = clickPos;
             typeSelected = items.get(position);
-            dt.setValues(typeSelected);
+            dt.setPortionType(typeSelected);
         });
     }
 
@@ -85,6 +85,10 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public int findPortionPositionInItems(PortionType typeSelected) {
+        return Math.max(items.indexOf(typeSelected), 0);
     }
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

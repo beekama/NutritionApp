@@ -1,6 +1,6 @@
 package com.example.nutritionapp.other;
 
-public enum PortionTypes {
+public enum PortionType {
     CUP,
     FLUID_OUNCE,
     ML,

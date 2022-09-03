@@ -12,6 +12,7 @@ import android.text.style.RelativeSizeSpan;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.SortedMap;
@@ -26,6 +27,7 @@ public class Utils {
 
 
     public static final int FOOD_GROUP_DETAILS_ID = 1;
+    private static final String RATIO_SEPARATOR = "/";
 
     public static int zeroIfNull(Integer integer) {
         if (integer == null) {
@@ -136,4 +138,52 @@ public class Utils {
         return  dateHeader;
     }
 
+    public static ArrayList<Double> amountsForPortionType(PortionType typeSelected) {
+        ArrayList<Double> ret;
+        switch(typeSelected){
+            case FLUID_OUNCE:
+            case ML:
+            case GRAM:
+            case PIECE:
+            case TEASPOON:
+            case TABLESPOON:
+                Double[] smallBaseUnit = {0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0};
+                ret = new ArrayList<>(Arrays.asList(smallBaseUnit));
+                break;
+            case SCOOP:
+            case PACKET:
+            case CUP:
+            case SMALL:
+            case MEDIUM:
+            case LARGE:
+            default:
+                Double[] bigBaseUnit = {0.125, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 10.0};
+                ret = new ArrayList<>(Arrays.asList(bigBaseUnit));
+                break;
+        }
+        return ret;
+    }
+
+    public static double parseVisualizedDouble(String input){
+        return Double.parseDouble(input);
+    }
+
+    public static String visualizedDouble(Double d) {
+        if(d == 0.125) {
+            return "⅛";
+        }else if(d == 0.25){
+            return "¼";
+        }else if(d == 0.5){
+            return "½";
+        }else if(d == 0.75){
+            return "¾";
+        }else{
+            double fraction = d - d.intValue();
+            if(fraction > 0){
+                return d.intValue() + " " + visualizedDouble(fraction);
+            }else {
+                return Integer.toString(d.intValue());
+            }
+        }
+    }
 }

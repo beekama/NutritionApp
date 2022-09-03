@@ -86,7 +86,6 @@ public class Nutrition {
         for(NutritionElement el: NutritionElement.values()){
             elements.put(el, 0);
         }
-
     }
 
     public Nutrition(Nutrition orig){
@@ -102,12 +101,12 @@ public class Nutrition {
         return Integer.parseInt(dbId);
     }
 
-    public Nutrition getNutritionForAmount(float amount){
+    public Nutrition getNutritionForAmount(double amount){
         Nutrition newNut = new Nutrition(this);
         for(NutritionElement el : newNut.elements.keySet()){
             Integer content = newNut.elements.getOrDefault(el, 0);
-            float calculatedContent = content*amount/100f;
-            newNut.elements.put(el, Math.round(calculatedContent));
+            double calculatedContent = content*amount/100.0;
+            newNut.elements.put(el, Math.toIntExact(Math.round(calculatedContent)));
         }
         return newNut;
     }

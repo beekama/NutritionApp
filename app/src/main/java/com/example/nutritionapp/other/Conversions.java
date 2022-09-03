@@ -13,6 +13,21 @@ public class Conversions {
     public static final String MICROGRAM = "UG";
     public static final String MILLIGRAM = "MG";
 
+    public static String getNativeUnitForNutritionElementUnsafe(NutritionElement e){
+        switch(e){
+            case SELENIUM:
+            case VITAMIN_B12:
+            case VITAMIN_B6:
+            case VITAMIN_B3:
+            case VITAMIN_B1:
+            case VITAMIN_D:
+            case CALCIUM:
+                return Conversions.MICROGRAM;
+            default:
+                return Conversions.MILLIGRAM;
+        }
+    }
+
     public static int normalize(String unitName, int inputAmount){
         /* normalize unitValues to their base values (microgram or joule) */
         switch (unitName){
@@ -68,5 +83,10 @@ public class Conversions {
             default:
                 throw new RuntimeException("Bad Conversion." + from + " " + to);
         }
+    }
+
+    public static double convertPortion(double amountSelected, PortionType typeSelected, PortionType gram) {
+        /* TODO: how to reliably convert this like for example for "medium apple" ?? */
+        return amountSelected;
     }
 }

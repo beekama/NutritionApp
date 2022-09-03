@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -8,11 +8,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@drawable/selector"
         android:clickable="true"
         android:id="@+id/selector_textview"
-        android:paddingVertical="50dp"
-        android:paddingHorizontal="40dp"
-        tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:minWidth="65dp"
+        android:minHeight="50dp"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="5dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -17,6 +17,7 @@ import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
 
+import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.Utils;
 
 public class SelectedFoodAdapter extends BaseAdapter {
@@ -55,36 +56,19 @@ public class SelectedFoodAdapter extends BaseAdapter {
             Button amountSelectorButton = convertView.findViewById(R.id.amount_selector);
             Button portionSelectorButton = convertView.findViewById(R.id.portion_type_selector);
 
+            /* identical button functions for amount & portion type (same dialog) */
             amountSelectorButton.setOnClickListener(v -> {
-
-                // custom dialog
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.foodgroup_popup);
-
-                EditText etAmount = dialog.findViewById(R.id.input);
-                etAmount.setHint("Amount");
-                etAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                etAmount.setOnEditorActionListener((v1, actionId, event) -> {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        try {
-                            String sAmount = etAmount.getText().toString();
-                            int newAmount = Integer.parseInt(sAmount);
-                            amountSelectorButton.setText(sAmount);
-                            currentItem.food.associatedAmount = newAmount;
-                            if (o != null) o.onDataChanged(newAmount);
-                            dialog.dismiss();
-                        } catch (NumberFormatException e) {
-                            Toast toast = Toast.makeText(context, "Amount is not a Number,", Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        return true;
-                    }
-                    return false;
-                });
-                dialog.show();
+                FoodGroupOverview parentOverview = (FoodGroupOverview) context;
+                SelectedFoodItem item = items.get(position);
+                parentOverview.runAmountSelectorDialog(item.food, position, item.food.associatedPortionType, item.food.associatedAmount);
             });
-            nameView.setText(currentItem.food.name);
+            portionSelectorButton.setOnClickListener(v -> {
+                FoodGroupOverview parentOverview = (FoodGroupOverview) context;
+                SelectedFoodItem item = items.get(position);
+                parentOverview.runAmountSelectorDialog(item.food, position, item.food.associatedPortionType, item.food.associatedAmount);
+            });
+
+        nameView.setText(currentItem.food.name);
             amountSelectorButton.setText(String.valueOf(currentItem.food.associatedAmount));
 
             // TODO: button clickbar mit auswahlmenue

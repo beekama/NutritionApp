@@ -28,12 +28,13 @@ import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogAmountSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverviewAdapter;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.SelectorDialogAdapterAmount;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
 import com.example.nutritionapp.other.NutritionPercentageTuple;
-import com.example.nutritionapp.other.PortionTypes;
+import com.example.nutritionapp.other.PortionType;
 import com.example.nutritionapp.other.Utils;
 
 import java.time.LocalDateTime;
@@ -186,16 +187,16 @@ public class FoodGroupOverview extends AppCompatActivity {
         updateSuggestionList(this.db.getSuggestionsForCombination(this.selected), this.suggestionsByPrevSelected, this.suggestions);
     }
 
-    private void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
+    public void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
         if (selectedFoodItem == null) {
             Dialog foodSelectionDialog = new DialogFoodSelector(this);
             foodSelectionDialog.setOnDismissListener(dialog -> {
                 DialogFoodSelector castedDialog = (DialogFoodSelector) dialog;
-                runAmountSelectorDialog(castedDialog.selectedFood, position);
+                runAmountSelectorDialog(castedDialog.selectedFood, position, null, Double.NaN);
             });
             displaySelectorDialog(foodSelectionDialog);
         } else {
-            runAmountSelectorDialog(selectedFoodItem.food, position);
+            runAmountSelectorDialog(selectedFoodItem.food, position, null, Double.NaN);
         }
     }
 
@@ -213,19 +214,28 @@ public class FoodGroupOverview extends AppCompatActivity {
         }
     }
 
-    private void runAmountSelectorDialog(Food selectedFood, int position) {
+    public void runAmountSelectorDialog(Food selectedFood, int position, PortionType current, double amountCurrent) {
         if (selectedFood == null) {
             return;
         }
-        selectedFood.setPreferredPortionFromDb(this.db);
-        selectedFood.setAmountByAssociatedPortionType();
+        if(current == null) {
+            selectedFood.setPreferredPortionFromDb(this.db);
+        }else{
+            selectedFood.associatedPortionType = current;
+        }
+
+        if(Double.isNaN(amountCurrent)) {
+            selectedFood.setAmountByAssociatedPortionType();
+        }else{
+            selectedFood.associatedAmount = amountCurrent;
+        }
         DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
             DialogAmountSelector castedDialog = (DialogAmountSelector) dialog;
-            float amountSelected = castedDialog.amountSelected;
-            PortionTypes typeSelected = castedDialog.typeSelected;
+            double amountSelected = castedDialog.amountSelected;
+            PortionType typeSelected = castedDialog.typeSelected;
 
             /* abort if bad selection */    // currently impossible -> pre selection
             if (amountSelected == 0 || typeSelected == null) {
