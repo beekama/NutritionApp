@@ -16,8 +16,7 @@ import java.util.ArrayList;
 
 public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<SelectorDialogAdapterPortions.LocalViewHolder> {
     final DataTransfer dt;
-    /* FIXME: why is this variable static */
-    public static PortionTypes typeSelected ;
+    public PortionTypes typeSelected ;
     private final Context context;
     private final ArrayList<PortionTypes> items;
     private static int isSelected = -1;
@@ -44,7 +43,9 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
 
     @Override
     public void onBindViewHolder(@NonNull LocalViewHolder holder, int position) {
-        holder.itemContent.setText(items.get(position).toString());
+        // TODO: make type string lowercase/only first letter upper case
+        String typeString = items.get(position).toString();
+        holder.itemContent.setText(typeString);
         if (items.get(position).equals(typeSelected)){
             holder.itemContent.setSelected(true);
             lastSelected = holder.itemContent;
@@ -59,8 +60,6 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
             int clickPos = holder.getAdapterPosition();
 
             if ((lastSelected != null) && (lastSelected != t)) {
-                lastSelected.setSelected(false);
-                lastSelected.setSelected(false);
                 lastSelected.setSelected(false);
             }
             lastSelected = t;

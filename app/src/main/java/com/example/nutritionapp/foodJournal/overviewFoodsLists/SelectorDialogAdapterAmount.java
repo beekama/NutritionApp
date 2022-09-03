@@ -80,7 +80,11 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
                     }
 
                     lastCheckPos = holder.getAdapterPosition();
-                    amountSelected = Float.valueOf(s.toString());
+                    try {
+                        amountSelected = Float.valueOf(s.toString());
+                    }catch(NumberFormatException e){
+                        amountSelected = 0f;
+                    }
                     dt.setValues(amountSelected);
                 }
             });

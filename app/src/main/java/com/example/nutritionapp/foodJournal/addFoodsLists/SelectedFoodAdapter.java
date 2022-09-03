@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,17 +52,17 @@ public class SelectedFoodAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.journal_add_food_selected_item, parent, false);
             TextView nameView = convertView.findViewById(R.id.item_name);
-            TextView amountSelectorView = convertView.findViewById(R.id.amount_selector);
-            TextView portionSelectorView = convertView.findViewById(R.id.portion_type_selector);
+            Button amountSelectorButton = convertView.findViewById(R.id.amount_selector);
+            Button portionSelectorButton = convertView.findViewById(R.id.portion_type_selector);
 
-            amountSelectorView.setOnClickListener(v -> {
+            amountSelectorButton.setOnClickListener(v -> {
 
                 // custom dialog
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.foodgroup_popup);
 
                 EditText etAmount = dialog.findViewById(R.id.input);
-                etAmount.setHint("Input Age");
+                etAmount.setHint("Amount");
                 etAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 etAmount.setOnEditorActionListener((v1, actionId, event) -> {
@@ -69,7 +70,7 @@ public class SelectedFoodAdapter extends BaseAdapter {
                         try {
                             String sAmount = etAmount.getText().toString();
                             int newAmount = Integer.parseInt(sAmount);
-                            amountSelectorView.setText(sAmount);
+                            amountSelectorButton.setText(sAmount);
                             currentItem.food.associatedAmount = newAmount;
                             if (o != null) o.onDataChanged(newAmount);
                             dialog.dismiss();
@@ -84,8 +85,10 @@ public class SelectedFoodAdapter extends BaseAdapter {
                 dialog.show();
             });
             nameView.setText(currentItem.food.name);
-            amountSelectorView.setText(String.valueOf(currentItem.food.associatedAmount));
-            portionSelectorView.setText(Utils.getStringIdentifier(context, currentItem.food.associatedPortionType.toString()));
+            amountSelectorButton.setText(String.valueOf(currentItem.food.associatedAmount));
+
+            // TODO: button clickbar mit auswahlmenue
+            portionSelectorButton.setText(Utils.getStringIdentifier(context, currentItem.food.associatedPortionType.toString()));
 
         return  convertView;
     }

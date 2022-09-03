@@ -12,5 +12,7 @@
         android:background="@drawable/selector"
         android:clickable="true"
         android:id="@+id/selector_textview"
-        tools:ignore="MissingConstraints"/>
+        android:paddingVertical="50dp"
+        android:paddingHorizontal="40dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
