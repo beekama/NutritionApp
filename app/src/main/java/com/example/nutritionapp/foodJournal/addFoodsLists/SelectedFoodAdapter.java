@@ -26,9 +26,6 @@ public class SelectedFoodAdapter extends BaseAdapter {
     public ArrayList<SelectedFoodItem> items;
     public static OnDataChangeListener o;
 
-    public SelectedFoodAdapter(){
-        super();
-    }
     public SelectedFoodAdapter(Context context, ArrayList<SelectedFoodItem> items){
         this.context=context;
         this.items=items;
@@ -74,8 +71,7 @@ public class SelectedFoodAdapter extends BaseAdapter {
 
         return  convertView;
     }
-
-
+    
     public void setOnDataChangeListener(OnDataChangeListener onDataChangeListener){
         o = onDataChangeListener;
     }
