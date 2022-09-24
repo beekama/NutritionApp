@@ -169,10 +169,11 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
              */
         });
 
-        NutritionAnalysis analysis;
+        NutritionAnalysis analysis = null;
         if(nutAnalysisCache.containsKey(position) && !itemAtCurPos.dirty){
             analysis = nutAnalysisCache.get(position);
-        }else{
+        }
+        if(analysis == null){
             analysis = new NutritionAnalysis(itemAtCurPos.foods);
             nutAnalysisCache.put(position, analysis);
         }
