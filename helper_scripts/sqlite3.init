@@ -21,7 +21,7 @@ create TABLE food_templates(
 );
 
 create TABLE foods_in_template(
-	"template_name" TEST,
+	"template_name" TEXT,
 	"food_id" TEXT,
 	"amount" INTEGER
 );
