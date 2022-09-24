@@ -24,7 +24,6 @@ public class SelectedFoodAdapter extends BaseAdapter {
 
     private Context context;
     public ArrayList<SelectedFoodItem> items;
-    public static OnDataChangeListener o;
 
     public SelectedFoodAdapter(Context context, ArrayList<SelectedFoodItem> items){
         this.context=context;
@@ -70,15 +69,5 @@ public class SelectedFoodAdapter extends BaseAdapter {
             portionSelectorButton.setText(Utils.getStringIdentifier(context, currentItem.food.associatedPortionType.toString()));
 
         return  convertView;
-    }
-    
-    public void setOnDataChangeListener(OnDataChangeListener onDataChangeListener){
-        o = onDataChangeListener;
-    }
-
-    public interface OnDataChangeListener{
-        /* FIXME: see comment below */
-        // 'amount'-parameter (currently) does not matter at all. At the moment its only about recognizing data changes
-        void onDataChanged(int amount);
     }
 }

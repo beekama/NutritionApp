@@ -148,10 +148,6 @@ public class FoodGroupOverview extends AppCompatActivity {
             runFoodSelectionPipeline((ListFoodItem) parent.getItemAtPosition(position), position);
         });
 
-        selectedAdapter.setOnDataChangeListener(amount -> {
-            updateNutritionOverview();
-        });
-
         suggestions.setOnItemClickListener((parent, view, position, id) -> {
             ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
             runFoodSelectionPipeline(item, NO_UPDATE_EXISTING);
