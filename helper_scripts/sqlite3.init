@@ -6,6 +6,26 @@ create TABLE person(
     "energyTarget" INTEGER
 );
 
+create TABLE curated_food(
+	"food_id" TEXT NOT NULL PRIMARY KEY
+);
+
+create TABLE food_preferences(
+	"food_id" TEXT NOT NULL PRIMARY KEY,
+	"value" INTEGER
+);
+
+create TABLE food_templates(
+	"template_name" TEXT PRIMARY KEY,
+	"template_description"
+);
+
+create TABLE foods_in_template(
+	"template_name" TEST,
+	"food_id" TEXT,
+	"amount" INTEGER
+);
+
 create TABLE foodlog(
     "food_id"   TEXT,
     "date"  INTEGER,
@@ -26,6 +46,11 @@ CREATE TABLE weightByDate(
     "date" TEXT,
     "weight" INTEGER,
     CONSTRAINT weight_pk PRIMARY KEY (date)
+);
+
+CREATE TABLE calorieTargetByDate(
+    "date" TEXT NOT NULL PRIMARY KEY,
+    "target" INTEGER
 );
 
 .mode csv
