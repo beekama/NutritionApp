@@ -34,18 +34,12 @@ public class CustomMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
 
-
         if (e instanceof CandleEntry) {
-
             CandleEntry ce = (CandleEntry) e;
-
             tv.setText(Utils.formatNumber(ce.getHigh(), 0, true));
-            //tv.setText(Utils.formatNumber(ce.get));
         } else {
-
             String printDate = oneWeekAgo.plusDays((long) e.getX()).compareTo(LocalDate.now())==0?  getResources().getString(R.string.today) : oneWeekAgo.plusDays((long) e.getX()).toString();
-            tv.setText(printDate + "\nNutrition value: " + Utils.formatNumber(e.getY(),2,true)); //TODO this looks broken af -- Yannik
-            //tv.setText(Utils.formatNumber(e.getX(),0,true));
+            tv.setText(String.format("%s\nNutrition value: %s", printDate, Utils.formatNumber(e.getY(), 2, true)));
         }
 
         super.refreshContent(e, highlight);
