@@ -26,6 +26,7 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
+import com.example.nutritionapp.recommendation.Recommendations;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -162,11 +163,9 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
         castedHolder.dateText.setText(dateHeader);
 
         castedHolder.dateText.setOnClickListener(view -> {
-            /* TODO reactivate this when it's fixed
-            Intent target = new Intent(view.getContext(), NutritionOverview.class);
-            target.putExtra("startDate", items.get(position).date);
+            Intent target = new Intent(view.getContext(), Recommendations.class);
+            target.putExtra("startDate", items.get(position).date.format(Utils.sqliteDateFormat));
             context.startActivity(target);
-             */
         });
 
         NutritionAnalysis analysis = null;

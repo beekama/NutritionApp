@@ -55,7 +55,7 @@ public class Recommendations extends AppCompatActivity {
     private final List<Integer> colors = new ArrayList<>();
 
 
-    private final LocalDate currentDateParsed = LocalDate.now();
+    private LocalDate currentDateParsed = LocalDate.now();
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,11 @@ public class Recommendations extends AppCompatActivity {
         setContentView(R.layout.recommendation);
         db = new Database(this);
 
+        /* see if a date was specified during activity start */
+        String dateFromExtra = this.getIntent().getStringExtra("startDate");
+        if(dateFromExtra != null){
+            currentDateParsed = LocalDate.parse(dateFromExtra, Utils.sqliteDateFormat);
+        }
 
         /* APP TOOLBAR */
         //replace actionbar with custom app_toolbar:
