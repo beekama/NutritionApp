@@ -317,11 +317,6 @@ public class FoodGroupOverview extends AppCompatActivity {
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
 
-        /* FIXME: wtf are those next lines doing here? are they even ever used? */
-        ArrayList<NutritionPercentageTuple> npt = new ArrayList<>();
-        npt.add(new NutritionPercentageTuple(NutritionElement.CALCIUM, 0.f));
-        npt.addAll(na.getNutritionPercentageSortedFilterZero());
-
         ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
