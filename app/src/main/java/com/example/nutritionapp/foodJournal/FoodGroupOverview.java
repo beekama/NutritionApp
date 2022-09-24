@@ -238,7 +238,6 @@ public class FoodGroupOverview extends AppCompatActivity {
                 return;
             }
 
-            // TODO normalize selected amount
             /* update */
             SelectedFoodItem sf = new SelectedFoodItem(selectedFood, amountSelected, typeSelected);
             if (position < 0) {
