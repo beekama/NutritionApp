@@ -167,9 +167,8 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     break;
                 case WEIGHT:
                     if (!itemAtCurPos.sValue.equals("-1")){
-                        /* FIXME: clarify variable name fWeight */
-                        float fWeight = Integer.parseInt(itemAtCurPos.sValue)/1000.0f;
-                        itemViewHolder.value.setText(String.format(Locale.getDefault(), "%.2f", fWeight));
+                        float weightAsFloat = Integer.parseInt(itemAtCurPos.sValue)/1000.0f;
+                        itemViewHolder.value.setText(String.format(Locale.getDefault(), "%.2f", weightAsFloat));
                     }
                     itemViewHolder.lSwitch.setVisibility(View.GONE);
                     itemViewHolder.background.setOnClickListener(v-> {
