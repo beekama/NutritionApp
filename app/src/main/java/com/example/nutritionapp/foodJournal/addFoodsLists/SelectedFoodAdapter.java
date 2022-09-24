@@ -70,8 +70,6 @@ public class SelectedFoodAdapter extends BaseAdapter {
 
         nameView.setText(currentItem.food.name);
             amountSelectorButton.setText(String.valueOf(currentItem.food.associatedAmount));
-
-            // TODO: button clickbar mit auswahlmenue
             portionSelectorButton.setText(Utils.getStringIdentifier(context, currentItem.food.associatedPortionType.toString()));
 
         return  convertView;
