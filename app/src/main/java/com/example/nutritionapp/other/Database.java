@@ -964,7 +964,9 @@ public class Database {
 
             /* parse json object and save to db */
             int age = person.getInt("age");
-            setPersonAge(age);
+            if(age != 0) {
+                setPersonAge(age);
+            }
             int height = person.getInt("height");
             setPersonHeight(height);
             String gender = person.getString("gender");
