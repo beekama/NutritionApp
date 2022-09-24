@@ -85,7 +85,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
 
         result.add(new ConfigurationListItem(DataType.HEADER, "Calculated Results", ""));
         result.add(new ConfigurationListItem(DataType.BMI, "BMI", String.valueOf(db.getPersonBmi())));
-        result.add(new ConfigurationListItem(DataType.CALORIES, "Calories", String.valueOf(db.getPersonEnergyReq())));
+        result.add(new ConfigurationListItem(DataType.CALORIES, "Calories", String.valueOf(db.getPersonEnergyReq(null))));
 
         result.add(new ConfigurationListItem(DataType.HEADER, " Health Data", ""));
         result.add(new ConfigurationListItem(DataType.IMPORT, "Import", ">"));

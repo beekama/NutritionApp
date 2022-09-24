@@ -196,7 +196,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                                     String sCal = etCal.getText().toString();
                                     int newCal = Integer.parseInt(sCal);
                                     itemViewHolder.value.setText(sCal);
-                                    db.setPersonEnergyReq(newCal);
+                                    db.setPersonEnergyReq(newCal, null);
                                     dialog.dismiss();
                                 } catch (NumberFormatException e) {
                                     Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Energyrequirement", Toast.LENGTH_LONG);

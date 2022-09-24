@@ -35,14 +35,14 @@ public class ConfigurationTest {
             int weight = 100;
 
             db.setPersonAge(age);
-            db.setPersonEnergyReq(energyReq);
+            db.setPersonEnergyReq(energyReq, null);
             db.setPersonGender(male);
             db.setPersonGender(female);
             db.setPersonHeight(height);
             db.setPersonWeight(weight);
 
             assertEquals("Person age get did not match set value", age, db.getPersonAge());
-            assertEquals("Person energy requirements get did not match set value", energyReq, db.getPersonEnergyReq());
+            assertEquals("Person energy requirements get did not match set value", energyReq, db.getPersonEnergyReq(null));
             assertEquals("Person Gender get did not match set value", female, db.getPersonGender());
             assertEquals("Person height get did not match set value", height, db.getPersonHeight());
             assertEquals("Person weight get did not match set value", weight, db.getPersonWeight());
@@ -87,9 +87,9 @@ public class ConfigurationTest {
             db.setPersonHeight(height);
             db.setPersonWeight(weight);
 
-            int energyReqMale = db.getPersonEnergyReq();
+            int energyReqMale = db.getPersonEnergyReq(null);
             db.setPersonGender(female);
-            int energyReqFemale = db.getPersonEnergyReq();
+            int energyReqFemale = db.getPersonEnergyReq(null);
 
             assertTrue("EnergyReq (male) seems off the chars", energyReqMale > 1000 && energyReqMale < 3000);
             assertTrue("EnergyReq (female) seems off the chars", energyReqFemale > 1000 && energyReqFemale < 3000);

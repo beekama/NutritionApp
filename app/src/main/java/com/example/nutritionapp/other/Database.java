@@ -37,6 +37,7 @@ import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import static android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE;
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
@@ -1029,14 +1030,19 @@ public class Database {
         editor.apply();
     }
 
-    public void setPersonEnergyReq(int energyReq) throws IllegalArgumentException {
+    public void setPersonEnergyReq(int energyReq, LocalDate date) throws IllegalArgumentException {
         if (energyReq < 1000) {
             throw new IllegalArgumentException("Energy target must be above 1000kcal");
         }
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("energyReq", energyReq);
-        editor.apply();
+
+        ContentValues values = new ContentValues();
+        if(date == null){
+            date = LocalDate.now();
+        }
+        values.put("date", date.format(Utils.sqliteDateFormat));
+        values.put("value", energyReq);
+
+        db.insertWithOnConflict(CALORIE_TARGET_BY_DATE_TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     public void setPersonHeight(int sizeInCm) throws IllegalArgumentException {
@@ -1082,14 +1088,25 @@ public class Database {
         return pref.getInt("curated_foods", -1);
     }
 
-    public int getPersonEnergyReq() {
-        SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
-        int energyReq = pref.getInt("energyReq", -1);
-        if (energyReq == -1) {
-            energyReq = 2000; //TODO calc from other values
+    public int getPersonEnergyReq(LocalDate date) {
+        int energyReq = 2000; //TODO calc from other values;
+
+        if(date == null){
+            date = LocalDate.now();
         }
+
+        String dateString = date.format(Utils.sqliteDateFormat);
+        String[] whereArgs = {dateString};
+        String[] columns = {"target"};
+        Cursor c = db.query(CALORIE_TARGET_BY_DATE_TABLE, columns, "date <= ?", whereArgs, null, null, "date DESC", "1");
+        if(c.moveToNext()){
+            energyReq = c.getInt(0);
+        }
+        c.close();
+
         return energyReq;
     }
+
 
     public String getPersonGender() {
         SharedPreferences pref = srcActivity.getApplicationContext().getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
