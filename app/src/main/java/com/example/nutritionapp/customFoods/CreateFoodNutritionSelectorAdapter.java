@@ -94,7 +94,7 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
                                 item.amount = Integer.parseInt(etString);
                             }
                             dialog.dismiss();
-                        } catch (IllegalArgumentException e) { //todo
+                        } catch (IllegalArgumentException e) {
                             Toast toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
                             toast.show();
                         }
