@@ -55,10 +55,8 @@ public class Food implements Comparable{
         try {
             Food f = (Food) o;
             return this.id.equals(f.id) && !this.id.equals("");
-        }catch (ClassCastException e){
-            Log.wtf("WTF", "Do we even end up here?"); //TODO rethink this
-            ListFoodItem f = (ListFoodItem) o;
-            return this.equals(f.food);
+        }catch (ClassCastException c){
+            throw new AssertionError(c);
         }
     }
 
