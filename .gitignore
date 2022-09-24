@@ -6,6 +6,7 @@ sqlite3-full.init
 *.csv
 *.iml
 .gradle
+.idea/misc.xml
 /local.properties
 /.idea/caches
 /.idea/libraries
