@@ -134,13 +134,6 @@ public class RecommendationsElement extends AppCompatActivity {
         TextView dailyR = findViewById(R.id.dailyReq);
         dailyR.setText(String.format(Locale.getDefault(), "%s %d %s ", dailyReq, recommendation, microGram));
 
-        /* FIXME: can this be removed?
-        TextView recDesc = findViewById(R.id.recommendation_description);
-        String header = getResources().getString(R.string.recommendationDesc);
-        recDesc.setText(String.format("%s %s:\n%s %d %s.", header, nutritionElement.getString(context),dailyReq, recommendation, microGram));
-        recDesc.setText(String.format("%s-rich food: ", nutritionElement.getString(context)));
-        */
-
         recList = findViewById(R.id.RecListView);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
         recList.setLayoutManager(nutritionReportLayoutManager);
