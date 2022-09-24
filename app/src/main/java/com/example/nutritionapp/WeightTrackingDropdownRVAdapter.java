@@ -42,7 +42,6 @@ public class WeightTrackingDropdownRVAdapter extends RecyclerView.Adapter {
         lvh.text.setOnClickListener(v -> {
             Toast.makeText(context, items.get(position).first, Toast.LENGTH_SHORT).show();
             period.setPeriod(items.get(position));
-            //todo set new item
         });
 
     }

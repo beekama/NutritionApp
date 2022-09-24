@@ -185,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         /* PieChart */
-        /* FIXME: fix or change needed from LocalDate to LocalDateTime */
         Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(currentDateParsedLD);
 
         pieChart = findViewById(R.id.piChartNutrition);

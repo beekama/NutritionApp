@@ -193,7 +193,6 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(periodLayoutManager);
         recyclerView.setAdapter(adapter);
-        //todo adapter
 
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
