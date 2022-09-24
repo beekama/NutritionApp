@@ -14,12 +14,11 @@ import java.time.LocalDate;
 
 
 public class NutritionOverview extends AppCompatActivity {
-    /* TODO display overview of nutrition based on food ids or dates */
+
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
-        // TODO set correct layout
         setContentView(R.layout.journal);
 
         Intent intent = getIntent();
@@ -42,13 +41,6 @@ public class NutritionOverview extends AppCompatActivity {
                 endDateParsed = null;
             }
             db.getLoggedFoodsByDate(startDateParsed, endDateParsed, null);
-
-            // TODO display based on nutrition
-        } else if (foodIds != null && foodAmount != null){
-            // TODO display based on ids
-            //for(String id : foodIds){
-            //    db.getFoodById()
-            //}
         }else {
             throw new AssertionError("No food ids and amount or dates given in intent extras!?");
         }
