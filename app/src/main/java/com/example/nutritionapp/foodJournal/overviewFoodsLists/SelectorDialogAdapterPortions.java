@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.PortionType;
+import com.example.nutritionapp.other.Utils;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,7 @@ public class SelectorDialogAdapterPortions extends RecyclerView.Adapter<Selector
     @Override
     public void onBindViewHolder(@NonNull LocalViewHolder holder, int position) {
 
-        // TODO: make type string lowercase/only first letter upper case
-        String typeString = items.get(position).toString();
+        String typeString = Utils.capitalize(items.get(position).toString(), true);
         holder.itemContent.setText(typeString);
 
         if (items.get(position) == typeSelected){

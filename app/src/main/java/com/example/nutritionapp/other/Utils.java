@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -185,5 +186,12 @@ public class Utils {
                 return Integer.toString(d.intValue());
             }
         }
+    }
+
+    public static String capitalize(String string, boolean lowercaseFirst) {
+        if(lowercaseFirst){
+            string = string.toLowerCase();
+        }
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 }
