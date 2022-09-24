@@ -178,7 +178,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             nutAnalysisCache.put(position, analysis);
         }
 
-        int energyNeeded = db.getPersonEnergyReq(null);
+        int energyNeeded = db.getPersonEnergyReq(logDate);
         int energyUsedPercentage = analysis.getTotalEnergy()*100/energyNeeded;
         if(energyUsedPercentage < 75){
             castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
