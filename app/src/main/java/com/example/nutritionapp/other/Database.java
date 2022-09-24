@@ -48,6 +48,11 @@ public class Database {
     private static final String CUSTOM_FOOD_ACTIVE_TYPE = "app_custom";
     private static final String JOURNAL_TABLE = "foodlog";
     private static final String FOOD_TABLE = "food";
+    private static final String CALORIE_TARGET_BY_DATE_TABLE = "calorieTargetByDate";
+    private static final String FOOD_TEMPLATES = "food_templates";
+    private static final String FOOD_PREFERENCES = "food_preferences";
+    private static final String CURATED_FOODS = "curated_food";
+
     private static final String DEFAULT_NUTRIENT_DB = "food_nutrient_00";
 
     final int IS_TEMPLATE_MINUS_ONE = -1;
