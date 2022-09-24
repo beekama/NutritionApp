@@ -76,8 +76,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     ArrayList<ConfigurationListItem> generateData(){
         ArrayList<ConfigurationListItem> result = new ArrayList<>();
 
-        /* FIXME: unclear todo in next line */
-        result.add(new ConfigurationListItem(DataType.HEADER, "Personal Data", "")); // todo stringtostrings
+        result.add(new ConfigurationListItem(DataType.HEADER, "Personal Data", "")); // TODO move strings into string resources
         result.add(new ConfigurationListItem(DataType.AGE, "Age", String.valueOf(db.getPersonAge())));
         result.add(new ConfigurationListItem(DataType.GENDER, "Gender", db.getPersonGender()));
         result.add(new ConfigurationListItem(DataType.HEIGHT, "Height in cm", String.valueOf(db.getPersonHeight())));
