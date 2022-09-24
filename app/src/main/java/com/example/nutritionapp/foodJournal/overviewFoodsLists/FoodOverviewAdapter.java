@@ -244,7 +244,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 foodsTextView.setMaxLines(1);
                 foodsTextView.setId(R.id.textField);
 
-                // todo: generate global style-scheme
+                // todo: extract duplicated layout to resources, height set like this might not work on all devices
                 ImageView dividerBottom = new ImageView(context);
                 LinearLayout.LayoutParams lpB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 lpB.height = 2;
