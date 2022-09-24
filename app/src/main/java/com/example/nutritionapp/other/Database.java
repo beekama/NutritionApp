@@ -884,6 +884,20 @@ public class Database {
                     weights.put(weight);
                 }
             }
+
+            JSONArray energyTargets = new JSONArray();
+            TreeMap<LocalDate, Integer> dbEnergyTargets = getEnergyTargetsAll();
+            if (dbEnergyTargets != null) {
+                List<LocalDate> keyList = new ArrayList<>(dbEnergyTargets.keySet());
+                for (LocalDate date : keyList) {
+                    JSONObject target = new JSONObject();
+                    target.put("date", date);
+                    target.put("target", dbWeights.get(date));
+                    energyTargets.put(target);
+                }
+            }
+
+            personalInfo.put("energyTargets", energyTargets);
             personalInfo.put("weights", weights);
             ret.put("personInfo", personalInfo);
         }
@@ -985,6 +999,16 @@ public class Database {
                 String strDate = weightObj.getString("date");
                 LocalDate date = LocalDate.parse(strDate, Utils.sqliteDateFormat);
                 int weight = weightObj.getInt("weight");
+                addWeightAtDate(weight, date);
+            }
+
+            /* get documented weights */
+            JSONArray energyTargets = person.getJSONArray("weights");
+            for (int i = 0; i < energyTargets.length(); i++) {
+                JSONObject energyTargetObj = energyTargets.getJSONObject(i);
+                String strDate = energyTargetObj.getString("date");
+                LocalDate date = LocalDate.parse(strDate, Utils.sqliteDateFormat);
+                int weight = energyTargetObj.getInt("target");
                 addWeightAtDate(weight, date);
             }
         }
@@ -1323,6 +1347,22 @@ public class Database {
         c.close();
 
         return weightsByDate;
+    }
+
+    public TreeMap<LocalDate, Integer> getEnergyTargetsAll() {
+        TreeMap<LocalDate, Integer> targetsByDate = new TreeMap<>();
+        String[] columns = {"date", "target"};
+
+        Cursor c = db.query(CALORIE_TARGET_BY_DATE_TABLE, columns, null, null, null, null, null);
+        while (c.moveToNext()) {
+            String dateString = c.getString(0);
+            int target = c.getInt(1);
+            LocalDate localDate = LocalDate.parse(dateString, Utils.sqliteDateFormat);
+            targetsByDate.put(localDate, target);
+        }
+        c.close();
+
+        return targetsByDate;
     }
 
     public void deleteCustomFoodGroup(int groupId) {
