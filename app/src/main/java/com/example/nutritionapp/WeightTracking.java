@@ -161,7 +161,6 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         });
 
         editWeight = findViewById(R.id.addingValueWeight);
-        editWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
         editWeight.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 collectData(db, editWeight, weightAll);
@@ -277,9 +276,10 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         dialog.show();
     }
 
-    private void collectData(Database db, EditText etWeight, TreeMap<LocalDate, Integer> weightAll) {
+    private void collectData(Database db, EditText editTextWeight, TreeMap<LocalDate, Integer> weightAll) {
         try {
-            float newWeight = Float.parseFloat(etWeight.getText().toString());
+            String fixedSeparatorWeight = editTextWeight.getText().toString().replace(",", ".");
+            float newWeight = Float.parseFloat(fixedSeparatorWeight);
             int weightInGram = Utils.floatWeightToInt(newWeight);
             weightAll.put(weightAddingDate, weightInGram);
             db.addWeightAtDate(weightInGram, weightAddingDate);
