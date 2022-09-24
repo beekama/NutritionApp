@@ -95,15 +95,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch (currentNightMode) {
                 case Configuration.UI_MODE_NIGHT_NO:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    /* FIXME: why is this line the same in both cases? bug? comment in next line contradictory */
-                    //change background to ic_day:
-                    switchToNight.setImageResource(R.mipmap.ic_night_foreground);
                     break;
                 case Configuration.UI_MODE_NIGHT_YES:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    switchToNight.setImageResource(R.mipmap.ic_night_foreground);
                     break;
-                //case Configuration.UI_MODE_NIGHT_UNDEFINED:
                 default:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
