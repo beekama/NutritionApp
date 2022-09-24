@@ -109,8 +109,7 @@ public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
             popupNutText.setText(String.format("%s %s: ", amountOf, nutritionElement.getString(context)));
             popupNutrition.setText(String.valueOf(nutAmount));
             getPopupEnergy.setText(String.valueOf(energyAmount));
-
-            /* FIXME: is this needed? p.setOutsideTouchable(true); */
+            
             p.setBackgroundDrawable(new ColorDrawable());
             p.setTouchInterceptor((v1, event) -> {
                 switch (event.getAction()) {
