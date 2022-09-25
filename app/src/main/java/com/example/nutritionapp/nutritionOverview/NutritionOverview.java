@@ -26,9 +26,6 @@ public class NutritionOverview extends AppCompatActivity {
         String startDate = intent.getStringExtra(ActivityExtraNames.START_DATE);
         String endDate = intent.getStringExtra(ActivityExtraNames.END_DATE);
 
-        String foodIds = intent.getStringExtra(ActivityExtraNames.MULTI_FOOD_ID);
-        String foodAmount = intent.getStringExtra(ActivityExtraNames.MULTI_FOOD_AMOUNTS);
-
         Database db = new Database(this);
 
         LocalDate endDateParsed;
