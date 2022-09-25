@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -92,7 +93,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         period.setText(observationPeriod.first);
 
 
-        period.setOnClickListener(v -> popupMenu());
+        period.setOnClickListener(v -> popupMenu(toolbar));
 
 /*        //setting items and values:
         String[] items = new String[]{"1 Month", "6 Month", "1 Week", "1 Year"};
@@ -180,10 +181,10 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         foodRec.notifyDataSetChanged();
     }
 
-    private void popupMenu(){
+    private void popupMenu(ViewGroup parent){
 
         /*  FIXME: what is this null parameter pass here?? */
-        final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_timeframe_dropdown, null);
+        final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_timeframe_dropdown, parent, false);
         final PopupWindow popupWindow = new PopupWindow(popupMenuView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         RecyclerView recyclerView = popupMenuView.findViewById(R.id.periodItem);
