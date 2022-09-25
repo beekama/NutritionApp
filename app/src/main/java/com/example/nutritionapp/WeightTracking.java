@@ -47,7 +47,6 @@ import java.util.TreeMap;
 public class WeightTracking extends AppCompatActivity implements TransferWeight,  UpdatePeriod{
 
     private Database db;
-    //observation period in days:
     private Pair<String, Integer> observationPeriod;
     private final LocalDate currentDateParsed = LocalDate.now();
     protected TreeMap<LocalDate, Integer> weightAll;
@@ -55,7 +54,6 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
     protected LocalDate oldestValue;
     private TextView dateView;
     private EditText editWeight;
-    private ImageButton addWeight;
     LocalDate weightAddingDate = currentDateParsed;
     protected RecyclerView weights;
     protected RecyclerView.Adapter<?> foodRec;
@@ -80,7 +78,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
         observationPeriod = new Pair<>(getString(R.string.oneWeek), 7);
-        //PERIODS - LIST
+        /* Standard Periods */
         periods = new ArrayList<>();
         periods.add(new Pair<>(getString(R.string.oneWeek), 7));
         periods.add(new Pair<>(getString(R.string.oneMonth), 31));
@@ -91,47 +89,12 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         period = findViewById(R.id.popupButton);
         period.setBackgroundResource(R.drawable.spinner_outline);
         period.setText(observationPeriod.first);
-
-
         period.setOnClickListener(v -> popupMenu(toolbar));
-
-/*        //setting items and values:
-        String[] items = new String[]{"1 Month", "6 Month", "1 Week", "1 Year"};
-        Integer[] itemTodDays = new Integer[]{31, 138, 7, 365};
-        ArrayAdapter<String> pAdapter = new ArrayAdapter<>(this, R.layout.weight_tracking_period_spinner_dropdown, items);
-        pAdapter.setDropDownViewResource(R.layout.weight_tracking_period_spinner_dropdown);
-        period.setAdapter(pAdapter);
-
-        period.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                observationPeriod = itemTodDays[position];
-                updatePageContent();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                observationPeriod = itemTodDays[0];
-            }
-        });*/
-
 
         /* chart */
         chartWeight = findViewById(R.id.chartWeight);
         db.createWeightsTableIfNotExist();
         weightAll = db.getWeightAll();
-
-/*        //testing
-        //weightAll = new LinkedHashMap<>();
-        weightAll.put(currentDateParsed.minusDays(60), 88);
-        weightAll.put(currentDateParsed.minusDays(32), 55);
-        weightAll.put(currentDateParsed.minusDays(7), 44);
-        weightAll.put(currentDateParsed.minusDays(4), 55);
-        weightAll.put(currentDateParsed, 66);
-        XAxis xAxis = chartWeight.getXAxis();
-        xAxis.setAxisMinimum(0);
-        xAxis.setAxisMaximum(29);*/
-
 
         chartWeight.setTouchEnabled(true);
         chartWeight.setScaleEnabled(false);
@@ -196,14 +159,14 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
         popupWindow.showAsDropDown(period);
-       // popupWindow.showAtLocation(popupMenuView, Gravity.TOP | Gravity.RIGHT, 0, 0);
     }
 
     LineData generateChartContent() {
         LinkedList<Entry> values = new LinkedList<>();
         List<LocalDate> keyList = new ArrayList<>(weightAll.keySet());
         keyList.sort(Collections.reverseOrder());
-        //for xAxis-labels
+
+        /* for xAxis-labels */
         oldestValue = currentDateParsed;
 
         for (LocalDate date : keyList) {
@@ -217,7 +180,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
             }
         }
 
-        /*start date-label-counting on start of the period or first value (if value before period necessary for chart-completeness) */
+        /* start date-label-counting on start of the period or first value (if value before period necessary for chart-completeness) */
         ArrayList<String> xAxisLabels = new ArrayList<>();
         LocalDate pStart = currentDateParsed.minusDays(observationPeriod.second);
         LocalDate start = oldestValue.compareTo(pStart) < 0 ? oldestValue : pStart;
@@ -254,7 +217,6 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         dataSets.add(set);
         return new LineData(dataSets);
     }
-
 
     @Override
     public void removeEntry(int weight, LocalDate date) {
