@@ -183,7 +183,6 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
 
     private void popupMenu(ViewGroup parent){
 
-        /*  FIXME: what is this null parameter pass here?? */
         final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_timeframe_dropdown, parent, false);
         final PopupWindow popupWindow = new PopupWindow(popupMenuView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
