@@ -8,6 +8,4 @@ public abstract class ActivityExtraNames {
         public static final String FDC_ID = "fdc_id";
         public static final String DATE_RESULT = "dateTimeString";
         public static final String NUTRITION_ELEMENT = "nutritionElement";
-        public static final String MULTI_FOOD_ID = "foodIds";
-        public static final String MULTI_FOOD_AMOUNTS = "amounts";
 }
