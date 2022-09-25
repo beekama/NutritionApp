@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Utils;
 
@@ -22,11 +23,11 @@ public class NutritionOverview extends AppCompatActivity {
         setContentView(R.layout.journal);
 
         Intent intent = getIntent();
-        String startDate = intent.getStringExtra("startDate");
-        String endDate = intent.getStringExtra("endDate");
+        String startDate = intent.getStringExtra(ActivityExtraNames.START_DATE);
+        String endDate = intent.getStringExtra(ActivityExtraNames.END_DATE);
 
-        String foodIds = intent.getStringExtra("foodIds");
-        String foodAmount = intent.getStringExtra("amounts");
+        String foodIds = intent.getStringExtra(ActivityExtraNames.MULTI_FOOD_ID);
+        String foodAmount = intent.getStringExtra(ActivityExtraNames.MULTI_FOOD_AMOUNTS);
 
         Database db = new Database(this);
 
@@ -45,8 +46,6 @@ public class NutritionOverview extends AppCompatActivity {
             throw new AssertionError("No food ids and amount or dates given in intent extras!?");
         }
 
-
         Log.wtf("INFO", startDate);
-
     }
 }

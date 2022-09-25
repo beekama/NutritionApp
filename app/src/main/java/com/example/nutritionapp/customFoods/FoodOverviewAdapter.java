@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 
 import java.util.ArrayList;
@@ -66,14 +67,14 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                     /* open indent from journal to edit a group of goods */
                     CustomGroupOverviewItem groupItem = (CustomGroupOverviewItem) item;
                     Intent editCustomFoodGroup = new Intent(context, FoodGroupOverview.class);
-                    editCustomFoodGroup.putExtra("groupId", groupItem.groupId);
-                    editCustomFoodGroup.putExtra("isTemplateMode", true);
+                    editCustomFoodGroup.putExtra(ActivityExtraNames.GROUP_ID, groupItem.groupId);
+                    editCustomFoodGroup.putExtra(ActivityExtraNames.IS_TEMPLATED_MODE, true);
                     context.startActivity(editCustomFoodGroup);
                 }else {
                     /* open indent for editing a single food */
                     CustomFoodOverviewItem foodItem = (CustomFoodOverviewItem) item;
                     Intent editCustomFood = new Intent(context, CreateNewFoodItem.class);
-                    editCustomFood.putExtra("fdc_id", foodItem.food.id);
+                    editCustomFood.putExtra(ActivityExtraNames.FDC_ID, foodItem.food.id);
                     context.startActivity(editCustomFood);
                 }
             });

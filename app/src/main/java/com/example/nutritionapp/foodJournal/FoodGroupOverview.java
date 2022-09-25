@@ -29,6 +29,7 @@ import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelecto
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogAmountSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverviewAdapter;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.SelectorDialogAdapterAmount;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -106,10 +107,10 @@ public class FoodGroupOverview extends AppCompatActivity {
         db = new Database(this);
 
         /* set existing items if edit mode */
-        groupId = this.getIntent().getIntExtra("groupId", -1);
+        groupId = this.getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);
 
         /* see if we are creating or editing a pure template */
-        isTemplateMode = this.getIntent().getBooleanExtra("isTemplateMode", false);
+        isTemplateMode = this.getIntent().getBooleanExtra(ActivityExtraNames.GROUP_ID, false);
 
         if (groupId >= 0) {
             this.editMode = true;
@@ -336,8 +337,8 @@ public class FoodGroupOverview extends AppCompatActivity {
 
         /* report back a dirty date if necessary */
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("dateTimeString", computedLoggedAt.format(Utils.sqliteDatetimeFormat));
-        resultIntent.putExtra("groupId", groupId);
+        resultIntent.putExtra(ActivityExtraNames.DATE_RESULT, computedLoggedAt.format(Utils.sqliteDatetimeFormat));
+        resultIntent.putExtra(ActivityExtraNames.GROUP_ID, groupId);
         setResult(Activity.RESULT_OK, resultIntent);
 
         finishAfterTransition();

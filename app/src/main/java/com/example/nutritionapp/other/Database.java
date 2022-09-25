@@ -74,7 +74,7 @@ public class Database {
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
         if (db == null) {
-            createDatabase(false);
+            createDatabase(true);
             db = SQLiteDatabase.openDatabase(targetPath, null, NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
         }
         if (fdcIdToDbNumber.isEmpty()) {

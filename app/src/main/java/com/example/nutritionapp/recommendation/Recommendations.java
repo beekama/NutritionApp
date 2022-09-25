@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nutritionapp.DividerItemDecorator;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.configuration.PersonalInformation;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
@@ -68,7 +69,7 @@ public class Recommendations extends AppCompatActivity {
         db = new Database(this);
 
         /* see if a date was specified during activity start */
-        String dateFromExtra = this.getIntent().getStringExtra("startDate");
+        String dateFromExtra = this.getIntent().getStringExtra(ActivityExtraNames.START_DATE);
         if(dateFromExtra != null){
             currentDateParsed = LocalDate.parse(dateFromExtra, Utils.sqliteDateFormat);
         }

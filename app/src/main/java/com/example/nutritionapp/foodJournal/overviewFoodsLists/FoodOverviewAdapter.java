@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
@@ -164,7 +165,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
 
         castedHolder.dateText.setOnClickListener(view -> {
             Intent target = new Intent(view.getContext(), Recommendations.class);
-            target.putExtra("startDate", items.get(position).date.format(Utils.sqliteDateFormat));
+            target.putExtra(ActivityExtraNames.START_DATE, items.get(position).date.format(Utils.sqliteDateFormat));
             context.startActivity(target);
         });
 
@@ -268,7 +269,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             foodsTextView.setText(allFoodsStringBuilder.toString());
             foodsTextView.setOnClickListener(view -> {
                 Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
-                target.putExtra("groupId", item.groupId);
+                target.putExtra(ActivityExtraNames.GROUP_ID, item.groupId);
                 parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
             });
             foodsTextView.setOnLongClickListener(

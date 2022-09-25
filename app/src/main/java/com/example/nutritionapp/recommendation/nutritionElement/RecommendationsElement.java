@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.DividerItemDecorator;
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
@@ -50,7 +51,7 @@ public class RecommendationsElement extends AppCompatActivity {
         /* set NutritionElement */
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            nutritionElement = (NutritionElement) b.get("nutritionelement");
+            nutritionElement = (NutritionElement) b.get(ActivityExtraNames.NUTRITION_ELEMENT);
         }
 
         //splash screen when needed:

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Utils;
@@ -80,8 +81,8 @@ public class FoodJournalOverview extends AppCompatActivity {
         if (requestCode == Utils.FOOD_GROUP_DETAILS_ID) {
             if (resultCode == Activity.RESULT_OK) {
 
-                String returnValue = data.getStringExtra("dateTimeString");
-                int groupIdValue = data.getIntExtra("groupId", -1);
+                String returnValue = data.getStringExtra(ActivityExtraNames.DATE_RESULT);
+                int groupIdValue = data.getIntExtra(ActivityExtraNames.DATE_RESULT, -1);
                 assert groupIdValue != -1;
 
                 LocalDateTime dateTime = LocalDateTime.parse(returnValue, Utils.sqliteDatetimeFormat);

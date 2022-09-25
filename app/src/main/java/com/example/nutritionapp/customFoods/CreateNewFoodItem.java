@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
@@ -59,7 +60,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
         Nutrition n;
         Food editFood = null;
-        String fdc_id = this.getIntent().getStringExtra("fdc_id");
+        String fdc_id = this.getIntent().getStringExtra(ActivityExtraNames.FDC_ID);
         if(fdc_id != null){
             Log.wtf("YES", "EDIT MODE");
             this.editMode = true;

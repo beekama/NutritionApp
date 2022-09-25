@@ -1,4 +1,5 @@
 package com.example.nutritionapp.recommendation;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Nutrition;
@@ -78,8 +80,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
 
         lvh.itemView.setOnClickListener(v -> {
             Intent myIntent = new Intent(v.getContext(), RecommendationsElement.class);
-            /* FIXME: arbitrary name/naming scheme for extra */
-            myIntent.putExtra("nutritionelement", curItem.nutritionElement);
+            myIntent.putExtra(ActivityExtraNames.NUTRITION_ELEMENT, curItem.nutritionElement);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             v.getContext().startActivity(myIntent);
         });
