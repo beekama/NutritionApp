@@ -102,7 +102,7 @@ public class RecommendationsElement extends AppCompatActivity {
                 try {
                     return chartData.second.get((int) value);
                 } catch (IndexOutOfBoundsException ie){
-                    Log.wtf("Label entry not found", Float.toString(value)); //todo: why do we get here
+                    Log.wtf("Label entry not found", Float.toString(value)); /* todo: why do we get here Issue#43*/
                     return Float.toString(value);
                 }
             }

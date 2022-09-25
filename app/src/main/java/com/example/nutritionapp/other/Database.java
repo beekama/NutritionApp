@@ -194,7 +194,7 @@ public class Database {
             d = LocalDateTime.now();
         }
 
-        Random random = new Random(); // TODO this is bs, will eventually lead to a id conflict
+        Random random = new Random(); /* TODO this is bs, will eventually lead to a id conflict Issue#39 */
         int groupID = random.nextInt(1000000);
         for (Food f : foods) {
             Log.wtf("FOOD", d.format(Utils.sqliteDatetimeFormat));
@@ -1113,7 +1113,7 @@ public class Database {
     }
 
     public int getPersonEnergyReq(LocalDate date) {
-        int energyReq = 2000; //TODO calc from other values;
+        int energyReq = 2000; /* TODO calc from other values #Issue40 */
 
         if(date == null){
             date = LocalDate.now();
@@ -1261,7 +1261,7 @@ public class Database {
                 if (minAm == 0 || amount < minAm) minAm = amount;
                 Food f = (getFoodById(foodID));
 
-                // todo: workaround of (not fixed by now) bug - there are more foodIds in nutrient-table than in the table used by 'getFoodById'
+                /* todo: workaround of (not fixed by now) bug - there are more foodIds in nutrient-table than in the table used by 'getFoodById' Issue#41 */
                 if (f != null) {
                     resultMap.put(f, amount);
                 }

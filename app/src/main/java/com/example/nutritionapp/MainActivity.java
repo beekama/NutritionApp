@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* ---- JOURNAL ------*/
         View foodJournalButtonView = findViewById(R.id.food_journal);
-        /* FIXME: Click Animation for TILE */
+        /* FIXME: Click Animation for TILE Issue#38 */
         // foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
 
 
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* ---- CONFIGURATION ----- */
         View configButtonView = findViewById(R.id.config);
-        /* FIXME: Click Animation for TILE */
+        /* FIXME: Click Animation for TILE Issue#38 */
         // configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
 
         TextView configButtonTitle = configButtonView.findViewById(R.id.recommendation_button_title);
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* ---- CUSTOM FOOD CREATION ---- */
         View createCustomFoodsView = findViewById(R.id.create_foods);
-        /* FIXME: Click Animation for TILE */
+        /* FIXME: Click Animation for TILE Issue#38 */
         // createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
 
         TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.recommendation_button_title);

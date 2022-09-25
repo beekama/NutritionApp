@@ -142,7 +142,6 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
     @Override
     public void setPortionType(PortionType p) {
         typeSelected = p;
-        /* FIXME: if this is slow maybe check for more specific options to change or not change the list */
         notifyPortionTypeChanged();
         notifyEstimatedAmountChanged();
     }
