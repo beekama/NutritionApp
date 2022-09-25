@@ -11,7 +11,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -184,7 +183,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
     private void popupMenu(){
 
         /*  FIXME: what is this null parameter pass here?? */
-        final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_dropdown, null);
+        final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_timeframe_dropdown, null);
         final PopupWindow popupWindow = new PopupWindow(popupMenuView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         RecyclerView recyclerView = popupMenuView.findViewById(R.id.periodItem);
