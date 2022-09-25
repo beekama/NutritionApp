@@ -154,4 +154,12 @@
     <string name="back_arrow_description">Zurück</string>
     <string name="toolbar_forward_button_description">Toolbar forwärts</string>
     <string name="open_navbar_button_description">Öffne Navigationsbar</string>
+    <string name="ConfigurationPersonalDataHeader">Persönliche Daten</string>
+    <string name="ConfigurationHeightTitle">Größe in cm</string>
+    <string name="ConfigurationWeightTitle">Gewicht in kg</string>
+    <string name="ConfigurationCalculatedResultsHeader">Berechnete Werte</string>
+    <string name="ConfigurationHealDataHeader">Gesundheits Daten</string>
+    <string name="ConfigurationCuratedFoodTitle">Vorgeschlagene Zutaten</string>
+    <string name="DatabaseExportSuccessful">Datenbankexport erfolgreich!</string>
+    <string name="DatabaseExportCancled">Datenbankexport abgebrochen!</string>
 </resources>

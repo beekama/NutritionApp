@@ -76,24 +76,24 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
     ArrayList<ConfigurationListItem> generateData(){
         ArrayList<ConfigurationListItem> result = new ArrayList<>();
 
-        result.add(new ConfigurationListItem(DataType.HEADER, "Personal Data", "")); // TODO move strings into string resources
-        result.add(new ConfigurationListItem(DataType.AGE, "Age", String.valueOf(db.getPersonAge())));
-        result.add(new ConfigurationListItem(DataType.GENDER, "Gender", db.getPersonGender()));
-        result.add(new ConfigurationListItem(DataType.HEIGHT, "Height in cm", String.valueOf(db.getPersonHeight())));
-        result.add(new ConfigurationListItem(DataType.WEIGHT, "Weight in kg", String.valueOf(db.getPersonWeight())));
+        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationPersonalDataHeader), ""));
+        result.add(new ConfigurationListItem(DataType.AGE, getString(R.string.age), String.valueOf(db.getPersonAge())));
+        result.add(new ConfigurationListItem(DataType.GENDER, getString(R.string.gender), db.getPersonGender()));
+        result.add(new ConfigurationListItem(DataType.HEIGHT, getString(R.string.ConfigurationHeightTitle), String.valueOf(db.getPersonHeight())));
+        result.add(new ConfigurationListItem(DataType.WEIGHT, getString(R.string.ConfigurationWeightTitle), String.valueOf(db.getPersonWeight())));
 
-        result.add(new ConfigurationListItem(DataType.HEADER, "Calculated Results", ""));
-        result.add(new ConfigurationListItem(DataType.BMI, "BMI", String.valueOf(db.getPersonBmi())));
-        result.add(new ConfigurationListItem(DataType.CALORIES, "Calories", String.valueOf(db.getPersonEnergyReq(null))));
+        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationCalculatedResultsHeader), ""));
+        result.add(new ConfigurationListItem(DataType.BMI, getString(R.string.bmi), String.valueOf(db.getPersonBmi())));
+        result.add(new ConfigurationListItem(DataType.CALORIES, getString(R.string.calories), String.valueOf(db.getPersonEnergyReq(null))));
 
-        result.add(new ConfigurationListItem(DataType.HEADER, " Health Data", ""));
-        result.add(new ConfigurationListItem(DataType.IMPORT, "Import", ">"));
-        result.add(new ConfigurationListItem(DataType.EXPORT, "Export", ">"));
+        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationHealDataHeader), ""));
+        result.add(new ConfigurationListItem(DataType.IMPORT, getString(R.string.import_backup_button), ">"));
+        result.add(new ConfigurationListItem(DataType.EXPORT, getString(R.string.export_data_button), ">"));
 
-        result.add(new ConfigurationListItem(DataType.HEADER, "Language Settings", ""));
-        result.add(new ConfigurationListItem(DataType.LANGUAGE_DE, "Deutsch", db.getLanguagePref() != null && db.getLanguagePref().equals("de")));
+        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.languageSectionHeader), ""));
+        result.add(new ConfigurationListItem(DataType.LANGUAGE_DE, getString(R.string.localization_de), db.getLanguagePref() != null && db.getLanguagePref().equals("de")));
 
-        result.add(new ConfigurationListItem(DataType.CURATED_FOODS, "Curated Foods", db.getCuratedFoodsPreference() > 0));
+        result.add(new ConfigurationListItem(DataType.CURATED_FOODS, getString(R.string.ConfigurationCuratedFoodTitle), db.getCuratedFoodsPreference() > 0));
 
 
         return result;
@@ -143,11 +143,11 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
                         }
                     }
 
-                    Toast noticeExportSuccess = Toast.makeText(this, "Database export successfully!", Toast.LENGTH_LONG);
+                    Toast noticeExportSuccess = Toast.makeText(this, R.string.DatabaseExportSuccessful, Toast.LENGTH_LONG);
                     noticeExportSuccess.show();
                     break;
                 case Activity.RESULT_CANCELED:
-                    Toast noticeExportCancel = Toast.makeText(this, "Database export canceled!", Toast.LENGTH_LONG);
+                    Toast noticeExportCancel = Toast.makeText(this, R.string.DatabaseExportCancled, Toast.LENGTH_LONG);
                     noticeExportCancel.show();
                     break;
             }
