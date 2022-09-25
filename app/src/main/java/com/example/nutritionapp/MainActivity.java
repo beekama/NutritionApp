@@ -274,8 +274,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (energyUsedPercentage < 125) {
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
         } else {
-            /* FIXME: Choose color / Extract Color to Resources */
-            energyBar.setProgressTintList(ColorStateList.valueOf(0xFFCC282e));
+            energyBar.setProgressTintList(ColorStateList.valueOf(getColor(R.color.energyRed)));
         }
 
         energyBar.setProgress(Math.min(energyUsedPercentage, 100));

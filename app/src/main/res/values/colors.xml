@@ -27,7 +27,7 @@
     <color name="relaxBlue">#527bd9</color>
 
     <color name="transparent">#00000000</color>
-
+    <color name="energyRed">0xFFCC282e</color>
     <color name="chartBlue">#0278ae</color>
     <color name="chartOrange">#fca652</color>
     <color name="chartBrown">#ac4b1c</color>
