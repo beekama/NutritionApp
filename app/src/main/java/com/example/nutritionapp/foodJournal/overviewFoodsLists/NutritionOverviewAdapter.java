@@ -65,8 +65,9 @@ public class NutritionOverviewAdapter extends BaseAdapter {
 
             String pgContentValue = String.valueOf(nutritionActual.getElements().get(el.nutritionElement));
             String pgContentUnit = Conversions.getNativeUnitForNutritionElementUnsafe(el.nutritionElement);
-            /* FIXME: idk make 2 text views or string-builder or something */
-            progressBarLabel.setText(pgContentValue + pgContentUnit);
+
+            String progressBarLabelString = pgContentValue + pgContentUnit;
+            progressBarLabel.setText(progressBarLabelString);
 
             progressBar.setMax(100);
             progressBar.setMin(0);
