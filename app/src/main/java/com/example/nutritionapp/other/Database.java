@@ -37,12 +37,12 @@ import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import static android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE;
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
 public class Database {
 
+    public static final String ASSIGNED_PORTION = "assigned_portion";
     private static final int DEFAULT_MIN_CUSTOM_ID = 100000000;
     private static final String DATABASE_NAME = "food.db";
 
@@ -53,6 +53,7 @@ public class Database {
     private static final String FOOD_TEMPLATES = "food_templates";
     private static final String FOOD_PREFERENCES = "food_preferences";
     private static final String CURATED_FOODS = "curated_food";
+    private static final String FOOD_PORTIONS = "food_portions";
 
     private static final String DEFAULT_NUTRIENT_DB = "food_nutrient_00";
 
@@ -406,7 +407,7 @@ public class Database {
                     if (f != null) {
                         f.setAssociatedAmount(amount);
                         f.setAssociatedPortionType(portionType);
-                        f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
+                        f.setPortionTypeInGram(getPortionToGramRatio(f, portionType));
                         group.add(f);
                     }
                 } else {
@@ -415,7 +416,7 @@ public class Database {
                     if (f != null) {
                         f.setAssociatedAmount(amount);
                         f.setAssociatedPortionType(portionType);
-                        f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
+                        f.setPortionTypeInGram(getPortionToGramRatio(f, portionType));
                         group.add(f);
                     }
                     ret.put(groupID, group);
@@ -595,7 +596,7 @@ public class Database {
                 if (f != null) {
                     f.associatedAmount = amount;
                     f.associatedPortionType = portionType;
-                    f.portionTypeInGram = this.getPortionAmountForPortionType(f, portionType);
+                    f.portionTypeInGram = this.getPortionToGramRatio(f, portionType);
                     ret.add(f);
                 }
             } while (c.moveToNext());
@@ -944,7 +945,7 @@ public class Database {
                     f.setAssociatedAmount(jsonFood.getInt("amount"));
                     PortionType portionType = PortionType.valueOf(jsonFood.getString("portionType"));
                     f.setAssociatedPortionType(portionType);
-                    f.setPortionTypeInGram(getPortionAmountForPortionType(f, portionType));
+                    f.setPortionTypeInGram(getPortionToGramRatio(f, portionType));
                     foodsArrayList.add(f);
                 }
 
@@ -1166,10 +1167,9 @@ public class Database {
 
     public ArrayList<PortionType> portionsForFood(Food food) {
 
-        String table = "assigned_portion";
         String[] columns = {"cup ", "small", "medium", "large", "packet", "scoop", "tablespoon", "teaspoon", "ml"};
         String[] whereArgs = {food.id};
-        Cursor c = db.query(table, columns, "fdc_id= ?", whereArgs, null, null, null);
+        Cursor c = db.query(ASSIGNED_PORTION, columns, "fdc_id= ?", whereArgs, null, null, null);
         ArrayList<PortionType> ret = new ArrayList<>();
         String prefType;
         if (c.moveToFirst()) {
@@ -1220,20 +1220,19 @@ public class Database {
         }
     }
 
-    public double getPortionAmountForPortionType(Food food, PortionType portionType) {
-        String table = "assigned_portion";
+    public double getPortionToGramRatio(Food food, PortionType portionType) {
         if (portionType == PortionType.GRAM){
             return 1.0;
         }
         String[] columns = { portionType.toString() };
         String[] whereArgs = { food.id };
-        Cursor c = db.query(table, columns, "fdc_id = ?", whereArgs, null, null, null);
-        double amount = Double.NaN;
+        Cursor c = db.query(ASSIGNED_PORTION, columns, "fdc_id = ?", whereArgs, null, null, null);
+        double ratio = Double.NaN;
         if (c.moveToFirst()) {
-            amount = c.getFloat(0);
+            ratio = c.getFloat(0);
         }
         c.close();
-        return amount;
+        return ratio;
     }
 
     //returns TreeMap of food-name and amount, which contains highest nutrient values:

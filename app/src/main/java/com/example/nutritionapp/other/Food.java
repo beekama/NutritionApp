@@ -153,7 +153,6 @@ public class Food implements Comparable{
 
     public void setPreferredPortionFromDb(Database db){
         this.associatedPortionType = db.getPreferredPortionType(this);
-        this.portionTypeInGram = db.getPortionAmountForPortionType(this, this.associatedPortionType);
     }
 
     public void setAmountByAssociatedPortionType(){

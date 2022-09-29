@@ -84,9 +84,4 @@ public class Conversions {
                 throw new RuntimeException("Bad Conversion." + from + " " + to);
         }
     }
-
-    public static double convertPortion(double amountSelected, PortionType typeSelected, PortionType gram) {
-        /* TODO: how to reliably convert this like for example for "medium apple" Issue#35 */
-        return amountSelected;
-    }
 }
