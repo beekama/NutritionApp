@@ -33,6 +33,7 @@ android {
             }
         }
     }
+    namespace 'com.example.nutritionapp'
 
 }
 
