@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CuratedFoods {
-    static HashMap<NutritionElement, String[]> curated = new HashMap<>();
+    static final HashMap<NutritionElement, String[]> curated = new HashMap<>();
 
-    static String[] VITAMIN_A_LIST  = { "Carrot", "Sweet Potato", "Spinach", "Broccoli", "Pumpkin", "Lettuce" };
-    static String[] VITAMIN_C_LIST  = { "Kiwi", "Orange", "Banana", "Apple", "Peas"};
-    static String[] VITAMIN_B6_LIST = { "Salmon" };
-    static String[] VITAMIN_D_LIST  = { "Egg", "Cod", "Sun" };
-    static String[] VITAMIN_E_LIST  = { "Sunflower Seeds", "Almonds", "Avocado", "Peanuts" };
-    static String[] VITAMIN_K_LIST  = { "Lettuce", "Spinach" };
-    static String[] IRON_LIST       = { "Oatmeal", "Tofu", "Red Meat", "Dark Chocolate" };
-    static String[] MAGNESIUM_LIST  = { "Oatmeal", "Banana", "Dark Chocolate", "Nuts", "Tofu" };
-    static String[] CALCIUM_LIST    = { "Mild", "Cheese", "Yogurt" };
-    static String[] SELENIUM_LIST   = { "Carrot" };
-    static String[] POTASSIUM_LIST  = { "Apple" };
+    static final String[] VITAMIN_A_LIST  = { "Carrot", "Sweet Potato", "Spinach", "Broccoli", "Pumpkin", "Lettuce" };
+    static final String[] VITAMIN_C_LIST  = { "Kiwi", "Orange", "Banana", "Apple", "Peas"};
+    static final String[] VITAMIN_B6_LIST = { "Salmon" };
+    static final String[] VITAMIN_D_LIST  = { "Egg", "Cod", "Sun" };
+    static final String[] VITAMIN_E_LIST  = { "Sunflower Seeds", "Almonds", "Avocado", "Peanuts" };
+    static final String[] VITAMIN_K_LIST  = { "Lettuce", "Spinach" };
+    static final String[] IRON_LIST       = { "Oatmeal", "Tofu", "Red Meat", "Dark Chocolate" };
+    static final String[] MAGNESIUM_LIST  = { "Oatmeal", "Banana", "Dark Chocolate", "Nuts", "Tofu" };
+    static final String[] CALCIUM_LIST    = { "Mild", "Cheese", "Yogurt" };
+    static final String[] SELENIUM_LIST   = { "Carrot" };
+    static final String[] POTASSIUM_LIST  = { "Apple" };
 
     static{
         curated.put(NutritionElement.VITAMIN_A,  VITAMIN_A_LIST );

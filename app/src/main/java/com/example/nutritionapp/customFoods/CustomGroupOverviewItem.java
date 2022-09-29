@@ -5,9 +5,9 @@ import com.example.nutritionapp.other.Food;
 import java.util.ArrayList;
 
 public class CustomGroupOverviewItem extends CustomOverviewItem{
-    public int groupId;
-    public String groupName;
-    public ArrayList<Food> foodList;
+    public final int groupId;
+    public final String groupName;
+    public final ArrayList<Food> foodList;
 
     public CustomGroupOverviewItem(ArrayList<Food> fl, int groupId){
         this.groupName = "Food Group w. " + fl.size() + " items " + groupId;

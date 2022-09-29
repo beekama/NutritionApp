@@ -41,10 +41,7 @@ import java.util.SortedMap;
 public class RecommendationsElement extends AppCompatActivity {
     private Database db;
     private NutritionElement nutritionElement;
-    private ArrayList<Food> allFood;
     private final LocalDate currentDateParsed = LocalDate.now();
-    private int recommendation;
-    private RecyclerView recList;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
         //recommendation:
         Nutrition rec = Nutrition.getRecommendation();
-        recommendation = rec.getElements().get(nutritionElement);
+        int recommendation = rec.getElements().get(nutritionElement);
 
         /* CHART */
         ExtendedBarChart barChart =  findViewById(R.id.barChartNutrition);
@@ -110,7 +107,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
         YAxis yAxis = barChart.getAxisLeft();
         barChart.getAxisRight().setEnabled(false);
-        yAxis.setAxisMaximum(recommendation*1.1f);
+        yAxis.setAxisMaximum(recommendation *1.1f);
         yAxis.setAxisMinimum(0);
 
 
@@ -135,7 +132,7 @@ public class RecommendationsElement extends AppCompatActivity {
         TextView dailyR = findViewById(R.id.dailyReq);
         dailyR.setText(String.format(Locale.getDefault(), "%s %d %s ", dailyReq, recommendation, microGram));
 
-        recList = findViewById(R.id.RecListView);
+        RecyclerView recList = findViewById(R.id.RecListView);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
         recList.setLayoutManager(nutritionReportLayoutManager);
 

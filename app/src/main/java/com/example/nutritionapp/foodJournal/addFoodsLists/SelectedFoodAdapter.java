@@ -17,8 +17,8 @@ import com.example.nutritionapp.other.Utils;
 
 public class SelectedFoodAdapter extends BaseAdapter {
 
-    private Context context;
-    public ArrayList<SelectedFoodItem> items;
+    private final Context context;
+    public final ArrayList<SelectedFoodItem> items;
 
     public SelectedFoodAdapter(Context context, ArrayList<SelectedFoodItem> items){
         this.context=context;
