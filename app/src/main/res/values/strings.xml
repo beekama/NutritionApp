@@ -180,4 +180,6 @@
     <string name="ConfigurationCuratedFoodTitle">Curated Foods</string>
     <string name="DatabaseExportSuccessful">Database export successfully!</string>
     <string name="DatabaseExportCancled">Database export canceled!</string>
+    <string name="gram_unit_short">GRAM</string>
+    <string name="approximate_sign">~</string>
 </resources>

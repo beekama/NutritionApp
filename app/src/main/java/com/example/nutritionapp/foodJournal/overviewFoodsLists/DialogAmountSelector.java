@@ -155,7 +155,7 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
             estimatedAmount.setVisibility(View.VISIBLE);
             estimatedAmountLabel.setVisibility(View.VISIBLE);
             double size = db.getPortionToGramRatio(selectedFood, this.typeSelected) * this.amountSelected;
-            estimatedAmount.setText(Double.toString(size));
+            estimatedAmount.setText(Integer.toString((int)size));
         }
     }
 
