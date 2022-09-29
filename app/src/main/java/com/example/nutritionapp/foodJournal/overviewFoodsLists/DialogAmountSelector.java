@@ -124,6 +124,7 @@ public class DialogAmountSelector extends Dialog implements  DataTransfer{
     private void updateNutritionOverview(double amount, PortionType portionType) {
         selectedFood.setAssociatedAmount(amount);
         selectedFood.setAssociatedPortionType(portionType);
+        selectedFood.setPortionTypeInGram(db.getPortionToGramRatio(selectedFood, portionType));
         selectedFood.setNutritionFromDb(db);
         ArrayList<Food> analysis = new ArrayList<>();
         analysis.add(selectedFood);
