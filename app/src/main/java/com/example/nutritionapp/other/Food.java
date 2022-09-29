@@ -2,8 +2,6 @@ package com.example.nutritionapp.other;
 
 import android.util.Log;
 
-import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

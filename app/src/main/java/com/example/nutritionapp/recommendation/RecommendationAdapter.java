@@ -1,5 +1,4 @@
 package com.example.nutritionapp.recommendation;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -20,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.NutritionElement;
 
 import java.util.ArrayList;
 import java.util.Locale;

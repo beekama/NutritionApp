@@ -28,13 +28,10 @@ import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogAmountSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverviewAdapter;
-import com.example.nutritionapp.foodJournal.overviewFoodsLists.SelectorDialogAdapterAmount;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
-import com.example.nutritionapp.other.NutritionElement;
-import com.example.nutritionapp.other.NutritionPercentageTuple;
 import com.example.nutritionapp.other.PortionType;
 import com.example.nutritionapp.other.Utils;
 
