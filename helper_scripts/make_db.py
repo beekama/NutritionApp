@@ -62,16 +62,16 @@ def filterAndReplace():
 
 
 def getPortionSize():
-    '''Assign portionsize to each food and create new csv'''
+    '''Assign portion size to each food and create new csv'''
 
-    print("Read portionsizes...")
+    print("Read portion sizes...")
     PORTIONS = {"fdc_id": None, "ML": None, "prefered": None}
     with open("portion_sizes.txt", "r") as f:
         for l in f:
             PORTIONS.update({l.strip() : None})
 
-    print("Assign portionsizes...")
-    FLOZ_TO_ML = 29.574
+    print("Assign portion sizes...")
+    FL_OZ_TO_ML = 29.574
     with open(ALL_PORTIONS, "r") as f:
         with open(ASSIGNED_PORTIONS, "w") as fout:
             r = DictReader(f)
@@ -85,17 +85,17 @@ def getPortionSize():
                     PORTIONS = PORTIONS.fromkeys(PORTIONS, None)
 
                 #read new food:
-                PORTIONS.update({'fdc_id' : row['fdc_id'],'prefered':'GRAM'})
+                PORTIONS.update({'fdc_id' : row['fdc_id'],'preferred':'GRAM'})
                 for size in PORTIONS.keys():
                     if ("1 " + size.lower().replace("_"," ")) in row['portion_description']:
                             PORTIONS.update({size : row['gram_weight']})
                             if (row['seq_num'] == '1'):
-                                PORTIONS.update({"prefered": size})
+                                PORTIONS.update({"preferred": size})
                 #add 'ml':
                 if (PORTIONS['FL_OZ']):
-                    if (PORTIONS['prefered'] == 'FL_OZ'):
-                        PORTIONS.update({"prefered": "ML"})
-                    PORTIONS.update({"ML" : round(float(PORTIONS['FL_OZ'])/FLOZ_TO_ML, 4)})
+                    if (PORTIONS['preferred'] == 'FL_OZ'):
+                        PORTIONS.update({"preferred": "ML"})
+                    PORTIONS.update({"ML" : round(float(PORTIONS['FL_OZ'])/FL_OZ_TO_ML, 4)})
             w.writerow(PORTIONS.values())
 
 

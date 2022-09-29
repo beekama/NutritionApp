@@ -16,20 +16,6 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_toolbar"/>
-<!--
-    <Spinner
-        android:id="@+id/spinnerPeriod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/spinner_outline"
-
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        tools:listitem="@layout/weight_tracking_period_spinner"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/chartWeight"
-        app:layout_constraintEnd_toEndOf="@id/chartWeight"
-        android:spinnerMode="dropdown"/>-->
 
     <Button
         android:id="@+id/popupButton"

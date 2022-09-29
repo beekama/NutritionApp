@@ -161,7 +161,7 @@
     <string name="ConfigurationHealDataHeader">Gesundheits Daten</string>
     <string name="ConfigurationCuratedFoodTitle">Vorgeschlagene Zutaten</string>
     <string name="DatabaseExportSuccessful">Datenbankexport erfolgreich!</string>
-    <string name="DatabaseExportCancled">Datenbankexport abgebrochen!</string>
+    <string name="DatabaseExportCanceled">Datenbankexport abgebrochen!</string>
     <string name="gram_unit_short">GRAM</string>
     <string name="approximate_sign">~</string>
 </resources>

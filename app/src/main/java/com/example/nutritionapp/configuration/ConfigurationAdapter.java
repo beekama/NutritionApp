@@ -198,7 +198,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                                     db.setPersonEnergyReq(newCal, null);
                                     dialog.dismiss();
                                 } catch (NumberFormatException e) {
-                                    Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Energyrequirement", Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(context, "Need numeric value as input for energy requirement", Toast.LENGTH_LONG);
                                     toast.show();
                                 } catch (IllegalArgumentException e) {
                                     Toast toast = Toast.makeText(context, "Value must be over 1000.", Toast.LENGTH_LONG);

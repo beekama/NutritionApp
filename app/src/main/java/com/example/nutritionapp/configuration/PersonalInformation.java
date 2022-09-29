@@ -147,7 +147,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
                     noticeExportSuccess.show();
                     break;
                 case Activity.RESULT_CANCELED:
-                    Toast noticeExportCancel = Toast.makeText(this, R.string.DatabaseExportCancled, Toast.LENGTH_LONG);
+                    Toast noticeExportCancel = Toast.makeText(this, R.string.DatabaseExportCanceled, Toast.LENGTH_LONG);
                     noticeExportCancel.show();
                     break;
             }

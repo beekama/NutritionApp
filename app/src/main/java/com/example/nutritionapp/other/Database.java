@@ -1090,7 +1090,6 @@ public class Database {
         editor.apply();
         /* set gender in nutrition for recommendation */
         Nutrition.setPersonGender(gender);
-        Log.wtf("PERSONGENDER", gender);
     }
 
     public int getPersonWeight() {
@@ -1305,8 +1304,6 @@ public class Database {
         Collections.sort(weightKeys);
         if (date.isAfter(weightKeys.get(0))) {
             setPersonWeight(weightInGram);
-
-            Log.wtf("DATE", "MOSTRECENT");
         }
 
     }

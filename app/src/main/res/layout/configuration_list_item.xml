@@ -18,7 +18,7 @@
         android:maxLines="4"
         android:id="@+id/configuration_item_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/endofdescription"
+        app:layout_constraintEnd_toStartOf="@id/end_of_description"
         android:textAlignment="textStart"
         tools:ignore="MissingConstraints" />
 
@@ -43,7 +43,7 @@
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/endofdescription"
+        android:id="@+id/end_of_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
