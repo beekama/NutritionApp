@@ -50,11 +50,19 @@ public class RecommendationsElement extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
 
+        /* activity settings */
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation_nutrition);
         db = new Database(this);
         Context context = getApplicationContext();
+
+        /* get current nutrition type from extra */
+        if (getIntent().getExtras() != null) {
+            nutritionElement = (NutritionElement) getIntent().getExtras().get(ActivityExtraNames.NUTRITION_ELEMENT);
+        }else{
+            Log.wtf("Recommendations", "No Nutrition Element  Extra");
+        }
 
         /* toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -65,13 +73,6 @@ public class RecommendationsElement extends AppCompatActivity {
         toolbarTitle.setText(nutritionElement.getString(context));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         toolbarBack.setOnClickListener((v -> finishAfterTransition()));
-
-        /* get current nutrition type from extra */
-        if (getIntent().getExtras() != null) {
-            nutritionElement = (NutritionElement) getIntent().getExtras().get(ActivityExtraNames.NUTRITION_ELEMENT);
-        }else{
-            Log.wtf("Recommendations", "No Nutrition Element  Extra");
-        }
 
         /* get nutrition recommendation as max for chart */
         Nutrition rec = Nutrition.getRecommendation();

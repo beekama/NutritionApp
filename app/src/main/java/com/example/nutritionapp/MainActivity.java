@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showAnalysisButton.setText(R.string.showAnalysis);
 
         /* get logged foods of day */
-        setEnergyBar();
+        Recommendations.setProgressBar(currentDateParsedLD, this.db, this.energyBar, this.energyBarText, this);
 
         recommendationTileView.setOnClickListener(v -> {
             Intent analysis = new Intent(v.getContext(), Recommendations.class);
@@ -185,36 +185,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         /* PieChart */
-        Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(currentDateParsedLD);
-
         pieChart = findViewById(R.id.piChartNutrition);
-        pieChart.getDescription().setEnabled(false);
-        PieData data = pieAndListData.first;
-        pieChart.setHoleColor(Color.TRANSPARENT);
-        pieChart.setTouchEnabled(false);
-        data.setDrawValues(false);
-        pieChart.setData(data);
+        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsedLD, this.db, this.colors);
+        Recommendations.visualSetupPieChart(pieAndListData, pieChart);
 
-        Legend legend = pieChart.getLegend();
-        legend.setEnabled(false);
-
-        pieChart.setDrawEntryLabels(false);
-        pieChart.invalidate();
-
-        /* PieChartList */
+        /* PieChartList with percent protein, carbs, fat*/
         chartList = findViewById(R.id.chartList);
-        ArrayList<Integer> allowances = pieAndListData.second;
-        LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        chartList.setLayoutManager(nutritionChartLayoutManager);
-        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data, allowances);
-        chartList.setAdapter(adapter);
-
+        chartList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        Recommendations.setChartSupportingList(pieChart, pieAndListData, this, chartList);
     }
 
     protected void onResume() {
         super.onResume();
-        setEnergyBar();
-        Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(currentDateParsedLD);
+        Recommendations.setProgressBar(currentDateParsedLD, this.db, this.energyBar, this.energyBarText, this);
+        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsedLD, this.db, this.colors);
         pieAndListData.first.setDrawValues(false);
         pieChart.setData(pieAndListData.first);
         pieChart.invalidate();
@@ -260,76 +244,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void setEnergyBar() {
-        ArrayList<Food> foodsOfDay = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed));
-
-        NutritionAnalysis nutAnalysis = new NutritionAnalysis(foodsOfDay);
-        int energyNeeded = db.getPersonEnergyReq(null);
-        int energyUsedPercentage = nutAnalysis.getTotalEnergy() * 100 / energyNeeded;
-
-        if (energyUsedPercentage < 75) {
-            energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-        } else if (energyUsedPercentage < 125) {
-            energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
-        } else {
-            energyBar.setProgressTintList(ColorStateList.valueOf(getColor(R.color.energyRed)));
-        }
-
-        energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format(Locale.getDefault(), getString(R.string.energyBarFormatString),
-                                                    nutAnalysis.getTotalEnergy(), energyNeeded);
-        energyBarText.setText(energyBarContent);
-    }
-
-    /* returns pair of PieData and allowances */
-    private Pair<PieData, ArrayList<Integer>> generatePieChartContent(LocalDate currentDateParsed) {
-
-        ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
-
-        /* loop foods and accumulate foodData */
-        int carbSum = 0;
-        int proteinSum = 0;
-        int fatSum = 0;
-
-        /* factor with calories per gram */
-        for (Food f : foods){
-            carbSum += f.carb * 4;
-            proteinSum += f.protein * 4;
-            fatSum += f.fat * 9;
-        }
-
-        /* calculate percentage */
-        int allowanceEnergy = PersonalInformation.ENERGY_TARGET;
-        carbSum = carbSum*100/allowanceEnergy;
-        proteinSum = proteinSum*100/allowanceEnergy;
-        fatSum = fatSum*100/allowanceEnergy;
-
-        /* generate PieEntries for Carbs, Protein, Fat */
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(carbSum, getString(R.string.chartLegendCarbs)));
-        entries.add(new PieEntry(proteinSum, getString(R.string.chartLegendProtein)));
-        entries.add(new PieEntry(fatSum, getString(R.string.chartLegendFat)));
-
-        /* add allowances for Carbs, Protein, Fat */
-        ArrayList<Integer> allowances = new ArrayList<>();
-        allowances.add(PersonalInformation.CARB_TARGET);
-        allowances.add(PersonalInformation.PROTEIN_TARGET);
-        allowances.add(PersonalInformation.FAT_TARGET);
-
-        /* generate DataSet from PieEntries */
-        PieDataSet set = new PieDataSet(entries, "");
-
-        /* add colors */
-        colors.add(Color.BLUE);
-        colors.add(Color.MAGENTA);
-        colors.add(Color.YELLOW);
-        colors.add(Color.RED);
-        set.setColors(colors);
-
-        PieData data = new PieData(set);
-        return new Pair<>(data, allowances);
     }
 
 }

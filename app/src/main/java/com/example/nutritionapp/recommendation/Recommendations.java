@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,23 +42,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-
 public class Recommendations extends AppCompatActivity {
-
-
 
     private Database db;
     private ProgressBar energyBar;
     private TextView energyBarText;
-    private RecyclerView nutritionRList;
+    private RecyclerView nutritionRecommendationList;
     private TextView dateView;
     private PieChart pieChart;
     RecyclerView chartList;
     private final List<Integer> colors = new ArrayList<>();
-
-
     private LocalDate currentDateParsed = LocalDate.now();
-
 
     public void onCreate(Bundle savedInstanceState) {
         //splash screen when needed:
@@ -95,70 +90,67 @@ public class Recommendations extends AppCompatActivity {
         /* PROGRESS BAR */
         energyBar = findViewById(R.id.energyBar);
         energyBarText = findViewById(R.id.energyBarTextAnalysis);
-        setProgressBar(currentDateParsed);
+        nutritionRecommendationList = findViewById(R.id.listView);
 
         /* PieChart */
-        Pair<PieData, List<Integer>> pieAndListData = generatePieChartContent(currentDateParsed);
-
         pieChart = findViewById(R.id.piChartNutrition);
-        pieChart.getDescription().setEnabled(false);
-        PieData data = pieAndListData.first;
-        pieChart.setHoleColor(Color.TRANSPARENT);
-        data.setDrawValues(false);
-        pieChart.setData(data);
-
-        Legend legend = pieChart.getLegend();
-        legend.setEnabled(false);
-        pieChart.setDrawEntryLabels(false);
-
-        pieChart.invalidate();
+        Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(currentDateParsed, db, colors);
+        visualSetupPieChart(pieAndListData, pieChart);
 
         /* PieChartList */
         chartList = findViewById(R.id.chartList);
-        List<Integer> allowances = pieAndListData.second;
-        LinearLayoutManager nutritionChartLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        chartList.setLayoutManager(nutritionChartLayoutManager);
-        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), data, allowances);
-        chartList.setAdapter(adapter);
-
+        updatePageContent(currentDateParsed);
 
         /* NUTRITION LIST */
-        // add nutrition items:
-        nutritionRList = findViewById(R.id.listView);
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(Recommendations.this, LinearLayoutManager.VERTICAL, false);
-        nutritionRList.setLayoutManager(nutritionReportLayoutManager);
+        nutritionRecommendationList.setLayoutManager(nutritionReportLayoutManager);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed);
 
         DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), false);
-        nutritionRList.addItemDecoration(dividerItemDecorator);
+        nutritionRecommendationList.addItemDecoration(dividerItemDecorator);
 
         RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(Recommendations.this, listItems);
-        nutritionRList.setAdapter(nutritionReport);
+        nutritionRecommendationList.setAdapter(nutritionReport);
 
+        /* date view */
         dateView = findViewById(R.id.date);
         dateView.setText(currentDateParsed.format(Utils.sqliteDateFormat));
         dateView.setOnClickListener(v -> {dateUpdateDialog(currentDateParsed);});
     }
 
+    public static void visualSetupPieChart(Pair<PieData, ArrayList<Integer>> pieAndListData, PieChart pieChart) {
+        pieChart.getDescription().setEnabled(false);
+        PieData data = pieAndListData.first;
+        pieChart.setHoleColor(Color.TRANSPARENT);
+        data.setDrawValues(false);
+        pieChart.setData(data);
+        Legend legend = pieChart.getLegend();
+        legend.setEnabled(false);
+        pieChart.setDrawEntryLabels(false);
+        pieChart.invalidate();
+    }
 
     private void updatePageContent(LocalDate localDate) {
-        //energy bar
-        setProgressBar(localDate);
-        //nutrition list
+
+        setProgressBar(localDate, db, energyBar, energyBarText, this);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(localDate);
         RecommendationAdapter newDayAdapter = new RecommendationAdapter(Recommendations.this, listItems);
-        nutritionRList.setAdapter(newDayAdapter);
-        //protein chart
-        Pair<PieData, List<Integer>> pieAndListData = generatePieChartContent(localDate);
+        nutritionRecommendationList.setAdapter(newDayAdapter);
+
+        /* TODO maybe prevent double execution of generatePieChartContent */
+        Pair<PieData, ArrayList<Integer>> pieAndListData = generatePieChartContent(localDate, this.db, this.colors);
+        setChartSupportingList(pieChart, pieAndListData, this, chartList);
+    }
+
+    public static void setChartSupportingList(PieChart pieChart, Pair<PieData, ArrayList<Integer>> pieAndListData, Context context, RecyclerView chartList) {
         pieChart.setData(pieAndListData.first);
         pieChart.setTouchEnabled(false);
         pieChart.invalidate();
-        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(Recommendations.this, pieAndListData.first, pieAndListData.second);
+        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(context, pieAndListData.first, pieAndListData.second);
         chartList.setAdapter(adapter);
     }
 
-
-    ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed) {
+    private ArrayList<RecommendationListItem> generateAdapterContent(LocalDate currentDateParsed) {
 
         /* generate Adapter-content for RecommendationAdapter */
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
@@ -190,21 +182,20 @@ public class Recommendations extends AppCompatActivity {
                 listItems.add(new RecommendationListItem(ne, 0f, nutTarget, nutLimit));
             }
         }
-
         return listItems;
     }
 
     /* returns pair of PieData and allowances */
-    Pair<PieData, List<Integer>> generatePieChartContent(LocalDate currentDateParsed) {
+    public static Pair<PieData, ArrayList<Integer>> generatePieChartContent(LocalDate currentDateParsed, Database db, List<Integer> colors) {
 
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
-        ArrayList<RecommendationListItem> listItems = new ArrayList<>();
 
         /* loop foods and accumulate foodData */
         int carbSum = 0;
         int proteinSum = 0;
         int fatSum = 0;
-        // factor with calories per gram
+
+        /* factor with calories per gram */
         for (Food f : foods){
             carbSum += f.carb * 4;
             proteinSum += f.protein * 4;
@@ -241,15 +232,11 @@ public class Recommendations extends AppCompatActivity {
 
         PieData data = new PieData(set);
         return new Pair<>(data, allowances);
-
     }
 
+    public static void setProgressBar(LocalDate currentDateParsed, Database db, ProgressBar energyBar, TextView energyBarText, Context context){
 
-
-
-    void setProgressBar(LocalDate currentDateParsed){
-
-        //create Arraylist with foods of the given day:
+        /* create Arraylist with foods of the given day */
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
 
         int energyUsed = Nutrition.totalEnergy(foods);
@@ -265,10 +252,9 @@ public class Recommendations extends AppCompatActivity {
         }
 
         energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format(Locale.getDefault(), getString(R.string.energyBarFormatString), energyUsed, energyNeeded);
+        String energyBarContent = String.format(Locale.getDefault(), context.getString(R.string.energyBarFormatString), energyUsed, energyNeeded);
         energyBarText.setText(energyBarContent);
     }
-
 
     private void dateUpdateDialog(final LocalDate localDate) {
         DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
@@ -280,9 +266,6 @@ public class Recommendations extends AppCompatActivity {
         }, localDate.getYear(),Utils.monthDefaultToAndroid(localDate.getMonthValue()), localDate.getDayOfMonth());
         dialog.show();
     }
-
-
-
 }
 
 

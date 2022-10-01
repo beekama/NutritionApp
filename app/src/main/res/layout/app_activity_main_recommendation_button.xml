@@ -21,20 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Button_Title"/>
 
-    <!--
-    <View
-        android:id="@+id/spacerLine"
-        android:layout_height="2dp"
-        android:background="@color/colorBlack"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_title"
-        />
-        -->
-
-
-
     <Button
         android:id="@+id/button_recommendation"
         android:layout_width="wrap_content"
