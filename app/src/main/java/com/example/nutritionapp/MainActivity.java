@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -29,35 +27,26 @@ import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.Food;
-import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.RecommendationProteinListAdapter;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private final List<Integer> colors = new ArrayList<>();
     private Database db;
-    private LocalDateTime currentDateParsed;
-    private LocalDate currentDateParsedLD;
+    private LocalDate currentDateParsed;
     private ProgressBar energyBar;
     private TextView energyBarText;
     private PieChart pieChart;
     private RecyclerView chartList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* load database on Application start */
         db = new Database(this);
-        currentDateParsed = LocalDateTime.now();
-        currentDateParsedLD = LocalDate.now();
+        currentDateParsed = LocalDate.now();
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -172,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showAnalysisButton.setText(R.string.showAnalysis);
 
         /* get logged foods of day */
-        Recommendations.setProgressBar(currentDateParsedLD, this.db, this.energyBar, this.energyBarText, this);
+        Recommendations.setProgressBar(currentDateParsed, this.db, this.energyBar, this.energyBarText, this);
 
         recommendationTileView.setOnClickListener(v -> {
             Intent analysis = new Intent(v.getContext(), Recommendations.class);
@@ -186,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* PieChart */
         pieChart = findViewById(R.id.piChartNutrition);
-        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsedLD, this.db, this.colors);
+        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsed, this.db, this.colors);
         Recommendations.visualSetupPieChart(pieAndListData, pieChart);
 
         /* PieChartList with percent protein, carbs, fat*/
@@ -197,8 +185,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected void onResume() {
         super.onResume();
-        Recommendations.setProgressBar(currentDateParsedLD, this.db, this.energyBar, this.energyBarText, this);
-        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsedLD, this.db, this.colors);
+        Recommendations.setProgressBar(currentDateParsed, this.db, this.energyBar, this.energyBarText, this);
+        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsed, this.db, this.colors);
         pieAndListData.first.setDrawValues(false);
         pieChart.setData(pieAndListData.first);
         pieChart.invalidate();
