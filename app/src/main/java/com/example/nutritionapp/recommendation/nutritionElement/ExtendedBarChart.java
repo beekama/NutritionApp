@@ -15,6 +15,7 @@ import java.util.List;
 public class ExtendedBarChart extends CombinedChart {
 
     protected Paint zonePaint;
+    float[] pts = new float[2];
 
     public ExtendedBarChart(Context context) {
         super(context);
@@ -28,54 +29,46 @@ public class ExtendedBarChart extends CombinedChart {
         super(context, attributeSet, defStyle);
     }
 
-
     @Override
     protected void init(){
         super.init();
+
         zonePaint = new Paint();
         zonePaint.setStyle(Paint.Style.FILL);
         zonePaint.setColor(Color.parseColor("#A9A9A9"));
-       // mGridBackgroundPaint.setColor(Color.GREEN);
 
-        // Default values are not ready here yet
         mDrawOrder = new DrawOrder[]{
                 DrawOrder.BAR, DrawOrder.BUBBLE, DrawOrder.LINE, DrawOrder.CANDLE, DrawOrder.SCATTER
         };
 
         setHighlighter(new CombinedHighlighter(this, this));
-
-        // Old default behaviour
         setHighlightFullBarEnabled(true);
-
         mRenderer = new CombinedChartRenderer(this, mAnimator, mViewPortHandler);
     }
 
     @Override
     protected void  onDraw(Canvas canvas){
-        List<LimitLine> limitLineList = mAxisLeft.getLimitLines();
 
+        /* get limit lines */
+        List<LimitLine> limitLineList = mAxisLeft.getLimitLines();
         if (limitLineList == null || limitLineList.size() != 2){
             super.onDraw(canvas);
             return;
         }
 
-        LimitLine ll1 = limitLineList.get(0);
-        LimitLine ll2 = limitLineList.get(1);
+        /* get limits from limit lines */
+        pts[0] = limitLineList.get(0).getLimit();
+        pts[1] = limitLineList.get(0).getLimit();
 
-        /* FIXME: I don't understand what this is doing - Sheppy 05/2022 Issue#42 */
-        float pts[] = new float[4];
-        pts[1] = ll1.getLimit();
-        pts[3] = ll2.getLimit();
-
+        /* transforms limits into pixels */
         mLeftAxisTransformer.pointValuesToPixel(pts);
-        canvas.drawRect(mViewPortHandler.contentLeft(), pts[1], mViewPortHandler.contentRight(), pts[3], zonePaint);
 
+        /* draw rectangle with transformed pixels */
+        canvas.drawRect(mViewPortHandler.contentLeft(), pts[0], mViewPortHandler.contentRight(), pts[1], zonePaint);
 
+        /* draw rest of canvas */
         drawDescription(canvas);
-
         drawMarkers(canvas);
-
-
         super.onDraw(canvas);
     }
 
