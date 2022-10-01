@@ -43,108 +43,123 @@ public class RecommendationsElement extends AppCompatActivity {
     private NutritionElement nutritionElement;
     private final LocalDate currentDateParsed = LocalDate.now();
 
+    private static final float CHART_X_AXIS_LABEL_ROTATION = -45;
+    private static final float CHART_X_AXIS_GRANULARITY = -1;
+    private static final float CHART_X_AXIS_MINIMUM = 0;
+    private static final float CHART_Y_AXIS_MINIMUM = 0;
 
     public void onCreate(Bundle savedInstanceState) {
-        /* set NutritionElement */
-        Bundle b = getIntent().getExtras();
-        if (b != null) {
-            nutritionElement = (NutritionElement) b.get(ActivityExtraNames.NUTRITION_ELEMENT);
-        }
 
-        //splash screen when needed:
         setTheme(R.style.AppTheme);
-
-        //basic settings:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recommendation_nutrition);
         db = new Database(this);
         Context context = getApplicationContext();
 
+        /* toolbar */
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        toolbarTitle.setText(nutritionElement.getString(context));
+        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        toolbarBack.setOnClickListener((v -> finishAfterTransition()));
 
-        /* APP TOOLBAR */
-        //replace actionbar with custom app_toolbar:
-        Toolbar tb = findViewById(R.id.toolbar);
-        TextView tb_title = findViewById(R.id.toolbar_title);
-        ImageButton tb_back = findViewById(R.id.toolbar_back);
-        ImageButton tb_forward = findViewById(R.id.toolbar_forward);
+        /* get current nutrition type from extra */
+        if (getIntent().getExtras() != null) {
+            nutritionElement = (NutritionElement) getIntent().getExtras().get(ActivityExtraNames.NUTRITION_ELEMENT);
+        }else{
+            Log.wtf("Recommendations", "No Nutrition Element  Extra");
+        }
 
-        //visible title:
-        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-
-
-        //back home button:
-        tb_back.setOnClickListener((v -> finishAfterTransition()));
-
-        //set title
-        tb.setTitle("");
-        tb_title.setText(nutritionElement.getString(context));
-        setSupportActionBar(tb);
-
-        //recommendation:
+        /* get nutrition recommendation as max for chart */
         Nutrition rec = Nutrition.getRecommendation();
-        int recommendation = rec.getElements().get(nutritionElement);
+        int recommendedMaxValue = rec.getElements().get(nutritionElement);
 
-        /* CHART */
+        /* chart general settings */
         ExtendedBarChart barChart =  findViewById(R.id.barChartNutrition);
         barChart.getDescription().setText("");
-        Pair<BarData, ArrayList<String >> chartData = getChartData();
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.setAxisMinimum(0);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelRotationAngle(-45);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                try {
-                    return chartData.second.get((int) value);
-                } catch (IndexOutOfBoundsException ie){
-                    Log.wtf("Label entry not found", Float.toString(value)); /* todo: why do we get here Issue#43*/
-                    return Float.toString(value);
-                }
-            }
-        });
-
-        YAxis yAxis = barChart.getAxisLeft();
-        barChart.getAxisRight().setEnabled(false);
-        yAxis.setAxisMaximum(recommendation *1.1f);
-        yAxis.setAxisMinimum(0);
-
-
-        LimitLine l1 = new LimitLine(recommendation, "daily recommendation");
-        l1.setLineColor(R.color.green_dark);
-        LimitLine l2 = new LimitLine(0, "");
-        l2.setLineColor(R.color.green_dark);
-        barChart.getAxisLeft().addLimitLine(l1);
-        barChart.getAxisLeft().addLimitLine(l2);
         barChart.getAxisLeft().setDrawGridLinesBehindData(true);
         barChart.getLegend().setEnabled(false);
         barChart.setScaleEnabled(false);
 
+        /* compute data for chart */
+        Pair<BarData, ArrayList<String >> barDataLabelPair = getChartData();
+
+        /* compose X-axis legend */
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setGranularity(CHART_X_AXIS_GRANULARITY);
+        xAxis.setAxisMinimum(CHART_X_AXIS_MINIMUM);
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setLabelRotationAngle(CHART_X_AXIS_LABEL_ROTATION);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                /* only set labels in integer steps (aka entire days) */
+                int integerValue = (int) value;
+                /* case float to int and search for int in chart labels */
+                /* no inspection, this is the intended behaviour */
+                //noinspection SuspiciousMethodCalls
+                if(barDataLabelPair.second.contains(integerValue)){
+                    return barDataLabelPair.second.get(integerValue);
+                }
+                return "";
+            }
+        });
+
+        /* yaxis */
+        YAxis yAxis = barChart.getAxisLeft();
+        barChart.getAxisRight().setEnabled(false);
+        yAxis.setAxisMaximum(recommendedMaxValue * 1.1f);
+        yAxis.setAxisMinimum(CHART_Y_AXIS_MINIMUM);
+
+        /* indication lines */
+        LimitLine l1 = new LimitLine(recommendedMaxValue, "daily recommendation");
+        LimitLine l2 = new LimitLine(0, "");
+        l1.setLineColor(R.color.green_dark);
+        l2.setLineColor(R.color.green_dark);
+        barChart.getAxisLeft().addLimitLine(l1);
+        barChart.getAxisLeft().addLimitLine(l2);
+
+        /* set computed data and invalidate */
         CombinedData data = new CombinedData();
-        data.setData(chartData.first);
+        data.setData(barDataLabelPair.first);
         barChart.setData(data);
         barChart.invalidate();
 
-        /* food-recommendation */
-        String dailyReq = getResources().getString(R.string.dailyRecommendation);
-        String microGram = getResources().getString(R.string.microgram);
-        TextView dailyR = findViewById(R.id.dailyReq);
-        dailyR.setText(String.format(Locale.getDefault(), "%s %d %s ", dailyReq, recommendation, microGram));
+        /* food recommendation header*/
+        initFoodRecommendationsHeader(recommendedMaxValue);
 
-        RecyclerView recList = findViewById(R.id.RecListView);
-        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
-        recList.setLayoutManager(nutritionReportLayoutManager);
-
-        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
-        recList.addItemDecoration(dividerItemDecorator);
-
-        ArrayList<Pair<Food, Float>> listItems = generateAdapterContent(db.getRecommendationMap(nutritionElement));
-        RecyclerView.Adapter<?> foodRec = new RecommendationNutritionAdapter(RecommendationsElement.this, listItems, nutritionElement, db);
-        recList.setAdapter(foodRec);
+        /* food recommendations list */
+        initFoodRecommendationsList();
     }
 
-    ArrayList<Pair<Food, Float>> generateAdapterContent(SortedMap<Food, Float> map) {
+    private void initFoodRecommendationsList() {
+
+        /* layout manager */
+        RecyclerView recommendationListLayout = findViewById(R.id.recommendationsList);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
+        recommendationListLayout.setLayoutManager(nutritionReportLayoutManager);
+
+        /* divider */
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        recommendationListLayout.addItemDecoration(dividerItemDecorator);
+
+        /* list adapter */
+        ArrayList<Pair<Food, Float>> listItems = generateRecommendationListContent(db.getRecommendationMap(nutritionElement));
+        RecyclerView.Adapter<?> recommendationNutritionAdapter = new RecommendationNutritionAdapter(RecommendationsElement.this, listItems, nutritionElement, db);
+        recommendationListLayout.setAdapter(recommendationNutritionAdapter);
+    }
+
+    private void initFoodRecommendationsHeader(int recommendedMaxValue) {
+        String dailyReq = getResources().getString(R.string.dailyRecommendation);
+        String microGram = getResources().getString(R.string.microgram);
+        TextView dailyRequirements = findViewById(R.id.dailyRequirements);
+        dailyRequirements.setText(String.format(Locale.getDefault(), "%s %d %s ", dailyReq, recommendedMaxValue, microGram));
+    }
+
+    private ArrayList<Pair<Food, Float>> generateRecommendationListContent(SortedMap<Food, Float> map) {
 
         ArrayList<Pair<Food, Float>> listItems = new ArrayList<>();
         for (Food food : map.keySet()){
@@ -153,20 +168,34 @@ public class RecommendationsElement extends AppCompatActivity {
         return listItems;
     }
 
-    Pair<BarData, ArrayList<String>> getChartData() {
+    private Pair<BarData, ArrayList<String>> getChartData() {
+
         ArrayList<String> xAxisLabels = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        for (int day = 6; day >= 0; day--) {
-            xAxisLabels.add(currentDateParsed.minusDays(day).getDayOfWeek().toString());
-            Integer amount = 0;
-            HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(currentDateParsed.minusDays(day), currentDateParsed.minusDays(day), null);
-            ArrayList<Food> foods = (foodGroups.isEmpty()) ? null : db.getFoodsFromHashMap(foodGroups);
-            if (foods != null) {
-                NutritionAnalysis nutritionAnalysis = new NutritionAnalysis(foods);
-                Nutrition nutrition = nutritionAnalysis.getNutritionActual();
-                amount = nutrition.getElements().get(nutritionElement);
+        
+        /* start 6 days ago */
+        int START_DAYS_AGO = 6;
+        for (int day = START_DAYS_AGO; day >= 0; day--) {
+
+            LocalDate currentDay = currentDateParsed.minusDays(day);
+
+            /* set weekday */
+            String dayOfWeek = currentDay.getDayOfWeek().toString();
+            xAxisLabels.add(dayOfWeek);
+
+            /* get nutrition analysis */
+            HashMap<Integer, ArrayList<Food>> foodGroups = db.getLoggedFoodsByDate(currentDay, currentDay, null);
+            ArrayList<Food> foods = db.getFoodsFromHashMap(foodGroups);
+            NutritionAnalysis nutritionAnalysis = new NutritionAnalysis(foods);
+            Integer nutritionAmount = nutritionAnalysis.getNutritionActual().getElements().get(nutritionElement);
+
+            /* set 0 if empty */
+            if(nutritionAmount == null){
+                nutritionAmount = 0;
             }
-            barEntries.add(new BarEntry(6-day, amount));
+
+            /* set entry in bar chart */
+            barEntries.add(new BarEntry(START_DAYS_AGO - day, nutritionAmount));
         }
 
         BarDataSet set = new BarDataSet(barEntries, nutritionElement.toString());
