@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,21 +42,21 @@ public class SimpleInputPopup extends Dialog {
         TextView inputLabelView = findViewById(R.id.inputLabel);
         TextView inputTitleView = findViewById(R.id.inputTitle);
 
-        inputTitleView.setText(inputTitle);
-        inputLabelView.setText(inputLabel);
+        inputTitleView.setText(Utils.capitalize(inputTitle, true));
+        inputLabelView.setText(Utils.capitalize(inputLabel, true));
         inputEditText.setInputType(inputType);
         inputEditText.setInputType(inputType);
 
-        Button cancel = findViewById(R.id.cancelButton);
-        cancel.setText(R.string.textCancel);
-        cancel.setOnClickListener(v -> {
-            this.cancel();
-        });
-
-        Button confirm = findViewById(R.id.confirmButton);
-        confirm.setText(R.string.textConfirm);
-        confirm.setOnClickListener(v -> {
-            this.dismiss();
+        inputEditText.setOnEditorActionListener((v, action, event) -> {
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                if(inputType == InputType.TYPE_CLASS_NUMBER){
+                    this.numberValue = Integer.parseInt(v.getText().toString());
+                }
+                this.stringValue = v.getText().toString();
+                this.dismiss();
+                return true;
+            }
+            return false;
         });
     }
 

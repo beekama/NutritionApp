@@ -166,6 +166,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
             inputPopup.setOnDismissListener(dialog -> {
                 itemAtCurPos.numberValue = inputPopup.numberValue;
                 itemAtCurPos.stringValue = inputPopup.getStringValue();
+                itemViewHolder.inputTextView.setText(itemAtCurPos.stringValue);
 
                 /* save to database */
                 switch (itemAtCurPos.type){
