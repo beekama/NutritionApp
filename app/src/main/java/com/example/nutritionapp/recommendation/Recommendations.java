@@ -240,8 +240,12 @@ public class Recommendations extends AppCompatActivity {
         ArrayList<Food> foods = db.getFoodsFromHashMap(db.getLoggedFoodsByDate(currentDateParsed, currentDateParsed, null));
 
         int energyUsed = Nutrition.totalEnergy(foods);
-        int energyNeeded = PersonalInformation.ENERGY_TARGET;
-        int energyUsedPercentage = energyUsed*100/energyNeeded;
+        createEnergyBar(energyBar, energyBarText, context, energyUsed);
+    }
+
+    public static void createEnergyBar(ProgressBar energyBar, TextView energyBarText, Context context, int energyUsed) {
+        int energyNeeded = PersonalInformation.ENERGY_TARGET; // TODO use value from database
+        int energyUsedPercentage = energyUsed *100/energyNeeded;
 
         if(energyUsedPercentage < 75){
             energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
