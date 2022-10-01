@@ -2,18 +2,14 @@ package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nutritionapp.WeightTracking;
 import com.example.nutritionapp.other.Database;
@@ -22,9 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.SimpleInputPopup;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ConfigurationAdapter extends RecyclerView.Adapter {
 
@@ -68,177 +64,60 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         /* item at position */
-        ConfigurationListItem itemAtCurPos = this.items.get(position);
+        ConfigurationListItem currentItem = this.items.get(position);
 
         /* distinguish header-item and item */
         if(holder instanceof ConfigurationAdapter.LocalHeaderViewHolder){
             ConfigurationAdapter.LocalHeaderViewHolder headerViewHolder = (ConfigurationAdapter.LocalHeaderViewHolder) holder;
-            headerViewHolder.textView.setText(itemAtCurPos.text);
-            return;
+            headerViewHolder.textView.setText(currentItem.text);
         } else {
             ConfigurationAdapter.LocalViewHolder itemViewHolder = (ConfigurationAdapter.LocalViewHolder) holder;
-            itemViewHolder.textView.setText(itemAtCurPos.text);
-            switch (itemAtCurPos.type){
+            itemViewHolder.textView.setText(currentItem.text);
+
+            /* TODO WTF IS THIS DOING */
+            if (!currentItem.stringValue.equals("-1")){
+                itemViewHolder.inputTextView.setText(currentItem.stringValue);
+            }
+            itemViewHolder.configurationSlider.setVisibility(View.GONE);
+
+            switch (currentItem.type){
                 case AGE:
-                    if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v -> {
-
-                        // custom dialog
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.configuration_popup);
-
-                        EditText etAge = dialog.findViewById(R.id.input);
-                        etAge.setHint("Input Age");
-                        etAge.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                        etAge.setOnEditorActionListener((v13, actionId, event) -> {
-                            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                try {
-                                    String sAge = etAge.getText().toString();
-                                    int newAge = Integer.parseInt(sAge);
-                                    itemViewHolder.value.setText(sAge);
-                                    db.setPersonAge(newAge);
-                                    dialog.dismiss();
-                                } catch (NumberFormatException e) {
-                                    Toast toast = Toast.makeText(context, "Need Numeric Value as Input for Age, Weight and Height", Toast.LENGTH_LONG);
-                                    toast.show();
-                                } catch (IllegalArgumentException e) {
-                                    Toast toast = Toast.makeText(context, "Age must be between '18' and '150'", Toast.LENGTH_LONG);
-                                    toast.show();
-                                }
-                                return true;
-                            }
-                            return false;
-                        });
-                        dialog.show();
-                    });
+                case HEIGHT:
+                case CALORIES:
+                    setListenChangeWithInputDialog(currentItem, itemViewHolder);
                     break;
                 case GENDER:
-                    if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v -> {
-                        if(itemAtCurPos.sValue.equals("male")){
-                            itemAtCurPos.sValue = "female";
-                            itemViewHolder.value.setText(R.string.female);
+                    itemViewHolder.root.setOnClickListener(v -> {
+                        if(currentItem.stringValue.equals("male")){
+                            currentItem.stringValue = "female";
+                            itemViewHolder.inputTextView.setText(R.string.female);
                             db.setPersonGender("female");
                         } else {
-                            itemAtCurPos.sValue = "male";
-                            itemViewHolder.value.setText(R.string.male);
+                            currentItem.stringValue = "male";
+                            itemViewHolder.inputTextView.setText(R.string.male);
                             db.setPersonGender("male");
                         }
                     });
                     break;
-                case HEIGHT:
-                    if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v -> {
-
-                        // custom dialog
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.configuration_popup);
-
-                        EditText etHeight = dialog.findViewById(R.id.input);
-                        etHeight.setHint("Input Height in cm");
-                        etHeight .setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                        etHeight.setOnEditorActionListener((v12, actionId, event) -> {
-                            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                try {
-                                    String sHeight = etHeight.getText().toString();
-                                    int newHeight = Integer.parseInt(sHeight);
-                                    itemViewHolder.value.setText(sHeight);
-                                    db.setPersonHeight(newHeight);
-                                    bmiInterface.updateBMI();
-                                    dialog.dismiss();
-                                } catch (NumberFormatException e) {
-                                    Toast toast = Toast.makeText(context, "Need Numeric Value as Input", Toast.LENGTH_LONG);
-                                    toast.show();
-                                } catch (IllegalArgumentException e) {
-                                    Toast toast = Toast.makeText(context, "Height must be between 0 and 300 cm", Toast.LENGTH_LONG);
-                                    toast.show();
-                                }
-                                return true;
-                            }
-                            return false;
-                        });
-                        dialog.show();
-                    });
-                    break;
                 case WEIGHT:
-                    if (!itemAtCurPos.sValue.equals("-1")){
-                        float weightAsFloat = Integer.parseInt(itemAtCurPos.sValue)/1000.0f;
-                        itemViewHolder.value.setText(String.format(Locale.getDefault(), "%.2f", weightAsFloat));
-                    }
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v-> {
-                        Intent weightActivity = new Intent(context, WeightTracking.class);
-                        context.startActivity(weightActivity);
-                    });
-                    break;
-                case CALORIES:
-                    if (!itemAtCurPos.sValue.equals("-1")) itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v -> {
-
-                        // custom dialog
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.configuration_popup);
-
-                        EditText etCal = dialog.findViewById(R.id.input);
-                        etCal.setHint("Input Calorie need");
-                        etCal.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                        etCal.setOnEditorActionListener((v1, actionId, event) -> {
-                            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                                try {
-                                    String sCal = etCal.getText().toString();
-                                    int newCal = Integer.parseInt(sCal);
-                                    itemViewHolder.value.setText(sCal);
-                                    db.setPersonEnergyReq(newCal, null);
-                                    dialog.dismiss();
-                                } catch (NumberFormatException e) {
-                                    Toast toast = Toast.makeText(context, "Need numeric value as input for energy requirement", Toast.LENGTH_LONG);
-                                    toast.show();
-                                } catch (IllegalArgumentException e) {
-                                    Toast toast = Toast.makeText(context, "Value must be over 1000.", Toast.LENGTH_LONG);
-                                    toast.show();
-                                }
-                                return true;
-                            }
-                            return false;
-                        });
-                        dialog.show();
+                    itemViewHolder.root.setOnClickListener(v-> {
+                        context.startActivity(new Intent(context, WeightTracking.class));
                     });
                     break;
                 case BMI:
-                    itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
+                    itemViewHolder.inputTextView.setText(currentItem.stringValue);
                     break;
                 case IMPORT:
-                    itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v -> {
-                        Intent fileDialog = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                        fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
-                        fileDialog.setType("text/plain");
-                        ((Activity) context).startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
-                    });
+                    itemViewHolder.inputTextView.setText(currentItem.stringValue);
+                    setListenFileDialog(itemViewHolder, Intent.ACTION_OPEN_DOCUMENT);
                     break;
                 case EXPORT:
-                    itemViewHolder.value.setText(itemAtCurPos.sValue);
-                    itemViewHolder.lSwitch.setVisibility(View.GONE);
-                    itemViewHolder.background.setOnClickListener(v -> {
-                        Intent fileDialog = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-                        fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
-                        fileDialog.setType("text/plain");
-                        ((Activity) context).startActivityForResult(fileDialog, REQUEST_CODE_EXPORT);
-                    });
+                    itemViewHolder.inputTextView.setText(currentItem.stringValue);
+                    setListenFileDialog(itemViewHolder, Intent.ACTION_CREATE_DOCUMENT);
                     break;
                 case LANGUAGE_DE:
-                    itemViewHolder.lSwitch.setChecked(itemAtCurPos.bValue);
-                    itemViewHolder.value.setVisibility(View.GONE);
-                    itemViewHolder.lSwitch.setOnCheckedChangeListener((button, isChecked) -> {
+                    itemViewHolder.configurationSlider.setChecked(currentItem.bValue);
+                    itemViewHolder.configurationSlider.setOnCheckedChangeListener((button, isChecked) -> {
                         if(isChecked){
                             db.setLanguagePref("de");
                         }else{
@@ -247,9 +126,8 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     });
                     break;
                 case CURATED_FOODS:
-                    itemViewHolder.lSwitch.setChecked(itemAtCurPos.bValue);
-                    itemViewHolder.value.setVisibility(View.GONE);
-                    itemViewHolder.lSwitch.setOnCheckedChangeListener((button, isChecked) -> {
+                    itemViewHolder.configurationSlider.setChecked(currentItem.bValue);
+                    itemViewHolder.configurationSlider.setOnCheckedChangeListener((button, isChecked) -> {
                         if(isChecked){
                             db.setCuratedFoodsPreference(1);
                         }else{
@@ -260,6 +138,50 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
             }
         }
 
+    }
+
+    private void setListenFileDialog(LocalViewHolder itemViewHolder, String action) {
+        itemViewHolder.root.setOnClickListener(v -> {
+
+            /* create file dialog */
+            Intent fileDialog = new Intent(action);
+            fileDialog.addCategory(Intent.CATEGORY_OPENABLE);
+            fileDialog.setType("text/plain");
+
+            /* start file dialog activity */
+            Activity parentActivity = (Activity) context;
+            if(action.equals(Intent.ACTION_OPEN_DOCUMENT)){
+                parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
+            }else {
+                parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_EXPORT);
+            }
+
+        });
+    }
+
+    private void setListenChangeWithInputDialog(ConfigurationListItem itemAtCurPos, LocalViewHolder itemViewHolder) {
+        itemViewHolder.configurationSlider.setVisibility(View.GONE);
+        itemViewHolder.root.setOnClickListener(v -> {
+            final SimpleInputPopup inputPopup = new SimpleInputPopup(context, db, itemAtCurPos.type.toString(), itemAtCurPos.type.toString(), InputType.TYPE_CLASS_NUMBER);
+            inputPopup.setOnDismissListener(dialog -> {
+                itemAtCurPos.numberValue = inputPopup.numberValue;
+                itemAtCurPos.stringValue = inputPopup.getStringValue();
+
+                /* save to database */
+                switch (itemAtCurPos.type){
+                    case AGE:
+                        db.setPersonAge((int) itemAtCurPos.numberValue);
+                        break;
+                    case HEIGHT:
+                        db.setPersonHeight((int) itemAtCurPos.numberValue);
+                        break;
+                    case CALORIES:
+                        db.setPersonEnergyReq((int) itemAtCurPos.numberValue, null);
+                        break;
+                }
+            });
+            inputPopup.show();
+        });
     }
 
     @Override
@@ -274,17 +196,17 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     }
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final View background;
+        final View root;
         final TextView textView;
-        final TextView value;
-        final Switch lSwitch;
+        final TextView inputTextView;
+        final Switch configurationSlider;
 
         LocalViewHolder(View itemView) {
             super(itemView);
-            background = itemView;
+            root = itemView;
             textView = itemView.findViewById(R.id.configuration_item_text);
-            value = itemView.findViewById(R.id.configuration_item_input);
-            lSwitch = itemView.findViewById(R.id.configuration_slider);
+            inputTextView = itemView.findViewById(R.id.configuration_item_input);
+            configurationSlider = itemView.findViewById(R.id.configuration_slider);
         }
 
         @Override
@@ -294,12 +216,12 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     }
 
     static class LocalHeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final View background;
+        final View root;
         final TextView textView;
 
         LocalHeaderViewHolder(View itemView) {
             super(itemView);
-            background = itemView;
+            root = itemView;
             textView = itemView.findViewById(R.id.configuration_header_text);
         }
 

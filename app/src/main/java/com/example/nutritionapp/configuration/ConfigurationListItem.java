@@ -3,13 +3,14 @@ package com.example.nutritionapp.configuration;
 public class ConfigurationListItem {
     final PersonalInformation.DataType type;
     final String text;
-    String sValue = "";
+    public double numberValue;
+    String stringValue = "";
     Boolean bValue = false;
 
-    public ConfigurationListItem(PersonalInformation.DataType type, String text, String sValue) {
+    public ConfigurationListItem(PersonalInformation.DataType type, String text, String stringValue) {
         this.type = type;
         this.text = text;
-        this.sValue = sValue;
+        this.stringValue = stringValue;
     }
 
 
