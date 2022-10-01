@@ -178,21 +178,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             nutAnalysisCache.put(position, analysis);
         }
 
-        int energyNeeded = db.getPersonEnergyReq(logDate);
-        int energyUsedPercentage = analysis.getTotalEnergy()*100/energyNeeded;
-        if(energyUsedPercentage < 75){
-            castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-        }else if(energyUsedPercentage < 125){
-            castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
-        }else{
-            castedHolder.energyBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-        }
-
-        castedHolder.energyBar.setProgress(Math.min(energyUsedPercentage, 100));
-        String energyBarContent = String.format(Locale.getDefault(), context.getString(R.string.energyBarFormatString),
-                                                    analysis.getTotalEnergy(), energyNeeded);
-        castedHolder.energyBarText.setText(energyBarContent);
-
+        Recommendations.createEnergyBar(castedHolder.energyBar, castedHolder.energyBarText, parentActivity, analysis.getTotalEnergy());
 
         /* display the foods in the nested sub-list */
         ArrayList<GroupFoodItem> listItemsInThisSection = new ArrayList<>();
