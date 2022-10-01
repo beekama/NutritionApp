@@ -1,20 +1,17 @@
 package com.example.nutritionapp.customFoods;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.SimpleInputPopup;
 
 import java.util.ArrayList;
 
@@ -56,54 +53,44 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
 
         /* distinguish header-item and item */
         if (holder instanceof CreateFoodNutritionSelectorAdapter.LocalHeaderViewHolder) {
+
             CreateFoodNutritionSelectorAdapter.LocalHeaderViewHolder headerViewHolder = (CreateFoodNutritionSelectorAdapter.LocalHeaderViewHolder) holder;
             headerViewHolder.textView.setText(item.tag);
-            return;
+
         } else {
-            CreateFoodNutritionSelectorAdapter.LocalViewHolder lvh = (CreateFoodNutritionSelectorAdapter.LocalViewHolder) holder;
-//            lvh.name.setText(item.tag);
-            if (!item.inputTypeString) {
-                if (item.amount > 0) {
-                    lvh.value.setText(String.valueOf(item.amount));
-                }
+
+            CreateFoodNutritionSelectorAdapter.LocalViewHolder localeViewHolder = (CreateFoodNutritionSelectorAdapter.LocalViewHolder) holder;
+            localeViewHolder.name.setText(item.tag);
+
+            /* set current value */
+            if (item.amount > 0) {
+                localeViewHolder.value.setText(String.valueOf(item.amount));
             } else if (item.data != null) {
-                lvh.value.setText(item.data);
+                localeViewHolder.value.setText(item.data);
             } else {
-                lvh.value.setText("");
+                localeViewHolder.value.setText("");
             }
-            lvh.name.setText(item.tag);
-            lvh.background.setOnClickListener(v -> {
-                // custom dialog
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.create_food_popup);
 
-                EditText et = dialog.findViewById(R.id.input);
-                et.setHint("Input");
+            localeViewHolder.root.setOnClickListener(v -> {
 
-                if (!item.inputTypeString) et.setInputType(InputType.TYPE_CLASS_NUMBER);
-                else et.setInputType(InputType.TYPE_CLASS_TEXT);
+                /* determine input type */
+                int inputType;
+                if (item.inputTypeString){
+                    inputType = InputType.TYPE_CLASS_NUMBER;
+                }else{
+                    inputType = InputType.TYPE_CLASS_TEXT;
+                }
 
-                et.setOnEditorActionListener((v1, actionId, event) -> {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        try {
-                            String etString = et.getText().toString();
-                            lvh.value.setText(etString);
-                            if (item.inputTypeString) {
-                                item.data = etString;
-                            } else {
-                                item.amount = Integer.parseInt(etString);
-                            }
-                            dialog.dismiss();
-                        } catch (IllegalArgumentException e) {
-                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        return true;
-                    }
-                    return false;
+                /* display popup */
+                final SimpleInputPopup inputPopup = new SimpleInputPopup(context, item.tag.toString(), item.tag.toString(), inputType);
+                inputPopup.setOnDismissListener(dialog -> {
+                    item.amount = (int)inputPopup.numberValue;
+                    item.data = inputPopup.getStringValue();
                 });
-                dialog.show();
+                inputPopup.show();
+
             });
+
         }
     }
 
@@ -122,15 +109,14 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
         return items.size();
     }
 
-
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final View background;
+        final View root;
         final TextView name;
         final TextView value;
 
         LocalViewHolder(View itemView) {
             super(itemView);
-            background = itemView;
+            root = itemView;
             name = itemView.findViewById(R.id.create_foods_item_text);
             value = itemView.findViewById(R.id.create_foods_item_input);
         }
