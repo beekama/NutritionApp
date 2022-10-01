@@ -45,7 +45,6 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
         return new LocalViewHolder(convertView);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         /* item at position */

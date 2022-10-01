@@ -292,7 +292,7 @@ public class Database {
         }
 
         if (foodCache.containsKey(foodId)) {
-            Food f = foodCache.get(foodId).deepclone();
+            Food f = Objects.requireNonNull(foodCache.get(foodId)).deepclone();
 
             /* check for bad cache states (the Issue#20 Situation) */
             boolean allNutritionValuesZero = f.nutrition.getElements().values().stream().noneMatch(i -> i != 0);

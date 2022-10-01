@@ -17,6 +17,7 @@ import com.example.nutritionapp.other.Food;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 public class CustomFoodOverview extends AppCompatActivity {
 
@@ -70,7 +71,7 @@ public class CustomFoodOverview extends AppCompatActivity {
         /* get food group templates */
         LinkedHashMap<Integer, ArrayList<Food>> foodGroupTemplates = db.getTemplateFoodGroups();
         for (Integer key : foodGroupTemplates.keySet()) {
-            ArrayList<Food> fl = foodGroupTemplates.get(key);
+            ArrayList<Food> fl = Objects.requireNonNull(foodGroupTemplates.get(key));
             foodItems.add(new CustomGroupOverviewItem(fl, key));
         }
 

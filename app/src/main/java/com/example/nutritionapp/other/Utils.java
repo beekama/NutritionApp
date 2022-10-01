@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -79,8 +80,8 @@ public class Utils {
 
     public static SortedMap<Food, Float> sortRecommendedTreeMap(TreeMap<Food, Float> treeMap) {
         SortedMap<Food, Float> sortedFood = new TreeMap<>((k1, k2) -> {
-            float v1 = treeMap.get(k1);
-            float v2 = treeMap.get(k2);
+            float v1 = Objects.requireNonNull(treeMap.get(k1));
+            float v2 = Objects.requireNonNull(treeMap.get(k2));
             if (v1 == v2){
                 return 0;
             }else {
