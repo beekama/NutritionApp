@@ -164,4 +164,10 @@
     <string name="DatabaseExportCanceled">Datenbankexport abgebrochen!</string>
     <string name="gram_unit_short">GRAM</string>
     <string name="approximate_sign">~</string>
+    <string name="fiberInGramLabel">Balaststoffe in gram</string>
+    <string name="energyInKcalLabel">Kalories in kcal</string>
+    <string name="servingSizeInGramLabel">Portionsgröße in gram</string>
+    <string name="generalFoodInformationHeader">Allgemeine Information</string>
+    <string name="labelFoodName">Name</string>
+    <string name="createFoodHeaderNutrients">Nährstoffe</string>
 </resources>
