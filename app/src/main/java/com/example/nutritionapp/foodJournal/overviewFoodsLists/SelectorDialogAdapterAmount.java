@@ -25,7 +25,7 @@ public class SelectorDialogAdapterAmount extends RecyclerView.Adapter {
 
     final DataTransfer parent;
 
-    public double amountSelected = Double.NaN;
+    public double amountSelected;
     private final Context context;
     private ArrayList<Double> items;
     private static int isSelected = -1;

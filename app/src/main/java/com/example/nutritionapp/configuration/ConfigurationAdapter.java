@@ -162,7 +162,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     private void setListenChangeWithInputDialog(ConfigurationListItem itemAtCurPos, LocalViewHolder itemViewHolder) {
         itemViewHolder.configurationSlider.setVisibility(View.GONE);
         itemViewHolder.root.setOnClickListener(v -> {
-            final SimpleInputPopup inputPopup = new SimpleInputPopup(context, db, itemAtCurPos.type.toString(), itemAtCurPos.type.toString(), InputType.TYPE_CLASS_NUMBER);
+            final SimpleInputPopup inputPopup = new SimpleInputPopup(context, itemAtCurPos.type.toString(), itemAtCurPos.type.toString(), InputType.TYPE_CLASS_NUMBER);
             inputPopup.setOnDismissListener(dialog -> {
                 itemAtCurPos.numberValue = inputPopup.numberValue;
                 itemAtCurPos.stringValue = inputPopup.getStringValue();

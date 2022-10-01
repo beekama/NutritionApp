@@ -15,7 +15,7 @@ import java.util.List;
 public class ExtendedBarChart extends CombinedChart {
 
     protected Paint zonePaint;
-    float[] pts = new float[2];
+    private final float[] pts = new float[2];
 
     public ExtendedBarChart(Context context) {
         super(context);

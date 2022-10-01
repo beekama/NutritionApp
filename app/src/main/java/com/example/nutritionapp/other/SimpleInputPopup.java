@@ -1,6 +1,5 @@
 package com.example.nutritionapp.other;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,7 +24,7 @@ public class SimpleInputPopup extends Dialog {
     public String stringValue = null;
     public double numberValue = Double.NaN;
 
-    public SimpleInputPopup(@NonNull Context context, Database db, String inputTitle, String inputLabel, int inputType) {
+    public SimpleInputPopup(@NonNull Context context, String inputTitle, String inputLabel, int inputType) {
         super(context);
         this.inputType = inputType;
         this.inputTitle = inputTitle;

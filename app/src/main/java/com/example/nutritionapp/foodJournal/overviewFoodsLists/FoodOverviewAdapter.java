@@ -3,8 +3,6 @@ package com.example.nutritionapp.foodJournal.overviewFoodsLists;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.util.Log;
@@ -33,7 +31,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.SortedMap;
 
 public class FoodOverviewAdapter extends RecyclerView.Adapter {
