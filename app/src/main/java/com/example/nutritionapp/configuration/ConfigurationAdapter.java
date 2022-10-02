@@ -116,6 +116,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     setListenFileDialog(itemViewHolder, Intent.ACTION_CREATE_DOCUMENT);
                     break;
                 case LANGUAGE_DE:
+                    itemViewHolder.configurationSlider.setVisibility(View.VISIBLE);
                     itemViewHolder.configurationSlider.setChecked(currentItem.bValue);
                     itemViewHolder.configurationSlider.setOnCheckedChangeListener((button, isChecked) -> {
                         if(isChecked){
@@ -126,6 +127,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     });
                     break;
                 case CURATED_FOODS:
+                    itemViewHolder.configurationSlider.setVisibility(View.VISIBLE);
                     itemViewHolder.configurationSlider.setChecked(currentItem.bValue);
                     itemViewHolder.configurationSlider.setOnCheckedChangeListener((button, isChecked) -> {
                         if(isChecked){
