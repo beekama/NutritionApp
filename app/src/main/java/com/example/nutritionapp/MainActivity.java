@@ -10,10 +10,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -50,6 +51,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView energyBarText;
     private PieChart pieChart;
     private RecyclerView chartList;
+
+    /* Detect language change from Configuration-class */
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String broadcastMessage = intent.getAction();
+            if (broadcastMessage == "LANGUAGE_CHANGED"){
+                recreate();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        /* Language */ 
+        /* Language */
         String currentLanguage = LocaleHelper.getLanguage(this);
         Button setLanguage = navHeader.findViewById(R.id.languageSelect);
         setLanguage.setText(R.string.otherLanguage);
@@ -112,11 +124,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 case "de":
                     LocaleHelper.setLocale(this, "en");
-                    db.setLanguagePref("de");
+                    db.setLanguagePref("en");
                     this.recreate();
                     break;
             }
         });
+
+        /* Listen for LanguageChanged-notification from PersonalInformation */
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("LANGUAGE_CHANGED");
+        registerReceiver(broadcastReceiver, filter);
 
 
         /* ---- JOURNAL ------*/
@@ -212,6 +229,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void attachBaseContext(Context base){
         super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        recreate();
     }
 
     protected void onResume() {

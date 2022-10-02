@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.other.LocaleHelper;
 import com.example.nutritionapp.other.SimpleInputPopup;
 
 import java.util.ArrayList;
@@ -29,17 +30,17 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     final Database db;
-    final UpdateBMI bmiInterface;
+    final UpdateConfig configInterface;
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
 
-    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, UpdateBMI bmiInterface) {
+    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, UpdateConfig configInterface) {
         this.context = context;
         this.items = items;
         this.db = db;
-        this.bmiInterface = bmiInterface;
+        this.configInterface = configInterface;
     }
 
     @NonNull
@@ -121,8 +122,12 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     itemViewHolder.configurationSlider.setOnCheckedChangeListener((button, isChecked) -> {
                         if(isChecked){
                             db.setLanguagePref("de");
+                            LocaleHelper.setLocale(context.getApplicationContext(), "de");
+                            configInterface.refresh();
                         }else{
                             db.setLanguagePref("en");
+                            LocaleHelper.setLocale(context.getApplicationContext(), "en");
+                            configInterface.refresh();
                         }
                     });
                     break;

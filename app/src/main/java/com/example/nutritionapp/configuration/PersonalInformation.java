@@ -2,6 +2,7 @@ package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.R;
-
+import com.example.nutritionapp.other.LocaleHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class PersonalInformation extends AppCompatActivity implements UpdateBMI {
+public class PersonalInformation extends AppCompatActivity implements UpdateConfig {
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
@@ -47,6 +48,14 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
         setRecyclerView();
     }
 
+    /* refresh and notify other running activities that language has changed */
+    @Override
+    public void refresh() {
+        recreate();
+        Intent intent = new Intent("LANGUAGE_CHANGED");
+        sendBroadcast(intent);
+    }
+
     public enum DataType {
         HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
     }
@@ -58,6 +67,9 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
         setContentView(R.layout.configuration);
 
         db = new Database(this);
+
+        String defaultLanguage = db.getLanguagePref();
+        if (defaultLanguage != null) LocaleHelper.setLocale(this, defaultLanguage);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = findViewById(R.id.toolbar_title);
@@ -99,7 +111,10 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
         return result;
     }
 
-
+    @Override
+    protected void attachBaseContext(Context base){
+        super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
+    }
 
     /* is Called after resume from Weight-View */
     @Override
@@ -188,6 +203,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateBMI 
 
 }
 
-interface UpdateBMI {
+interface UpdateConfig {
     void updateBMI();
+    void refresh();
 }
