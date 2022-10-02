@@ -10,8 +10,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -27,6 +29,7 @@ import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.LocaleHelper;
 import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.RecommendationProteinListAdapter;
 import com.example.nutritionapp.recommendation.Recommendations;
@@ -59,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db = new Database(this);
         currentDateParsed = LocalDate.now();
 
+        /* set default language */
+        String savedLanguage = db.getLanguagePref();
+        if (savedLanguage != null) LocaleHelper.setDefaultLanguage(this, savedLanguage);
+
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,6 +96,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 default:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            }
+        });
+
+        /* Language */ 
+        String currentLanguage = LocaleHelper.getLanguage(this);
+        Button setLanguage = navHeader.findViewById(R.id.languageSelect);
+        setLanguage.setText(R.string.otherLanguage);
+        setLanguage.setOnClickListener(v -> {
+            switch (currentLanguage) {
+                case "en":
+                    LocaleHelper.setLocale(this, "de");
+                    db.setLanguagePref("de");
+                    this.recreate();
+                    break;
+                case "de":
+                    LocaleHelper.setLocale(this, "en");
+                    db.setLanguagePref("de");
+                    this.recreate();
+                    break;
             }
         });
 
@@ -181,6 +207,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chartList = findViewById(R.id.chartList);
         chartList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         Recommendations.setChartSupportingList(pieChart, pieAndListData, this, chartList);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base){
+        super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
     }
 
     protected void onResume() {

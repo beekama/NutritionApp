@@ -70,6 +70,8 @@
     <string name="date">Datum:</string>
     <string name="submit">Bestätigen:</string>
 
+    <string name="otherLanguage">EN</string>
+
     <!-- Custom Foods -->
     <string name="customFoodHeader">Erstellte Essen:</string>
     <string name="customFoodHeaderEmpty">Bisher wurden noch keine Essen erstellt!</string>

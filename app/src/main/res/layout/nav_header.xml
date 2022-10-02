@@ -29,7 +29,7 @@
         android:src="@mipmap/ic_night_foreground"
         android:background="#00000000"
         app:layout_constraintStart_toEndOf="@id/navBarGuideLine"
-        app:layout_constraintBottom_toBottomOf="@id/navBarLauncher"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/night_mode_icon_description" />
 
@@ -51,6 +51,15 @@
         android:text="@string/appName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/languageSelect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/switchToNight"
+            app:layout_constraintEnd_toEndOf="@id/switchToNight"
+            app:layout_constraintStart_toStartOf="@id/switchToNight"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

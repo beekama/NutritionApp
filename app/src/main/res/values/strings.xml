@@ -70,6 +70,8 @@
     <string name="date">Date:</string>
     <string name="submit">Submit:</string>
 
+    <string name="otherLanguage">DE</string>
+
     <!-- Custom Foods -->
     <string name="customFoodHeader">Foods created so far:</string>
     <string name="customFoodHeaderEmpty">No Foods created so far!</string>
