@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void onReceive(Context context, Intent intent) {
             String broadcastMessage = intent.getAction();
-            if (broadcastMessage == "LANGUAGE_CHANGED"){
+            if (broadcastMessage.equals("LANGUAGE_CHANGED")){
                 recreate();
             }
         }
@@ -74,9 +74,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db = new Database(this);
         currentDateParsed = LocalDate.now();
 
-        /* set default language */
+        /* try to set language according to db, if empty set db to system-default */
         String savedLanguage = db.getLanguagePref();
         if (savedLanguage != null) LocaleHelper.setDefaultLanguage(this, savedLanguage);
+        else db.setLanguagePref(LocaleHelper.getLanguage(this));
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
