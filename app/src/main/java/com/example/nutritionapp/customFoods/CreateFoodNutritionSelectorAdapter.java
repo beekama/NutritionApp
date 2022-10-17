@@ -75,9 +75,9 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
                 /* determine input type */
                 int inputType;
                 if (item.inputTypeString){
-                    inputType = InputType.TYPE_CLASS_NUMBER;
-                }else{
                     inputType = InputType.TYPE_CLASS_TEXT;
+                }else{
+                    inputType = InputType.TYPE_CLASS_NUMBER;
                 }
 
                 /* display popup */
@@ -85,6 +85,13 @@ public class CreateFoodNutritionSelectorAdapter extends RecyclerView.Adapter {
                 inputPopup.setOnDismissListener(dialog -> {
                     item.amount = (int)inputPopup.numberValue;
                     item.data = inputPopup.getStringValue();
+
+                    /* show the new values in the overview */
+                    if (item.inputTypeString){
+                        localeViewHolder.value.setText(item.data);
+                    } else {
+                        localeViewHolder.value.setText(String.valueOf(item.amount));
+                    }
                 });
                 inputPopup.show();
 
