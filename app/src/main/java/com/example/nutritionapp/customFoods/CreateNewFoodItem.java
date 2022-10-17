@@ -1,5 +1,6 @@
 package com.example.nutritionapp.customFoods;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -75,45 +76,49 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
         /* add static inputs */
         ArrayList<CreateFoodNutritionSelectorItem> staticSelectors = new ArrayList<>();
-        staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString(getString(R.string.generalFoodInformationHeader)), true));
+        int stringID = R.string.generalFoodInformationHeader;
+        staticSelectors.add(new CreateFoodNutritionSelectorItem(stringID, new SpannableString(getString(stringID)), true));
 
         /* Spannables */
-        String servString = getString(R.string.servingSizeInGramLabel);
-        Spannable servingSizeSpan = new SpannableString(servString);
+        int stringIdServingSize = R.string.servingSizeInGramLabel;
+        Spannable servingSizeSpan = new SpannableString(getString(stringIdServingSize));
         servingSizeSpan.setSpan(new RelativeSizeSpan(0.8f), 13, 20, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        String enString = getString(R.string.energyInKcalLabel);
-        SpannableString energySpanString = new SpannableString(enString);
+        int stringIdEnergy = R.string.energyInKcalLabel;
+        SpannableString energySpanString = new SpannableString(getString(stringIdEnergy));
         energySpanString.setSpan(new RelativeSizeSpan(0.8f), 7, 14, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        String fibString = getString(R.string.fiberInGramLabel);
-        SpannableString fiberSpanString = new SpannableString(fibString);
+        int stringIdFiber = R.string.fiberInGramLabel;
+        SpannableString fiberSpanString = new SpannableString(getString(stringIdFiber));
         fiberSpanString.setSpan(new RelativeSizeSpan(0.8f), 6, 13, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        int stringIdName = R.string.labelFoodName;
         if(this.editMode && editFood != null){
-            staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString(getString(R.string.labelFoodName)), editFood.name, true, false));
-            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, servingSizeSpan, 100, false, false);
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(stringIdName, new SpannableString(getString(stringIdName)), editFood.name, true, false));
+            CreateFoodNutritionSelectorItem servingSize = new CreateFoodNutritionSelectorItem(db, stringIdEnergy, servingSizeSpan, 100, false, false);
             staticSelectors.add(servingSize);
-            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, energySpanString, editFood.energy, false, false);
-            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, fiberSpanString, editFood.fiber, false, false);
+            CreateFoodNutritionSelectorItem energyItemEdit = new CreateFoodNutritionSelectorItem(db, stringIdEnergy, energySpanString, editFood.energy, false, false);
+            CreateFoodNutritionSelectorItem fiberItemEdit = new CreateFoodNutritionSelectorItem(db, stringIdFiber, fiberSpanString, editFood.fiber, false, false);
             staticSelectors.add(energyItemEdit);
             staticSelectors.add(fiberItemEdit);
         }else {
-            staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString(getString(R.string.labelFoodName)), true, false));
-            staticSelectors.add(new CreateFoodNutritionSelectorItem(servingSizeSpan, false, false));
-            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem(energySpanString, false, false);
-            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem(fiberSpanString, false, false);
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(stringIdName, new SpannableString(getString(stringIdName)), true, false));
+            staticSelectors.add(new CreateFoodNutritionSelectorItem(stringIdServingSize, servingSizeSpan, false, false));
+            CreateFoodNutritionSelectorItem energyItem = new CreateFoodNutritionSelectorItem(stringIdEnergy, energySpanString, false, false);
+            CreateFoodNutritionSelectorItem fiberItem = new CreateFoodNutritionSelectorItem(stringIdFiber, fiberSpanString, false, false);
             staticSelectors.add(energyItem);
             staticSelectors.add(fiberItem);
         }
 
-        staticSelectors.add(new CreateFoodNutritionSelectorItem(new SpannableString(getString(R.string.createFoodHeaderNutrients)), true));
+        int stringIdCreateNutritionHeader = R.string.createFoodHeaderNutrients;
+        staticSelectors.add(new CreateFoodNutritionSelectorItem(stringIdCreateNutritionHeader, new SpannableString(getString(stringIdCreateNutritionHeader)), true));
 
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
         mainRv = findViewById(R.id.createFoodNewItem_rv);
         mainRv.addItemDecoration(new DividerItemDecoration(mainRv.getContext(), DividerItemDecoration.VERTICAL));
         for (NutritionElement ne : n.getElements().keySet()) {
-            String neString = getResources().getString(getStringIdentifier(this, ne.toString()));
+            int stringIdNutritionElement = getStringIdentifier(this, ne.toString());
+            String neString = getResources().getString(stringIdNutritionElement);
             String noStrPortionType = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
             String portionType =  getResources().getString(getStringIdentifier(this, noStrPortionType));
             int startPtString = neString.length() + 1;
@@ -123,9 +128,9 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
             if(this.editMode){
                 Integer presetAmount = n.getElements().get(ne);
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, neSpan, Utils.zeroIfNull(presetAmount), false, false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, stringIdNutritionElement, neSpan, Utils.zeroIfNull(presetAmount), false, false));
             }else{
-                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, neSpan, 0, false, false));
+                nutritionSelectors.add(new CreateFoodNutritionSelectorItem(db, stringIdNutritionElement, neSpan, 0, false, false));
             }
         }
         Collections.sort(nutritionSelectors);
@@ -156,6 +161,7 @@ public class CreateNewFoodItem extends AppCompatActivity {
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     private Food collectData() {
         /* this function is sensitive to the correct ordering of the array list
            must be: name-> serving size -> everything else
@@ -177,17 +183,18 @@ public class CreateNewFoodItem extends AppCompatActivity {
                 if(item.amount == -1){
                     item.amount = 0;
                 }
-                switch (item.tag.toString()) {
-                    case "Service Size":
+
+                switch (item.stringID) {
+                    case R.string.servingSizeInGramLabel:
                         this.servingSize = item.amount;  /* next level hack */
                         break;
-                    case "Energy":
+                    case R.string.energyInKcalLabel:
                         f.energy = item.amount;
                         break;
-                    case "Fiber":
+                    case R.string.fiberInGramLabel:
                         f.fiber = item.amount;
                         break;
-                    case "Name":
+                    case R.string.labelFoodName:
                         if (item.data == null || item.data.equals("")) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Name must be set.", Toast.LENGTH_LONG);
                             toast.show();

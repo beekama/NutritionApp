@@ -11,55 +11,63 @@ import com.example.nutritionapp.other.NutritionElement;
 public class CreateFoodNutritionSelectorItem implements Comparable<CreateFoodNutritionSelectorItem> {
     public final boolean header;
     public final Spannable tag;
+    public int stringID;
     public NutritionElement ne = null;
     public int amount = 0;
     public final boolean inputTypeString;
     public String data = null;
 
-    public CreateFoodNutritionSelectorItem(Spannable name, boolean header) {
+    public CreateFoodNutritionSelectorItem(int stringID, Spannable name, boolean header) {
         this.header = header;
         this.tag = name;
+        this.stringID = stringID;
         this.inputTypeString = false;
     }
 
-    public CreateFoodNutritionSelectorItem(Spannable name, boolean inputTypeString, boolean header) {
+    public CreateFoodNutritionSelectorItem(int stringID, Spannable name, boolean inputTypeString, boolean header) {
         this.header = header;
+        this.stringID = stringID;
         this.tag = name;
         this.inputTypeString = inputTypeString;
     }
 
-    public CreateFoodNutritionSelectorItem(Database db, Spannable name, int presetAmount, boolean inputTypeString, boolean header) {
+    public CreateFoodNutritionSelectorItem(Database db, int stringID, Spannable name, int presetAmount, boolean inputTypeString, boolean header) {
         this.header = header;
+        this.stringID = stringID;
         this.tag = name;
         this.amount = presetAmount;
         this.inputTypeString = inputTypeString;
     }
 
-    public CreateFoodNutritionSelectorItem(Spannable name, String presetData, boolean inputTypeString, boolean header) {
+    public CreateFoodNutritionSelectorItem(int stringID, Spannable name, String presetData, boolean inputTypeString, boolean header) {
         this.header = header;
+        this.stringID = stringID;
         this.tag = name;
         this.inputTypeString = inputTypeString;
         this.data = presetData;
     }
 
-    public CreateFoodNutritionSelectorItem(Database db, NutritionElement ne, int presetAmount, boolean inputTypeString, boolean header) {
+    public CreateFoodNutritionSelectorItem(Database db, int stringID, NutritionElement ne, int presetAmount, boolean inputTypeString, boolean header) {
         this.header = header;
+        this.stringID = stringID;
         this.ne = ne;
         this.tag = new SpannableString(ne.toString());
         this.inputTypeString = inputTypeString;
         this.amount = presetAmount;
     }
 
-    public CreateFoodNutritionSelectorItem(NutritionElement ne, String presetData, boolean inputTypeString, boolean header) {
+    public CreateFoodNutritionSelectorItem(NutritionElement ne, int stringID, String presetData, boolean inputTypeString, boolean header) {
         this.header = header;
+        this.stringID = stringID;
         this.ne = ne;
         this.tag = new SpannableString(ne.toString());
         this.inputTypeString = inputTypeString;
         this.data = presetData;
     }
 
-    public CreateFoodNutritionSelectorItem(NutritionElement ne, boolean inputTypeString, boolean header) {
+    public CreateFoodNutritionSelectorItem(NutritionElement ne, int stringID, boolean inputTypeString, boolean header) {
         this.header = header;
+        this.stringID = stringID;
         this.ne = ne;
         this.tag = new SpannableString(ne.toString());
         this.inputTypeString = inputTypeString;
