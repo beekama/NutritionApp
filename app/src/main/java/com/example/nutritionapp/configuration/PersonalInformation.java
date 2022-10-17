@@ -152,9 +152,11 @@ public class PersonalInformation extends AppCompatActivity implements UpdateConf
                         } catch (IOException e) {
                             Toast error = Toast.makeText(this,"IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
                             error.show();
+                            break;
                         }catch (JSONException e) {
                             Toast error = Toast.makeText(this,"Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
                             error.show();
+                            break;
                         }
                     }
 
