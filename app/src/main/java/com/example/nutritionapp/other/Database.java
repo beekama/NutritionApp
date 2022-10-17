@@ -1212,10 +1212,10 @@ public class Database {
         ArrayList<PortionType> portionTypes = portionsForFood(food);
         if(portionTypes.contains(PortionType.ML)){
             return PortionType.ML;
-        }else if(portionTypes.contains(PortionType.GRAM)){
-            return PortionType.GRAM;
-        }else{
+        }else if(portionTypes.size() > 0){
             return portionTypes.get(0);
+        }else{
+            return PortionType.GRAM;
         }
     }
 
