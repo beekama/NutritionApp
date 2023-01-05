@@ -40,6 +40,8 @@ import java.util.TreeMap;
 import static android.database.sqlite.SQLiteDatabase.NO_LOCALIZED_COLLATORS;
 import static android.database.sqlite.SQLiteDatabase.OPEN_READWRITE;
 
+import androidx.fragment.app.Fragment;
+
 public class Database {
 
     public static final String ASSIGNED_PORTION = "assigned_portion";
@@ -69,11 +71,25 @@ public class Database {
     private static final ArrayList<String> foodNutrientTableIds = new ArrayList<>();
     private final HashMap<String, Food> foodCache = new HashMap<>();
     private final Activity srcActivity;
+    private final Fragment srcFragment;
     private static final HashMap<String, String> nutritionNativeUnitMap = new HashMap<>();
     String targetPath;
 
     public Database(Activity srcActivity) {
         this.srcActivity = srcActivity;
+        this.srcFragment = null;
+        if (db == null) {
+            createDatabase(true);
+            db = SQLiteDatabase.openDatabase(targetPath, null, NO_LOCALIZED_COLLATORS | OPEN_READWRITE);
+        }
+        if (fdcIdToDbNumber.isEmpty()) {
+            generateNutritionTableSelectionMap();
+        }
+    }
+
+    public Database(Fragment srcFragment) {
+        this.srcActivity = null;
+        this.srcFragment = srcFragment;
         if (db == null) {
             createDatabase(true);
             db = SQLiteDatabase.openDatabase(targetPath, null, NO_LOCALIZED_COLLATORS | OPEN_READWRITE);

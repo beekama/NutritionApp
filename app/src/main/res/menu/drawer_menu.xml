@@ -4,6 +4,8 @@
     tools:showIn="navigation_view">
 
         <group android:checkableBehavior="single">
+            <item android:id="@+id/startPageFragment"
+                android:title= "@string/mainActivityToolbarTitle"/>
             <item android:id="@+id/nav_foodJournal"
                 android:title= "@string/foodJournalButtonTitle"/>
             <item android:id="@+id/nav_customFoods"
@@ -16,7 +18,7 @@
 
         <item android:title="@string/sideMenuAboutSectionName">
             <menu>
-                <item android:id="@+id/nav_about"
+                <item android:id="@+id/aboutPageFragment"
                     android:title="@string/about" />
                 <item android:id="@+id/nav_weight_tracking"
                     android:title="@string/weight_history" />

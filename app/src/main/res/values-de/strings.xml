@@ -29,7 +29,7 @@
     <string name="foodJournalButtonTitle">Logbuch</string>
     <string name="foodJournalButtonLeftTag">Füge Mahlzeiten hinzu oder betrachte deine Einträge.</string>
 
-    <string name="mainActivityToolbarTitle">HOME</string>
+    <string name="mainActivityToolbarTitle">Home</string>
 
     <string name="age_in_years">Alter in Jahren:</string>
     <string name="height">Größe:</string>

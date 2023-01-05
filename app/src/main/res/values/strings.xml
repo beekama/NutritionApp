@@ -29,7 +29,7 @@
     <string name="foodJournalButtonTitle">Food Journal</string>
     <string name="foodJournalButtonLeftTag">Log foods to your journal or check your history.</string>
 
-    <string name="mainActivityToolbarTitle">HOME</string>
+    <string name="mainActivityToolbarTitle">Home</string>
 
     <string name="age_in_years">Age in years</string>
     <string name="height">Height:</string>
@@ -191,4 +191,6 @@
     <string name="generalFoodInformationHeader">General Food Information</string>
     <string name="labelFoodName">Name</string>
     <string name="createFoodHeaderNutrients">Nutrients</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

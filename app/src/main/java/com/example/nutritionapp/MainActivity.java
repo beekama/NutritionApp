@@ -7,86 +7,98 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.customFoods.CustomFoodOverview;
-import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.LocaleHelper;
 import com.example.nutritionapp.other.Utils;
-import com.example.nutritionapp.recommendation.RecommendationProteinListAdapter;
 import com.example.nutritionapp.recommendation.Recommendations;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
+import com.example.nutritionapp.ui.StartPageFragment;
 import com.google.android.material.navigation.NavigationView;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity {
+    DrawerLayout drawer;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout drawer;
-    private final List<Integer> colors = new ArrayList<>();
-    private Database db;
-    private LocalDate currentDateParsed;
-    private ProgressBar energyBar;
-    private TextView energyBarText;
-    private PieChart pieChart;
-    private RecyclerView chartList;
-
-    /* Detect language change from Configuration-class */
-    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String broadcastMessage = intent.getAction();
-            if (broadcastMessage.equals("LANGUAGE_CHANGED")){
-                recreate();
-            }
-        }
-    };
-
+    public  MainActivity(){
+        super(R.layout.app_activity_main);
+    }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
 
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_activity_main);
-
-        /* load database on Application start */
-        db = new Database(this);
-        currentDateParsed = LocalDate.now();
-
-        /* try to set language according to db, if empty set db to system-default */
-        String savedLanguage = db.getLanguagePref();
-        if (savedLanguage != null) LocaleHelper.setDefaultLanguage(this, savedLanguage);
-        else db.setLanguagePref(LocaleHelper.getLanguage(this));
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.main_fragment_container, StartPageFragment.class , null)
+                    .commit();
+        }
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        (this).setSupportActionBar(toolbar);
+
 
         /* drawer (navigation sidebar) */
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_foodJournal) {
+                Intent journal = new Intent(this, FoodJournalOverview.class);
+                startActivity(journal);
+            } else if (itemId == R.id.nav_configuration) {
+                Intent configuration = new Intent(this, PersonalInformation.class);
+                startActivity(configuration);
+            } else if (itemId == R.id.nav_customFoods) {
+                Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
+                startActivity(createCustomFood);
+            } else if (itemId == R.id.nav_analysis) {
+                Intent analysis = new Intent(this, Recommendations.class);
+                startActivity(analysis);
+            } else if (itemId == R.id.startPageFragment) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                try {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container,
+                                    (Fragment) StartPageFragment.class.newInstance())
+                            //.addToBackStack("tag")
+                            .commit();
+                } catch (IllegalAccessException | InstantiationException e) {
+                    e.printStackTrace();
+                }
+            } else if (itemId == R.id.aboutPageFragment) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                try {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container,
+                                    (Fragment) AboutPageFragment.class.newInstance())
+                            .addToBackStack("tag")
+                            .commit();
+                } catch (IllegalAccessException | InstantiationException e) {
+                    e.printStackTrace();
+                }
+            } else if (itemId == R.id.nav_weight_tracking) {
+                Intent weight = new Intent(this, WeightTracking.class);
+                startActivity(weight);
+            } else {
+                Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
+            }
+
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -111,174 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
         });
-
-        /* Language */
-        String currentLanguage = LocaleHelper.getLanguage(this);
-        Button setLanguage = navHeader.findViewById(R.id.languageSelect);
-        setLanguage.setText(R.string.otherLanguage);
-        setLanguage.setOnClickListener(v -> {
-            switch (currentLanguage) {
-                case "en":
-                    LocaleHelper.setLocale(this, "de");
-                    db.setLanguagePref("de");
-                    this.recreate();
-                    break;
-                case "de":
-                    LocaleHelper.setLocale(this, "en");
-                    db.setLanguagePref("en");
-                    this.recreate();
-                    break;
-            }
-        });
-
-        /* Listen for LanguageChanged-notification from PersonalInformation */
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("LANGUAGE_CHANGED");
-        registerReceiver(broadcastReceiver, filter);
-
-
-        /* ---- JOURNAL ------*/
-        View foodJournalButtonView = findViewById(R.id.food_journal);
-        /* FIXME: Click Animation for TILE Issue#38 */
-        // foodJournalButtonView.setBackgroundResource(R.drawable.button_ripple_animation_blue);
-
-
-        TextView foodJournalButtonTitle = foodJournalButtonView.findViewById(R.id.recommendation_button_title);
-        ImageButton foodJournalButtonAdd = foodJournalButtonView.findViewById(R.id.button_add);
-        ImageButton foodJournalButtonViewJournal = foodJournalButtonView.findViewById(R.id.button_view_journal);
-
-        foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
-
-        foodJournalButtonAdd.setOnClickListener(v -> {
-            Intent add = new Intent(v.getContext(), FoodGroupOverview.class);
-            startActivity(add, Utils.getDefaultTransition(this));
-        });
-
-        foodJournalButtonViewJournal.setOnClickListener(v -> {
-            Intent viewJournal = new Intent(v.getContext(), FoodJournalOverview.class);
-            startActivity(viewJournal, Utils.getDefaultTransition(this));
-        });
-
-
-        /* ---- CONFIGURATION ----- */
-        View configButtonView = findViewById(R.id.config);
-        /* FIXME: Click Animation for TILE Issue#38 */
-        // configButtonView.setBackgroundResource(R.drawable.button_ripple_animation_orange);
-
-        TextView configButtonTitle = configButtonView.findViewById(R.id.recommendation_button_title);
-        TextView configButtonLeftTag = configButtonView.findViewById(R.id.buttonDescription);
-
-        configButtonTitle.setText(R.string.configButtonTitle);
-        configButtonLeftTag.setText(R.string.configButtonLeftTag);
-
-        configButtonView.setOnClickListener(v -> {
-            Intent configuration = new Intent(v.getContext(), PersonalInformation.class);
-            startActivity(configuration, Utils.getDefaultTransition(this));
-        });
-
-        /* ---- CUSTOM FOOD CREATION ---- */
-        View createCustomFoodsView = findViewById(R.id.create_foods);
-        /* FIXME: Click Animation for TILE Issue#38 */
-        // createCustomFoodsView.setBackgroundResource(R.drawable.button_ripple_animation_purple);
-
-        TextView createCustomFoodButtonTitle = createCustomFoodsView.findViewById(R.id.recommendation_button_title);
-        TextView createCustomFoodTagLef = createCustomFoodsView.findViewById(R.id.buttonDescription);
-
-        createCustomFoodButtonTitle.setText(R.string.createFoodsButton);
-        createCustomFoodTagLef.setText(R.string.createFoodsButtonLeftText);
-
-        createCustomFoodsView.setOnClickListener(v -> {
-            Intent createCustomFood = new Intent(v.getContext(), CustomFoodOverview.class);
-            startActivity(createCustomFood, Utils.getDefaultTransition(this));
-        });
-
-        /* ---- RECOMMENDATION ---- */
-        View recommendationTileView = findViewById(R.id.recommendations);
-        TextView analysisButtonTitle = recommendationTileView.findViewById(R.id.recommendation_button_title);
-        Button showAnalysisButton = recommendationTileView.findViewById(R.id.button_recommendation);
-
-        energyBar = recommendationTileView.findViewById(R.id.progressbar_main);
-        energyBarText = recommendationTileView.findViewById(R.id.progressbarTV_main);
-
-        analysisButtonTitle.setText(R.string.analysisButtonTitle);
-        showAnalysisButton.setText(R.string.showAnalysis);
-
-        /* get logged foods of day */
-        Recommendations.setProgressBar(currentDateParsed, this.db, this.energyBar, this.energyBarText, this);
-
-        recommendationTileView.setOnClickListener(v -> {
-            Intent analysis = new Intent(v.getContext(), Recommendations.class);
-            startActivity(analysis, Utils.getDefaultTransition(this));
-        });
-
-        showAnalysisButton.setOnClickListener(v -> {
-            Intent analysis = new Intent(v.getContext(), Recommendations.class);
-            startActivity(analysis, Utils.getDefaultTransition(this));
-        });
-
-        /* PieChart */
-        pieChart = findViewById(R.id.piChartNutrition);
-        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsed, this.db, this.colors);
-        Recommendations.visualSetupPieChart(pieAndListData, pieChart);
-
-        /* PieChartList with percent protein, carbs, fat*/
-        chartList = findViewById(R.id.chartList);
-        chartList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        Recommendations.setChartSupportingList(pieChart, pieAndListData, this, chartList);
     }
 
-    @Override
-    protected void attachBaseContext(Context base){
-        super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
-    }
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        recreate();
-    }
-
-    protected void onResume() {
-        super.onResume();
-        Recommendations.setProgressBar(currentDateParsed, this.db, this.energyBar, this.energyBarText, this);
-        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsed, this.db, this.colors);
-        pieAndListData.first.setDrawValues(false);
-        pieChart.setData(pieAndListData.first);
-        pieChart.invalidate();
-        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), pieAndListData.first, pieAndListData.second);
-        chartList.setAdapter(adapter);
-    }
-
-    /* goto selected item in navigation sidebar */
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.nav_foodJournal) {
-            Intent journal = new Intent(this, FoodJournalOverview.class);
-            startActivity(journal, Utils.getDefaultTransition(this));
-        } else if (itemId == R.id.nav_configuration) {
-            Intent configuration = new Intent(this, PersonalInformation.class);
-            startActivity(configuration, Utils.getDefaultTransition(this));
-        } else if (itemId == R.id.nav_customFoods) {
-            Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
-            startActivity(createCustomFood, Utils.getDefaultTransition(this));
-        } else if (itemId == R.id.nav_analysis) {
-            Intent analysis = new Intent(this, Recommendations.class);
-            startActivity(analysis, Utils.getDefaultTransition(this));
-        } else if (itemId == R.id.nav_about) {
-            Intent about = new Intent(this, AboutPage.class);
-            startActivity(about);
-        } else if (itemId == R.id.nav_weight_tracking) {
-            Intent weight = new Intent(this, WeightTracking.class);
-            startActivity(weight);
-        } else {
-            Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
-        }
-
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     /* toggle navigation sidebar */
     @Override
@@ -289,5 +135,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+//        /* try to set language according to db, if empty set db to system-default */
+//        String savedLanguage = db.getLanguagePref();
+//        if (savedLanguage != null) LocaleHelper.setDefaultLanguage(this, savedLanguage);
+//        else db.setLanguagePref(LocaleHelper.getLanguage(this));
+
+//        /* Language */
+//        String currentLanguage = LocaleHelper.getLanguage(this);
+//        Button setLanguage = navHeader.findViewById(R.id.languageSelect);
+//        setLanguage.setText(R.string.otherLanguage);
+//        setLanguage.setOnClickListener(v -> {
+//            switch (currentLanguage) {
+//                case "en":
+//                    LocaleHelper.setLocale(this, "de");
+//                    db.setLanguagePref("de");
+//                    this.recreate();
+//                    break;
+//                case "de":
+//                    LocaleHelper.setLocale(this, "en");
+//                    db.setLanguagePref("en");
+//                    this.recreate();
+//                    break;
+//            }
+//        });
+//
+//        /* Listen for LanguageChanged-notification from PersonalInformation */
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("LANGUAGE_CHANGED");
+//        registerReceiver(broadcastReceiver, filter);
+//    }
+//
+//    @Override
+//    protected void attachBaseContext(Context base){
+//        super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
+//    }
+//
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        recreate();
+//    }
+//
+//    protected void onResume() {
+//        super.onResume();
+//        Recommendations.setProgressBar(currentDateParsed, this.db, this.energyBar, this.energyBarText, this);
+//        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsed, this.db, this.colors);
+//        pieAndListData.first.setDrawValues(false);
+//        pieChart.setData(pieAndListData.first);
+//        pieChart.invalidate();
+//        RecyclerView.Adapter<?> adapter = new RecommendationProteinListAdapter(getApplicationContext(), pieAndListData.first, pieAndListData.second);
+//        chartList.setAdapter(adapter);
+//    }
+//
+
 
 }
