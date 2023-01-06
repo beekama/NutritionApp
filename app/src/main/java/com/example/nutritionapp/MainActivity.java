@@ -68,30 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent analysis = new Intent(this, Recommendations.class);
                 startActivity(analysis);
             } else if (itemId == R.id.startPageFragment) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                try {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container,
-                                    (Fragment) StartPageFragment.class.newInstance())
-                            //.addToBackStack("tag")
-                            .commit();
-                } catch (IllegalAccessException | InstantiationException e) {
-                    e.printStackTrace();
-                }
+                navigate(StartPageFragment.class);
             } else if (itemId == R.id.aboutPageFragment) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                try {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container,
-                                    (Fragment) AboutPageFragment.class.newInstance())
-                            .addToBackStack("tag")
-                            .commit();
-                } catch (IllegalAccessException | InstantiationException e) {
-                    e.printStackTrace();
-                }
+                navigate(AboutPageFragment.class);
             } else if (itemId == R.id.nav_weight_tracking) {
-                Intent weight = new Intent(this, WeightTracking.class);
-                startActivity(weight);
+                navigate(WeightTrackingFragment.class);
             } else {
                 Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
             }
@@ -123,6 +104,19 @@ public class MainActivity extends AppCompatActivity {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
         });
+    }
+
+    private void navigate(Class fragmentClass){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        try {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container,
+                            (Fragment) fragmentClass.newInstance())
+                    .addToBackStack(null)
+                    .commit();
+        } catch (IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
 

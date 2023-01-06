@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_startPageFragment_to_aboutPageFragment"
             app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_startPageFragment_to_weightTrackingFragment"
+            app:destination="@id/weightTrackingFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutPageFragment"
@@ -20,6 +23,21 @@
         tools:layout="@layout/fragment_about_page" >
         <action
             android:id="@+id/action_aboutPageFragment_to_startPageFragment"
+            app:destination="@id/startPageFragment" />
+        <action
+            android:id="@+id/action_aboutPageFragment_to_weightTrackingFragment"
+            app:destination="@id/weightTrackingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weightTrackingFragment"
+        android:name="com.example.nutritionapp.WeightTrackingFragment"
+        android:label="fragment_weight_tracking"
+        tools:layout="@layout/fragment_weight_tracking" >
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_aboutPageFragment"
+            app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_startPageFragment"
             app:destination="@id/startPageFragment" />
     </fragment>
 </navigation>

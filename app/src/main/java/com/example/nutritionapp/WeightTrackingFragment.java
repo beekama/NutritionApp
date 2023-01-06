@@ -1,16 +1,15 @@
 package com.example.nutritionapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +19,10 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Utils;
@@ -44,7 +43,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class WeightTracking extends AppCompatActivity implements TransferWeight,  UpdatePeriod{
+
+public class WeightTrackingFragment extends Fragment implements TransferWeight, UpdatePeriod {
 
     private Database db;
     private Pair<String, Integer> observationPeriod;
@@ -60,22 +60,33 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
     private Button period;
     protected ArrayList<Pair<String, Integer>> periods;
 
+
+    public WeightTrackingFragment() {
+        // Required empty public constructor
+    }
+
+    public static WeightTrackingFragment newInstance(String param1, String param2) {
+        WeightTrackingFragment fragment = new WeightTrackingFragment();
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_weight_tracking);
 
-        db = new Database(this);
+        db = new Database((MainActivity) getActivity());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.weightTracking);
-        setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener((v -> finishAfterTransition()));
-        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_weight_tracking, container, false);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+
 
         observationPeriod = new Pair<>(getString(R.string.oneWeek), 7);
         /* Standard Periods */
@@ -86,13 +97,13 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         periods.add(new Pair<>(getString(R.string.oneYear), 365));
 
         /* drop-down chart for setting period: */
-        period = findViewById(R.id.popupButton);
+        period = view.findViewById(R.id.popupButton);
         period.setBackgroundResource(R.drawable.spinner_outline);
         period.setText(observationPeriod.first);
         period.setOnClickListener(v -> popupMenu(toolbar));
 
         /* chart */
-        chartWeight = findViewById(R.id.chartWeight);
+        chartWeight = view.findViewById(R.id.chartWeight);
         db.createWeightsTableIfNotExist();
         weightAll = db.getWeightAll();
 
@@ -106,24 +117,24 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         chartWeight.invalidate();
 
 
-        weights = findViewById(R.id.weightList);
-        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        weights = view.findViewById(R.id.weightList);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
 
-        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.divider), true);
         weights.addItemDecoration(dividerItemDecorator);
 
-        foodRec = new WeightTrackingWeightListAdapter(getApplicationContext(), weightAll, this);
+        foodRec = new WeightTrackingWeightListAdapter(getContext(), weightAll, this);
         weights.setAdapter(foodRec);
 
         /* adding weight */
-        dateView = findViewById(R.id.addingValueDate);
+        dateView = view.findViewById(R.id.addingValueDate);
         dateView.setText(currentDateParsed.format(Utils.sqliteDateFormat));
         dateView.setOnClickListener(v -> {
             dateUpdateDialog(currentDateParsed);
         });
 
-        editWeight = findViewById(R.id.addingValueWeight);
+        editWeight = view.findViewById(R.id.addingValueWeight);
         editWeight.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 collectData(db, editWeight, weightAll);
@@ -134,7 +145,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
             return false;
         });
 
-        ConstraintLayout layout = findViewById(R.id.weight_tracking);
+        return view;
     }
 
     void updatePageContent() {
@@ -144,15 +155,15 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         foodRec.notifyDataSetChanged();
     }
 
-    private void popupMenu(ViewGroup parent){
+    private void popupMenu(ViewGroup parent) {
 
-        final View popupMenuView = LayoutInflater.from(this).inflate(R.layout.weight_tracking_timeframe_dropdown, parent, false);
+        final View popupMenuView = LayoutInflater.from(getContext()).inflate(R.layout.weight_tracking_timeframe_dropdown, parent, false);
         final PopupWindow popupWindow = new PopupWindow(popupMenuView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         RecyclerView recyclerView = popupMenuView.findViewById(R.id.periodItem);
 
-        WeightTrackingDropdownRVAdapter adapter = new WeightTrackingDropdownRVAdapter(getApplicationContext(), periods, this);
-        LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getApplicationContext());
+        WeightTrackingDropdownRVAdapter adapter = new WeightTrackingDropdownRVAdapter(getContext(), periods, this);
+        LinearLayoutManager periodLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(periodLayoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -226,7 +237,7 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
     }
 
     private void dateUpdateDialog(final LocalDate localDate) {
-        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
             LocalDate selected = LocalDate.of(year, Utils.monthAndroidToDefault(month), dayOfMonth);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
             if (selected != localDate) {
@@ -245,22 +256,12 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
             db.addWeightAtDate(weightInGram, weightAddingDate);
             updatePageContent();
         } catch (NumberFormatException e) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Need Numeric Value as Input for Weight - consider using a '.' instead of a ','", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getContext(), "Need Numeric Value as Input for Weight - consider using a '.' instead of a ','", Toast.LENGTH_LONG);
             toast.show();
-        } catch (IllegalArgumentException e){
-            Toast toast = Toast.makeText(getApplicationContext(), "Value for Weight must be between 40 and 600", Toast.LENGTH_LONG);
+        } catch (IllegalArgumentException e) {
+            Toast toast = Toast.makeText(getContext(), "Value for Weight must be between 40 and 600", Toast.LENGTH_LONG);
             toast.show();
         }
-    }
-
-    private void hideKeyboard() {
-        View focusedView = getCurrentFocus();
-        if (focusedView == null) {
-            return;
-        }
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(focusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        focusedView.clearFocus();
     }
 
     @Override
@@ -268,5 +269,14 @@ public class WeightTracking extends AppCompatActivity implements TransferWeight,
         observationPeriod = period;
         updatePageContent();
         this.period.setText(observationPeriod.first);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = getActivity().getCurrentFocus();
+        if (view == null) {
+            view = new View(getActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
