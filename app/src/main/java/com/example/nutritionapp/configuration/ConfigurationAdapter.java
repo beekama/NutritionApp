@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.WeightTrackingFragment;
+import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.example.nutritionapp.other.Database;
 
@@ -112,16 +113,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                 case WEIGHT:
                     itemViewHolder.root.setOnClickListener(v-> {
                         Class<WeightTrackingFragment> weightFragmentClass = WeightTrackingFragment.class;
-                        FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
-                        try{
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.main_fragment_container, weightFragmentClass.newInstance())
-                                    .addToBackStack(null)
-                                    .commit();
-                        } catch (IllegalAccessException | InstantiationException e){
-                            e.printStackTrace();
-                        }
-
+                        Utils.navigate(weightFragmentClass, (MainActivity) context);
                     });
                     break;
                 case BMI:

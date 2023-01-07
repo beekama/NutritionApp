@@ -9,6 +9,13 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.example.nutritionapp.MainActivity;
+import com.example.nutritionapp.R;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -193,5 +200,18 @@ public class Utils {
             string = string.toLowerCase();
         }
         return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
+    public static void navigate(Class fragmentClass, AppCompatActivity activity){
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        try {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container,
+                            (Fragment) fragmentClass.newInstance())
+                    .addToBackStack(null)
+                    .commit();
+        } catch (IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 }

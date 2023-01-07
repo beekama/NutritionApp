@@ -1,5 +1,7 @@
 package com.example.nutritionapp;
 
+import static com.example.nutritionapp.other.Utils.navigate;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -18,6 +20,7 @@ import android.widget.ImageButton;
 
 import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
+import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.example.nutritionapp.ui.AboutPageFragment;
 import com.example.nutritionapp.ui.ConfigurationFragment;
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent journal = new Intent(this, FoodJournalOverview.class);
                 startActivity(journal);
             } else if (itemId == R.id.nav_configuration) {
-                navigate(ConfigurationFragment.class);
+                navigate(ConfigurationFragment.class, this);
             } else if (itemId == R.id.nav_customFoods) {
                 Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
                 startActivity(createCustomFood);
@@ -63,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent analysis = new Intent(this, Recommendations.class);
                 startActivity(analysis);
             } else if (itemId == R.id.startPageFragment) {
-                navigate(StartPageFragment.class);
+                navigate(StartPageFragment.class, this);
             } else if (itemId == R.id.aboutPageFragment) {
-                navigate(AboutPageFragment.class);
+                navigate(AboutPageFragment.class, this);
             } else if (itemId == R.id.nav_weight_tracking) {
-                navigate(WeightTrackingFragment.class);
+                navigate(WeightTrackingFragment.class, this);
             } else {
                 Log.wtf("Click", "Unknown ID for onNavigationItemSelected: " + item.getItemId());
             }
@@ -99,19 +102,6 @@ public class MainActivity extends AppCompatActivity {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
         });
-    }
-
-    private void navigate(Class fragmentClass){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        try {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_container,
-                            (Fragment) fragmentClass.newInstance())
-                    .addToBackStack(null)
-                    .commit();
-        } catch (IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-        }
     }
 
 
