@@ -20,7 +20,7 @@ public class NutritionOverview extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.journal);
+        setContentView(R.layout.fragment_journal);
 
         Intent intent = getIntent();
         String startDate = intent.getStringExtra(ActivityExtraNames.START_DATE);

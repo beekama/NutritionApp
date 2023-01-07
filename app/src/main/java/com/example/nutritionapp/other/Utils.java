@@ -33,7 +33,7 @@ public class Utils {
     public static final DateTimeFormatter sqliteDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter sqliteTimeFormat = DateTimeFormatter.ofPattern("HH:mm");
 
-
+    public static final int WRONG_REQUEST_CODE = -1;
     public static final int FOOD_GROUP_DETAILS_ID = 1;
     private static final String RATIO_SEPARATOR = "/";
 

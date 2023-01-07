@@ -1,4 +1,4 @@
-package com.example.nutritionapp;
+package com.example.nutritionapp.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -24,6 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.nutritionapp.DividerItemDecorator;
+import com.example.nutritionapp.MainActivity;
+import com.example.nutritionapp.R;
+import com.example.nutritionapp.TransferWeight;
+import com.example.nutritionapp.UpdatePeriod;
+import com.example.nutritionapp.WeightTrackingDropdownRVAdapter;
+import com.example.nutritionapp.WeightTrackingWeightListAdapter;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Utils;
 import com.github.mikephil.charting.charts.LineChart;

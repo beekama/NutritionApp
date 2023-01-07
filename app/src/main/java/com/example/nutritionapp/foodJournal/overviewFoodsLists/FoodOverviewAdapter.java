@@ -252,6 +252,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             foodsTextView.setText(allFoodsStringBuilder.toString());
             foodsTextView.setOnClickListener(view -> {
                 Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
+                target.putExtra("REQUEST_CODE", Utils.FOOD_GROUP_DETAILS_ID);
                 target.putExtra(ActivityExtraNames.GROUP_ID, item.groupId);
                 parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);
             });

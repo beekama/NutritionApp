@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_startPageFragment_to_configurationFragment"
             app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_startPageFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutPageFragment"
@@ -33,10 +36,13 @@
         <action
             android:id="@+id/action_aboutPageFragment_to_configurationFragment"
             app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_aboutPageFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightTrackingFragment"
-        android:name="com.example.nutritionapp.WeightTrackingFragment"
+        android:name="com.example.nutritionapp.ui.WeightTrackingFragment"
         android:label="fragment_weight_tracking"
         tools:layout="@layout/fragment_weight_tracking" >
         <action
@@ -48,6 +54,15 @@
         <action
             android:id="@+id/action_weightTrackingFragment_to_configurationFragment"
             app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_journalFragment2"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_journalFragment3"
+            app:destination="@id/journalFragment" />
     </fragment>
     <fragment
         android:id="@+id/configurationFragment"
@@ -59,6 +74,27 @@
             app:destination="@id/startPageFragment" />
         <action
             android:id="@+id/action_configurationFragment_to_aboutPageFragment"
+            app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_configurationFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/journalFragment"
+        android:name="com.example.nutritionapp.ui.JournalFragment"
+        android:label="fragment_journal"
+        tools:layout="@layout/fragment_journal" >
+        <action
+            android:id="@+id/action_journalFragment_to_startPageFragment"
+            app:destination="@id/startPageFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_configurationFragment"
+            app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_weightTrackingFragment"
+            app:destination="@id/weightTrackingFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_aboutPageFragment"
             app:destination="@id/aboutPageFragment" />
     </fragment>
 </navigation>

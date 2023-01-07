@@ -11,14 +11,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.nutritionapp.MainActivity;
-import com.example.nutritionapp.WeightTrackingFragment;
+import com.example.nutritionapp.ui.WeightTrackingFragment;
 import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.example.nutritionapp.other.Database;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;

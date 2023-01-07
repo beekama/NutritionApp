@@ -15,17 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nutritionapp.JournalFragment;
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.deprecated.PersonalInformation;
 import com.example.nutritionapp.customFoods.CustomFoodOverview;
-import com.example.nutritionapp.foodJournal.FoodGroupOverview;
-import com.example.nutritionapp.foodJournal.FoodJournalOverview;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.github.mikephil.charting.charts.PieChart;

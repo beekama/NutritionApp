@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -19,12 +17,12 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.nutritionapp.customFoods.CustomFoodOverview;
-import com.example.nutritionapp.foodJournal.FoodJournalOverview;
-import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.example.nutritionapp.ui.AboutPageFragment;
 import com.example.nutritionapp.ui.ConfigurationFragment;
+import com.example.nutritionapp.ui.JournalFragment;
 import com.example.nutritionapp.ui.StartPageFragment;
+import com.example.nutritionapp.ui.WeightTrackingFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_foodJournal) {
-                Intent journal = new Intent(this, FoodJournalOverview.class);
-                startActivity(journal);
+                navigate(JournalFragment.class, this);
             } else if (itemId == R.id.nav_configuration) {
                 navigate(ConfigurationFragment.class, this);
             } else if (itemId == R.id.nav_customFoods) {

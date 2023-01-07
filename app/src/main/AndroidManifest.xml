@@ -14,7 +14,6 @@
         <activity android:name=".recommendation.Recommendations" />
         <activity android:name=".customFoods.CreateNewFoodItem" />
         <activity android:name=".customFoods.CustomFoodOverview" />
-        <activity android:name=".foodJournal.FoodJournalOverview" />
         <activity android:name=".foodJournal.FoodGroupOverview" />
         <activity
             android:name=".MainActivity"

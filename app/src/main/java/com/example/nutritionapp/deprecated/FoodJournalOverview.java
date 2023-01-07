@@ -1,16 +1,11 @@
-package com.example.nutritionapp.foodJournal;
+package com.example.nutritionapp.deprecated;
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
@@ -46,33 +41,33 @@ public class FoodJournalOverview extends AppCompatActivity {
         setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.journal);
+        setContentView(R.layout.fragment_journal);
         Database db = new Database(this);
 
         /* retrieve items */
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
-        ImageButton addStuff = findViewById(R.id.toolbar_forward);
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.journalToolbarText);
-        setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener(v -> finishAfterTransition());
-        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        addStuff.setImageResource(R.drawable.add_circle_filled);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+//        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
+//        ImageButton addStuff = findViewById(R.id.toolbar_forward);
+//        toolbar.setTitle("");
+//        toolbarTitle.setText(R.string.journalToolbarText);
+//        setSupportActionBar(toolbar);
+//        toolbarBack.setOnClickListener(v -> finishAfterTransition());
+//        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+//        addStuff.setImageResource(R.drawable.add_circle_filled);
 
         /* set adapter */
         /* this is a list of layout of type journal_day_header, which contains the day-header and
         a nested sublist of the foods (food groups) on this */
 
-        RecyclerView mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
-        adapter = new FoodOverviewAdapter(this, foodDataList, mainListOfFoodsWithDayHeaders, db,this, dataInvalidationMap);
-        LinearLayoutManager mainListLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
-        mainListOfFoodsWithDayHeaders.setAdapter(adapter);
-
-        Intent foodGroupDetails = new Intent(addStuff.getContext(), FoodGroupOverview.class);
-        addStuff.setOnClickListener(v -> startActivityForResult(foodGroupDetails, Utils.FOOD_GROUP_DETAILS_ID));
+//        RecyclerView mainListOfFoodsWithDayHeaders = findViewById(R.id.mainList);
+//        adapter = new FoodOverviewAdapter(this, foodDataList, mainListOfFoodsWithDayHeaders, db,this, dataInvalidationMap);
+//        LinearLayoutManager mainListLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+//        mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
+//        mainListOfFoodsWithDayHeaders.setAdapter(adapter);
+//
+//        Intent foodGroupDetails = new Intent(addStuff.getContext(), FoodGroupOverview.class);
+//        addStuff.setOnClickListener(v -> startActivityForResult(foodGroupDetails, Utils.FOOD_GROUP_DETAILS_ID));
     }
 
     @Override
