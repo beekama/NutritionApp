@@ -1,7 +1,6 @@
 package com.example.nutritionapp.configuration;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.InputType;
@@ -16,8 +15,8 @@ import com.example.nutritionapp.WeightTrackingFragment;
 import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.example.nutritionapp.other.Database;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,19 +33,23 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     final Database db;
-    private ConfigurationAdapter.CallBack callBack;
-    private Fragment parentFragment;
+    private final ConfigurationAdapter.CallBack callBack;
+    private final ActivityResultLauncher<Intent> importLauncher;
+    private final ActivityResultLauncher<Intent> exportLauncher;
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
 
-    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, ConfigurationAdapter.CallBack callBack, Fragment parentFragment) {
+    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db,
+                                ConfigurationAdapter.CallBack callBack, ActivityResultLauncher<Intent> exportLauncher,
+                                ActivityResultLauncher<Intent> importLauncher) {
         this.context = context;
         this.items = items;
         this.db = db;
         this.callBack = callBack;
-        this.parentFragment = parentFragment;
+        this.exportLauncher = exportLauncher;
+        this.importLauncher = importLauncher;
     }
 
     @NonNull
@@ -108,11 +111,11 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     break;
                 case WEIGHT:
                     itemViewHolder.root.setOnClickListener(v-> {
-                        Class weightFragmentClass = WeightTrackingFragment.class;
+                        Class<WeightTrackingFragment> weightFragmentClass = WeightTrackingFragment.class;
                         FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
                         try{
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.main_fragment_container, (Fragment) weightFragmentClass.newInstance())
+                                    .replace(R.id.main_fragment_container, weightFragmentClass.newInstance())
                                     .addToBackStack(null)
                                     .commit();
                         } catch (IllegalAccessException | InstantiationException e){
@@ -172,13 +175,10 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
             fileDialog.setType("text/plain");
 
             /* start file dialog activity */
-            Activity parentActivity = (Activity) context;
             if(action.equals(Intent.ACTION_OPEN_DOCUMENT)){
-                parentFragment.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
-                //parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
+                importLauncher.launch(fileDialog);
             }else {
-                parentFragment.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
-               // parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_EXPORT);
+                exportLauncher.launch(fileDialog);
             }
 
         });

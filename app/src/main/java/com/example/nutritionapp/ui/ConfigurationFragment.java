@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +36,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ConfigurationFragment extends Fragment {
@@ -47,12 +51,14 @@ public class ConfigurationFragment extends Fragment {
     public static final int FAT_TARGET = 20; //84;
     private Database db;
     private View view;
+    public ActivityResultLauncher<Intent> onImportDialogResultLauncher;
+    public ActivityResultLauncher<Intent> onExportDialogResultLauncher;
 
     public enum DataType {
         HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
     }
 
-    private ConfigurationAdapter.CallBack callBack = () -> {
+    private final ConfigurationAdapter.CallBack callBackUpdate = () -> {
         /* refresh and notify other running activities that language has changed */
         getParentFragmentManager()
                 .beginTransaction()
@@ -60,7 +66,7 @@ public class ConfigurationFragment extends Fragment {
                 .attach(ConfigurationFragment.this)
                 .commit();
         Intent intent = new Intent("LANGUAGE_CHANGED");
-        getActivity().sendBroadcast(intent);
+        requireActivity().sendBroadcast(intent);
     };
 
 
@@ -69,13 +75,85 @@ public class ConfigurationFragment extends Fragment {
     }
 
     public static ConfigurationFragment newInstance(String param1, String param2) {
-        ConfigurationFragment fragment = new ConfigurationFragment();
-        return fragment;
+        return new ConfigurationFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onExportDialogResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    int resultCode = result.getResultCode();
+                    switch (resultCode) {
+                        case Activity.RESULT_OK:
+                            if (result.getData() != null && result.getData().getData() != null) {
+                                OutputStream outputStream;
+                                try {
+                                    outputStream = requireActivity().getContentResolver().openOutputStream(result.getData().getData());
+                                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
+                                    JSONObject json = db.exportDatabase(true, true, true);
+                                    bw.write(json.toString(JSON_INDENT));
+                                    bw.flush();
+                                    bw.close();
+                                } catch (IOException e) {
+                                    Toast error = Toast.makeText(getActivity(), "IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
+                                    error.show();
+                                    break;
+                                } catch (JSONException e) {
+                                    Toast error = Toast.makeText(getActivity(), "Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
+                                    error.show();
+                                    break;
+                                }
+                            }
+
+                            Toast noticeExportSuccess = Toast.makeText(getActivity(), R.string.DatabaseExportSuccessful, Toast.LENGTH_LONG);
+                            noticeExportSuccess.show();
+                            break;
+                        case Activity.RESULT_CANCELED:
+                            Toast noticeExportCancel = Toast.makeText(getActivity(), R.string.DatabaseExportCanceled, Toast.LENGTH_LONG);
+                            noticeExportCancel.show();
+                            break;
+                    }
+                }
+        );
+
+        onImportDialogResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    int resultCode = result.getResultCode();
+                    switch (resultCode) {
+                        case Activity.RESULT_OK:
+                            if (result.getData() != null && result.getData().getData() != null) {
+                                final InputStream inputStream;
+                                final StringBuilder inJson = new StringBuilder();
+                                try {
+                                    inputStream = requireActivity().getContentResolver().openInputStream(result.getData().getData());
+                                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                                    bufferedReader.lines().forEach(inJson::append); // <- how fucking cool is this
+                                    bufferedReader.close();
+                                    JSONObject json = new JSONObject(inJson.toString());
+                                    db.importDatabaseBackup(json);
+                                } catch (IOException e) {
+                                    Toast error = Toast.makeText(getActivity(), "IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
+                                    error.show();
+                                } catch (JSONException e) {
+                                    Toast error = Toast.makeText(getActivity(), "JSON Parse Error: " + e.getMessage(), Toast.LENGTH_LONG);
+                                    error.show();
+                                }
+                            }
+
+                            Toast noticeImportSuccess = Toast.makeText(getActivity(), "Database imported successfully!", Toast.LENGTH_LONG);
+                            noticeImportSuccess.show();
+                            break;
+
+                        case Activity.RESULT_CANCELED:
+                            Toast noticeImportCancel = Toast.makeText(getActivity(), "Database imported canceled!", Toast.LENGTH_LONG);
+                            noticeImportCancel.show();
+                            break;
+                    }
+                }
+        );
     }
 
     @Override
@@ -118,79 +196,12 @@ public class ConfigurationFragment extends Fragment {
         return result;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    if (data != null && data.getData() != null) {
-                        OutputStream outputStream;
-                        try {
-                            outputStream = requireActivity().getContentResolver().openOutputStream(data.getData());
-                            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
-                            JSONObject json = db.exportDatabase(true, true, true);
-                            bw.write(json.toString(JSON_INDENT));
-                            bw.flush();
-                            bw.close();
-                        } catch (IOException e) {
-                            Toast error = Toast.makeText(getActivity(), "IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
-                            error.show();
-                            break;
-                        } catch (JSONException e) {
-                            Toast error = Toast.makeText(getActivity(), "Export failed: " + e.getMessage(), Toast.LENGTH_LONG);
-                            error.show();
-                            break;
-                        }
-                    }
-
-                    Toast noticeExportSuccess = Toast.makeText(getActivity(), R.string.DatabaseExportSuccessful, Toast.LENGTH_LONG);
-                    noticeExportSuccess.show();
-                    break;
-                case Activity.RESULT_CANCELED:
-                    Toast noticeExportCancel = Toast.makeText(getActivity(), R.string.DatabaseExportCanceled, Toast.LENGTH_LONG);
-                    noticeExportCancel.show();
-                    break;
-            }
-        } else if (requestCode == 1) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    if (data != null && data.getData() != null) {
-                        final InputStream inputStream;
-                        final StringBuilder inJson = new StringBuilder();
-                        try {
-                            inputStream = requireActivity().getContentResolver().openInputStream(data.getData());
-                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                            bufferedReader.lines().forEach(inJson::append); // <- how fucking cool is this
-                            bufferedReader.close();
-                            JSONObject json = new JSONObject(inJson.toString());
-                            db.importDatabaseBackup(json);
-                        } catch (IOException e) {
-                            Toast error = Toast.makeText(getActivity(), "IO Exception: " + e.getMessage(), Toast.LENGTH_LONG);
-                            error.show();
-                        } catch (JSONException e) {
-                            Toast error = Toast.makeText(getActivity(), "JSON Parse Error: " + e.getMessage(), Toast.LENGTH_LONG);
-                            error.show();
-                        }
-                    }
-
-                    Toast noticeImportSuccess = Toast.makeText(getActivity(), "Database imported successfully!", Toast.LENGTH_LONG);
-                    noticeImportSuccess.show();
-                    break;
-
-                case Activity.RESULT_CANCELED:
-                    Toast noticeImportCancel = Toast.makeText(getActivity(), "Database imported canceled!", Toast.LENGTH_LONG);
-                    noticeImportCancel.show();
-                    break;
-            }
-        }
-    }
 
     void setRecyclerView() {
         RecyclerView personalView = view.findViewById(R.id.mainList);
         personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
         ArrayList<ConfigurationListItem> items = generateData();
-        ConfigurationAdapter adapter = new ConfigurationAdapter(getContext(), items, db, callBack, this);
+        ConfigurationAdapter adapter = new ConfigurationAdapter(getContext(), items, db, callBackUpdate, onExportDialogResultLauncher, onImportDialogResultLauncher);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         personalView.setLayoutManager(layoutManager);
         personalView.setAdapter(adapter);
