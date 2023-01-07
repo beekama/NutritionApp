@@ -12,12 +12,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutritionapp.JournalFragment;
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.deprecated.PersonalInformation;
@@ -56,7 +58,11 @@ public class StartPageFragment extends Fragment {
         /* try to set language according to db, if empty set db to system-default */
         //todo
 
-
+        /* Toolbar */
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
+        toolbarRight.setImageResource(android.R.color.transparent);
+        toolbar.setTitle(R.string.mainActivityToolbarTitle);
 
         /* ---- JOURNAL ------*/
         View foodJournalButtonView = view.findViewById(R.id.food_journal);
@@ -67,13 +73,12 @@ public class StartPageFragment extends Fragment {
         foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
 
         foodJournalButtonAdd.setOnClickListener(v -> {
-            Intent add = new Intent(v.getContext(), FoodGroupOverview.class);
-            startActivity(add);
+//            Intent add = new Intent(v.getContext(), FoodGroupOverview.class);
+//            startActivity(add);
         });
 
         foodJournalButtonViewJournal.setOnClickListener(v -> {
-            Intent viewJournal = new Intent(v.getContext(), FoodJournalOverview.class);
-            startActivity(viewJournal);
+            navigate(JournalFragment.class, (MainActivity)getActivity());
         });
 
         /* ---- CONFIGURATION ----- */

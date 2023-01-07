@@ -3,6 +3,7 @@ package com.example.nutritionapp.ui;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.text.method.LinkMovementMethod;
@@ -11,9 +12,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 
 public class AboutPageFragment extends Fragment {
@@ -62,7 +65,13 @@ public class AboutPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_about_page, container, false); //todo rename
+        View view = inflater.inflate(R.layout.fragment_about_page, container, false);
+
+        /* Toolbar */
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
+        toolbarRight.setImageResource(android.R.color.transparent);
+        toolbar.setTitle(R.string.about);
 
         LinearLayout layout = view.findViewById(R.id.aboutScrollViewLinearLayout);
 

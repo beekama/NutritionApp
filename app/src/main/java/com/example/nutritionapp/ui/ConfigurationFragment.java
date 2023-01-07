@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.nutritionapp.MainActivity;
@@ -161,6 +163,12 @@ public class ConfigurationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_configuration, container, false);
+
+        /* Toolbar */
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
+        toolbarRight.setImageResource(android.R.color.transparent);
+        toolbar.setTitle(R.string.configurationTitle);
 
         db = new Database((MainActivity) getActivity());
         String defaultLanguage = db.getLanguagePref();
