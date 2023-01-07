@@ -10,11 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".WeightTracking" />
-        <activity android:name=".AboutPage" />
         <activity android:name=".recommendation.nutritionElement.RecommendationsElement" />
         <activity android:name=".recommendation.Recommendations" />
-        <activity android:name=".configuration.PersonalInformation" />
         <activity android:name=".customFoods.CreateNewFoodItem" />
         <activity android:name=".customFoods.CustomFoodOverview" />
         <activity android:name=".foodJournal.FoodJournalOverview" />

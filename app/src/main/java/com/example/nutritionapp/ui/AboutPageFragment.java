@@ -1,37 +1,70 @@
-package com.example.nutritionapp;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+package com.example.nutritionapp.ui;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AboutPage extends AppCompatActivity {
+import com.example.nutritionapp.R;
+
+public class AboutPageFragment extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public AboutPageFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment AboutPageFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static AboutPageFragment newInstance(String param1, String param2) {
+        AboutPageFragment fragment = new AboutPageFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_about_page);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.about);
-        setSupportActionBar(toolbar);
-        toolbarBack.setOnClickListener((v -> finishAfterTransition()));
-        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_about_page, container, false); //todo rename
 
-        LinearLayout layout = findViewById(R.id.aboutScrollViewLinearLayout);
+        LinearLayout layout = view.findViewById(R.id.aboutScrollViewLinearLayout);
 
         String[] sectionTitles = {
                 "Developed By",
@@ -42,7 +75,7 @@ public class AboutPage extends AppCompatActivity {
         };
         String[] sectionTexts  = {
                 "Kathrin Maurer\n" +
-                    "Yannik Schmidt",
+                        "Yannik Schmidt",
                 "This Software is licensed GPLv3, it contains libraries with compatible licenses listed below. "
                         + "The source code can be found here: \n\nhttps://github.com/beekama/NutritionApp/",
                 "MPAndroidChart by PhilJay licensed Apache 2.0\n" +
@@ -54,10 +87,10 @@ public class AboutPage extends AppCompatActivity {
 
         for(int i = 0; i<sectionTitles.length; i++){
 
-            TextView tmpTitle = new TextView(this);
-            TextView tmpText = new TextView(this);
-            View hLine = new View(this);
-            hLine.setBackgroundColor(this.getColor(R.color.hlineSilver));
+            TextView tmpTitle = new TextView(getContext());
+            TextView tmpText = new TextView(getContext());
+            View hLine = new View(getContext());
+            hLine.setBackgroundColor(getResources().getColor(R.color.hlineSilver));
 
             tmpTitle.setText(sectionTitles[i]);
             tmpTitle.setTextAppearance(R.style.TextAppearance_MaterialComponents_Body1);
@@ -93,5 +126,6 @@ public class AboutPage extends AppCompatActivity {
             }
         }
 
+        return view;
     }
 }

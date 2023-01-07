@@ -1,6 +1,5 @@
 package com.example.nutritionapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -9,8 +8,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -19,12 +16,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.nutritionapp.configuration.PersonalInformation;
 import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.foodJournal.FoodJournalOverview;
-import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.Recommendations;
+import com.example.nutritionapp.ui.AboutPageFragment;
+import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.example.nutritionapp.ui.StartPageFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -59,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent journal = new Intent(this, FoodJournalOverview.class);
                 startActivity(journal);
             } else if (itemId == R.id.nav_configuration) {
-                Intent configuration = new Intent(this, PersonalInformation.class);
-                startActivity(configuration);
+                navigate(ConfigurationFragment.class);
             } else if (itemId == R.id.nav_customFoods) {
                 Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
                 startActivity(createCustomFood);

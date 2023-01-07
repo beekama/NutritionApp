@@ -11,10 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.nutritionapp.WeightTracking;
+import com.example.nutritionapp.MainActivity;
+import com.example.nutritionapp.WeightTrackingFragment;
+import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.example.nutritionapp.other.Database;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
@@ -30,17 +34,19 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     final Database db;
-    final UpdateConfig configInterface;
+    private ConfigurationAdapter.CallBack callBack;
+    private Fragment parentFragment;
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
 
-    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, UpdateConfig configInterface) {
+    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, ConfigurationAdapter.CallBack callBack, Fragment parentFragment) {
         this.context = context;
         this.items = items;
         this.db = db;
-        this.configInterface = configInterface;
+        this.callBack = callBack;
+        this.parentFragment = parentFragment;
     }
 
     @NonNull
@@ -102,7 +108,17 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                     break;
                 case WEIGHT:
                     itemViewHolder.root.setOnClickListener(v-> {
-                        context.startActivity(new Intent(context, WeightTracking.class));
+                        Class weightFragmentClass = WeightTrackingFragment.class;
+                        FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+                        try{
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.main_fragment_container, (Fragment) weightFragmentClass.newInstance())
+                                    .addToBackStack(null)
+                                    .commit();
+                        } catch (IllegalAccessException | InstantiationException e){
+                            e.printStackTrace();
+                        }
+
                     });
                     break;
                 case BMI:
@@ -123,11 +139,11 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                         if(isChecked){
                             db.setLanguagePref("de");
                             LocaleHelper.setLocale(context.getApplicationContext(), "de");
-                            configInterface.refresh();
+                            callBack.refresh();
                         }else{
                             db.setLanguagePref("en");
                             LocaleHelper.setLocale(context.getApplicationContext(), "en");
-                            configInterface.refresh();
+                            callBack.refresh();
                         }
                     });
                     break;
@@ -158,9 +174,11 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
             /* start file dialog activity */
             Activity parentActivity = (Activity) context;
             if(action.equals(Intent.ACTION_OPEN_DOCUMENT)){
-                parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
+                parentFragment.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
+                //parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
             }else {
-                parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_EXPORT);
+                parentFragment.startActivityForResult(fileDialog, REQUEST_CODE_IMPORT);
+               // parentActivity.startActivityForResult(fileDialog, REQUEST_CODE_EXPORT);
             }
 
         });
@@ -200,7 +218,7 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).type == PersonalInformation.DataType.HEADER ? VIEW_TYPE_HEADER : VIEW_TYPE_ITEM;
+        return items.get(position).type == ConfigurationFragment.DataType.HEADER ? VIEW_TYPE_HEADER : VIEW_TYPE_ITEM;
     }
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -238,4 +256,10 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
 
         }
     }
+
+    public interface CallBack{
+        void refresh();
+    }
 }
+
+

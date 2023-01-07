@@ -1,4 +1,4 @@
-package com.example.nutritionapp.configuration;
+package com.example.nutritionapp.deprecated;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,7 +31,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class PersonalInformation extends AppCompatActivity implements UpdateConfig {
+public class PersonalInformation extends AppCompatActivity{// implements UpdateConfig {
 
     private static final int JSON_INDENT = 2;
     private static final int REQUEST_CODE_EXPORT  = 0;
@@ -43,73 +43,73 @@ public class PersonalInformation extends AppCompatActivity implements UpdateConf
     public static final int FAT_TARGET = 20; //84;
     private Database db;
 
-    @Override
-    public void updateBMI() {
-        setRecyclerView();
-    }
-
-    /* refresh and notify other running activities that language has changed */
-    @Override
-    public void refresh() {
-        recreate();
-        Intent intent = new Intent("LANGUAGE_CHANGED");
-        sendBroadcast(intent);
-    }
-
-    public enum DataType {
-        HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
-    }
-
-    @SuppressLint("ResourceAsColor")
-    public void onCreate(final Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.configuration);
-
-        db = new Database(this);
-
-        String defaultLanguage = db.getLanguagePref();
-        if (defaultLanguage != null) LocaleHelper.setLocale(this, defaultLanguage);
-
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        final TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        final ImageButton backHome = findViewById(R.id.toolbar_back);
-
-        backHome.setOnClickListener((v -> finishAfterTransition()));
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.configurationTitle);
-        backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        setSupportActionBar(toolbar);
-
-        setRecyclerView();
-    }
-
-
-    ArrayList<ConfigurationListItem> generateData(){
-        ArrayList<ConfigurationListItem> result = new ArrayList<>();
-
-        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationPersonalDataHeader), ""));
-        result.add(new ConfigurationListItem(DataType.AGE, getString(R.string.age), String.valueOf(db.getPersonAge())));
-        result.add(new ConfigurationListItem(DataType.GENDER, getString(R.string.gender), db.getPersonGender()));
-        result.add(new ConfigurationListItem(DataType.HEIGHT, getString(R.string.ConfigurationHeightTitle), String.valueOf(db.getPersonHeight())));
-        result.add(new ConfigurationListItem(DataType.WEIGHT, getString(R.string.ConfigurationWeightTitle), String.valueOf(db.getPersonWeight())));
-
-        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationCalculatedResultsHeader), ""));
-        result.add(new ConfigurationListItem(DataType.BMI, getString(R.string.bmi), String.valueOf(db.getPersonBmi())));
-        result.add(new ConfigurationListItem(DataType.CALORIES, getString(R.string.calories), String.valueOf(db.getPersonEnergyReq(null))));
-
-        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationHealDataHeader), ""));
-        result.add(new ConfigurationListItem(DataType.IMPORT, getString(R.string.import_backup_button), ">"));
-        result.add(new ConfigurationListItem(DataType.EXPORT, getString(R.string.export_data_button), ">"));
-
-        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.languageSectionHeader), ""));
-        result.add(new ConfigurationListItem(DataType.LANGUAGE_DE, getString(R.string.localization_de), db.getLanguagePref() != null && db.getLanguagePref().equals("de")));
-
-        result.add(new ConfigurationListItem(DataType.CURATED_FOODS, getString(R.string.ConfigurationCuratedFoodTitle), db.getCuratedFoodsPreference() > 0));
-
-
-        return result;
-    }
+//    @Override
+//    public void updateBMI() {
+//        setRecyclerView();
+//    }
+//
+//    /* refresh and notify other running activities that language has changed */
+//    @Override
+//    public void refresh() {
+//        recreate();
+//        Intent intent = new Intent("LANGUAGE_CHANGED");
+//        sendBroadcast(intent);
+//    }
+//
+//    public enum DataType {
+//        HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
+//    }
+//
+//    @SuppressLint("ResourceAsColor")
+//    public void onCreate(final Bundle savedInstanceState) {
+//        setTheme(R.style.AppTheme);
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.configuration);
+//
+//        db = new Database(this);
+//
+//        String defaultLanguage = db.getLanguagePref();
+//        if (defaultLanguage != null) LocaleHelper.setLocale(this, defaultLanguage);
+//
+//        final Toolbar toolbar = findViewById(R.id.toolbar);
+//        final TextView toolbarTitle = findViewById(R.id.toolbar_title);
+//        final ImageButton backHome = findViewById(R.id.toolbar_back);
+//
+//        backHome.setOnClickListener((v -> finishAfterTransition()));
+//        toolbar.setTitle("");
+//        toolbarTitle.setText(R.string.configurationTitle);
+//        backHome.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+//        setSupportActionBar(toolbar);
+//
+//        setRecyclerView();
+//    }
+//
+//
+//    ArrayList<ConfigurationListItem> generateData(){
+//        ArrayList<ConfigurationListItem> result = new ArrayList<>();
+//
+//        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationPersonalDataHeader), ""));
+//        result.add(new ConfigurationListItem(DataType.AGE, getString(R.string.age), String.valueOf(db.getPersonAge())));
+//        result.add(new ConfigurationListItem(DataType.GENDER, getString(R.string.gender), db.getPersonGender()));
+//        result.add(new ConfigurationListItem(DataType.HEIGHT, getString(R.string.ConfigurationHeightTitle), String.valueOf(db.getPersonHeight())));
+//        result.add(new ConfigurationListItem(DataType.WEIGHT, getString(R.string.ConfigurationWeightTitle), String.valueOf(db.getPersonWeight())));
+//
+//        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationCalculatedResultsHeader), ""));
+//        result.add(new ConfigurationListItem(DataType.BMI, getString(R.string.bmi), String.valueOf(db.getPersonBmi())));
+//        result.add(new ConfigurationListItem(DataType.CALORIES, getString(R.string.calories), String.valueOf(db.getPersonEnergyReq(null))));
+//
+//        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.ConfigurationHealDataHeader), ""));
+//        result.add(new ConfigurationListItem(DataType.IMPORT, getString(R.string.import_backup_button), ">"));
+//        result.add(new ConfigurationListItem(DataType.EXPORT, getString(R.string.export_data_button), ">"));
+//
+//        result.add(new ConfigurationListItem(DataType.HEADER, getString(R.string.languageSectionHeader), ""));
+//        result.add(new ConfigurationListItem(DataType.LANGUAGE_DE, getString(R.string.localization_de), db.getLanguagePref() != null && db.getLanguagePref().equals("de")));
+//
+//        result.add(new ConfigurationListItem(DataType.CURATED_FOODS, getString(R.string.ConfigurationCuratedFoodTitle), db.getCuratedFoodsPreference() > 0));
+//
+//
+//        return result;
+//    }
 
     @Override
     protected void attachBaseContext(Context base){
@@ -117,23 +117,23 @@ public class PersonalInformation extends AppCompatActivity implements UpdateConf
     }
 
     /* is Called after resume from Weight-View */
-    @Override
-    protected void onResume() {
-        super.onResume();
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        // update everything affected by weight - update Data
+//        setRecyclerView();
+//    }
 
-        // update everything affected by weight - update Data
-        setRecyclerView();
-    }
-
-    void setRecyclerView(){
-        RecyclerView personalView = findViewById(R.id.mainList);
-        personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
-        ArrayList<ConfigurationListItem> items = generateData();
-        ConfigurationAdapter adapter = new ConfigurationAdapter(this, items, db, this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        personalView.setLayoutManager(layoutManager);
-        personalView.setAdapter(adapter);
-    }
+//    void setRecyclerView(){
+//        RecyclerView personalView = findViewById(R.id.mainList);
+//        personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
+//        ArrayList<ConfigurationListItem> items = generateData();
+//        ConfigurationAdapter adapter = new ConfigurationAdapter(this, items, db, this);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+//        personalView.setLayoutManager(layoutManager);
+//        personalView.setAdapter(adapter);
+//    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -205,7 +205,7 @@ public class PersonalInformation extends AppCompatActivity implements UpdateConf
 
 }
 
-interface UpdateConfig {
-    void updateBMI();
-    void refresh();
-}
+//interface UpdateConfig {
+//    void updateBMI();
+//    void refresh();
+//}
