@@ -1,22 +1,29 @@
-package com.example.nutritionapp.customFoods;
+package com.example.nutritionapp.ui;
 
-import android.annotation.SuppressLint;
+import static com.example.nutritionapp.other.Utils.getStringIdentifier;
+
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
-import android.util.Log;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.customFoods.CreateFoodNutritionSelectorAdapter;
+import com.example.nutritionapp.customFoods.CreateFoodNutritionSelectorItem;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
@@ -27,9 +34,7 @@ import com.example.nutritionapp.other.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.example.nutritionapp.other.Utils.getStringIdentifier;
-
-public class CreateNewFoodItem extends AppCompatActivity {
+public class CreateFoodItemFragment extends Fragment {
     private static final int CREATE_NEW_ID = -1;
     private final ArrayList<CreateFoodNutritionSelectorItem> allItems = new ArrayList<>();
     private int servingSize;
@@ -38,31 +43,52 @@ public class CreateNewFoodItem extends AppCompatActivity {
     private Food editModeOrigFood;
     RecyclerView mainRv;
 
+    /* Save Args */
+    private String extraArg = null;
 
+    public CreateFoodItemFragment() {
+        // Required empty public constructor
+    }
+
+
+    public static CreateFoodItemFragment newInstance(String param1) {
+        CreateFoodItemFragment fragment = new CreateFoodItemFragment();
+        Bundle args = new Bundle();
+        args.putString(ActivityExtraNames.FDC_ID, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_foods_new_item);
         db = new Database(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_create_food_item, container, false);
 
         /* replace actionbar with custom app_toolbar */
-        Toolbar tb = findViewById(R.id.toolbar);
-        TextView tb_title = findViewById(R.id.toolbar_title);
-        ImageButton tb_back = findViewById(R.id.toolbar_back);
-        ImageButton submit = findViewById(R.id.toolbar_forward);
+        Toolbar toolbar = ((MainActivity)getActivity()).findViewById(R.id.toolbar);
+        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        ImageButton submit = toolbar.findViewById(R.id.toolbar_forward);
 
         /* return  button */
-        tb_back.setOnClickListener((v -> finishAfterTransition()));
-        tb_back.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        tb.setTitle("");
-        tb_title.setText(R.string.customItemCreate);
+        toolbarBack.setOnClickListener((v -> Utils.navigate(CustomFoodFragment.class, (MainActivity)getActivity())));
+        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitle("");
+        toolbarTitle.setText(R.string.customItemCreate);
         submit.setImageResource(R.drawable.ic_done_black_24dp);
-        setSupportActionBar(tb);
 
         Nutrition n;
         Food editFood = null;
-        String fdc_id = this.getIntent().getStringExtra(ActivityExtraNames.FDC_ID);
-        if(fdc_id != null){
+        Bundle args = getArguments();
+        String fdc_id;
+        if( args != null && (fdc_id = getArguments().getString(ActivityExtraNames.FDC_ID)) != null){
             this.editMode = true;
             editFood = db.getFoodById(fdc_id, null);
             if(editFood == null){
@@ -114,13 +140,13 @@ public class CreateNewFoodItem extends AppCompatActivity {
         staticSelectors.add(new CreateFoodNutritionSelectorItem(stringIdCreateNutritionHeader, new SpannableString(getString(stringIdCreateNutritionHeader)), true));
 
         ArrayList<CreateFoodNutritionSelectorItem> nutritionSelectors = new ArrayList<>();
-        mainRv = findViewById(R.id.createFoodNewItem_rv);
+        mainRv = view.findViewById(R.id.createFoodNewItem_rv);
         mainRv.addItemDecoration(new DividerItemDecoration(mainRv.getContext(), DividerItemDecoration.VERTICAL));
         for (NutritionElement ne : n.getElements().keySet()) {
-            int stringIdNutritionElement = getStringIdentifier(this, ne.toString());
+            int stringIdNutritionElement = getStringIdentifier(getContext(), ne.toString());
             String neString = getResources().getString(stringIdNutritionElement);
             String noStrPortionType = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
-            String portionType =  getResources().getString(getStringIdentifier(this, noStrPortionType));
+            String portionType =  getResources().getString(getStringIdentifier(getContext(), noStrPortionType));
             int startPtString = neString.length() + 1;
             int endPtString = startPtString + 4 + portionType.length() - 1;
             Spannable neSpan = new SpannableString(neString + " in " + portionType);
@@ -138,8 +164,8 @@ public class CreateNewFoodItem extends AppCompatActivity {
         /* setup adapter */
         allItems.addAll(staticSelectors);
         allItems.addAll(nutritionSelectors);
-        RecyclerView.Adapter<?> adapter = new CreateFoodNutritionSelectorAdapter(this, allItems);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView.Adapter<?> adapter = new CreateFoodNutritionSelectorAdapter(getContext(), allItems);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mainRv.setLayoutManager(linearLayoutManager);
         mainRv.setAdapter(adapter);
 
@@ -155,13 +181,12 @@ public class CreateNewFoodItem extends AppCompatActivity {
             }else {
                 db.createNewFood(f, CREATE_NEW_ID);
             }
-            finishAfterTransition();
+            Utils.navigate(CustomFoodFragment.class, (MainActivity)getActivity());
         });
 
-
+        return view;
     }
 
-    @SuppressLint("NonConstantResourceId")
     private Food collectData() {
         /* this function is sensitive to the correct ordering of the array list
            must be: name-> serving size -> everything else
@@ -196,11 +221,11 @@ public class CreateNewFoodItem extends AppCompatActivity {
                         break;
                     case R.string.labelFoodName:
                         if (item.data == null || item.data.equals("")) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Name must be set.", Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(getContext(), "Name must be set.", Toast.LENGTH_LONG);
                             toast.show();
                             return null;
                         }else if (editModeOrigFood == null && db.checkCustomNameFoodExists(item.data)) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "A food with this name already exists.", Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(getContext(), "A food with this name already exists.", Toast.LENGTH_LONG);
                             toast.show();
                             return null;
                         } else {

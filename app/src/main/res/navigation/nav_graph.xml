@@ -21,6 +21,12 @@
         <action
             android:id="@+id/action_startPageFragment_to_journalFragment"
             app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_startPageFragment_to_aboutPageFragment2"
+            app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_startPageFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutPageFragment"
@@ -39,6 +45,9 @@
         <action
             android:id="@+id/action_aboutPageFragment_to_journalFragment"
             app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_aboutPageFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightTrackingFragment"
@@ -63,6 +72,9 @@
         <action
             android:id="@+id/action_weightTrackingFragment_to_journalFragment3"
             app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
     </fragment>
     <fragment
         android:id="@+id/configurationFragment"
@@ -78,6 +90,9 @@
         <action
             android:id="@+id/action_configurationFragment_to_journalFragment"
             app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_configurationFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
@@ -96,5 +111,45 @@
         <action
             android:id="@+id/action_journalFragment_to_aboutPageFragment"
             app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customFoodFragment"
+        android:name="com.example.nutritionapp.ui.CustomFoodFragment"
+        android:label="fragment_custom_food"
+        tools:layout="@layout/fragment_create_food" >
+        <action
+            android:id="@+id/action_customFoodFragment_to_startPageFragment"
+            app:destination="@id/startPageFragment" />
+        <action
+            android:id="@+id/action_customFoodFragment_to_aboutPageFragment"
+            app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_customFoodFragment_to_weightTrackingFragment"
+            app:destination="@id/weightTrackingFragment" />
+        <action
+            android:id="@+id/action_customFoodFragment_to_configurationFragment"
+            app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_customFoodFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_customFoodFragment_to_createFoodItemFragment"
+            app:destination="@id/createFoodItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createFoodItemFragment"
+        android:name="com.example.nutritionapp.ui.CreateFoodItemFragment"
+        android:label="fragment_create_food_item"
+        tools:layout="@layout/fragment_create_food_item" >
+        <action
+            android:id="@+id/action_createFoodItemFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
+        <argument
+            android:name="fdc_id"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

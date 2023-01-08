@@ -16,10 +16,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.example.nutritionapp.ui.AboutPageFragment;
 import com.example.nutritionapp.ui.ConfigurationFragment;
+import com.example.nutritionapp.ui.CustomFoodFragment;
 import com.example.nutritionapp.ui.JournalFragment;
 import com.example.nutritionapp.ui.StartPageFragment;
 import com.example.nutritionapp.ui.WeightTrackingFragment;
@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_configuration) {
                 navigate(ConfigurationFragment.class, this);
             } else if (itemId == R.id.nav_customFoods) {
-                Intent createCustomFood = new Intent(this, CustomFoodOverview.class);
-                startActivity(createCustomFood);
+                navigate(CustomFoodFragment.class, this);
             } else if (itemId == R.id.nav_analysis) {
                 Intent analysis = new Intent(this, Recommendations.class);
                 startActivity(analysis);

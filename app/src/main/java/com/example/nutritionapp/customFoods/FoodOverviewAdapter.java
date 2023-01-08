@@ -2,18 +2,24 @@ package com.example.nutritionapp.customFoods;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.FoodGroupOverview;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.ui.CreateFoodItemFragment;
+import com.example.nutritionapp.ui.CustomFoodFragment;
 
 import java.util.ArrayList;
 
@@ -72,10 +78,21 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                     context.startActivity(editCustomFoodGroup);
                 }else {
                     /* open indent for editing a single food */
+                    FragmentManager fragmentManager = ((MainActivity)context.getApplicationContext()).getSupportFragmentManager();
+                    Bundle args = new Bundle();
                     CustomFoodOverviewItem foodItem = (CustomFoodOverviewItem) item;
-                    Intent editCustomFood = new Intent(context, CreateNewFoodItem.class);
-                    editCustomFood.putExtra(ActivityExtraNames.FDC_ID, foodItem.food.id);
-                    context.startActivity(editCustomFood);
+                    args.putString(ActivityExtraNames.FDC_ID, foodItem.food.id);
+                    try {
+                        Fragment fragment = (Fragment) CreateFoodItemFragment.class.newInstance();
+                        fragment.setArguments(args);
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.main_fragment_container,
+                                        fragment)
+                                .addToBackStack(null)
+                                .commit();
+                    } catch (IllegalAccessException | InstantiationException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             lvh.itemView.setOnLongClickListener(v -> {

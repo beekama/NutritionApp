@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.customFoods.CustomFoodOverview;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.recommendation.Recommendations;
 import com.github.mikephil.charting.charts.PieChart;
@@ -104,8 +103,8 @@ public class StartPageFragment extends Fragment {
         createCustomFoodTagLef.setText(R.string.createFoodsButtonLeftText);
 
         createCustomFoodsView.setOnClickListener(v -> {
-            Intent createCustomFood = new Intent(v.getContext(), CustomFoodOverview.class);
-            startActivity(createCustomFood);
+            Class fragmentClass = CustomFoodFragment.class;
+            navigate(fragmentClass, (MainActivity)getActivity());
         });
 
         /* ---- RECOMMENDATION ---- */
