@@ -73,15 +73,13 @@ public class CreateFoodItemFragment extends Fragment {
 
         /* replace actionbar with custom app_toolbar */
         Toolbar toolbar = ((MainActivity)getActivity()).findViewById(R.id.toolbar);
-        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
         ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
         ImageButton submit = toolbar.findViewById(R.id.toolbar_forward);
 
         /* return  button */
         toolbarBack.setOnClickListener((v -> Utils.navigate(CustomFoodFragment.class, (MainActivity)getActivity())));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.customItemCreate);
+        toolbar.setTitle(R.string.customItemCreate);
         submit.setImageResource(R.drawable.ic_done_black_24dp);
 
         Nutrition n;

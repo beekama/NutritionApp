@@ -58,13 +58,9 @@ public class CustomFoodFragment extends Fragment {
 
         /* replace actionbar with custom app_toolbar */
         Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
-        TextView toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
-        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
         ImageButton toolbarForward = toolbar.findViewById(R.id.toolbar_forward);
         toolbarForward.setImageResource(R.drawable.add_circle_filled);
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.customItems);
-        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitle(R.string.customItems);
 
         mainRv = view.findViewById(R.id.createFoodOverview_rv);
         mainRv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -75,10 +71,6 @@ public class CustomFoodFragment extends Fragment {
             Utils.navigate(fragmentClass, (MainActivity)getActivity());
         }));
 
-        toolbarBack.setOnClickListener((v -> {
-            Class fragmentClass = StartPageFragment.class;
-            Utils.navigate(fragmentClass, (MainActivity)getActivity());
-        }));
 
         /* display existing custom foods */
         updateFoodList();

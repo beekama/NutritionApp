@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -38,6 +39,7 @@ public class StartPageFragment extends Fragment {
     private TextView energyBarText;
     private PieChart pieChart;
     private RecyclerView chartList;
+    private Toolbar toolbar;
 
     public StartPageFragment() {
         super(R.layout.fragment_startpage);
@@ -53,10 +55,12 @@ public class StartPageFragment extends Fragment {
         //todo
 
         /* Toolbar */
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
         ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
         toolbarRight.setImageResource(android.R.color.transparent);
         toolbar.setTitle(R.string.mainActivityToolbarTitle);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        toolbarBack.setImageResource(R.color.transparent);
 
         /* ---- JOURNAL ------*/
         View foodJournalButtonView = view.findViewById(R.id.food_journal);
@@ -142,5 +146,8 @@ public class StartPageFragment extends Fragment {
         Recommendations.setChartSupportingList(pieChart, pieAndListData, getContext(), chartList);
     }
 
-
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
 }

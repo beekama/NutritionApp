@@ -19,6 +19,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +94,9 @@ public class WeightTrackingFragment extends Fragment implements TransferWeight, 
         View view = inflater.inflate(R.layout.fragment_weight_tracking, container, false);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.weight_history);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        toolbarBack.setImageResource(R.color.transparent);
 
 
         observationPeriod = new Pair<>(getString(R.string.oneWeek), 7);

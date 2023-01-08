@@ -169,6 +169,8 @@ public class ConfigurationFragment extends Fragment {
         ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
         toolbarRight.setImageResource(android.R.color.transparent);
         toolbar.setTitle(R.string.configurationTitle);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        toolbarBack.setImageResource(R.color.transparent);
 
         db = new Database((MainActivity) getActivity());
         String defaultLanguage = db.getLanguagePref();

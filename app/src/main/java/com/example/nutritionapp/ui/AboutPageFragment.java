@@ -46,6 +46,8 @@ public class AboutPageFragment extends Fragment {
         ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
         toolbarRight.setImageResource(android.R.color.transparent);
         toolbar.setTitle(R.string.about);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        toolbarBack.setImageResource(R.color.transparent);
 
         LinearLayout layout = view.findViewById(R.id.aboutScrollViewLinearLayout);
 

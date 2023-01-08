@@ -100,8 +100,11 @@ public class JournalFragment extends Fragment {
 
         /* retrieve items */
         Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.journalToolbarText);
         ImageButton addStuff = toolbar.findViewById(R.id.toolbar_forward);
         addStuff.setImageResource(R.drawable.add_circle_filled);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        toolbarBack.setImageResource(R.color.transparent);
 
         /* set adapter */
         /* this is a list of layout of type journal_day_header, which contains the day-header and
