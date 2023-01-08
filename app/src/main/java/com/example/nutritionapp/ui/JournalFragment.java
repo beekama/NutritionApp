@@ -1,5 +1,7 @@
 package com.example.nutritionapp.ui;
 
+import static com.example.nutritionapp.other.Utils.navigate;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.foodJournal.FoodGroupOverview;
+import com.example.nutritionapp.deprecated.FoodGroupOverview;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.ActivityExtraNames;
@@ -115,8 +117,8 @@ public class JournalFragment extends Fragment {
         mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
 
-        Intent foodGroupDetails = new Intent(addStuff.getContext(), FoodGroupOverview.class);
-        addStuff.setOnClickListener(v -> startActivityForResult(foodGroupDetails, Utils.FOOD_GROUP_DETAILS_ID));
+        addStuff.setOnClickListener(v ->
+                navigate(FoodGroupFragment.class, (MainActivity)getActivity()));
 
         return view;
     }

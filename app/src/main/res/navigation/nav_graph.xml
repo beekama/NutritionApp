@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_startPageFragment_to_customFoodFragment"
             app:destination="@id/customFoodFragment" />
+        <action
+            android:id="@+id/action_startPageFragment_to_foodGroupFragment"
+            app:destination="@id/foodGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutPageFragment"
@@ -114,6 +117,9 @@
         <action
             android:id="@+id/action_journalFragment_to_customFoodFragment"
             app:destination="@id/customFoodFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_foodGroupFragment"
+            app:destination="@id/foodGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/customFoodFragment"
@@ -151,5 +157,14 @@
             android:name="fdc_id"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodGroupFragment"
+        android:name="com.example.nutritionapp.ui.FoodGroupFragment"
+        android:label="fragment_food_group"
+        tools:layout="@layout/fragment_food_group" >
+        <action
+            android:id="@+id/action_foodGroupFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
     </fragment>
 </navigation>

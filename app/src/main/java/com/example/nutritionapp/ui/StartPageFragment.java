@@ -71,8 +71,7 @@ public class StartPageFragment extends Fragment {
         foodJournalButtonTitle.setText(R.string.foodJournalButtonTitle);
 
         foodJournalButtonAdd.setOnClickListener(v -> {
-//            Intent add = new Intent(v.getContext(), FoodGroupOverview.class);
-//            startActivity(add);
+            navigate(FoodGroupFragment.class, (MainActivity)getActivity());
         });
 
         foodJournalButtonViewJournal.setOnClickListener(v -> {

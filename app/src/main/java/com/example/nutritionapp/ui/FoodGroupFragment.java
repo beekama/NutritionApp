@@ -1,4 +1,4 @@
-package com.example.nutritionapp.foodJournal;
+package com.example.nutritionapp.ui;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -6,7 +6,14 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,17 +23,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.foodJournal.addFoodsLists.GroupListItem;
-import com.example.nutritionapp.foodJournal.addFoodsLists.SelectableFoodListAdapter;
 import com.example.nutritionapp.foodJournal.addFoodsLists.ListFoodItem;
+import com.example.nutritionapp.foodJournal.addFoodsLists.SelectableFoodListAdapter;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodAdapter;
 import com.example.nutritionapp.foodJournal.addFoodsLists.SelectedFoodItem;
-import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogAmountSelector;
+import com.example.nutritionapp.foodJournal.overviewFoodsLists.DialogFoodSelector;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.NutritionOverviewAdapter;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
@@ -39,75 +44,88 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class FoodGroupOverview extends AppCompatActivity {
+
+public class FoodGroupFragment extends Fragment {
 
     private static final int DEFAULT_AMOUNT = 100;
     private static final int NO_UPDATE_EXISTING = -1;
     private static boolean FIRST_ADD = true;
-    final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
+    private final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
 
     /* information from caller */
     private boolean editMode = false;
-    boolean isTemplateMode;
+    private boolean isTemplateMode;
 
     private TextView dateView;
     private TextView timeView;
 
-    LocalDateTime loggedAt;
-    ListView selectedListView;
-    final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
-    ListView suggestions;
-    ListView nutOverviewList;
-    Database db;
-    View nutritionOverviewHeader;
-    View selectedItemsHeader;
-    View suggestedItemsHeader;
+    private LocalDateTime loggedAt;
+    private ListView selectedListView;
+    private final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
+    private ListView suggestions;
+    private ListView nutOverviewList;
+    private Database db;
+    private View nutritionOverviewHeader;
+    private View selectedItemsHeader;
+    private View suggestedItemsHeader;
+    private View view;
 
 
     SelectedFoodAdapter selectedAdapter;
     int groupId;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+    public FoodGroupFragment() {
+        // Required empty public constructor
+    }
 
+    public static FoodGroupFragment newInstance(String param1, String param2) {
+        FoodGroupFragment fragment = new FoodGroupFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.journal_food_group_detail);
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
-        ImageButton addButton = findViewById(R.id.toolbar_forward);
-        Button saveAsTemplate = findViewById(R.id.saveAsTemplate);
-        toolbar.setTitle("");
-        toolbarTitle.setText(R.string.toolbarStringGroupDetails);
-        setSupportActionBar(toolbar);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_food_group, container, false);
 
-        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        ImageButton addButton = toolbar.findViewById(R.id.toolbar_forward);
+        Button saveAsTemplate = view.findViewById(R.id.saveAsTemplate);
+        toolbar.setTitle(R.string.toolbarStringGroupDetails);
+
+        toolbarBack.setImageResource(R.color.transparent);
         addButton.setImageResource(R.drawable.add_circle_filled);
 
-        selectedListView = findViewById(R.id.selected_items);
-        selectedAdapter = new SelectedFoodAdapter(this, new ArrayList<>());
+        selectedListView = view.findViewById(R.id.selected_items);
+        selectedAdapter = new SelectedFoodAdapter(getContext(), new ArrayList<>());
         selectedListView.setAdapter(selectedAdapter);
 
         FIRST_ADD = true;
 
-        dateView = findViewById(R.id.date);
-        timeView = findViewById(R.id.time);
+        dateView = view.findViewById(R.id.date);
+        timeView = view.findViewById(R.id.time);
 
-        nutOverviewList = findViewById(R.id.nutritionOverview);
+        nutOverviewList = view.findViewById(R.id.nutritionOverview);
 
         addButton.setOnClickListener(v -> {
             runFoodSelectionPipeline(null, NO_UPDATE_EXISTING);
         });
 
-        suggestions = findViewById(R.id.suggestions);
+        suggestions = view.findViewById(R.id.suggestions);
         db = new Database(this);
 
         /* set existing items if edit mode */
-        groupId = this.getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);
+        groupId = this.getActivity().getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);
 
         /* see if we are creating or editing a pure template */
-        isTemplateMode = this.getIntent().getBooleanExtra(ActivityExtraNames.GROUP_ID, false);
+        isTemplateMode = this.getActivity().getIntent().getBooleanExtra(ActivityExtraNames.GROUP_ID, false);
 
         if (groupId >= 0) {
             this.editMode = true;
@@ -134,7 +152,7 @@ public class FoodGroupOverview extends AppCompatActivity {
             timeView.setOnClickListener(v -> timeUpdateDialog(loggedAt));
         }
 
-        selectedListView.setOnItemLongClickListener((parent, view, position, id) -> {
+        selectedListView.setOnItemLongClickListener((parent, clickedView, position, id) -> {
             final SelectedFoodItem item = (SelectedFoodItem) parent.getItemAtPosition(position);
             selected.remove(item);
             updateSelectedView(selectedListView, selected);
@@ -142,21 +160,37 @@ public class FoodGroupOverview extends AppCompatActivity {
             return false;
         });
 
-        selectedListView.setOnItemClickListener((parent, view, position, id) -> {
+        selectedListView.setOnItemClickListener((parent, clickedView, position, id) -> {
             runFoodSelectionPipeline((ListFoodItem) parent.getItemAtPosition(position), position);
         });
 
-        suggestions.setOnItemClickListener((parent, view, position, id) -> {
+        suggestions.setOnItemClickListener((parent, clickedView, position, id) -> {
             ListFoodItem item = (ListFoodItem) parent.getItemAtPosition(position);
             runFoodSelectionPipeline(item, NO_UPDATE_EXISTING);
         });
 
-        saveAsTemplate.setOnClickListener(view -> {
+        saveAsTemplate.setOnClickListener(clickedView -> {
             save(null,true);
-            Toast.makeText(this.getApplicationContext(), "Saved Template", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), "Saved Template", Toast.LENGTH_LONG).show();
         });
 
-        toolbarBack.setOnClickListener(v -> onBackPressed());
+        requireActivity().getOnBackPressedDispatcher().addCallback((MainActivity)getActivity(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
+                LocalDateTime computedLoggedAt;
+                if(isTemplateMode){
+                    computedLoggedAt = LocalDateTime.now();
+                }else{
+                    computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
+                }
+                save(computedLoggedAt, isTemplateMode);
+
+                Utils.navigate(StartPageFragment.class, ((MainActivity)getActivity()));
+            }
+        });
+
+        return view;
     }
 
 
@@ -183,7 +217,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
     public void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
         if (selectedFoodItem == null) {
-            Dialog foodSelectionDialog = new DialogFoodSelector(this);
+            Dialog foodSelectionDialog = new DialogFoodSelector((MainActivity)getActivity());
             foodSelectionDialog.setOnDismissListener(dialog -> {
                 DialogFoodSelector castedDialog = (DialogFoodSelector) dialog;
                 runAmountSelectorDialog(castedDialog.selectedFood, position, null, Double.NaN);
@@ -223,7 +257,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         }else{
             selectedFood.associatedAmount = amountCurrent;
         }
-        DialogAmountSelector amountSelector = new DialogAmountSelector(this, db, selectedFood);
+        DialogAmountSelector amountSelector = new DialogAmountSelector((MainActivity)getActivity(), db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
@@ -248,9 +282,8 @@ public class FoodGroupOverview extends AppCompatActivity {
         displaySelectorDialog(amountSelector);
     }
 
-
     private void dateUpdateDialog(final LocalDateTime loggedAt) {
-        DatePickerDialog dialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> {
             LocalDateTime selected = LocalDateTime.of(year, Utils.monthAndroidToDefault(month), dayOfMonth, 0, 0);
             this.dateView.setText(selected.format(Utils.sqliteDateFormat));
         }, loggedAt.getYear(), Utils.monthDefaultToAndroid(loggedAt.getMonthValue()), loggedAt.getDayOfMonth());
@@ -258,7 +291,7 @@ public class FoodGroupOverview extends AppCompatActivity {
     }
 
     private void timeUpdateDialog(LocalDateTime loggedAt) {
-        TimePickerDialog dialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+        TimePickerDialog dialog = new TimePickerDialog(getContext(), (view, hourOfDay, minute) -> {
             LocalTime selected = LocalTime.of(hourOfDay, minute);
             this.timeView.setText(selected.format(Utils.sqliteTimeFormat));
         }, loggedAt.getHour(), loggedAt.getMinute(), true);
@@ -268,12 +301,12 @@ public class FoodGroupOverview extends AppCompatActivity {
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
         /* HEADER */
         if (FIRST_ADD){
-            selectedItemsHeader = findViewById(R.id.selected_items_header);
+            selectedItemsHeader = view.findViewById(R.id.selected_items_header);
             TextView noHeader = selectedItemsHeader.findViewById(R.id.headerText);
             noHeader.setText(R.string.addFoodsGroupItemHeader);
         }
         ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
-        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(this, sfi);
+        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getContext(), sfi);
         selectedListView.setAdapter(newAdapter);
         selectedListView.invalidate();
 
@@ -285,7 +318,7 @@ public class FoodGroupOverview extends AppCompatActivity {
 
         /* HEADER */
         if (suggestionsPrevSelected.isEmpty()){
-            suggestedItemsHeader = findViewById(R.id.suggested_items_header);
+            suggestedItemsHeader = view.findViewById(R.id.suggested_items_header);
             TextView noHeader = suggestedItemsHeader.findViewById(R.id.headerText);
             noHeader.setText(R.string.addFoodsSuggestionHeader);
         }
@@ -297,7 +330,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         }
 
         suggestions.invalidate();
-        SelectableFoodListAdapter adapter = new SelectableFoodListAdapter(this, suggestionsPrevSelected);
+        SelectableFoodListAdapter adapter = new SelectableFoodListAdapter(getContext(), suggestionsPrevSelected);
         suggestions.setAdapter(adapter);
     }
 
@@ -305,7 +338,7 @@ public class FoodGroupOverview extends AppCompatActivity {
         if (FIRST_ADD){
             FIRST_ADD = false;
 
-            nutritionOverviewHeader = findViewById(R.id.nutritionOverview_header);
+            nutritionOverviewHeader = view.findViewById(R.id.nutritionOverview_header);
             TextView noHeader = nutritionOverviewHeader.findViewById(R.id.headerText);
             noHeader.setText(R.string.addFoodsNutritionOverviewHeader);
         }
@@ -315,30 +348,8 @@ public class FoodGroupOverview extends AppCompatActivity {
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
 
-        ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(this, na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
+        ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter((MainActivity)getActivity(), na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
-        LocalDateTime computedLoggedAt;
-        if(isTemplateMode){
-            computedLoggedAt = LocalDateTime.now();
-        }else{
-            computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
-        }
-
-        save(computedLoggedAt, isTemplateMode);
-
-        /* report back a dirty date if necessary */
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(ActivityExtraNames.DATE_RESULT, computedLoggedAt.format(Utils.sqliteDatetimeFormat));
-        resultIntent.putExtra(ActivityExtraNames.GROUP_ID, groupId);
-        setResult(Activity.RESULT_OK, resultIntent);
-
-        finishAfterTransition();
     }
 
     private void save(LocalDateTime computedLoggedAt, boolean asTemplate){

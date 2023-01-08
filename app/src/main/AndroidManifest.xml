@@ -12,7 +12,6 @@
         android:theme="@style/SplashTheme">
         <activity android:name=".recommendation.nutritionElement.RecommendationsElement" />
         <activity android:name=".recommendation.Recommendations" />
-        <activity android:name=".foodJournal.FoodGroupOverview" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme"

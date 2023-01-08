@@ -12,7 +12,7 @@ import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
 
-import com.example.nutritionapp.foodJournal.FoodGroupOverview;
+import com.example.nutritionapp.deprecated.FoodGroupOverview;
 import com.example.nutritionapp.other.Utils;
 
 public class SelectedFoodAdapter extends BaseAdapter {
