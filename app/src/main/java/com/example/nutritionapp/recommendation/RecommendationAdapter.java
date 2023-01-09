@@ -3,22 +3,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Conversions;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Nutrition;
-import com.example.nutritionapp.recommendation.nutritionElement.RecommendationsElement;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.ui.RecommendationNutritionElementFragment;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -77,10 +81,20 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
         }
 
         lvh.itemView.setOnClickListener(v -> {
-            Intent myIntent = new Intent(v.getContext(), RecommendationsElement.class);
-            myIntent.putExtra(ActivityExtraNames.NUTRITION_ELEMENT, curItem.nutritionElement);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            v.getContext().startActivity(myIntent);
+            FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+            Bundle args = new Bundle();
+            args.putSerializable(ActivityExtraNames.NUTRITION_ELEMENT, curItem.nutritionElement);
+            try {
+                Fragment fragment = (Fragment) RecommendationNutritionElementFragment.class.newInstance();
+                fragment.setArguments(args);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_container,
+                                fragment)
+                        .addToBackStack(null)
+                        .commit();
+            } catch (IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+            }
         });
 
     }

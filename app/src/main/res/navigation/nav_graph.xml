@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_startPageFragment_to_foodGroupFragment"
             app:destination="@id/foodGroupFragment" />
+        <action
+            android:id="@+id/action_startPageFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutPageFragment"
@@ -51,6 +54,9 @@
         <action
             android:id="@+id/action_aboutPageFragment_to_customFoodFragment"
             app:destination="@id/customFoodFragment" />
+        <action
+            android:id="@+id/action_aboutPageFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
     </fragment>
     <fragment
         android:id="@+id/weightTrackingFragment"
@@ -78,6 +84,9 @@
         <action
             android:id="@+id/action_weightTrackingFragment_to_customFoodFragment"
             app:destination="@id/customFoodFragment" />
+        <action
+            android:id="@+id/action_weightTrackingFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
     </fragment>
     <fragment
         android:id="@+id/configurationFragment"
@@ -96,6 +105,9 @@
         <action
             android:id="@+id/action_configurationFragment_to_customFoodFragment"
             app:destination="@id/customFoodFragment" />
+        <action
+            android:id="@+id/action_configurationFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
@@ -120,6 +132,9 @@
         <action
             android:id="@+id/action_journalFragment_to_foodGroupFragment"
             app:destination="@id/foodGroupFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
     </fragment>
     <fragment
         android:id="@+id/customFoodFragment"
@@ -144,6 +159,9 @@
         <action
             android:id="@+id/action_customFoodFragment_to_createFoodItemFragment"
             app:destination="@id/createFoodItemFragment" />
+        <action
+            android:id="@+id/action_customFoodFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
     </fragment>
     <fragment
         android:id="@+id/createFoodItemFragment"
@@ -166,5 +184,49 @@
         <action
             android:id="@+id/action_foodGroupFragment_to_journalFragment"
             app:destination="@id/journalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendationFragment"
+        android:name="com.example.nutritionapp.ui.RecommendationFragment"
+        android:label="fragment_recommendation"
+        tools:layout="@layout/fragment_recommendation" >
+        <action
+            android:id="@+id/action_recommendationFragment_to_startPageFragment"
+            app:destination="@id/startPageFragment" />
+        <action
+            android:id="@+id/action_recommendationFragment_to_aboutPageFragment"
+            app:destination="@id/aboutPageFragment" />
+        <action
+            android:id="@+id/action_recommendationFragment_to_weightTrackingFragment"
+            app:destination="@id/weightTrackingFragment" />
+        <action
+            android:id="@+id/action_recommendationFragment_to_configurationFragment"
+            app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_recommendationFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_recommendationFragment_to_customFoodFragment"
+            app:destination="@id/customFoodFragment" />
+        <argument
+            android:name="startDate"
+            app:argType="java.time.LocalDate"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_recommendationFragment_to_recommendationElementFragment"
+            app:destination="@id/recommendationElementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendationElementFragment"
+        android:name="com.example.nutritionapp.ui.RecommendationNutritionElementFragment"
+        android:label="fragment_recommendation_element"
+        tools:layout="@layout/fragment_recommendation_nutrition_element" >
+        <action
+            android:id="@+id/action_recommendationElementFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
+        <argument
+            android:name="nutritionElement"
+            app:argType="com.example.nutritionapp.other.NutritionElement"
+            app:nullable="true" />
     </fragment>
 </navigation>

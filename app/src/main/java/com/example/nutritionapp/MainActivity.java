@@ -9,24 +9,32 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.nutritionapp.recommendation.Recommendations;
+import com.example.nutritionapp.deprecated.Recommendations;
+import com.example.nutritionapp.other.Database;
+import com.example.nutritionapp.other.LocaleHelper;
 import com.example.nutritionapp.ui.AboutPageFragment;
 import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.example.nutritionapp.ui.CustomFoodFragment;
 import com.example.nutritionapp.ui.JournalFragment;
+import com.example.nutritionapp.ui.RecommendationFragment;
 import com.example.nutritionapp.ui.StartPageFragment;
 import com.example.nutritionapp.ui.WeightTrackingFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    DrawerLayout drawer;
+    private DrawerLayout drawer;
+    private Database db;
+
 
     public  MainActivity(){
         super(R.layout.app_activity_main);
@@ -41,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.main_fragment_container, StartPageFragment.class , null)
                     .commit();
         }
+
+        db = new Database(this);
 
         /* Setup Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -59,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_customFoods) {
                 navigate(CustomFoodFragment.class, this);
             } else if (itemId == R.id.nav_analysis) {
-                Intent analysis = new Intent(this, Recommendations.class);
-                startActivity(analysis);
+                navigate(RecommendationFragment.class, this);
             } else if (itemId == R.id.startPageFragment) {
                 navigate(StartPageFragment.class, this);
             } else if (itemId == R.id.aboutPageFragment) {
@@ -98,6 +107,32 @@ public class MainActivity extends AppCompatActivity {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
         });
+
+        /* try to set language according to db, if empty set db to system-default */
+        String savedLanguage = db.getLanguagePref();
+        if (savedLanguage != null) LocaleHelper.setDefaultLanguage(this, savedLanguage);
+        else db.setLanguagePref(LocaleHelper.getLanguage(this));
+
+        /* Language */
+        String currentLanguage = LocaleHelper.getLanguage(this);
+        Button setLanguage = navHeader.findViewById(R.id.languageSelect);
+        setLanguage.setText(R.string.otherLanguage);
+        setLanguage.setOnClickListener(v -> {
+            switch (currentLanguage) {
+                case "en":
+                    LocaleHelper.setLocale(this, "de");
+                    db.setLanguagePref("de");
+                    this.recreate();
+                    break;
+                case "de":
+                    LocaleHelper.setLocale(this, "en");
+                    db.setLanguagePref("en");
+                    this.recreate();
+                    break;
+            }
+        });
+
+        //todo sync languagechange from configurationFragment
     }
 
 
@@ -109,6 +144,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+    @Override
+    protected void attachBaseContext(Context base){
+        super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        recreate();
     }
 
 //        /* try to set language according to db, if empty set db to system-default */
@@ -141,17 +187,7 @@ public class MainActivity extends AppCompatActivity {
 //        registerReceiver(broadcastReceiver, filter);
 //    }
 //
-//    @Override
-//    protected void attachBaseContext(Context base){
-//        super.attachBaseContext(LocaleHelper.setDefaultLanguage(base));
-//    }
 //
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        recreate();
-//    }
 //
 //    protected void onResume() {
 //        super.onResume();

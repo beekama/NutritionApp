@@ -1,19 +1,22 @@
-package com.example.nutritionapp.recommendation.nutritionElement;
+package com.example.nutritionapp.ui;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Pair;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.example.nutritionapp.DividerItemDecorator;
+import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
@@ -21,6 +24,8 @@ import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.Nutrition;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.NutritionElement;
+import com.example.nutritionapp.recommendation.nutritionElement.ExtendedBarChart;
+import com.example.nutritionapp.recommendation.nutritionElement.RecommendationNutritionAdapter;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -32,54 +37,65 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.SortedMap;
 
-public class RecommendationsElement extends AppCompatActivity {
+
+public class RecommendationNutritionElementFragment extends Fragment {
+
     private Database db;
     private NutritionElement nutritionElement;
     private final LocalDate currentDateParsed = LocalDate.now();
+    View view;
 
     private static final float CHART_X_AXIS_LABEL_ROTATION = -45;
     private static final float CHART_X_AXIS_GRANULARITY = -1;
     private static final float CHART_X_AXIS_MINIMUM = 0;
     private static final float CHART_Y_AXIS_MINIMUM = 0;
 
+    public RecommendationNutritionElementFragment() {
+        // Required empty public constructor
+    }
+
+
+    public static RecommendationNutritionElementFragment newInstance(String param1) {
+        RecommendationNutritionElementFragment fragment = new RecommendationNutritionElementFragment();
+        Bundle args = new Bundle();
+        args.putString(ActivityExtraNames.NUTRITION_ELEMENT, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        /* activity settings */
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recommendation_nutrition);
-        db = new Database(this);
-        Context context = getApplicationContext();
-
-        /* get current nutrition type from extra */
-        if (getIntent().getExtras() != null) {
-            nutritionElement = (NutritionElement) getIntent().getExtras().get(ActivityExtraNames.NUTRITION_ELEMENT);
-        }else{
-            Log.wtf("Recommendations", "No Nutrition Element  Extra");
+        Bundle args = getArguments();
+        NutritionElement argNutritionElement;
+        if (args != null && (argNutritionElement = (NutritionElement) getArguments().getSerializable(ActivityExtraNames.NUTRITION_ELEMENT)) != null){
+            nutritionElement = argNutritionElement;
         }
+        db = new Database((MainActivity)getActivity());
+    }
 
-        /* toolbar */
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        ImageButton toolbarBack = findViewById(R.id.toolbar_back);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        toolbarTitle.setText(nutritionElement.getString(context));
-        toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-        toolbarBack.setOnClickListener((v -> finishAfterTransition()));
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_recommendation_nutrition_element, container, false);
+
+        Toolbar toolbar = ((MainActivity)getActivity()).findViewById(R.id.toolbar);
+        ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
+        toolbar.setTitle(nutritionElement.getString(getContext()));
+        toolbarBack.setImageResource(R.color.transparent);
 
         /* get nutrition recommendation as max for chart */
         Nutrition rec = Nutrition.getRecommendation();
         int recommendedMaxValue = rec.getElements().get(nutritionElement);
 
         /* chart general settings */
-        ExtendedBarChart barChart =  findViewById(R.id.barChartNutrition);
+        ExtendedBarChart barChart =  view.findViewById(R.id.barChartNutrition);
         barChart.getDescription().setText("");
         barChart.getAxisLeft().setDrawGridLinesBehindData(true);
         barChart.getLegend().setEnabled(false);
@@ -134,29 +150,31 @@ public class RecommendationsElement extends AppCompatActivity {
 
         /* food recommendations list */
         initFoodRecommendationsList();
+
+        return view;
     }
 
     private void initFoodRecommendationsList() {
 
         /* layout manager */
-        RecyclerView recommendationListLayout = findViewById(R.id.recommendationsList);
-        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(RecommendationsElement.this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView recommendationListLayout = view.findViewById(R.id.recommendationsList);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager((MainActivity)getActivity(), LinearLayoutManager.VERTICAL, false);
         recommendationListLayout.setLayoutManager(nutritionReportLayoutManager);
 
         /* divider */
-        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(this.getApplicationContext(),R.drawable.divider), true);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(getContext(),R.drawable.divider), true);
         recommendationListLayout.addItemDecoration(dividerItemDecorator);
 
         /* list adapter */
         ArrayList<Pair<Food, Float>> listItems = generateRecommendationListContent(db.getRecommendationMap(nutritionElement));
-        RecyclerView.Adapter<?> recommendationNutritionAdapter = new RecommendationNutritionAdapter(RecommendationsElement.this, listItems, nutritionElement, db);
+        RecyclerView.Adapter<?> recommendationNutritionAdapter = new RecommendationNutritionAdapter((MainActivity)getActivity(), listItems, nutritionElement, db);
         recommendationListLayout.setAdapter(recommendationNutritionAdapter);
     }
 
     private void initFoodRecommendationsHeader(int recommendedMaxValue) {
         String dailyReq = getResources().getString(R.string.dailyRecommendation);
         String microGram = getResources().getString(R.string.microgram);
-        TextView dailyRequirements = findViewById(R.id.dailyRequirements);
+        TextView dailyRequirements = view.findViewById(R.id.dailyRequirements);
         dailyRequirements.setText(String.format(Locale.getDefault(), "%s %d %s ", dailyReq, recommendedMaxValue, microGram));
     }
 
@@ -173,7 +191,7 @@ public class RecommendationsElement extends AppCompatActivity {
 
         ArrayList<String> xAxisLabels = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        
+
         /* start 6 days ago */
         int START_DAYS_AGO = 6;
         for (int day = START_DAYS_AGO; day >= 0; day--) {
@@ -203,6 +221,4 @@ public class RecommendationsElement extends AppCompatActivity {
         BarData data = new BarData(set);
         return new Pair<>(data, xAxisLabels);
     }
-
-
 }

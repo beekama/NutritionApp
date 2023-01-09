@@ -12,10 +12,6 @@
     android:layout_height="wrap_content">
 
 
-    <!--    TOOLBAR-->
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_toolbar" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/dateGuideLine"
@@ -35,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
 

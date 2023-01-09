@@ -119,7 +119,7 @@ public class FoodGroupFragment extends Fragment {
         });
 
         suggestions = view.findViewById(R.id.suggestions);
-        db = new Database(this);
+        db = new Database((MainActivity)getActivity());
 
         /* set existing items if edit mode */
         groupId = this.getActivity().getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);

@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.recommendation.Recommendations;
+import com.example.nutritionapp.deprecated.Recommendations;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 
@@ -125,13 +125,11 @@ public class StartPageFragment extends Fragment {
         Recommendations.setProgressBar(currentDateParsed, this.db, this.energyBar, this.energyBarText, getContext());
 
         recommendationTileView.setOnClickListener(v -> {
-            Intent analysis = new Intent(v.getContext(), Recommendations.class);
-            startActivity(analysis);
+            navigate(RecommendationFragment.class, (MainActivity)getActivity());
         });
 
         showAnalysisButton.setOnClickListener(v -> {
-            Intent analysis = new Intent(v.getContext(), Recommendations.class);
-            startActivity(analysis);
+            navigate(RecommendationFragment.class, (MainActivity)getActivity());
         });
 
         /* PieChart */

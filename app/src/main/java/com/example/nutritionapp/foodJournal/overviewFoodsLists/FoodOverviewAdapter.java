@@ -25,7 +25,7 @@ import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
-import com.example.nutritionapp.recommendation.Recommendations;
+import com.example.nutritionapp.deprecated.Recommendations;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -62,7 +62,7 @@ public class CreateFoodItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new Database(this);
+        db = new Database((MainActivity)getActivity());
     }
 
     @Override
