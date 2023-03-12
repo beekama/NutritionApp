@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class RecommendationProteinListAdapter extends RecyclerView.Adapter {
+public class RecommendationProteinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int[] colors;
     private final List<PieEntry> pieEntries;

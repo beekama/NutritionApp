@@ -1,6 +1,5 @@
 package com.example.nutritionapp.recommendation;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ import java.util.Locale;
 
 import static java.lang.String.*;
 
-public class RecommendationAdapter extends RecyclerView.Adapter {
+public class RecommendationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context context;
     private final ArrayList<RecommendationListItem> items;
@@ -85,7 +84,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter {
             Bundle args = new Bundle();
             args.putSerializable(ActivityExtraNames.NUTRITION_ELEMENT, curItem.nutritionElement);
             try {
-                Fragment fragment = (Fragment) RecommendationNutritionElementFragment.class.newInstance();
+                Fragment fragment = RecommendationNutritionElementFragment.class.newInstance();
                 fragment.setArguments(args);
                 fragmentManager.beginTransaction()
                         .replace(R.id.main_fragment_container,

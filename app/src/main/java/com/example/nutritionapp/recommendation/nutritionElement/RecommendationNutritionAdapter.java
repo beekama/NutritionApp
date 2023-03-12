@@ -24,7 +24,7 @@ import com.example.nutritionapp.other.NutritionElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RecommendationNutritionAdapter extends RecyclerView.Adapter{
+public class RecommendationNutritionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     final String DBID_ENERGY = "1008";
 
