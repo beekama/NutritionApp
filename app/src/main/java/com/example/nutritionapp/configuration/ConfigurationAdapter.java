@@ -33,7 +33,6 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     final int VIEW_TYPE_HEADER = 0;
     final int VIEW_TYPE_ITEM = 1;
     final Database db;
-    private final ConfigurationAdapter.CallBack callBack;
     private final ActivityResultLauncher<Intent> importLauncher;
     private final ActivityResultLauncher<Intent> exportLauncher;
 
@@ -41,13 +40,11 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     private static final int REQUEST_CODE_EXPORT  = 0;
     private static final int REQUEST_CODE_IMPORT  = 1;
 
-    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db,
-                                ConfigurationAdapter.CallBack callBack, ActivityResultLauncher<Intent> exportLauncher,
+    public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, ActivityResultLauncher<Intent> exportLauncher,
                                 ActivityResultLauncher<Intent> importLauncher) {
         this.context = context;
         this.items = items;
         this.db = db;
-        this.callBack = callBack;
         this.exportLauncher = exportLauncher;
         this.importLauncher = importLauncher;
     }
@@ -125,21 +122,6 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
                 case EXPORT:
                     itemViewHolder.inputTextView.setText(currentItem.stringValue);
                     setListenFileDialog(itemViewHolder, Intent.ACTION_CREATE_DOCUMENT);
-                    break;
-                case LANGUAGE_DE:
-                    itemViewHolder.configurationSlider.setVisibility(View.VISIBLE);
-                    itemViewHolder.configurationSlider.setChecked(currentItem.bValue);
-                    itemViewHolder.configurationSlider.setOnCheckedChangeListener((button, isChecked) -> {
-                        if(isChecked){
-                            db.setLanguagePref("de");
-                            LocaleHelper.setLocale(context.getApplicationContext(), "de");
-                            callBack.refresh();
-                        }else{
-                            db.setLanguagePref("en");
-                            LocaleHelper.setLocale(context.getApplicationContext(), "en");
-                            callBack.refresh();
-                        }
-                    });
                     break;
                 case CURATED_FOODS:
                     itemViewHolder.configurationSlider.setVisibility(View.VISIBLE);
@@ -248,9 +230,6 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface CallBack{
-        void refresh();
-    }
 }
 
 

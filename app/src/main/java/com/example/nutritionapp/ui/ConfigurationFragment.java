@@ -57,20 +57,8 @@ public class ConfigurationFragment extends Fragment {
     public ActivityResultLauncher<Intent> onExportDialogResultLauncher;
 
     public enum DataType {
-        HEIGHT, WEIGHT, AGE, GENDER, LANGUAGE_DE, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
+        HEIGHT, WEIGHT, AGE, GENDER, HEADER, CALORIES, BMI, IMPORT, EXPORT, CURATED_FOODS
     }
-
-    private final ConfigurationAdapter.CallBack callBackUpdate = () -> {
-        /* refresh and notify other running activities that language has changed */
-        getParentFragmentManager()
-                .beginTransaction()
-                .detach(ConfigurationFragment.this)
-                .attach(ConfigurationFragment.this)
-                .commit();
-        Intent intent = new Intent("LANGUAGE_CHANGED");
-        requireActivity().sendBroadcast(intent);
-    };
-
 
     public ConfigurationFragment() {
         // Required empty public constructor
@@ -173,8 +161,6 @@ public class ConfigurationFragment extends Fragment {
         toolbarBack.setImageResource(R.color.transparent);
 
         db = new Database((MainActivity) getActivity());
-        String defaultLanguage = db.getLanguagePref();
-        if (defaultLanguage != null) LocaleHelper.setLocale(getContext(), defaultLanguage);
 
         setRecyclerView();
         return view;
@@ -197,9 +183,6 @@ public class ConfigurationFragment extends Fragment {
         result.add(new ConfigurationListItem(ConfigurationFragment.DataType.IMPORT, getString(R.string.import_backup_button), ">"));
         result.add(new ConfigurationListItem(ConfigurationFragment.DataType.EXPORT, getString(R.string.export_data_button), ">"));
 
-        result.add(new ConfigurationListItem(ConfigurationFragment.DataType.HEADER, getString(R.string.languageSectionHeader), ""));
-        result.add(new ConfigurationListItem(ConfigurationFragment.DataType.LANGUAGE_DE, getString(R.string.localization_de), db.getLanguagePref() != null && db.getLanguagePref().equals("de")));
-
         result.add(new ConfigurationListItem(ConfigurationFragment.DataType.CURATED_FOODS, getString(R.string.ConfigurationCuratedFoodTitle), db.getCuratedFoodsPreference() > 0));
 
 
@@ -211,7 +194,7 @@ public class ConfigurationFragment extends Fragment {
         RecyclerView personalView = view.findViewById(R.id.mainList);
         personalView.addItemDecoration(new DividerItemDecoration(personalView.getContext(), DividerItemDecoration.VERTICAL));
         ArrayList<ConfigurationListItem> items = generateData();
-        ConfigurationAdapter adapter = new ConfigurationAdapter(getContext(), items, db, callBackUpdate, onExportDialogResultLauncher, onImportDialogResultLauncher);
+        ConfigurationAdapter adapter = new ConfigurationAdapter(getContext(), items, db, onExportDialogResultLauncher, onImportDialogResultLauncher);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         personalView.setLayoutManager(layoutManager);
         personalView.setAdapter(adapter);

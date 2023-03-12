@@ -2,7 +2,6 @@ package com.example.nutritionapp.ui;
 
 import static com.example.nutritionapp.other.Utils.navigate;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -51,8 +50,7 @@ public class StartPageFragment extends Fragment {
         db = new Database((MainActivity) getActivity());
         currentDateParsed = LocalDate.now();
 
-        /* try to set language according to db, if empty set db to system-default */
-        //todo
+
 
         /* Toolbar */
         toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
