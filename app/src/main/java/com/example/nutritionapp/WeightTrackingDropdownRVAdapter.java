@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class WeightTrackingDropdownRVAdapter extends RecyclerView.Adapter {
+public class WeightTrackingDropdownRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context context;
     private final ArrayList<Pair<String, Integer>> items;

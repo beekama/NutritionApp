@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
+public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     final Context context;
     final TreeMap<LocalDate, Integer> entries;
     List<LocalDate> entryKeys;
@@ -67,6 +67,9 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
 
             /* ignore header in positionCount */
             int relPosition = position - 1;
+            if (!entries.entrySet().stream().skip(relPosition).findFirst().isPresent()){
+                throw new AssertionError("Weight-Tracking-Weight-List is empty although it should not be!");
+            }
             Map.Entry<LocalDate, Integer> itemAtPosition = entries.entrySet().stream().skip(relPosition).findFirst().get();
 
             lvh.date.setText(itemAtPosition.getKey().toString());
@@ -96,15 +99,20 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
 
 
     void removeEntry(LocalDate entry, int position) {
-        tw.removeEntry(entries.get(entry), entry);
-        entries.remove(entry);
+        Integer entryToBeRemoved = entries.get(entry);
+        if (entryToBeRemoved != null){
+            tw.removeEntry(entryToBeRemoved, entry);
+            entries.remove(entry);
+        } else {
+            throw new AssertionError("Item: " + entry.toString() + " is within Weight-Tracking-List and so cannot be removed");
+        }
+
     }
 
 
     static class LocalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView date;
         final TextView weight;
-        final int viewType = ITEM_TYPE;
 
 
         public LocalViewHolder(View itemView) {
@@ -123,7 +131,6 @@ public class WeightTrackingWeightListAdapter extends RecyclerView.Adapter {
     static class HeaderViewHolder extends RecyclerView.ViewHolder{
         final TextView date;
         final TextView weight;
-        final int viewType = HEADER_TYPE;
 
         public HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
