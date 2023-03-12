@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nutritionapp.MainActivity;
@@ -43,8 +42,6 @@ public class CreateFoodItemFragment extends Fragment {
     private Food editModeOrigFood;
     RecyclerView mainRv;
 
-    /* Save Args */
-    private String extraArg = null;
 
     public CreateFoodItemFragment() {
         // Required empty public constructor
@@ -62,7 +59,7 @@ public class CreateFoodItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new Database((MainActivity)getActivity());
+        db = new Database(getActivity());
     }
 
     @Override
@@ -72,12 +69,12 @@ public class CreateFoodItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_food_item, container, false);
 
         /* replace actionbar with custom app_toolbar */
-        Toolbar toolbar = ((MainActivity)getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
         ImageButton submit = toolbar.findViewById(R.id.toolbar_forward);
 
         /* return  button */
-        toolbarBack.setOnClickListener((v -> Utils.navigate(CustomFoodFragment.class, (MainActivity)getActivity())));
+        toolbarBack.setOnClickListener((v -> Utils.navigate(CustomFoodFragment.class, (MainActivity) requireActivity())));
         toolbarBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setTitle(R.string.customItemCreate);
         submit.setImageResource(R.drawable.ic_done_black_24dp);
@@ -141,10 +138,10 @@ public class CreateFoodItemFragment extends Fragment {
         mainRv = view.findViewById(R.id.createFoodNewItem_rv);
         mainRv.addItemDecoration(new DividerItemDecoration(mainRv.getContext(), DividerItemDecoration.VERTICAL));
         for (NutritionElement ne : n.getElements().keySet()) {
-            int stringIdNutritionElement = getStringIdentifier(getContext(), ne.toString());
+            int stringIdNutritionElement = getStringIdentifier(requireContext(), ne.toString());
             String neString = getResources().getString(stringIdNutritionElement);
             String noStrPortionType = Database.getNutrientNativeUnit(Integer.toString(Nutrition.databaseIdFromEnum(ne)));
-            String portionType =  getResources().getString(getStringIdentifier(getContext(), noStrPortionType));
+            String portionType =  getResources().getString(getStringIdentifier(requireContext(), noStrPortionType));
             int startPtString = neString.length() + 1;
             int endPtString = startPtString + 4 + portionType.length() - 1;
             Spannable neSpan = new SpannableString(neString + " in " + portionType);
@@ -179,7 +176,7 @@ public class CreateFoodItemFragment extends Fragment {
             }else {
                 db.createNewFood(f, CREATE_NEW_ID);
             }
-            Utils.navigate(CustomFoodFragment.class, (MainActivity)getActivity());
+            Utils.navigate(CustomFoodFragment.class, (MainActivity) requireActivity());
         });
 
         return view;

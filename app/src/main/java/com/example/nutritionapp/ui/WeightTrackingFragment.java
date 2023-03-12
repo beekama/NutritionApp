@@ -26,7 +26,6 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.DividerItemDecorator;
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.TransferWeight;
 import com.example.nutritionapp.UpdatePeriod;
@@ -73,16 +72,15 @@ public class WeightTrackingFragment extends Fragment implements TransferWeight, 
         // Required empty public constructor
     }
 
-    public static WeightTrackingFragment newInstance(String param1, String param2) {
-        WeightTrackingFragment fragment = new WeightTrackingFragment();
-        return fragment;
+    public static WeightTrackingFragment newInstance() {
+        return new WeightTrackingFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        db = new Database((MainActivity) getActivity());
+        db = new Database(getActivity());
 
 
     }
@@ -93,7 +91,7 @@ public class WeightTrackingFragment extends Fragment implements TransferWeight, 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weight_tracking, container, false);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.weight_history);
         ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
         toolbarBack.setImageResource(R.color.transparent);
@@ -132,7 +130,7 @@ public class WeightTrackingFragment extends Fragment implements TransferWeight, 
         LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         weights.setLayoutManager(nutritionReportLayoutManager);
 
-        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.divider), true);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(requireContext(), R.drawable.divider), true);
         weights.addItemDecoration(dividerItemDecorator);
 
         foodRec = new WeightTrackingWeightListAdapter(getContext(), weightAll, this);
@@ -284,7 +282,7 @@ public class WeightTrackingFragment extends Fragment implements TransferWeight, 
 
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        View view = getActivity().getCurrentFocus();
+        View view = requireActivity().getCurrentFocus();
         if (view == null) {
             view = new View(getActivity());
         }

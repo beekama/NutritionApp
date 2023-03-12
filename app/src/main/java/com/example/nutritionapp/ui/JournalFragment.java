@@ -33,6 +33,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class JournalFragment extends Fragment {
@@ -57,21 +58,21 @@ public class JournalFragment extends Fragment {
     }
 
 
-    public static JournalFragment newInstance(String param1, String param2) {
-        JournalFragment fragment = new JournalFragment();
-        return fragment;
+    public static JournalFragment newInstance() {
+        return new JournalFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new Database((MainActivity)getActivity());
+        db = new Database(getActivity());
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
 
+                        assert data != null;
                         if (data.getIntExtra("REQUEST_CODE", Utils.WRONG_REQUEST_CODE) == Utils.FOOD_GROUP_DETAILS_ID) {
                             String returnValue = data.getStringExtra(ActivityExtraNames.DATE_RESULT);
                             int groupIdValue = data.getIntExtra(ActivityExtraNames.DATE_RESULT, -1);
@@ -101,7 +102,7 @@ public class JournalFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_journal, container, false);
 
         /* retrieve items */
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.journalToolbarText);
         ImageButton addStuff = toolbar.findViewById(R.id.toolbar_forward);
         addStuff.setImageResource(R.drawable.add_circle_filled);
@@ -112,13 +113,13 @@ public class JournalFragment extends Fragment {
         /* this is a list of layout of type journal_day_header, which contains the day-header and
         a nested sublist of the foods (food groups) on this */
         RecyclerView mainListOfFoodsWithDayHeaders = view.findViewById(R.id.mainList);
-        adapter = new FoodOverviewAdapter(getContext(), foodDataList, mainListOfFoodsWithDayHeaders, db, (MainActivity) getActivity(), dataInvalidationMap);
+        adapter = new FoodOverviewAdapter(getContext(), foodDataList, mainListOfFoodsWithDayHeaders, db, getActivity(), dataInvalidationMap);
         LinearLayoutManager mainListLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mainListOfFoodsWithDayHeaders.setLayoutManager(mainListLayoutManager);
         mainListOfFoodsWithDayHeaders.setAdapter(adapter);
 
         addStuff.setOnClickListener(v ->
-                navigate(FoodGroupFragment.class, (MainActivity)getActivity()));
+                navigate(FoodGroupFragment.class, (MainActivity) requireActivity()));
 
         return view;
     }

@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.method.LinkMovementMethod;
@@ -16,8 +17,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
+
 
 public class AboutPageFragment extends Fragment {
 
@@ -25,9 +26,8 @@ public class AboutPageFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static AboutPageFragment newInstance(String param1, String param2) {
-        AboutPageFragment fragment = new AboutPageFragment();
-        return fragment;
+    public static AboutPageFragment newInstance() {
+        return new AboutPageFragment();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class AboutPageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about_page, container, false);
 
         /* Toolbar */
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
         toolbarRight.setImageResource(android.R.color.transparent);
         toolbar.setTitle(R.string.about);
@@ -75,7 +75,7 @@ public class AboutPageFragment extends Fragment {
             TextView tmpTitle = new TextView(getContext());
             TextView tmpText = new TextView(getContext());
             View hLine = new View(getContext());
-            hLine.setBackgroundColor(getResources().getColor(R.color.hlineSilver));
+            hLine.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.hlineSilver));
 
             tmpTitle.setText(sectionTitles[i]);
             tmpTitle.setTextAppearance(R.style.TextAppearance_MaterialComponents_Body1);

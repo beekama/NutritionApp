@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.nutritionapp.DividerItemDecorator;
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
@@ -76,7 +75,7 @@ public class RecommendationNutritionElementFragment extends Fragment {
         if (args != null && (argNutritionElement = (NutritionElement) getArguments().getSerializable(ActivityExtraNames.NUTRITION_ELEMENT)) != null){
             nutritionElement = argNutritionElement;
         }
-        db = new Database((MainActivity)getActivity());
+        db = new Database(getActivity());
     }
 
     @Override
@@ -85,14 +84,17 @@ public class RecommendationNutritionElementFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_recommendation_nutrition_element, container, false);
 
-        Toolbar toolbar = ((MainActivity)getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
-        toolbar.setTitle(nutritionElement.getString(getContext()));
+        toolbar.setTitle(nutritionElement.getString(requireContext()));
         toolbarBack.setImageResource(R.color.transparent);
 
         /* get nutrition recommendation as max for chart */
         Nutrition rec = Nutrition.getRecommendation();
-        int recommendedMaxValue = rec.getElements().get(nutritionElement);
+        Integer recommendedMaxValue = rec.getElements().get(nutritionElement);
+        if (recommendedMaxValue == null){
+            throw new AssertionError("recommended Daily Maximum from " + nutritionElement.toString() + " is null.");
+        }
 
         /* chart general settings */
         ExtendedBarChart barChart =  view.findViewById(R.id.barChartNutrition);
@@ -158,16 +160,16 @@ public class RecommendationNutritionElementFragment extends Fragment {
 
         /* layout manager */
         RecyclerView recommendationListLayout = view.findViewById(R.id.recommendationsList);
-        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager((MainActivity)getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recommendationListLayout.setLayoutManager(nutritionReportLayoutManager);
 
         /* divider */
-        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(getContext(),R.drawable.divider), true);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(requireContext(),R.drawable.divider), true);
         recommendationListLayout.addItemDecoration(dividerItemDecorator);
 
         /* list adapter */
         ArrayList<Pair<Food, Float>> listItems = generateRecommendationListContent(db.getRecommendationMap(nutritionElement));
-        RecyclerView.Adapter<?> recommendationNutritionAdapter = new RecommendationNutritionAdapter((MainActivity)getActivity(), listItems, nutritionElement, db);
+        RecyclerView.Adapter<?> recommendationNutritionAdapter = new RecommendationNutritionAdapter(getActivity(), listItems, nutritionElement, db);
         recommendationListLayout.setAdapter(recommendationNutritionAdapter);
     }
 

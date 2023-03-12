@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
@@ -25,7 +23,6 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.configuration.ConfigurationAdapter;
 import com.example.nutritionapp.configuration.ConfigurationListItem;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.other.LocaleHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,14 +35,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class ConfigurationFragment extends Fragment {
 
     private static final int JSON_INDENT = 2;
-    private static final int REQUEST_CODE_EXPORT = 0;
-    private static final int REQUEST_CODE_IMPORT = 1;
 
     public static final int ENERGY_TARGET = 2000;
     public static final int PROTEIN_TARGET = 50; //50;
@@ -153,7 +147,7 @@ public class ConfigurationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_configuration, container, false);
 
         /* Toolbar */
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = ((MainActivity) requireActivity()).findViewById(R.id.toolbar);
         ImageButton toolbarRight = toolbar.findViewById(R.id.toolbar_forward);
         toolbarRight.setImageResource(android.R.color.transparent);
         toolbar.setTitle(R.string.configurationTitle);

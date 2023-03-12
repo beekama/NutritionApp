@@ -21,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.nutritionapp.DividerItemDecorator;
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
@@ -75,9 +74,9 @@ public class RecommendationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new Database((MainActivity)getActivity());
+        db = new Database(getActivity());
         Bundle args = getArguments();
-        String dateFromExtra = null;
+        String dateFromExtra;
         if (args != null && (dateFromExtra = args.getString(ActivityExtraNames.START_DATE)) != null){
             currentDateParsed = LocalDate.parse(dateFromExtra, Utils.sqliteDateFormat);
         }
@@ -89,9 +88,8 @@ public class RecommendationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recommendation, container, false);
 
-        Toolbar toolbar = ((MainActivity)getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbar_back = toolbar.findViewById(R.id.toolbar_back);
-        ImageButton toolbar_forward = toolbar.findViewById(R.id.toolbar_forward);
         toolbar.setTitle(R.string.recommendationTitle);
         toolbar_back.setImageResource(R.color.transparent);
 
@@ -110,14 +108,14 @@ public class RecommendationFragment extends Fragment {
         updatePageContent(currentDateParsed);
 
         /* NUTRITION LIST */
-        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager((MainActivity)getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager nutritionReportLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         nutritionRecommendationList.setLayoutManager(nutritionReportLayoutManager);
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(currentDateParsed);
 
-        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(getContext(),R.drawable.divider), false);
+        DividerItemDecorator dividerItemDecorator = new DividerItemDecorator(ContextCompat.getDrawable(requireContext(),R.drawable.divider), false);
         nutritionRecommendationList.addItemDecoration(dividerItemDecorator);
 
-        RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter((MainActivity)getActivity(), listItems);
+        RecyclerView.Adapter<?> nutritionReport = new RecommendationAdapter(getActivity(), listItems);
         nutritionRecommendationList.setAdapter(nutritionReport);
 
         /* date view */
@@ -144,7 +142,7 @@ public class RecommendationFragment extends Fragment {
 
         setProgressBar(localDate, db, energyBar, energyBarText, getContext());
         ArrayList<RecommendationListItem> listItems = generateAdapterContent(localDate);
-        RecommendationAdapter newDayAdapter = new RecommendationAdapter((MainActivity)getActivity(), listItems);
+        RecommendationAdapter newDayAdapter = new RecommendationAdapter(getActivity(), listItems);
         nutritionRecommendationList.setAdapter(newDayAdapter);
 
         /* TODO maybe prevent double execution of generatePieChartContent */
@@ -186,7 +184,7 @@ public class RecommendationFragment extends Fragment {
 
         /* display zero value if desired */
         for(NutritionElement ne : nonZero.keySet()){
-            if(!nonZero.get(ne)){
+            if(Boolean.FALSE.equals(nonZero.get(ne))){
                 Integer nutTarget = target.getElements().get(ne);
                 Integer nutLimit = target.getElements().get(ne);
                 listItems.add(new RecommendationListItem(ne, 0f, nutTarget, nutLimit));

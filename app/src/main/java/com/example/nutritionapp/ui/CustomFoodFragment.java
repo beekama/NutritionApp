@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
@@ -39,15 +38,14 @@ public class CustomFoodFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static CustomFoodFragment newInstance(String param1, String param2) {
-        CustomFoodFragment fragment = new CustomFoodFragment();
-        return fragment;
+    public static CustomFoodFragment newInstance() {
+        return new CustomFoodFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new Database((MainActivity)getActivity());
+        db = new Database(getActivity());
     }
 
     @Override
@@ -57,18 +55,18 @@ public class CustomFoodFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_food, container, false);
 
         /* replace actionbar with custom app_toolbar */
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbarForward = toolbar.findViewById(R.id.toolbar_forward);
         toolbarForward.setImageResource(R.drawable.add_circle_filled);
         toolbar.setTitle(R.string.customItems);
 
         mainRv = view.findViewById(R.id.createFoodOverview_rv);
-        mainRv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mainRv.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         /* add new food item */
         toolbarForward.setOnClickListener((v -> {
-            Class fragmentClass = CreateFoodItemFragment.class;
-            Utils.navigate(fragmentClass, (MainActivity)getActivity());
+            Class<CreateFoodItemFragment> fragmentClass = CreateFoodItemFragment.class;
+            Utils.navigate(fragmentClass, (MainActivity) requireActivity());
         }));
 
 

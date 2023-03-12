@@ -1,10 +1,8 @@
 package com.example.nutritionapp.ui;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -65,9 +63,6 @@ public class FoodGroupFragment extends Fragment {
     private ListView suggestions;
     private ListView nutOverviewList;
     private Database db;
-    private View nutritionOverviewHeader;
-    private View selectedItemsHeader;
-    private View suggestedItemsHeader;
     private View view;
 
 
@@ -78,9 +73,8 @@ public class FoodGroupFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static FoodGroupFragment newInstance(String param1, String param2) {
-        FoodGroupFragment fragment = new FoodGroupFragment();
-        return fragment;
+    public static FoodGroupFragment newInstance() {
+        return new FoodGroupFragment();
     }
 
     @Override
@@ -94,7 +88,7 @@ public class FoodGroupFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_food_group, container, false);
 
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        Toolbar toolbar =  requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
         ImageButton addButton = toolbar.findViewById(R.id.toolbar_forward);
         Button saveAsTemplate = view.findViewById(R.id.saveAsTemplate);
@@ -119,13 +113,13 @@ public class FoodGroupFragment extends Fragment {
         });
 
         suggestions = view.findViewById(R.id.suggestions);
-        db = new Database((MainActivity)getActivity());
+        db = new Database(getActivity());
 
         /* set existing items if edit mode */
-        groupId = this.getActivity().getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);
+        groupId = this.requireActivity().getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);
 
         /* see if we are creating or editing a pure template */
-        isTemplateMode = this.getActivity().getIntent().getBooleanExtra(ActivityExtraNames.GROUP_ID, false);
+        isTemplateMode = this.requireActivity().getIntent().getBooleanExtra(ActivityExtraNames.GROUP_ID, false);
 
         if (groupId >= 0) {
             this.editMode = true;
@@ -174,7 +168,7 @@ public class FoodGroupFragment extends Fragment {
             Toast.makeText(this.getContext(), "Saved Template", Toast.LENGTH_LONG).show();
         });
 
-        requireActivity().getOnBackPressedDispatcher().addCallback((MainActivity)getActivity(), new OnBackPressedCallback(true) {
+        requireActivity().getOnBackPressedDispatcher().addCallback( requireActivity(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
@@ -186,7 +180,7 @@ public class FoodGroupFragment extends Fragment {
                 }
                 save(computedLoggedAt, isTemplateMode);
 
-                Utils.navigate(StartPageFragment.class, ((MainActivity)getActivity()));
+                Utils.navigate(StartPageFragment.class, ((MainActivity) requireActivity()));
             }
         });
 
@@ -217,7 +211,7 @@ public class FoodGroupFragment extends Fragment {
 
     public void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
         if (selectedFoodItem == null) {
-            Dialog foodSelectionDialog = new DialogFoodSelector((MainActivity)getActivity());
+            Dialog foodSelectionDialog = new DialogFoodSelector(requireActivity());
             foodSelectionDialog.setOnDismissListener(dialog -> {
                 DialogFoodSelector castedDialog = (DialogFoodSelector) dialog;
                 runAmountSelectorDialog(castedDialog.selectedFood, position, null, Double.NaN);
@@ -257,7 +251,7 @@ public class FoodGroupFragment extends Fragment {
         }else{
             selectedFood.associatedAmount = amountCurrent;
         }
-        DialogAmountSelector amountSelector = new DialogAmountSelector((MainActivity)getActivity(), db, selectedFood);
+        DialogAmountSelector amountSelector = new DialogAmountSelector(requireActivity(), db, selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
@@ -301,7 +295,7 @@ public class FoodGroupFragment extends Fragment {
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
         /* HEADER */
         if (FIRST_ADD){
-            selectedItemsHeader = view.findViewById(R.id.selected_items_header);
+            View selectedItemsHeader = view.findViewById(R.id.selected_items_header);
             TextView noHeader = selectedItemsHeader.findViewById(R.id.headerText);
             noHeader.setText(R.string.addFoodsGroupItemHeader);
         }
@@ -317,11 +311,9 @@ public class FoodGroupFragment extends Fragment {
         suggestionsPrevSelected.clear();
 
         /* HEADER */
-        if (suggestionsPrevSelected.isEmpty()){
-            suggestedItemsHeader = view.findViewById(R.id.suggested_items_header);
-            TextView noHeader = suggestedItemsHeader.findViewById(R.id.headerText);
-            noHeader.setText(R.string.addFoodsSuggestionHeader);
-        }
+        View suggestedItemsHeader = view.findViewById(R.id.suggested_items_header);
+        TextView noHeader = suggestedItemsHeader.findViewById(R.id.headerText);
+        noHeader.setText(R.string.addFoodsSuggestionHeader);
         for (Food f : foods) {
             if (suggestionsPrevSelected.contains(new ListFoodItem(f))) {
                 continue;
@@ -338,7 +330,7 @@ public class FoodGroupFragment extends Fragment {
         if (FIRST_ADD){
             FIRST_ADD = false;
 
-            nutritionOverviewHeader = view.findViewById(R.id.nutritionOverview_header);
+            View nutritionOverviewHeader = view.findViewById(R.id.nutritionOverview_header);
             TextView noHeader = nutritionOverviewHeader.findViewById(R.id.headerText);
             noHeader.setText(R.string.addFoodsNutritionOverviewHeader);
         }
@@ -348,14 +340,14 @@ public class FoodGroupFragment extends Fragment {
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
 
-        ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter((MainActivity)getActivity(), na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
+        ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(getActivity(), na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
 
     private void save(LocalDateTime computedLoggedAt, boolean asTemplate){
-        for (int i = 0; i < selectedAdapter.getCount(); i++) {
-            SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
-        }
+//        for (int i = 0; i < selectedAdapter.getCount(); i++) {
+//            SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
+//        }
         if (this.editMode) {
             db.updateFoodGroup(selected, groupId, computedLoggedAt, asTemplate);
         } else {
