@@ -21,12 +21,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.other.LocaleHelper;
 import com.example.nutritionapp.other.SimpleInputPopup;
 
 import java.util.ArrayList;
 
-public class ConfigurationAdapter extends RecyclerView.Adapter {
+public class ConfigurationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context context;
     private final ArrayList<ConfigurationListItem> items;
@@ -36,9 +35,6 @@ public class ConfigurationAdapter extends RecyclerView.Adapter {
     private final ActivityResultLauncher<Intent> importLauncher;
     private final ActivityResultLauncher<Intent> exportLauncher;
 
-    private static final int JSON_INDENT = 2;
-    private static final int REQUEST_CODE_EXPORT  = 0;
-    private static final int REQUEST_CODE_IMPORT  = 1;
 
     public ConfigurationAdapter(Context context, ArrayList<ConfigurationListItem> items, Database db, ActivityResultLauncher<Intent> exportLauncher,
                                 ActivityResultLauncher<Intent> importLauncher) {
