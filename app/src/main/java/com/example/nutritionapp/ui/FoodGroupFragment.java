@@ -180,6 +180,7 @@ public class FoodGroupFragment extends Fragment {
                 }
                 save(computedLoggedAt, isTemplateMode);
 
+                if (!isAdded()) return;             // if activity is not attached -> return here
                 Utils.navigate(StartPageFragment.class, ((MainActivity) requireActivity()));
             }
         });
