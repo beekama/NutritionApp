@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 
 import java.time.LocalDate;
@@ -208,7 +207,7 @@ public class Utils {
             fragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container,
                             (Fragment) fragmentClass.newInstance())
-                    .addToBackStack(null)
+                    .addToBackStack("meow tag")
                     .commit();
         } catch (IllegalAccessException | InstantiationException e) {
             e.printStackTrace();

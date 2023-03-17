@@ -6,6 +6,8 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -65,6 +67,8 @@ public class FoodGroupFragment extends Fragment {
     private Database db;
     private View view;
 
+    // to restrict overwrite to this view
+    private OnBackPressedCallback backPressedCallback;
 
     SelectedFoodAdapter selectedAdapter;
     int groupId;
@@ -168,7 +172,14 @@ public class FoodGroupFragment extends Fragment {
             Toast.makeText(this.getContext(), "Saved Template", Toast.LENGTH_LONG).show();
         });
 
-        requireActivity().getOnBackPressedDispatcher().addCallback( requireActivity(), new OnBackPressedCallback(true) {
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        backPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
@@ -180,14 +191,18 @@ public class FoodGroupFragment extends Fragment {
                 }
                 save(computedLoggedAt, isTemplateMode);
 
-                if (!isAdded()) return;             // if activity is not attached -> return here
                 Utils.navigate(StartPageFragment.class, ((MainActivity) requireActivity()));
             }
-        });
-
-        return view;
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backPressedCallback);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        clearFoodInput();
+        backPressedCallback.remove();
+    }
 
     private void addSelectedFoodItem(SelectedFoodItem foodItem) {
         if (foodItem == null) {
@@ -343,6 +358,10 @@ public class FoodGroupFragment extends Fragment {
 
         ListAdapter nutOverviewAdapter = new NutritionOverviewAdapter(getActivity(), na.getNutritionActual(), na.getNutritionPercentageSortedFilterZero());
         nutOverviewList.setAdapter(nutOverviewAdapter);
+    }
+
+    private void clearFoodInput(){
+        selected.clear();
     }
 
     private void save(LocalDateTime computedLoggedAt, boolean asTemplate){

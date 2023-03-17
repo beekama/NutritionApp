@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import com.github.mikephil.charting.data.PieData;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class StartPageFragment extends Fragment {
     private final List<Integer> colors = new ArrayList<>();
@@ -130,6 +132,24 @@ public class StartPageFragment extends Fragment {
         RecyclerView chartList = view.findViewById(R.id.chartList);
         chartList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         Recommendations.setChartSupportingList(pieChart, pieAndListData, getContext(), chartList);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // disable onBack-transaction at Home-Screen
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        int backStackEntryCount = fragmentManager.getBackStackEntryCount();
+
+        if (backStackEntryCount > 0){
+            FragmentManager.BackStackEntry backStackEntry = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1);
+            String fragmentTag = backStackEntry.getName();
+
+            if (Objects.equals(fragmentTag, "meow tag") ){
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        }
     }
 
     @Override
