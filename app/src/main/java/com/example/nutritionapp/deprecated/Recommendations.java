@@ -31,6 +31,7 @@ import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.recommendation.RecommendationAdapter;
 import com.example.nutritionapp.recommendation.RecommendationListItem;
 import com.example.nutritionapp.recommendation.RecommendationProteinListAdapter;
+import com.example.nutritionapp.ui.ConfigurationFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -205,7 +206,7 @@ public class Recommendations extends AppCompatActivity {
         }
 
         /* calculate percentage */
-        int allowanceEnergy = PersonalInformation.ENERGY_TARGET;
+        int allowanceEnergy = ConfigurationFragment.ENERGY_TARGET;
         carbSum = carbSum*100/allowanceEnergy;
         proteinSum = proteinSum*100/allowanceEnergy;
         fatSum = fatSum*100/allowanceEnergy;
@@ -218,9 +219,9 @@ public class Recommendations extends AppCompatActivity {
 
         /* add allowances for Carbs, Protein, Fat */
         ArrayList<Integer> allowances = new ArrayList<>();
-        allowances.add(PersonalInformation.CARB_TARGET);
-        allowances.add(PersonalInformation.PROTEIN_TARGET);
-        allowances.add(PersonalInformation.FAT_TARGET);
+        allowances.add(ConfigurationFragment.CARB_TARGET);
+        allowances.add(ConfigurationFragment.PROTEIN_TARGET);
+        allowances.add(ConfigurationFragment.FAT_TARGET);
 
         /* generate DataSet from PieEntries */
         PieDataSet set = new PieDataSet(entries, "");
@@ -246,7 +247,7 @@ public class Recommendations extends AppCompatActivity {
     }
 
     public static void createEnergyBar(ProgressBar energyBar, TextView energyBarText, Context context, int energyUsed) {
-        int energyNeeded = PersonalInformation.ENERGY_TARGET; // TODO use value from database
+        int energyNeeded = ConfigurationFragment.ENERGY_TARGET; // TODO use value from database
         int energyUsedPercentage = energyUsed *100/energyNeeded;
 
         if(energyUsedPercentage < 75){
