@@ -21,7 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.deprecated.FoodGroupOverview;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewAdapter;
 import com.example.nutritionapp.foodJournal.overviewFoodsLists.FoodOverviewListItem;
 import com.example.nutritionapp.other.ActivityExtraNames;
@@ -33,7 +32,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 
 public class JournalFragment extends Fragment {

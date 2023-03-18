@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.deprecated.FoodGroupOverview;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.other.Food;
 import com.example.nutritionapp.other.NutritionAnalysis;
 import com.example.nutritionapp.other.Utils;
 import com.example.nutritionapp.deprecated.Recommendations;
+import com.example.nutritionapp.ui.FoodGroupFragment;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -251,7 +251,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
             /* set text content & update on click listener */
             foodsTextView.setText(allFoodsStringBuilder.toString());
             foodsTextView.setOnClickListener(view -> {
-                Intent target = new Intent(view.getContext(), FoodGroupOverview.class);
+                Intent target = new Intent(view.getContext(), FoodGroupFragment.class);
                 target.putExtra("REQUEST_CODE", Utils.FOOD_GROUP_DETAILS_ID);
                 target.putExtra(ActivityExtraNames.GROUP_ID, item.groupId);
                 parentActivity.startActivityForResult(target, Utils.FOOD_GROUP_DETAILS_ID);

@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
-import com.example.nutritionapp.deprecated.FoodGroupOverview;
 import com.example.nutritionapp.other.ActivityExtraNames;
 import com.example.nutritionapp.other.Database;
 import com.example.nutritionapp.ui.CreateFoodItemFragment;
+import com.example.nutritionapp.ui.FoodGroupFragment;
 
 import java.util.ArrayList;
 
@@ -71,7 +71,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                 if(item.isGroup) {
                     /* open indent from journal to edit a group of goods */
                     CustomGroupOverviewItem groupItem = (CustomGroupOverviewItem) item;
-                    Intent editCustomFoodGroup = new Intent(context, FoodGroupOverview.class);
+                    Intent editCustomFoodGroup = new Intent(context, FoodGroupFragment.class);
                     editCustomFoodGroup.putExtra(ActivityExtraNames.GROUP_ID, groupItem.groupId);
                     editCustomFoodGroup.putExtra(ActivityExtraNames.IS_TEMPLATED_MODE, true);
                     context.startActivity(editCustomFoodGroup);
