@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nutritionapp.MainActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.other.Database;
-import com.example.nutritionapp.deprecated.Recommendations;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 
@@ -32,6 +31,11 @@ import java.util.Objects;
 
 public class StartPageFragment extends Fragment {
     private final List<Integer> colors = new ArrayList<>();
+    private Database db;
+    private LocalDate currentDateParsed;
+
+    private ProgressBar energyBar;
+    private TextView energyBarText;
 
     public StartPageFragment() {
         super(R.layout.fragment_startpage);
@@ -40,8 +44,8 @@ public class StartPageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){ //todo change back
         /* load database */
-        Database db = new Database(getActivity());
-        LocalDate currentDateParsed = LocalDate.now();
+        db = new Database(getActivity());
+        currentDateParsed = LocalDate.now();
 
 
 
@@ -106,14 +110,14 @@ public class StartPageFragment extends Fragment {
         TextView analysisButtonTitle = recommendationTileView.findViewById(R.id.recommendation_button_title);
         Button showAnalysisButton = recommendationTileView.findViewById(R.id.button_recommendation);
 
-        ProgressBar energyBar = recommendationTileView.findViewById(R.id.progressbar_main);
-        TextView energyBarText = recommendationTileView.findViewById(R.id.progressbarTV_main);
+        energyBar = recommendationTileView.findViewById(R.id.progressbar_main);
+        energyBarText = recommendationTileView.findViewById(R.id.progressbarTV_main);
 
         analysisButtonTitle.setText(R.string.analysisButtonTitle);
         showAnalysisButton.setText(R.string.showAnalysis);
 
         /* get logged foods of day */
-        Recommendations.setProgressBar(currentDateParsed, db, energyBar, energyBarText, getContext());
+        RecommendationFragment.setProgressBar(currentDateParsed, db, energyBar, energyBarText, getContext());
 
         recommendationTileView.setOnClickListener(v -> {
             navigate(RecommendationFragment.class, (MainActivity) requireActivity());
@@ -125,13 +129,13 @@ public class StartPageFragment extends Fragment {
 
         /* PieChart */
         PieChart pieChart = view.findViewById(R.id.piChartNutrition);
-        Pair<PieData, ArrayList<Integer>> pieAndListData = Recommendations.generatePieChartContent(currentDateParsed, db, this.colors);
-        Recommendations.visualSetupPieChart(pieAndListData, pieChart);
+        Pair<PieData, ArrayList<Integer>> pieAndListData = RecommendationFragment.generatePieChartContent(currentDateParsed, db, this.colors);
+        RecommendationFragment.visualSetupPieChart(pieAndListData, pieChart);
 
         /* PieChartList with percent protein, carbs, fat*/
         RecyclerView chartList = view.findViewById(R.id.chartList);
         chartList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        Recommendations.setChartSupportingList(pieChart, pieAndListData, getContext(), chartList);
+        RecommendationFragment.setChartSupportingList(pieChart, pieAndListData, getContext(), chartList);
     }
 
     @Override
@@ -150,6 +154,7 @@ public class StartPageFragment extends Fragment {
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
+        RecommendationFragment.setProgressBar(currentDateParsed, db, energyBar, energyBarText, getContext());
     }
 
     @Override

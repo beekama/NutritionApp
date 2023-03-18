@@ -10,7 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,34 +47,33 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import androidx.lifecycle.ViewModelProvider;
 
-public class FoodGroupFragment extends Fragment {
+
+public class FoodGroupFragment extends Fragment implements SelectedFoodAdapter.EventListener {
 
     private static final int DEFAULT_AMOUNT = 100;
     private static final int NO_UPDATE_EXISTING = -1;
-    private static boolean FIRST_ADD = true;
-    private final ArrayList<SelectedFoodItem> selected = new ArrayList<>();
 
     /* information from caller */
     private boolean editMode = false;
     private boolean isTemplateMode;
-
-    private TextView dateView;
-    private TextView timeView;
-
     private LocalDateTime loggedAt;
-    private ListView selectedListView;
     private final ArrayList<GroupListItem> suggestionsByPrevSelected = new ArrayList<>();
     private ListView suggestions;
     private ListView nutOverviewList;
-    private Database db;
-    private View view;
 
     // to restrict overwrite to this view
     private OnBackPressedCallback backPressedCallback;
-
-    SelectedFoodAdapter selectedAdapter;
     int groupId;
+
+
+    private TextView dateView;
+    private TextView timeView;
+    SelectedFoodAdapter selectedAdapter;
+    private ListView selectedListView;
+    private View view;
+    private FoodGroupViewModel viewModel;
 
     public FoodGroupFragment() {
         // Required empty public constructor
@@ -89,72 +91,75 @@ public class FoodGroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        viewModel = new ViewModelProvider(this).get(FoodGroupViewModel.class);
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_food_group, container, false);
 
-        Toolbar toolbar =  requireActivity().findViewById(R.id.toolbar);
+        // Initialize views
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         ImageButton toolbarBack = toolbar.findViewById(R.id.toolbar_back);
         ImageButton addButton = toolbar.findViewById(R.id.toolbar_forward);
         Button saveAsTemplate = view.findViewById(R.id.saveAsTemplate);
         toolbar.setTitle(R.string.toolbarStringGroupDetails);
-
         toolbarBack.setImageResource(R.color.transparent);
         addButton.setImageResource(R.drawable.add_circle_filled);
-
         selectedListView = view.findViewById(R.id.selected_items);
-        selectedAdapter = new SelectedFoodAdapter(getContext(), new ArrayList<>());
-        selectedListView.setAdapter(selectedAdapter);
-
-        FIRST_ADD = true;
-
         dateView = view.findViewById(R.id.date);
         timeView = view.findViewById(R.id.time);
-
         nutOverviewList = view.findViewById(R.id.nutritionOverview);
-
-        addButton.setOnClickListener(v -> {
-            runFoodSelectionPipeline(null, NO_UPDATE_EXISTING);
-        });
-
         suggestions = view.findViewById(R.id.suggestions);
-        db = new Database(getActivity());
+
+        // get adapter and including data
+        selectedAdapter = new SelectedFoodAdapter(getContext(), new ArrayList<>(), this);
+        selectedListView.setAdapter(selectedAdapter);
+
+        // initialize values
+        viewModel.setDb(new Database(getActivity()));
+        viewModel.setFirstAdd(true);
 
         /* set existing items if edit mode */
         groupId = this.requireActivity().getIntent().getIntExtra(ActivityExtraNames.GROUP_ID, -1);
-
         /* see if we are creating or editing a pure template */
         isTemplateMode = this.requireActivity().getIntent().getBooleanExtra(ActivityExtraNames.GROUP_ID, false);
 
+        /* edit mode */
         if (groupId >= 0) {
             this.editMode = true;
-            ArrayList<Food> foods = db.getLoggedFoodByGroupId(groupId);
+            ArrayList<Food> foods = viewModel.getDb().getLoggedFoodByGroupId(groupId);
             for (Food f : foods) {
-                selected.add(new SelectedFoodItem(f, f.associatedAmount, f.associatedPortionType));
+                viewModel.selected.add(new SelectedFoodItem(f, f.associatedAmount, f.associatedPortionType));
             }
             if (!foods.isEmpty()) {
                 loggedAt = foods.get(0).loggedAt;
             } else {
                 loggedAt = LocalDateTime.now();
             }
-            updateSelectedView(selectedListView, selected);
-            updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
+            updateSelectedView(selectedListView, viewModel.selected);
+            updateSuggestionList(viewModel.getDb().getSuggestionsForCombination(viewModel.selected), suggestionsByPrevSelected, suggestions);
         } else {
             loggedAt = LocalDateTime.now();
         }
-        if(isTemplateMode){
+        if (isTemplateMode) {
             saveAsTemplate.setText(R.string.save);
-        }else {
+        } else {
             dateView.setText(loggedAt.format(Utils.sqliteDateFormat));
             timeView.setText(loggedAt.format(Utils.sqliteTimeFormat));
             dateView.setOnClickListener(v -> dateUpdateDialog(loggedAt));
             timeView.setOnClickListener(v -> timeUpdateDialog(loggedAt));
         }
 
+        // set clicklisteners
+        addButton.setOnClickListener(v -> {
+            runFoodSelectionPipeline(null, NO_UPDATE_EXISTING);
+        });
+
         selectedListView.setOnItemLongClickListener((parent, clickedView, position, id) -> {
             final SelectedFoodItem item = (SelectedFoodItem) parent.getItemAtPosition(position);
-            selected.remove(item);
-            updateSelectedView(selectedListView, selected);
-            updateSuggestionList(db.getSuggestionsForCombination(selected), suggestionsByPrevSelected, suggestions);
+            viewModel.selected.remove(item);
+            updateSelectedView(selectedListView, viewModel.selected);
+            updateSuggestionList(viewModel.getDb().getSuggestionsForCombination(viewModel.selected), suggestionsByPrevSelected, suggestions);
             return false;
         });
 
@@ -168,7 +173,7 @@ public class FoodGroupFragment extends Fragment {
         });
 
         saveAsTemplate.setOnClickListener(clickedView -> {
-            save(null,true);
+            save(null, true);
             Toast.makeText(this.getContext(), "Saved Template", Toast.LENGTH_LONG).show();
         });
 
@@ -179,14 +184,19 @@ public class FoodGroupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // check for unsaved old data
+        updateSelectedView(selectedListView, viewModel.selected);
+
+        // handle back-pressed
         backPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 String dateTimeString = dateView.getText() + " " + timeView.getText() + ":00";
                 LocalDateTime computedLoggedAt;
-                if(isTemplateMode){
+                if (isTemplateMode) {
                     computedLoggedAt = LocalDateTime.now();
-                }else{
+                } else {
                     computedLoggedAt = LocalDateTime.parse(dateTimeString, Utils.sqliteDatetimeFormat);
                 }
                 save(computedLoggedAt, isTemplateMode);
@@ -194,13 +204,14 @@ public class FoodGroupFragment extends Fragment {
                 Utils.navigate(StartPageFragment.class, ((MainActivity) requireActivity()));
             }
         };
+
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), backPressedCallback);
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        clearFoodInput();
         backPressedCallback.remove();
     }
 
@@ -208,21 +219,21 @@ public class FoodGroupFragment extends Fragment {
         if (foodItem == null) {
             return;
         }
-        this.selected.add(foodItem);
-        updateSelectedView(this.selectedListView, this.selected);
-        updateSuggestionList(this.db.getSuggestionsForCombination(this.selected), this.suggestionsByPrevSelected, this.suggestions);
+        viewModel.selected.add(foodItem);
+        updateSelectedView(this.selectedListView, viewModel.selected);
+        updateSuggestionList(viewModel.getDb().getSuggestionsForCombination(viewModel.selected), this.suggestionsByPrevSelected, this.suggestions);
     }
 
     private void updateSelectedFoodItem(SelectedFoodItem foodItem, int index) {
         if (foodItem == null) {
             return;
         }
-        SelectedFoodItem f = this.selected.get(index);
+        SelectedFoodItem f = viewModel.selected.get(index);
         if (!f.food.name.equals(foodItem.food.name)) {
             throw new AssertionError("Food Item Update failed cause names are miss-match, this should not be possible?!");
         }
-        updateSelectedView(this.selectedListView, this.selected);
-        updateSuggestionList(this.db.getSuggestionsForCombination(this.selected), this.suggestionsByPrevSelected, this.suggestions);
+        updateSelectedView(this.selectedListView, viewModel.selected);
+        updateSuggestionList(viewModel.getDb().getSuggestionsForCombination(viewModel.selected), this.suggestionsByPrevSelected, this.suggestions);
     }
 
     public void runFoodSelectionPipeline(ListFoodItem selectedFoodItem, int position) {
@@ -256,18 +267,18 @@ public class FoodGroupFragment extends Fragment {
         if (selectedFood == null) {
             return;
         }
-        if(current == null) {
-            selectedFood.setPreferredPortionFromDb(this.db);
-        }else{
+        if (current == null) {
+            selectedFood.setPreferredPortionFromDb(viewModel.getDb());
+        } else {
             selectedFood.associatedPortionType = current;
         }
 
-        if(Double.isNaN(amountCurrent)) {
+        if (Double.isNaN(amountCurrent)) {
             selectedFood.setAmountByAssociatedPortionType();
-        }else{
+        } else {
             selectedFood.associatedAmount = amountCurrent;
         }
-        DialogAmountSelector amountSelector = new DialogAmountSelector(requireActivity(), db, selectedFood);
+        DialogAmountSelector amountSelector = new DialogAmountSelector(requireActivity(), viewModel.getDb(), selectedFood);
         amountSelector.setOnDismissListener(dialog -> {
 
             /* get values */
@@ -309,18 +320,21 @@ public class FoodGroupFragment extends Fragment {
     }
 
     private void updateSelectedView(ListView selectedListView, ArrayList<SelectedFoodItem> alreadySelected) {
-        /* HEADER */
-        if (FIRST_ADD){
-            View selectedItemsHeader = view.findViewById(R.id.selected_items_header);
-            TextView noHeader = selectedItemsHeader.findViewById(R.id.headerText);
-            noHeader.setText(R.string.addFoodsGroupItemHeader);
-        }
-        ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
-        SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getContext(), sfi);
-        selectedListView.setAdapter(newAdapter);
-        selectedListView.invalidate();
+        if (!alreadySelected.isEmpty()) {
+            /* HEADER */
+            if (viewModel.getFirstAdd()) {
+                View selectedItemsHeader = view.findViewById(R.id.selected_items_header);
+                TextView noHeader = selectedItemsHeader.findViewById(R.id.headerText);
+                noHeader.setText(R.string.addFoodsGroupItemHeader);
+            }
+            ArrayList<SelectedFoodItem> sfi = new ArrayList<>(alreadySelected);
+            SelectedFoodAdapter newAdapter = new SelectedFoodAdapter(getContext(), sfi, this);
+            selectedListView.setAdapter(newAdapter);
+            selectedListView.invalidate();
 
-        updateNutritionOverview();
+            updateNutritionOverview();
+
+        }
     }
 
     private void updateSuggestionList(ArrayList<Food> foods, ArrayList<GroupListItem> suggestionsPrevSelected, ListView suggestions) {
@@ -343,15 +357,15 @@ public class FoodGroupFragment extends Fragment {
     }
 
     private void updateNutritionOverview() {
-        if (FIRST_ADD){
-            FIRST_ADD = false;
+        if (viewModel.getFirstAdd()) {
+            viewModel.setFirstAdd(false);
 
             View nutritionOverviewHeader = view.findViewById(R.id.nutritionOverview_header);
             TextView noHeader = nutritionOverviewHeader.findViewById(R.id.headerText);
             noHeader.setText(R.string.addFoodsNutritionOverviewHeader);
         }
         ArrayList<Food> analysis = new ArrayList<>();
-        for (SelectedFoodItem sfi : selected) {
+        for (SelectedFoodItem sfi : viewModel.selected) {
             analysis.add(sfi.food);
         }
         NutritionAnalysis na = new NutritionAnalysis(analysis);
@@ -360,18 +374,26 @@ public class FoodGroupFragment extends Fragment {
         nutOverviewList.setAdapter(nutOverviewAdapter);
     }
 
-    private void clearFoodInput(){
-        selected.clear();
+    private void clearFoodInput() {
+        viewModel.selected.clear();
     }
 
-    private void save(LocalDateTime computedLoggedAt, boolean asTemplate){
+    private void save(LocalDateTime computedLoggedAt, boolean asTemplate) {
 //        for (int i = 0; i < selectedAdapter.getCount(); i++) {
 //            SelectedFoodItem item = (SelectedFoodItem) selectedAdapter.getItem(i);
 //        }
         if (this.editMode) {
-            db.updateFoodGroup(selected, groupId, computedLoggedAt, asTemplate);
+            viewModel.getDb().updateFoodGroup(viewModel.selected, groupId, computedLoggedAt, asTemplate);
         } else {
-            groupId = db.logExistingFoods(selected, computedLoggedAt, null, asTemplate);
+            groupId = viewModel.getDb().logExistingFoods(viewModel.selected, computedLoggedAt, null, asTemplate);
         }
+        clearFoodInput();
+    }
+
+
+    // run amount selector from SelectedFoodAdapter
+    @Override
+    public void amountSelectionEvent(Food food, int position, PortionType portionType, double amountAssociated) {
+        runAmountSelectorDialog(food, position, portionType, amountAssociated);
     }
 }

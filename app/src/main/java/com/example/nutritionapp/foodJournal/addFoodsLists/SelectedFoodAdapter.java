@@ -11,18 +11,26 @@ import android.widget.TextView;
 import com.example.nutritionapp.R;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 
-import com.example.nutritionapp.deprecated.FoodGroupOverview;
+import com.example.nutritionapp.other.Food;
+import com.example.nutritionapp.other.PortionType;
 import com.example.nutritionapp.other.Utils;
 
 public class SelectedFoodAdapter extends BaseAdapter {
 
     private final Context context;
     public final ArrayList<SelectedFoodItem> items;
+    EventListener amountListener;
 
-    public SelectedFoodAdapter(Context context, ArrayList<SelectedFoodItem> items){
+    public SelectedFoodAdapter(Context context, ArrayList<SelectedFoodItem> items, EventListener listener){
         this.context=context;
         this.items=items;
+        this.amountListener = listener;
+    }
+
+    public interface EventListener{
+        void amountSelectionEvent(Food food, int position, PortionType portionType, double amountAssociated);
     }
 
 
@@ -49,14 +57,12 @@ public class SelectedFoodAdapter extends BaseAdapter {
 
             /* identical button functions for amount & portion type (same dialog) */
             amountSelectorButton.setOnClickListener(v -> {
-                FoodGroupOverview parentOverview = (FoodGroupOverview) context;
                 SelectedFoodItem item = items.get(position);
-                parentOverview.runAmountSelectorDialog(item.food, position, item.food.associatedPortionType, item.food.associatedAmount);
+                amountListener.amountSelectionEvent(item.food, position, item.food.associatedPortionType, item.food.associatedAmount);
             });
             portionSelectorButton.setOnClickListener(v -> {
-                FoodGroupOverview parentOverview = (FoodGroupOverview) context;
                 SelectedFoodItem item = items.get(position);
-                parentOverview.runAmountSelectorDialog(item.food, position, item.food.associatedPortionType, item.food.associatedAmount);
+                amountListener.amountSelectionEvent(item.food, position, item.food.associatedPortionType, item.food.associatedAmount);
             });
 
         nameView.setText(currentItem.food.name);
