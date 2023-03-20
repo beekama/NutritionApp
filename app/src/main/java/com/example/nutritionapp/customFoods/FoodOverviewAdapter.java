@@ -77,7 +77,7 @@ public class FoodOverviewAdapter extends RecyclerView.Adapter {
                     context.startActivity(editCustomFoodGroup);
                 }else {
                     /* open indent for editing a single food */
-                    FragmentManager fragmentManager = ((MainActivity)context.getApplicationContext()).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
                     Bundle args = new Bundle();
                     CustomFoodOverviewItem foodItem = (CustomFoodOverviewItem) item;
                     args.putString(ActivityExtraNames.FDC_ID, foodItem.food.id);
