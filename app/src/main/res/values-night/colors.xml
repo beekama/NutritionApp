@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryOrange">#F25D50</color>
+    <color name="primaryGreen">#9BD97E</color>
+    <color name="primaryLila">#CE99F2</color>
+    <color name="secondaryBG">#A6A6A6</color>
+    <color name="primaryBG">#232326</color>
+    <color name="tertiaryBG">#F9F9F9</color>
+
+
     <color name="colorPrimary">#993333</color>
     <color name="colorPrimaryDark">#60282e</color>
     <color name="colorAccent">#a84551</color>
